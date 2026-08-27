@@ -192,8 +192,8 @@
     },
     {
       "path": "src/cinematic_ai_director/validation.py",
-      "sha256": "0dd7e24cdd116f4e1ea91d88591d598ecfff84dbb8b5b40696394f7240878608",
-      "size": 385966
+      "sha256": "e36b8da71b2cfb5dacbec13c31789ef4f0674a0a8e3ae6a1a155a010ce62e602",
+      "size": 386235
     }
   ],
   "schema_version": "1.6",
