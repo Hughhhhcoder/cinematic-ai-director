@@ -1,0 +1,404 @@
+{
+  "schema_version": "1.6",
+  "policy": "adaptive-live-action-v1.6",
+  "base_profile_id": "cp-base-a",
+  "base_treatment_id": "treat-base-a",
+  "base_format_plan_id": "format-plan-main-16x9",
+  "profiles": [
+    {
+      "id": "cp-base-a",
+      "status": "approved",
+      "scope": "project",
+      "scene_ids": [],
+      "story_rationale": "A distinct physically motivated witness strategy for candidate a.",
+      "return_to_baseline": "This is a controlled project-baseline candidate.",
+      "cinematic_treatment_id": "treat-base-a",
+      "format_plan_id": "format-plan-main-16x9",
+      "medium_signature_id": "",
+      "capture_circumstance": {
+        "observer_role": "quiet visitor at the workshop doorway",
+        "camera_access": "near-side aisle beside the table",
+        "operator_constraint": "shoulder operator cannot cross the courier's work path",
+        "allowed_contingency": "a shelf edge may partially occlude the open case",
+        "off_frame_context": "another worker continues sorting metal parts behind camera"
+      },
+      "capture": {
+        "medium": "digital",
+        "format_class": "Super 35",
+        "imaging_width_mm": 27.99,
+        "camera_reference": "",
+        "behavior": {
+          "highlight_rolloff": "gradual practical-light shoulder",
+          "shadow_floor": "unlit recesses stay dark without gray HDR lift",
+          "color_separation": "restrained but distinct material colors",
+          "skin_response": "natural tonal variation without smoothing, pore enhancement or synthetic texture",
+          "acutance": "local detail without edge enhancement"
+        }
+      },
+      "optics": {
+        "projection": "spherical",
+        "lens_reference": "",
+        "focal_strategy": "moderate focal length from conversational distance",
+        "contrast": "medium contrast",
+        "focus_falloff": "gradual falloff from eyes to the opened case",
+        "flare": "only if a documented source reaches the lens",
+        "distortion": "low, distance-consistent perspective distortion",
+        "breathing": "small focus-linked change only during a rack",
+        "bokeh": "source-shaped defocus, not uniform cream blur",
+        "desqueeze_ratio": null,
+        "delivery_crop": ""
+      },
+      "exposure": {
+        "rating": "working sensitivity selected for available room light",
+        "bias_stops": -0.33,
+        "highlight_priority": "retain existing lamp shape and face detail",
+        "shadow_policy": "accept real falloff in corners instead of lifting everything"
+      },
+      "motion": {
+        "base_fps": 24,
+        "base_shutter_angle": 180,
+        "support": "restrained shoulder",
+        "inertia": "small delayed correction after the courier stops"
+      },
+      "lighting": {
+        "motivated_sources": [
+          "north workshop window",
+          "existing desk lamp"
+        ],
+        "contrast_strategy": "preserve source direction and room geography",
+        "fill_strategy": "only existing wall bounce; no source-free beauty fill",
+        "practicals": [
+          "existing desk lamp"
+        ],
+        "atmosphere": "ordinary clear occupied air"
+      },
+      "pipeline": {
+        "white_balance": "source-led neutral balance",
+        "transform_or_stock": "restrained display transform",
+        "palette_response": "separated worn paint, skin and metal",
+        "black_level": "firm neutral black",
+        "highlight_color": "source-specific daylight and lamp color"
+      },
+      "texture": {
+        "grain_or_noise": "fine exposure-dependent texture only",
+        "halation": "none unless an intense source justifies it",
+        "gate_weave": "none",
+        "artifact_budget": "no global overlays or decorative aberration"
+      },
+      "look_test_asset_ids": [
+        "look-base-a--v001"
+      ],
+      "approved_look_test_id": "look-base-a--v001",
+      "approval_gate_id": "review-foundation-001"
+    },
+    {
+      "id": "cp-base-b",
+      "status": "rejected",
+      "scope": "project",
+      "scene_ids": [],
+      "story_rationale": "A distinct physically motivated witness strategy for candidate b.",
+      "return_to_baseline": "This is a controlled project-baseline candidate.",
+      "cinematic_treatment_id": "treat-base-b",
+      "format_plan_id": "format-plan-main-16x9",
+      "medium_signature_id": "",
+      "capture_circumstance": {
+        "observer_role": "supervisor watching from the far service corner",
+        "camera_access": "fixed corner behind a shelving upright",
+        "operator_constraint": "tripod footprint cannot block the service door",
+        "allowed_contingency": "the courier can drift toward the edge of frame",
+        "off_frame_context": "the service door opens intermittently outside frame"
+      },
+      "capture": {
+        "medium": "digital",
+        "format_class": "Super 35",
+        "imaging_width_mm": 27.99,
+        "camera_reference": "",
+        "behavior": {
+          "highlight_rolloff": "gradual practical-light shoulder",
+          "shadow_floor": "unlit recesses stay dark without gray HDR lift",
+          "color_separation": "restrained but distinct material colors",
+          "skin_response": "natural tonal variation without smoothing, pore enhancement or synthetic texture",
+          "acutance": "local detail without edge enhancement"
+        }
+      },
+      "optics": {
+        "projection": "spherical",
+        "lens_reference": "",
+        "focal_strategy": "longer observational focal length across the workshop",
+        "contrast": "medium contrast",
+        "focus_falloff": "hold the courier, allow the foreground shelf to remain soft",
+        "flare": "only if a documented source reaches the lens",
+        "distortion": "low, distance-consistent perspective distortion",
+        "breathing": "small focus-linked change only during a rack",
+        "bokeh": "source-shaped defocus, not uniform cream blur",
+        "desqueeze_ratio": null,
+        "delivery_crop": ""
+      },
+      "exposure": {
+        "rating": "working sensitivity selected for available room light",
+        "bias_stops": 0.0,
+        "highlight_priority": "retain existing lamp shape and face detail",
+        "shadow_policy": "accept real falloff in corners instead of lifting everything"
+      },
+      "motion": {
+        "base_fps": 24,
+        "base_shutter_angle": 180,
+        "support": "locked tripod",
+        "inertia": "no reframing after the action begins"
+      },
+      "lighting": {
+        "motivated_sources": [
+          "overhead fluorescent spill",
+          "existing desk lamp"
+        ],
+        "contrast_strategy": "preserve source direction and room geography",
+        "fill_strategy": "only existing wall bounce; no source-free beauty fill",
+        "practicals": [
+          "existing desk lamp",
+          "overhead fluorescent strip"
+        ],
+        "atmosphere": "ordinary clear occupied air"
+      },
+      "pipeline": {
+        "white_balance": "source-led neutral balance",
+        "transform_or_stock": "restrained display transform",
+        "palette_response": "separated worn paint, skin and metal",
+        "black_level": "firm neutral black",
+        "highlight_color": "source-specific daylight and lamp color"
+      },
+      "texture": {
+        "grain_or_noise": "fine exposure-dependent texture only",
+        "halation": "none unless an intense source justifies it",
+        "gate_weave": "none",
+        "artifact_budget": "no global overlays or decorative aberration"
+      },
+      "look_test_asset_ids": [
+        "look-base-b--v001"
+      ],
+      "approved_look_test_id": "",
+      "approval_gate_id": "review-foundation-001"
+    },
+    {
+      "id": "cp-base-c",
+      "status": "rejected",
+      "scope": "project",
+      "scene_ids": [],
+      "story_rationale": "A distinct physically motivated witness strategy for candidate c.",
+      "return_to_baseline": "This is a controlled project-baseline candidate.",
+      "cinematic_treatment_id": "treat-base-c",
+      "format_plan_id": "format-plan-main-16x9",
+      "medium_signature_id": "",
+      "capture_circumstance": {
+        "observer_role": "coworker entering immediately behind the courier",
+        "camera_access": "narrow moving route through the central aisle",
+        "operator_constraint": "handheld operator yields to people and work carts",
+        "allowed_contingency": "brief foreground passage and imperfect headroom are allowed",
+        "off_frame_context": "a rolling cart approaches from camera right"
+      },
+      "capture": {
+        "medium": "digital",
+        "format_class": "Super 35",
+        "imaging_width_mm": 27.99,
+        "camera_reference": "",
+        "behavior": {
+          "highlight_rolloff": "gradual practical-light shoulder",
+          "shadow_floor": "unlit recesses stay dark without gray HDR lift",
+          "color_separation": "restrained but distinct material colors",
+          "skin_response": "natural tonal variation without smoothing, pore enhancement or synthetic texture",
+          "acutance": "local detail without edge enhancement"
+        }
+      },
+      "optics": {
+        "projection": "spherical",
+        "lens_reference": "",
+        "focal_strategy": "wider focal length at close working distance",
+        "contrast": "medium contrast",
+        "focus_falloff": "human pull that briefly lags when she turns toward the case",
+        "flare": "only if a documented source reaches the lens",
+        "distortion": "low, distance-consistent perspective distortion",
+        "breathing": "small focus-linked change only during a rack",
+        "bokeh": "source-shaped defocus, not uniform cream blur",
+        "desqueeze_ratio": null,
+        "delivery_crop": ""
+      },
+      "exposure": {
+        "rating": "working sensitivity selected for available room light",
+        "bias_stops": -0.67,
+        "highlight_priority": "retain existing lamp shape and face detail",
+        "shadow_policy": "accept real falloff in corners instead of lifting everything"
+      },
+      "motion": {
+        "base_fps": 24,
+        "base_shutter_angle": 180,
+        "support": "handheld body rig",
+        "inertia": "footstep-linked weight and a settle after stopping"
+      },
+      "lighting": {
+        "motivated_sources": [
+          "north workshop window",
+          "open service doorway"
+        ],
+        "contrast_strategy": "preserve source direction and room geography",
+        "fill_strategy": "only existing wall bounce; no source-free beauty fill",
+        "practicals": [],
+        "atmosphere": "ordinary clear occupied air"
+      },
+      "pipeline": {
+        "white_balance": "source-led neutral balance",
+        "transform_or_stock": "restrained display transform",
+        "palette_response": "separated worn paint, skin and metal",
+        "black_level": "firm neutral black",
+        "highlight_color": "source-specific daylight and lamp color"
+      },
+      "texture": {
+        "grain_or_noise": "fine exposure-dependent texture only",
+        "halation": "none unless an intense source justifies it",
+        "gate_weave": "none",
+        "artifact_budget": "no global overlays or decorative aberration"
+      },
+      "look_test_asset_ids": [
+        "look-base-c--v001"
+      ],
+      "approved_look_test_id": "",
+      "approval_gate_id": "review-foundation-001"
+    }
+  ],
+  "cinematic_treatments": [
+    {
+      "id": "treat-base-a",
+      "status": "approved",
+      "scope": "project",
+      "scene_ids": [],
+      "family": "naturalistic_dialogue",
+      "thesis": "Candidate a observes the discovery as a physically present worker rather than a polished promotional still.",
+      "narrative_distance": "quiet conversational witness",
+      "camera_witness": "quiet conversational witness",
+      "composition_grammar": "stable negative space and practical occlusions",
+      "optical_spatial_behavior": "distance-led perspective with readable workshop depth and no generic shallow-focus template",
+      "motivated_light": "north window and existing practicals only",
+      "color_pipeline": "clean source-led digital response with no global texture overlay",
+      "camera_mobility": "restrained shoulder inertia",
+      "temporal_cadence": "unforced four-second observation",
+      "environmental_medium": "clear occupied interior air",
+      "polish_ceiling": "observational drama; no beauty-light or commercial sheen",
+      "named_reference_policy": "observable_translation_only",
+      "observable_reference_translation": [
+        "camera witness",
+        "source-led lighting",
+        "spatially causal composition"
+      ],
+      "return_rule": "Remain on the approved project baseline unless a scene-level story change is approved.",
+      "approval_gate_id": "review-foundation-001"
+    },
+    {
+      "id": "treat-base-b",
+      "status": "rejected",
+      "scope": "project",
+      "scene_ids": [],
+      "family": "naturalistic_dialogue",
+      "thesis": "Candidate b observes the discovery as a physically present worker rather than a polished promotional still.",
+      "narrative_distance": "distant supervisory witness",
+      "camera_witness": "distant supervisory witness",
+      "composition_grammar": "compressed layers through a service corner",
+      "optical_spatial_behavior": "distance-led perspective with readable workshop depth and no generic shallow-focus template",
+      "motivated_light": "north window and existing practicals only",
+      "color_pipeline": "clean source-led digital response with no global texture overlay",
+      "camera_mobility": "locked tripod",
+      "temporal_cadence": "patient unbroken observation",
+      "environmental_medium": "clear occupied interior air",
+      "polish_ceiling": "observational drama; no beauty-light or commercial sheen",
+      "named_reference_policy": "observable_translation_only",
+      "observable_reference_translation": [
+        "camera witness",
+        "source-led lighting",
+        "spatially causal composition"
+      ],
+      "return_rule": "Remain on the approved project baseline unless a scene-level story change is approved.",
+      "approval_gate_id": "review-foundation-001"
+    },
+    {
+      "id": "treat-base-c",
+      "status": "rejected",
+      "scope": "project",
+      "scene_ids": [],
+      "family": "naturalistic_dialogue",
+      "thesis": "Candidate c observes the discovery as a physically present worker rather than a polished promotional still.",
+      "narrative_distance": "coworker entering with the courier",
+      "camera_witness": "coworker entering with the courier",
+      "composition_grammar": "close wide perspective with imperfect headroom",
+      "optical_spatial_behavior": "distance-led perspective with readable workshop depth and no generic shallow-focus template",
+      "motivated_light": "north window and existing practicals only",
+      "color_pipeline": "clean source-led digital response with no global texture overlay",
+      "camera_mobility": "footstep-led handheld",
+      "temporal_cadence": "reactive cadence with a brief focus lag",
+      "environmental_medium": "clear occupied interior air",
+      "polish_ceiling": "observational drama; no beauty-light or commercial sheen",
+      "named_reference_policy": "observable_translation_only",
+      "observable_reference_translation": [
+        "camera witness",
+        "source-led lighting",
+        "spatially causal composition"
+      ],
+      "return_rule": "Remain on the approved project baseline unless a scene-level story change is approved.",
+      "approval_gate_id": "review-foundation-001"
+    }
+  ],
+  "format_plans": [
+    {
+      "id": "format-plan-main-16x9",
+      "status": "approved",
+      "scope": "project",
+      "sequence_ids": [],
+      "narrative_reason": "Default widescreen delivery keeps the workshop geography legible without forcing a genre crop.",
+      "capture_aperture": "16:9",
+      "working_frame": "16:9",
+      "delivery_aspect": "16:9",
+      "crop_extraction": "full working frame",
+      "safe_areas": {
+        "action_percent": 90,
+        "title_percent": 80
+      },
+      "squeeze_ratio": 1.0,
+      "desqueeze_delivery": "none",
+      "reframe_policy": "no automatic reframing; scene compositions honor the approved working frame",
+      "transition_design": "no aspect transition in this project baseline",
+      "return_rule": "all scenes remain at 16:9 unless a sequence override is explicitly approved",
+      "baked_black_bars": false,
+      "approval_gate_id": "review-foundation-001"
+    }
+  ],
+  "medium_signatures": [],
+  "comparison_sets": [
+    {
+      "id": "lookset-base-001",
+      "status": "approved",
+      "diagnostic_scene_id": "sc-010",
+      "story_moment": "The courier notices the opened case under the existing desk lamp.",
+      "locked_format_plan_id": "format-plan-main-16x9",
+      "locked_environmental_state_id": "env-workshop-clear",
+      "locked_reference_asset_ids": [
+        "char-hero-inspector--v001",
+        "char-hero-state-baseline--v001",
+        "loc-workshop--v001",
+        "loc-workshop-state-day-est--v001",
+        "loc-workshop-state-day-side3q--v001",
+        "prop-red-worktable--v001",
+        "prop-red-worktable-state-baseline--v001"
+      ],
+      "locked_blocking": "Same identity, plain work clothes with a declared right-cuff crease, opened case, time of day and spatial relationship: the courier stands at the near table edge while the workshop doorway remains behind her.",
+      "candidate_profile_ids": [
+        "cp-base-a",
+        "cp-base-b",
+        "cp-base-c"
+      ],
+      "candidate_asset_ids": [
+        "look-base-a--v001",
+        "look-base-b--v001",
+        "look-base-c--v001"
+      ],
+      "selected_profile_id": "cp-base-a",
+      "selected_asset_id": "look-base-a--v001",
+      "approval_gate_id": "review-foundation-001"
+    }
+  ]
+}

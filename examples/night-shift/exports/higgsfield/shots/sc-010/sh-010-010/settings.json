@@ -1,0 +1,288 @@
+{
+  "action_beats": [
+    {
+      "action": "She remains on her floor mark and settles at the table.",
+      "changes_position": false,
+      "end_mark_id": "",
+      "end_s": 2.0,
+      "start_mark_id": "",
+      "start_s": 0.0,
+      "subject_asset_id": ""
+    },
+    {
+      "action": "Her focus moves to the broken seal without changing her ground position.",
+      "changes_position": false,
+      "end_mark_id": "",
+      "end_s": 4.0,
+      "start_mark_id": "",
+      "start_s": 2.0,
+      "subject_asset_id": ""
+    }
+  ],
+  "audio_plan": {
+    "ambience": [
+      "quiet workshop room tone"
+    ],
+    "dialogue": [],
+    "foley": [
+      "shoe stops on concrete"
+    ],
+    "music": [],
+    "silence": []
+  },
+  "camera_path_file": "shots/sc-010/sh-010-010/camera-path.json",
+  "dynamic_range_file": "shots/sc-010/sh-010-010/dynamic-range.json",
+  "end_frame_file": "references/frames/kf-sh-010-010-end--v001.png",
+  "environment_state_file": "shots/sc-010/sh-010-010/environment-state.json",
+  "format": {
+    "capture_fps": 24,
+    "delivery_fps": 24,
+    "duration_s": 4.0,
+    "exposure_time_s": 0.020833333333333332,
+    "format_plan_id": "format-plan-main-16x9",
+    "project_default_aspect_ratio": "16:9",
+    "shutter_angle": 180
+  },
+  "format_plan_file": "shots/sc-010/sh-010-010/format-plan.json",
+  "generation_boundary": {
+    "automatic_platform_call": false,
+    "credits_consumed_by_export": false,
+    "operator_action": "Upload the listed files, bind the suggested handles, paste the prompt, apply settings, then generate."
+  },
+  "material_interaction_plan": {
+    "collision": "no collision event",
+    "contacts": [
+      "both shoes remain grounded on the concrete floor"
+    ],
+    "gravity": "ordinary Earth gravity keeps weight over the planted feet",
+    "landing": "no landing event",
+    "material_response": "shoe soles compress subtly against dry concrete; clothing remains separate from the body",
+    "required": false
+  },
+  "package_schema": "higgsfield-shot-1.6",
+  "prompt_file": "shots/sc-010/sh-010-010/prompt.txt",
+  "provider": "Higgsfield",
+  "provider_fields": {
+    "audio_mode": "native",
+    "genre": "General",
+    "input_mode": "start/end-frame-with-references",
+    "knowledge_snapshot": "2026-08-27",
+    "model": "Seedance 2.5",
+    "model_version_policy": "snapshot-must-match-or-block",
+    "official_conformance_profile_id": "cinema-studio-4-seedance-2.5-official-2026-08-27",
+    "resolution": "1080p-if-current-model-supports-it",
+    "speed_ramp": "Linear",
+    "surface": "Cinema Studio 4",
+    "tempo": "Single Shot"
+  },
+  "reference_bindings": [
+    {
+      "asset_id": "char-hero-inspector--v001",
+      "asset_type": "character_identity_inspector",
+      "file": "references/characters/char-hero-inspector--v001.png",
+      "rank": 1,
+      "required": true,
+      "suggested_handle": "@char-hero-unified-identity-inspector",
+      "usage": "identity_inspector_primary"
+    },
+    {
+      "asset_id": "char-hero-state-baseline--v001",
+      "asset_type": "character_state",
+      "file": "references/characters/char-hero-state-baseline--v001.png",
+      "rank": 2,
+      "required": true,
+      "suggested_handle": "@char-hero-state-baseline",
+      "usage": "current_character_state"
+    },
+    {
+      "asset_id": "loc-workshop-plate--v001",
+      "asset_type": "location_plate",
+      "file": "references/locations/loc-workshop-plate--v001.png",
+      "rank": 3,
+      "required": true,
+      "suggested_handle": "@loc-workshop-plate",
+      "usage": "location_shot_view"
+    },
+    {
+      "asset_id": "loc-workshop-state-day-side3q--v001",
+      "asset_type": "location_variant",
+      "file": "references/locations/loc-workshop-state-day-side3q--v001.png",
+      "rank": 4,
+      "required": true,
+      "suggested_handle": "@loc-workshop-state-day-side-three-quarter",
+      "usage": "location_three_quarter"
+    },
+    {
+      "asset_id": "loc-workshop-state-day-est--v001",
+      "asset_type": "location_variant",
+      "file": "references/locations/loc-workshop-state-day-est--v001.png",
+      "rank": 5,
+      "required": true,
+      "suggested_handle": "@loc-workshop-state-day-establishing",
+      "usage": "location_state_view"
+    },
+    {
+      "asset_id": "prop-red-worktable--v001",
+      "asset_type": "prop",
+      "file": "references/props/prop-red-worktable--v001.png",
+      "rank": 6,
+      "required": true,
+      "suggested_handle": "@prop-red-worktable",
+      "usage": "spatial_anchor"
+    },
+    {
+      "asset_id": "prop-red-worktable-state-baseline--v001",
+      "asset_type": "prop_state",
+      "file": "references/props/prop-red-worktable-state-baseline--v001.png",
+      "rank": 7,
+      "required": true,
+      "suggested_handle": "@prop-red-worktable-state-baseline",
+      "usage": "current_prop_state"
+    },
+    {
+      "asset_id": "look-base-a--v001",
+      "asset_type": "look_test",
+      "file": "references/looks/look-base-a--v001.png",
+      "rank": 8,
+      "required": false,
+      "suggested_handle": "@look-base-a",
+      "usage": "approved_look"
+    },
+    {
+      "asset_id": "seq-workshop-visual-anchor--v001",
+      "asset_type": "keyframe",
+      "file": "references/frames/seq-workshop-visual-anchor--v001.png",
+      "rank": 9,
+      "required": true,
+      "suggested_handle": "@sequence-workshop-joint-visual-anchor",
+      "usage": "sequence_visual_anchor"
+    },
+    {
+      "asset_id": "kf-sh-010-010-start--v001",
+      "asset_type": "keyframe",
+      "file": "references/frames/kf-sh-010-010-start--v001.png",
+      "rank": 10,
+      "required": true,
+      "suggested_handle": "@kf-sh-010-010-start",
+      "usage": "start_frame"
+    },
+    {
+      "asset_id": "kf-sh-010-010-end--v001",
+      "asset_type": "keyframe",
+      "file": "references/frames/kf-sh-010-010-end--v001.png",
+      "rank": 11,
+      "required": true,
+      "suggested_handle": "@kf-sh-010-010-end",
+      "usage": "end_frame"
+    },
+    {
+      "asset_id": "loc-workshop--v001",
+      "asset_type": "location_master",
+      "file": "references/locations/loc-workshop--v001.png",
+      "rank": 12,
+      "required": false,
+      "suggested_handle": "@loc-workshop",
+      "usage": "source_anchor"
+    }
+  ],
+  "rig_translation": {
+    "aperture_t_stop": 2.8,
+    "camera_axis": "doorway-to-window",
+    "camera_height_cm": 150,
+    "camera_move": "locked off",
+    "camera_move_primitive": "locked",
+    "camera_support": "locked tripod",
+    "capture_profile_id": "cp-base-a",
+    "dynamic_range_plan": {
+      "allowed_clipping": [
+        "small desk-lamp filament core"
+      ],
+      "allowed_shadow_loss": [
+        "deepest unlit rear-shelf gap"
+      ],
+      "exposure_priority": "protect_skin_and_practicals",
+      "highlight_behavior": "the lamp housing rolls gradually while its filament core may clip",
+      "local_tone_mapping": false,
+      "lower_latitude_stops": 8.0,
+      "middle_gray_anchor": "the courier's face and neutral gray work shirt",
+      "multi_exposure_hdr": false,
+      "narrative_reason": "Keep attention on the discovery rather than making the whole workshop equally legible.",
+      "policy": "finite_scene_referred",
+      "scene_contrast_stops_estimate": 15.0,
+      "shadow_behavior": "unlit shelf gaps fall below the texture floor without gray HDR lift",
+      "upper_latitude_stops": 6.0,
+      "working_latitude_stops": 14.0
+    },
+    "exposure_notes": "Protect the lamp and retain rear-wall separation.",
+    "focal_length_mm": 40,
+    "focus_plan": "Hold her eyes, then rack to the seal at 2.0s.",
+    "shot_size": "medium close-up"
+  },
+  "runtime_checks": [
+    "Confirm the currently selected Higgsfield model accepts the listed number and types of references.",
+    "Keep required references first if the current model exposes a smaller reference budget.",
+    "Do not replace a physical camera path with a zoom, or a pan with an impossible floating translation.",
+    "Review the first result at start/25/50/75/end and event-adjacent frames for anatomy, clean surfaces, weather continuity, focus, path and blur direction before spending on more takes.",
+    "Reject infinite-HDR clarity: compare the declared highlight clipping, shadow floor and middle-tone anchor against dynamic-range.json."
+  ],
+  "scene_id": "sc-010",
+  "shot_id": "sh-010-010",
+  "spatial_map_file": "shots/sc-010/sh-010-010/spatial-map.json",
+  "spatial_translation": {
+    "anchor_projection": {
+      "direction_from_camera": "ahead and slightly camera-left",
+      "distance_m": 3.2,
+      "screen_region": "lower-center foreground and lower-right midground",
+      "set_fixed_direction": "origin",
+      "set_fixed_relation": "the anchor remains the fixed origin between camera and +Y service doorway",
+      "visibility": "visible"
+    },
+    "camera_mark_id": "cam-sh-010-010",
+    "coordinate_system": {
+      "origin": "primary_anchor_ground_contact_center",
+      "precision_m": 0.1,
+      "units": "metres",
+      "x_positive_label": "toward the north-window wall",
+      "y_positive_label": "toward the workshop service doorway",
+      "z_positive_label": "upward from the concrete floor"
+    },
+    "depth_order": [
+      "char-hero-inspector--v001",
+      "prop-red-worktable--v001",
+      "lm-service-door"
+    ],
+    "spatial_map_id": "spatial-workshop-day",
+    "subject_mark_ids": {
+      "char-hero-inspector--v001": "mark-hero-table-near"
+    }
+  },
+  "start_frame_file": "references/frames/kf-sh-010-010-start--v001.png",
+  "state_lock": {
+    "body_geometry_locks": {
+      "char-hero-inspector--v001": {
+        "character_state_id": "state-char-hero-baseline",
+        "critical_hand_detail": false,
+        "digit_visibility": "partially_resolvable",
+        "pose_projection": "standing three-quarter narrative projection; foreshortening is not a proportion change",
+        "proportion_signature_id": "prop-char-hero-v1",
+        "relative_height_m": 1.68,
+        "role_physique_brief_id": "role-physique-char-hero-v1"
+      }
+    },
+    "character_state_bindings": {
+      "char-hero-inspector--v001": "state-char-hero-baseline"
+    },
+    "environmental_state_id": "env-workshop-clear",
+    "format_plan_id": "format-plan-main-16x9",
+    "location_state_id": "state-workshop-day",
+    "pose_contact_anchor_ids": [],
+    "prop_state_bindings": {
+      "prop-red-worktable--v001": "prop-state-table-baseline"
+    },
+    "quality_profile_id": "quality-main",
+    "sequence_cluster_id": "seq-workshop-day-001",
+    "sequence_visual_anchor_asset_id": "seq-workshop-visual-anchor--v001",
+    "special_lighting_event_ids": []
+  },
+  "temporal_lock_file": "shots/sc-010/sh-010-010/temporal-lock.json"
+}

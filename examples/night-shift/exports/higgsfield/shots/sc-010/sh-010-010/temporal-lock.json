@@ -1,0 +1,61 @@
+{
+  "action_beats": [
+    {
+      "action": "She remains on her floor mark and settles at the table.",
+      "changes_position": false,
+      "end_mark_id": "",
+      "end_s": 2.0,
+      "start_mark_id": "",
+      "start_s": 0.0,
+      "subject_asset_id": ""
+    },
+    {
+      "action": "Her focus moves to the broken seal without changing her ground position.",
+      "changes_position": false,
+      "end_mark_id": "",
+      "end_s": 4.0,
+      "start_mark_id": "",
+      "start_s": 2.0,
+      "subject_asset_id": ""
+    }
+  ],
+  "forbidden_artifacts": [
+    "frame-blended double exposure",
+    "ghost limbs",
+    "texture crawling",
+    "rubber geometry",
+    "jelly warping",
+    "blur direction inconsistent with camera and subject motion"
+  ],
+  "motion_blur_plan": {
+    "amount": "low",
+    "direction": "brief head and eye motion blur follows the actual turn toward the case",
+    "frame_blending_allowed": false,
+    "ghosting_allowed": false,
+    "occlusion_edge_behavior": "single clean moving edge with no doubled silhouette",
+    "reason": "natural 180-degree shutter sampling of a small subject turn",
+    "regions": [
+      "turning facial features during the brief movement"
+    ],
+    "source": "subject",
+    "static_reference_regions": [
+      "red worktable",
+      "service doorway",
+      "locked workshop walls"
+    ]
+  },
+  "package_schema": "higgsfield-temporal-lock-1.6",
+  "shot_id": "sh-010-010",
+  "temporal_capture": {
+    "capture_fps": 24,
+    "delivery_fps": 24,
+    "exposure_time_s": 0.020833333333333332,
+    "playback_rate": 1.0,
+    "rolling_shutter_allowance": {
+      "mode": "none",
+      "rationale": ""
+    },
+    "shutter_angle": 180,
+    "speed_ramp": []
+  }
+}

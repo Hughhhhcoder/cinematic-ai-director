@@ -1,0 +1,13 @@
+rank,asset_id,asset_type,usage,required,suggested_handle,file
+1,char-hero-inspector--v001,character_identity_inspector,identity_inspector_primary,True,@char-hero-unified-identity-inspector,references/characters/char-hero-inspector--v001.png
+2,char-hero-state-baseline--v001,character_state,current_character_state,True,@char-hero-state-baseline,references/characters/char-hero-state-baseline--v001.png
+3,loc-workshop-plate--v001,location_plate,location_shot_view,True,@loc-workshop-plate,references/locations/loc-workshop-plate--v001.png
+4,loc-workshop-state-day-side3q--v001,location_variant,location_three_quarter,True,@loc-workshop-state-day-side-three-quarter,references/locations/loc-workshop-state-day-side3q--v001.png
+5,loc-workshop-state-day-est--v001,location_variant,location_state_view,True,@loc-workshop-state-day-establishing,references/locations/loc-workshop-state-day-est--v001.png
+6,prop-red-worktable--v001,prop,spatial_anchor,True,@prop-red-worktable,references/props/prop-red-worktable--v001.png
+7,prop-red-worktable-state-baseline--v001,prop_state,current_prop_state,True,@prop-red-worktable-state-baseline,references/props/prop-red-worktable-state-baseline--v001.png
+8,look-base-a--v001,look_test,approved_look,False,@look-base-a,references/looks/look-base-a--v001.png
+9,seq-workshop-visual-anchor--v001,keyframe,sequence_visual_anchor,True,@sequence-workshop-joint-visual-anchor,references/frames/seq-workshop-visual-anchor--v001.png
+10,kf-sh-010-010-start--v001,keyframe,start_frame,True,@kf-sh-010-010-start,references/frames/kf-sh-010-010-start--v001.png
+11,kf-sh-010-010-end--v001,keyframe,end_frame,True,@kf-sh-010-010-end,references/frames/kf-sh-010-010-end--v001.png
+12,loc-workshop--v001,location_master,source_anchor,False,@loc-workshop,references/locations/loc-workshop--v001.png

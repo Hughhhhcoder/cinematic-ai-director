@@ -1,0 +1,52 @@
+{
+  "package_schema": "higgsfield-sequence-camera-path-1.6",
+  "sequence_cluster_id": "seq-workshop-day-001",
+  "shots": [
+    {
+      "camera_move_plan": {
+        "axis_lock": "remain on the doorway-to-window side of the action axis",
+        "duration_s": 0.0,
+        "easing": "none; the camera is physically locked",
+        "end_camera_mark_id": "cam-sh-010-010",
+        "horizon_lock": "level horizon locked by the tripod head",
+        "lens_focus_change": "manual rack from eyes to the broken seal at 2.0 seconds",
+        "occlusion_crossings": [],
+        "operator_contingency": "no correction after record begins",
+        "parallax_expectation": "none from the camera; only subject depth changes",
+        "path_clearance": {
+          "notes": [],
+          "status": "pass",
+          "traversable_region": "tripod footprint in the near-side aisle"
+        },
+        "path_points_m": [
+          {
+            "x": 2.0,
+            "y": -2.0,
+            "z": 1.5
+          }
+        ],
+        "peak_speed_mps": 0.0,
+        "primitive": "locked",
+        "rotation_deg": {
+          "pitch": 0.0,
+          "roll": 0.0,
+          "yaw": 0.0
+        },
+        "settle_hold_s": 4.0,
+        "speed_curve": "constant",
+        "start_camera_mark_id": "cam-sh-010-010",
+        "subject_screen_occupancy": "courier remains a medium close-up without automatic reframing",
+        "support": "locked tripod",
+        "surreal_vfx_exception": {
+          "enabled": false,
+          "rationale": ""
+        },
+        "translation_m": 0.0
+      },
+      "model_translation_rule": "preserve physical translation, rotation, support inertia, parallax and settle; never substitute zoom for camera travel",
+      "package_schema": "higgsfield-camera-path-1.6",
+      "shot_id": "sh-010-010",
+      "spatial_map_id": "spatial-workshop-day"
+    }
+  ]
+}

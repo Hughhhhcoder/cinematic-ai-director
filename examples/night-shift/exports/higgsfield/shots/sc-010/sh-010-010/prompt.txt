@@ -1,0 +1,38 @@
+GLOBAL STYLE
+Original live-action grounded observational drama in 16:9 with no baked black bars. Capture 24 fps at 180 degree shutter with 1/48 second exposure and deliver 24 fps. Clean source-led digital response. No animation or CG/PBR finish. No game-cinematic rendering. No synthetic glossy skin. No smear, repeated texture or unmotivated rim light.
+
+SCENE
+Inside a functioning concrete repair workshop in clear indoor air, a courier notices that an opened case has been disturbed.
+
+CHARACTERS
+The approved adult courier keeps the same face, hairline, athletic body geometry, workwear and dry natural skin. Task-led behavior, ordinary breathing and grounded weight transfer.
+
+LOCATION
+Spatial map spatial-workshop-day; scene state state-workshop-day.
+Primary anchor @prop-red-worktable: origin at its ground-contact center (0.0, 0.0, 0.0) m; orientation long edge aligned with +X; drawer side faces -Y.
+Set-fixed axes: +X toward the north-window wall; +Y toward the workshop service doorway; +Z upward from the concrete floor.
+Camera cam-sh-010-010: (2.0, -2.0, 1.5) m; facing toward the anchor origin and slightly toward +Y; reachable near-side aisle at +X/-Y; 3.2 m from @prop-red-worktable.
+Subject @char-hero-unified-identity-inspector at mark-hero-table-near: (0.8, -1.0, 0.0) m; facing toward +Y, then eyes rotate to the anchor; 0.8 m toward +X and 1.0 m toward -Y from the table center.
+Anchor projection: visible; screen region lower-center foreground and lower-right midground; camera-relative direction ahead and slightly camera-left; set-fixed direction origin; the anchor remains the fixed origin between camera and +Y service doorway; distance 3.2 m.
+Depth order, camera-near to far: @char-hero-unified-identity-inspector -> @prop-red-worktable -> lm-service-door.
+
+FIRST FRAME AND BLOCKING
+The courier stands weight-bearing on the declared floor mark, oriented toward the opened case; five fingers per visible hand. Preserve the approved body signature and role-fit physique: prop-char-hero-v1, role-physique-char-hero-v1.
+
+Shot 1
+She stops, notices the broken seal, turns her eyes and head toward the case, then holds. Her expression changes only after seeing the seal; end on a settled attentive posture.
+
+OPTICS
+Moderate focal length, focus begins on her eyes and transfers naturally toward the broken seal; protect practical highlights.
+
+CAMERA
+locked camera on locked tripod from cam-sh-010-010 to cam-sh-010-010; zero translation, then settle for 4.0 seconds. brief head and eye motion blur follows the actual turn toward the case; static workshop edges remain stable; no frame blending, ghost limbs or jelly deformation.
+
+PHYSICS
+Natural balance, inertia and garment response; hands maintain causal contact and the case stays grounded on the table.
+
+LIGHTING
+The documented broad north window is the skin key source from camera-left; dry skin keeps a broad, low-intensity skin specular extent. Use restrained local contrast and scene-referred tone mapping; skin, hair, cotton and metal retain independent material roughness responses. Finite scene-referred capture: working latitude 14.0 stops, 6.0 above and 8.0 below middle gray, against estimated scene contrast 15.0 stops. Exposure priority: protect_skin_and_practicals; middle-tone anchor: the courier's face. Highlights roll gradually; allowed clipping: the lamp filament core. Shadows meet a firm floor; allowed shadow loss: the deepest unlit shelf gap. Never locally tone-map every region into equal clarity; no multi-exposure HDR merge.
+
+AUDIO
+Quiet workshop room tone, cloth movement and one shoe stop on concrete; no invented dialogue.

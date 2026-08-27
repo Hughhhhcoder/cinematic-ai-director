@@ -1,0 +1,117 @@
+{
+  "provider_adapters": {
+    "higgsfield": {
+      "camera_move_segment_limits": {
+        "cinema-studio-3": 1,
+        "cinema-studio-4": 1,
+        "popcorn": 1,
+        "seedance-2.5": 1
+      },
+      "default_target_model": "seedance-2.5",
+      "default_target_workflow": "cinema-studio-4",
+      "knowledge_snapshot": "2026-08-27",
+      "official_profile_id": "cinema-studio-4-seedance-2.5-official-2026-08-27",
+      "official_source_urls": [
+        "https://higgsfield.ai/blog/seedance-2-5-prompting-guide",
+        "https://higgsfield.ai/blog/ai-short-film-youtube-guide",
+        "https://higgsfield.ai/blog/realistic-ai-human-movement",
+        "https://higgsfield.ai/blog/cinema-studio-4-0"
+      ],
+      "prompt_sections": [
+        "GLOBAL STYLE",
+        "SCENE",
+        "CHARACTERS",
+        "LOCATION",
+        "FIRST FRAME AND BLOCKING",
+        "Shot 1",
+        "OPTICS",
+        "CAMERA",
+        "PHYSICS",
+        "LIGHTING",
+        "AUDIO"
+      ],
+      "reference_limits": {
+        "cinema-studio-3": 9,
+        "cinema-studio-4": 50,
+        "popcorn": 4,
+        "seedance-2.5": 50
+      },
+      "strict_conformance": true
+    }
+  },
+  "schema_version": "1.6",
+  "sequence_clusters": [
+    {
+      "approval_gate_id": "review-seq-workshop-day-001",
+      "boundary_reason": "Initial sequence cluster with one stable state signature.",
+      "bridge_frame_asset_id": "",
+      "bridge_from_sequence_id": "",
+      "end_keyframe_id": "kf-sh-010-010-end--v001",
+      "first_keyframe_id": "kf-sh-010-010-start--v001",
+      "id": "seq-workshop-day-001",
+      "official_conformance_profile_id": "cinema-studio-4-seedance-2.5-official-2026-08-27",
+      "qa": {
+        "checked_at": "2026-08-25T12:00:00Z",
+        "checks": {
+          "environment_continuity": true,
+          "first_end_keyframes": true,
+          "format_and_temporal_uniformity": true,
+          "identity_consistency": true,
+          "location_world_consistency": true,
+          "reference_budget": true,
+          "state_uniformity": true
+        },
+        "hard_failures": [],
+        "notes": [],
+        "reviewer": "codex-structural"
+      },
+      "quality_profile_id": "quality-main",
+      "reference_limit": 50,
+      "reference_order": [
+        "char-hero-inspector--v001",
+        "char-hero-state-baseline--v001",
+        "loc-workshop-state-day-est--v001",
+        "loc-workshop-state-day-side3q--v001",
+        "loc-workshop-plate--v001",
+        "prop-red-worktable--v001",
+        "prop-red-worktable-state-baseline--v001",
+        "look-base-a--v001",
+        "seq-workshop-visual-anchor--v001",
+        "kf-sh-010-010-start--v001",
+        "kf-sh-010-010-end--v001",
+        "loc-workshop--v001"
+      ],
+      "reference_stack_sha256": "a994c4f208aa68a8fef84759f8375a66382cf0b2dc555c55f3f9efb6550032a7",
+      "scene_ids": [
+        "sc-010"
+      ],
+      "sequence_visual_anchor_asset_id": "seq-workshop-visual-anchor--v001",
+      "shot_ids": [
+        "sh-010-010"
+      ],
+      "state_signature": {
+        "capture_profile_id": "cp-base-a",
+        "character_state_ids": [
+          "state-char-hero-baseline"
+        ],
+        "environmental_state_id": "env-workshop-clear",
+        "format_plan_id": "format-plan-main-16x9",
+        "lighting_state": "north-window daylight plus existing practicals",
+        "location_state_id": "state-workshop-day",
+        "prop_state_ids": [
+          "prop-state-table-baseline"
+        ],
+        "special_lighting_event_ids": [],
+        "temporal_capture_signature": {
+          "capture_fps": 24,
+          "delivery_fps": 24,
+          "playback_rate": 1.0,
+          "shutter_angle": 180
+        }
+      },
+      "status": "ready",
+      "target_model": "seedance-2.5",
+      "target_workflow": "cinema-studio-4"
+    }
+  ]
+}

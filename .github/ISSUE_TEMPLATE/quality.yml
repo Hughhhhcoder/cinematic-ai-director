@@ -1,0 +1,42 @@
+name: Live-action quality case
+description: Report a recurring visual failure without publishing rejected/private images.
+title: "[Quality]: "
+labels: [quality-evidence, triage]
+body:
+  - type: dropdown
+    id: category
+    attributes:
+      label: Failure category
+      options:
+        - Skin highlight or oil-film response
+        - Smear or repeated dirty texture
+        - Human geometry or role physique
+        - Identity or state drift
+        - Location topology or spatial drift
+        - Weather, light, or material physics
+        - Dynamic range, clipping, or shadow-floor behavior
+        - Camera path or motion blur
+        - Animation, CG, or game-render appearance
+        - Other live-action evidence failure
+    validations:
+      required: true
+  - type: textarea
+    id: facts
+    attributes:
+      label: Sanitized production facts
+      description: Provide the asset type, prompt strategy, reference roles, and expected physical evidence.
+    validations:
+      required: true
+  - type: textarea
+    id: observation
+    attributes:
+      label: Observed failure at thumbnail, fit, 100%, and 200%
+    validations:
+      required: true
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Rights and privacy
+      options:
+        - label: Any shared media is original or licensed, depicts consenting adults when applicable, and contains no private data.
+          required: true

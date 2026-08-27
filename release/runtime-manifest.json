@@ -1,0 +1,202 @@
+{
+  "files": [
+    {
+      "path": "SKILL.md",
+      "sha256": "de3c8489b2559e2fb89c8375838e054e56335232e994e81e194ba984665506ef",
+      "size": 13776
+    },
+    {
+      "path": "agents/openai.yaml",
+      "sha256": "8deb72a5d59f59bd39b4baaa8e01be572f90f6fa7c9433f917dc9ff29e7c1d0d",
+      "size": 609
+    },
+    {
+      "path": "assets/icon.svg",
+      "sha256": "9400eebb24b0a663c8dd42fca2288f1ec1da4e9ee3b503583beec57cd75062db",
+      "size": 863
+    },
+    {
+      "path": "assets/logo.svg",
+      "sha256": "9ec826c86eef1c1d0aed95181934af2bf5e1bcb3cd75ed288706758e31fd94be",
+      "size": 1292
+    },
+    {
+      "path": "references/atmosphere-weather.md",
+      "sha256": "62881c87783871ca17e9aac3e989090ac5303c17277ae9b8288131f74b8cb4af",
+      "size": 4466
+    },
+    {
+      "path": "references/camera-motion-temporal.md",
+      "sha256": "fcffc71bd3515b61c56a68bcdf81c567163f7e13cdfd6f3f3c2c44395502b6f0",
+      "size": 4868
+    },
+    {
+      "path": "references/candidate-selection.md",
+      "sha256": "81f4699328859fa6e86c6f05b098f994f841eb24788c1f97212e198a5030da8a",
+      "size": 3873
+    },
+    {
+      "path": "references/cinematic-grammar.md",
+      "sha256": "73493089dd03f8e5330c04ad00234e354b3b43e2228dc720832dde4a6cb649fc",
+      "size": 6606
+    },
+    {
+      "path": "references/cinematography.md",
+      "sha256": "0a7bd92dcc2ab8bf3fa9f1f1468961f8c35e5345a88c3d1418b4589444531612",
+      "size": 7964
+    },
+    {
+      "path": "references/continuity-qa.md",
+      "sha256": "6a6b8ca78712f9f28bbc9c479fc0b86054e73474a2fd7f89e80de735a00685fa",
+      "size": 5722
+    },
+    {
+      "path": "references/higgsfield-export.md",
+      "sha256": "1b8a89a5fcad68b74e0949727a3a593c837a1e562581f3e40a336f50eaf7bd2b",
+      "size": 8138
+    },
+    {
+      "path": "references/higgsfield-public-index.md",
+      "sha256": "6fe227bfb3b028a1f1605ce6ae6fb19e5dc83f127e9ef6cc1fb0103e195a8127",
+      "size": 81935
+    },
+    {
+      "path": "references/human-geometry.md",
+      "sha256": "15fecb0e672db2c82a6fcf7513a5a63b78913a320a4e51c8dad146d45bdac0da",
+      "size": 6985
+    },
+    {
+      "path": "references/identity-state.md",
+      "sha256": "599ae0effe8af151a1e3a4a7ffdd390f6f6567c51fa93cbf52937e021a4b685d",
+      "size": 5018
+    },
+    {
+      "path": "references/image2-clean.md",
+      "sha256": "f1a4e2c94b21a14fa4ed2d6367ffb373ed4663ee126457bf5e31ebdbf210e5ac",
+      "size": 9686
+    },
+    {
+      "path": "references/imagegen-calibration.md",
+      "sha256": "3db2dbb60056038f8684ae7d72dd00962c37869e6f01bbb064514d390bb745b9",
+      "size": 11494
+    },
+    {
+      "path": "references/photographic-authenticity.md",
+      "sha256": "a421ec7ad60ad6ab56254e5b458a591ede2b4e21870eb6a85287ee1b3704cf78",
+      "size": 9059
+    },
+    {
+      "path": "references/pipeline.md",
+      "sha256": "2fe47f93b3c1bd5771a3fed99188d168215069a129213333cec203bc4196867f",
+      "size": 8595
+    },
+    {
+      "path": "references/project-schema.md",
+      "sha256": "aba34afa8d9ac4a9273a7450decf94a32365c07f46dd681a3a3f6eeb69273604",
+      "size": 14659
+    },
+    {
+      "path": "references/quality-evidence.md",
+      "sha256": "fdba483e6122d95811162836a1c31ed690bbc16135d7a4ef7d2771408aaeaec0",
+      "size": 4504
+    },
+    {
+      "path": "references/research-basis.md",
+      "sha256": "3dd4b7067a0661610f5bc30553efb3a98dd351dee35a8fd06d7eef83d5a82619",
+      "size": 23752
+    },
+    {
+      "path": "references/role-physique.md",
+      "sha256": "0b70acf5fff8f144747a336172d4cce2c4574d4faee32580cd52571ed9e03b0d",
+      "size": 6829
+    },
+    {
+      "path": "references/spatial-system.md",
+      "sha256": "98c2501168b17a8bacf6185cb8d880ec0ea618efdfcc1fbec9a2eedf623c4e66",
+      "size": 7221
+    },
+    {
+      "path": "references/static-assets.md",
+      "sha256": "c454cc7b0823cb8574c314f5e004533f7f60cdebda773b3423b25f03e7ed781c",
+      "size": 8055
+    },
+    {
+      "path": "references/video-prompting.md",
+      "sha256": "9392e2137597e60fbaad4f4df4859e302018a79270499040459bbc75a3873a27",
+      "size": 7184
+    },
+    {
+      "path": "references/world-sequences.md",
+      "sha256": "eb0e6cffe139a0495597fb595e471be51e57192e456a3c6d9a44839c897c8b21",
+      "size": 4530
+    },
+    {
+      "path": "scripts/film_project.py",
+      "sha256": "17f4d9962e9b8ecfab8bd5160cc2ffd2fec66c0db957b0c1fefd00ed33fef8e4",
+      "size": 450
+    },
+    {
+      "path": "src/cinematic_ai_director/__init__.py",
+      "sha256": "df969298ba5ff199589668ea141f0c3fe901b2a108d35be8ce05e7f755c847ea",
+      "size": 141
+    },
+    {
+      "path": "src/cinematic_ai_director/__main__.py",
+      "sha256": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+      "size": 48
+    },
+    {
+      "path": "src/cinematic_ai_director/artifacts.py",
+      "sha256": "ed9f11c3ca5f0aef44807ec0ab0fd33ce1c24bf6f9ac4303594f464806f535eb",
+      "size": 215
+    },
+    {
+      "path": "src/cinematic_ai_director/boards.py",
+      "sha256": "5f87c838ee5ed149ce660650391078b32bcf4e98071ad9b2c688c9a2d5c61cd6",
+      "size": 30693
+    },
+    {
+      "path": "src/cinematic_ai_director/cli.py",
+      "sha256": "32d38ad43e4af31a74041c244ebe83c7e19927c7fd18cc6d611c263af9076339",
+      "size": 4975
+    },
+    {
+      "path": "src/cinematic_ai_director/core.py",
+      "sha256": "027e2a5819e40427cdd5d532abdff0af2f0d073bb4a2cb55f128a3d54c3cab7d",
+      "size": 224
+    },
+    {
+      "path": "src/cinematic_ai_director/higgsfield.py",
+      "sha256": "286123e5f590c319a34174dd70a40f436140fb2b87a75e3618901b6a055699ca",
+      "size": 73751
+    },
+    {
+      "path": "src/cinematic_ai_director/initialization.py",
+      "sha256": "b51a537d93bfb792d106c4f4459a3db0e997d934c77ae7343043c6a659a9436a",
+      "size": 11540
+    },
+    {
+      "path": "src/cinematic_ai_director/prompts.py",
+      "sha256": "e7bdc9bbfe8958efa005e586ef7bf9f9fb4fa9173c2e4c051abb22c22a136d88",
+      "size": 30458
+    },
+    {
+      "path": "src/cinematic_ai_director/reviews.py",
+      "sha256": "192388fbaafa8749242fa1b7d248dad5f6ca0e21ff40e9e6bb5e2c1ee8ae9c29",
+      "size": 12134
+    },
+    {
+      "path": "src/cinematic_ai_director/schema.py",
+      "sha256": "a84d576eb510690dfcc8923d10982bf0aac3df8486c77ac44d10faf6240b5c59",
+      "size": 35286
+    },
+    {
+      "path": "src/cinematic_ai_director/validation.py",
+      "sha256": "0dd7e24cdd116f4e1ea91d88591d598ecfff84dbb8b5b40696394f7240878608",
+      "size": 385966
+    }
+  ],
+  "schema_version": "1.6",
+  "skill": "cinematic-ai-director",
+  "version": "1.6.0"
+}

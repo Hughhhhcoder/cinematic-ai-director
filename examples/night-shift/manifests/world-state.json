@@ -1,0 +1,202 @@
+{
+  "schema_version": "1.6",
+  "production_design_dna": {
+    "period": "contemporary",
+    "socioeconomic_context": "working industrial repair shop with maintained low-cost equipment",
+    "architecture_logic": "retrofitted concrete service bay with exposed utility runs following structural walls",
+    "color_sources": [
+      "red worktable paint",
+      "navy workwear",
+      "neutral concrete"
+    ],
+    "material_rules": [
+      "painted steel, concrete, glass and cotton retain distinct scale and reflectance"
+    ],
+    "public_infrastructure": [
+      "surface conduit",
+      "service doorway",
+      "north industrial window"
+    ],
+    "signage_policy": "functional safety labels only; no invented brands or decorative text",
+    "ageing_policy": "clean authority baseline; any damage must be localized and story-declared"
+  },
+  "location_worlds": [
+    {
+      "id": "world-workshop",
+      "status": "approved",
+      "location_master_asset_id": "loc-workshop--v001",
+      "immutable_world": {
+        "topology": "rectangular service bay with north window wall and +Y service doorway",
+        "openings": [
+          "north industrial window",
+          "+Y service doorway"
+        ],
+        "fixed_facilities": [
+          "surface conduit",
+          "overhead practicals",
+          "wall service outlets"
+        ],
+        "primary_anchor_asset_id": "prop-red-worktable--v001",
+        "scale_relations": [
+          "table 1.8 x 0.8 x 0.9 m",
+          "doorway 3.0 m toward +Y from anchor"
+        ],
+        "material_baseline": [
+          "uncoated concrete floor",
+          "painted steel table",
+          "clear industrial glass"
+        ]
+      },
+      "location_state_ids": [
+        "state-workshop-day"
+      ],
+      "approval_gate_id": "review-foundation-001",
+      "qa": {
+        "checks": {
+          "topology": true,
+          "openings": true,
+          "fixed_facilities": true,
+          "anchor_and_scale": true,
+          "material_baseline": true,
+          "clean_texture": true
+        },
+        "hard_failures": [],
+        "notes": [],
+        "checked_at": "2026-08-25T12:00:00Z",
+        "reviewer": "codex-structural"
+      }
+    }
+  ],
+  "location_states": [
+    {
+      "id": "state-workshop-day",
+      "status": "approved",
+      "location_world_id": "world-workshop",
+      "scene_ids": [
+        "sc-010"
+      ],
+      "authority_asset_ids": [
+        "loc-workshop-state-day-est--v001",
+        "loc-workshop-state-day-side3q--v001",
+        "loc-workshop-plate--v001"
+      ],
+      "state_delta": {
+        "time": "day",
+        "weather": "dry",
+        "dressing": "occupied workshop baseline",
+        "damage": "none",
+        "lighting_state": "north-window daylight plus existing practicals"
+      },
+      "environmental_state_id": "env-workshop-clear",
+      "special_lighting_event_ids": [],
+      "preserve_immutable": {
+        "topology": true,
+        "openings": true,
+        "fixed_facilities": true,
+        "primary_anchor_asset_id": true,
+        "scale_relations": true,
+        "material_baseline": true
+      },
+      "first_visible_shot_id": "sh-010-010",
+      "cause": "Initial daytime location state.",
+      "approval_gate_id": "review-foundation-001",
+      "qa": {
+        "checks": {
+          "root_traceability": true,
+          "topology": true,
+          "fixed_facilities": true,
+          "anchor_and_scale": true,
+          "delta_locality": true,
+          "clean_texture": true
+        },
+        "hard_failures": [],
+        "notes": [],
+        "checked_at": "2026-08-25T12:00:00Z",
+        "reviewer": "codex-structural"
+      }
+    }
+  ],
+  "prop_states": [
+    {
+      "id": "prop-state-table-baseline",
+      "status": "approved",
+      "root_prop_asset_id": "prop-red-worktable--v001",
+      "authority_asset_id": "prop-red-worktable-state-baseline--v001",
+      "state_delta": {
+        "condition": "clean operational baseline",
+        "position": "fixed spatial anchor at world origin"
+      },
+      "preserve_structure": true,
+      "first_visible_shot_id": "sh-010-010",
+      "cause": "Initial fixed anchor state.",
+      "approval_gate_id": "review-foundation-001",
+      "qa": {
+        "checks": {
+          "root_traceability": true,
+          "structure_and_scale": true,
+          "delta_locality": true,
+          "clean_texture": true
+        },
+        "hard_failures": [],
+        "notes": [],
+        "checked_at": "2026-08-25T12:00:00Z",
+        "reviewer": "codex-structural"
+      }
+    }
+  ],
+  "environmental_states": [
+    {
+      "id": "env-workshop-clear",
+      "status": "approved",
+      "kind": "clear",
+      "scene_ids": [
+        "sc-010"
+      ],
+      "source_cause": "ordinary indoor air exchanged through the service doorway",
+      "intensity": "clear air with only natural distance falloff",
+      "visibility_range_m": 30.0,
+      "particle_or_medium_scale": "no visible suspended particles",
+      "direction": "still interior air",
+      "wind": {
+        "direction": "none",
+        "speed_mps": 0.0,
+        "gust_mps": 0.0
+      },
+      "accumulation": "none on floor, skin, hair, wardrobe or equipment",
+      "material_interactions": [
+        "no wetting, settling or coating"
+      ],
+      "light_behavior": {
+        "scattering_or_attenuation": "ordinary clean-air attenuation only",
+        "distance_behavior": "contrast decreases only through normal lens and room depth",
+        "readability_source": "window and practical illumination",
+        "reflection_response": "unchanged dry material reflections"
+      },
+      "focus_exposure_effect": "no atmosphere-driven focus or exposure compensation",
+      "sound": [
+        "quiet workshop room tone"
+      ],
+      "start_shot_id": "sh-010-010",
+      "end_shot_id": "sh-010-010",
+      "continuity_signature": "clear-dry-still-workshop-v1",
+      "approval_gate_id": "review-foundation-001",
+      "qa": {
+        "checks": {
+          "physical_source": true,
+          "visibility_and_depth": true,
+          "advection_and_direction": true,
+          "accumulation_and_material_interaction": true,
+          "light_scattering_or_attenuation": true,
+          "exposure_focus_effect": true,
+          "temporal_bounds": true,
+          "sound_and_continuity": true
+        },
+        "hard_failures": [],
+        "notes": [],
+        "checked_at": "2026-08-25T12:00:00Z",
+        "reviewer": "codex-structural"
+      }
+    }
+  ],
+  "special_lighting_events": []
+}

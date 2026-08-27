@@ -1,0 +1,3 @@
+# Validator Feature Test — Live-action Quality Review
+
+Use `clean-observational-live-action-v001` as a behavior floor, never as a production image reference. For every selected candidate record four-scale inspection, photographic-event plausibility, skin highlight topology and tone continuity, eye/hair/edge behavior, material response and roughness separation, detail integrity, artifact absence, lighting/contact/set causality, observed performance and the script-specific polish ceiling. Evidence must explain what visibly passes, not merely list absent defects. Uniform oil film, plastic skin, painterly smear, repeated cross-material texture, game/CG rendering, unmotivated light and publicity-pose staging are hard failures.

@@ -1,0 +1,202 @@
+{
+  "environmental_states": [
+    {
+      "accumulation": "none on floor, skin, hair, wardrobe or equipment",
+      "approval_gate_id": "review-foundation-001",
+      "continuity_signature": "clear-dry-still-workshop-v1",
+      "direction": "still interior air",
+      "end_shot_id": "sh-010-010",
+      "focus_exposure_effect": "no atmosphere-driven focus or exposure compensation",
+      "id": "env-workshop-clear",
+      "intensity": "clear air with only natural distance falloff",
+      "kind": "clear",
+      "light_behavior": {
+        "distance_behavior": "contrast decreases only through normal lens and room depth",
+        "readability_source": "window and practical illumination",
+        "reflection_response": "unchanged dry material reflections",
+        "scattering_or_attenuation": "ordinary clean-air attenuation only"
+      },
+      "material_interactions": [
+        "no wetting, settling or coating"
+      ],
+      "particle_or_medium_scale": "no visible suspended particles",
+      "qa": {
+        "checked_at": "2026-08-25T12:00:00Z",
+        "checks": {
+          "accumulation_and_material_interaction": true,
+          "advection_and_direction": true,
+          "exposure_focus_effect": true,
+          "light_scattering_or_attenuation": true,
+          "physical_source": true,
+          "sound_and_continuity": true,
+          "temporal_bounds": true,
+          "visibility_and_depth": true
+        },
+        "hard_failures": [],
+        "notes": [],
+        "reviewer": "codex-structural"
+      },
+      "scene_ids": [
+        "sc-010"
+      ],
+      "sound": [
+        "quiet workshop room tone"
+      ],
+      "source_cause": "ordinary indoor air exchanged through the service doorway",
+      "start_shot_id": "sh-010-010",
+      "status": "approved",
+      "visibility_range_m": 30.0,
+      "wind": {
+        "direction": "none",
+        "gust_mps": 0.0,
+        "speed_mps": 0.0
+      }
+    }
+  ],
+  "location_states": [
+    {
+      "approval_gate_id": "review-foundation-001",
+      "authority_asset_ids": [
+        "loc-workshop-state-day-est--v001",
+        "loc-workshop-state-day-side3q--v001",
+        "loc-workshop-plate--v001"
+      ],
+      "cause": "Initial daytime location state.",
+      "environmental_state_id": "env-workshop-clear",
+      "first_visible_shot_id": "sh-010-010",
+      "id": "state-workshop-day",
+      "location_world_id": "world-workshop",
+      "preserve_immutable": {
+        "fixed_facilities": true,
+        "material_baseline": true,
+        "openings": true,
+        "primary_anchor_asset_id": true,
+        "scale_relations": true,
+        "topology": true
+      },
+      "qa": {
+        "checked_at": "2026-08-25T12:00:00Z",
+        "checks": {
+          "anchor_and_scale": true,
+          "clean_texture": true,
+          "delta_locality": true,
+          "fixed_facilities": true,
+          "root_traceability": true,
+          "topology": true
+        },
+        "hard_failures": [],
+        "notes": [],
+        "reviewer": "codex-structural"
+      },
+      "scene_ids": [
+        "sc-010"
+      ],
+      "special_lighting_event_ids": [],
+      "state_delta": {
+        "damage": "none",
+        "dressing": "occupied workshop baseline",
+        "lighting_state": "north-window daylight plus existing practicals",
+        "time": "day",
+        "weather": "dry"
+      },
+      "status": "approved"
+    }
+  ],
+  "location_worlds": [
+    {
+      "approval_gate_id": "review-foundation-001",
+      "id": "world-workshop",
+      "immutable_world": {
+        "fixed_facilities": [
+          "surface conduit",
+          "overhead practicals",
+          "wall service outlets"
+        ],
+        "material_baseline": [
+          "uncoated concrete floor",
+          "painted steel table",
+          "clear industrial glass"
+        ],
+        "openings": [
+          "north industrial window",
+          "+Y service doorway"
+        ],
+        "primary_anchor_asset_id": "prop-red-worktable--v001",
+        "scale_relations": [
+          "table 1.8 x 0.8 x 0.9 m",
+          "doorway 3.0 m toward +Y from anchor"
+        ],
+        "topology": "rectangular service bay with north window wall and +Y service doorway"
+      },
+      "location_master_asset_id": "loc-workshop--v001",
+      "location_state_ids": [
+        "state-workshop-day"
+      ],
+      "qa": {
+        "checked_at": "2026-08-25T12:00:00Z",
+        "checks": {
+          "anchor_and_scale": true,
+          "clean_texture": true,
+          "fixed_facilities": true,
+          "material_baseline": true,
+          "openings": true,
+          "topology": true
+        },
+        "hard_failures": [],
+        "notes": [],
+        "reviewer": "codex-structural"
+      },
+      "status": "approved"
+    }
+  ],
+  "production_design_dna": {
+    "ageing_policy": "clean authority baseline; any damage must be localized and story-declared",
+    "architecture_logic": "retrofitted concrete service bay with exposed utility runs following structural walls",
+    "color_sources": [
+      "red worktable paint",
+      "navy workwear",
+      "neutral concrete"
+    ],
+    "material_rules": [
+      "painted steel, concrete, glass and cotton retain distinct scale and reflectance"
+    ],
+    "period": "contemporary",
+    "public_infrastructure": [
+      "surface conduit",
+      "service doorway",
+      "north industrial window"
+    ],
+    "signage_policy": "functional safety labels only; no invented brands or decorative text",
+    "socioeconomic_context": "working industrial repair shop with maintained low-cost equipment"
+  },
+  "prop_states": [
+    {
+      "approval_gate_id": "review-foundation-001",
+      "authority_asset_id": "prop-red-worktable-state-baseline--v001",
+      "cause": "Initial fixed anchor state.",
+      "first_visible_shot_id": "sh-010-010",
+      "id": "prop-state-table-baseline",
+      "preserve_structure": true,
+      "qa": {
+        "checked_at": "2026-08-25T12:00:00Z",
+        "checks": {
+          "clean_texture": true,
+          "delta_locality": true,
+          "root_traceability": true,
+          "structure_and_scale": true
+        },
+        "hard_failures": [],
+        "notes": [],
+        "reviewer": "codex-structural"
+      },
+      "root_prop_asset_id": "prop-red-worktable--v001",
+      "state_delta": {
+        "condition": "clean operational baseline",
+        "position": "fixed spatial anchor at world origin"
+      },
+      "status": "approved"
+    }
+  ],
+  "schema_version": "1.6",
+  "special_lighting_events": []
+}

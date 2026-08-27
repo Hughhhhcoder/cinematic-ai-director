@@ -1,0 +1,525 @@
+{
+  "assets": [
+    {
+      "asset_id": "char-hero-inspector--v001",
+      "asset_type": "character_identity_inspector",
+      "capture_profile_id": "",
+      "category": "characters",
+      "character_state_id": "",
+      "file": "references/characters/char-hero-inspector--v001.png",
+      "identity_pack_id": "identity-char-hero",
+      "location_state_id": "",
+      "location_world_id": "",
+      "primary_anchor_asset_id": "",
+      "reference_coverage": {
+        "background_policy": "pure_white",
+        "notes": [
+          "One ImageGen call solved the same fictional identity across the complete official two-row sheet."
+        ],
+        "policy": "identity_single_solve_inspector",
+        "present_views": [
+          "full_front",
+          "full_left_profile",
+          "full_right_profile",
+          "full_back",
+          "portrait_front",
+          "portrait_left_profile",
+          "portrait_right_profile"
+        ],
+        "required_views": [
+          "full_front",
+          "full_left_profile",
+          "full_right_profile",
+          "full_back",
+          "portrait_front",
+          "portrait_left_profile",
+          "portrait_right_profile"
+        ],
+        "same_subject_or_geography_pass": true
+      },
+      "role": "char-hero-unified-identity-inspector",
+      "root_reference_ids": [],
+      "scene_state_id": "",
+      "spatial_map_id": "",
+      "suggested_handle": "@char-hero-unified-identity-inspector",
+      "surface_policy": "clean_authority",
+      "view_role": "",
+      "view_side": ""
+    },
+    {
+      "asset_id": "char-hero-state-baseline--v001",
+      "asset_type": "character_state",
+      "capture_profile_id": "",
+      "category": "characters",
+      "character_state_id": "state-char-hero-baseline",
+      "file": "references/characters/char-hero-state-baseline--v001.png",
+      "identity_pack_id": "identity-char-hero",
+      "location_state_id": "",
+      "location_world_id": "",
+      "primary_anchor_asset_id": "",
+      "reference_coverage": null,
+      "role": "char-hero-state-baseline",
+      "root_reference_ids": [
+        "char-hero-inspector--v001"
+      ],
+      "scene_state_id": "",
+      "spatial_map_id": "",
+      "suggested_handle": "@char-hero-state-baseline",
+      "surface_policy": "clean_authority",
+      "view_role": "",
+      "view_side": ""
+    },
+    {
+      "asset_id": "char-hero-portrait-front--v001",
+      "asset_type": "character_face_anchor",
+      "capture_profile_id": "",
+      "category": "characters",
+      "character_state_id": "",
+      "file": "references/characters/char-hero-portrait-front--v001.png",
+      "identity_pack_id": "identity-char-hero",
+      "location_state_id": "",
+      "location_world_id": "",
+      "primary_anchor_asset_id": "",
+      "reference_coverage": null,
+      "role": "char-hero-portrait-front",
+      "root_reference_ids": [
+        "char-hero-inspector--v001"
+      ],
+      "scene_state_id": "",
+      "spatial_map_id": "",
+      "suggested_handle": "@char-hero-portrait-front",
+      "surface_policy": "clean_authority",
+      "view_role": "",
+      "view_side": ""
+    },
+    {
+      "asset_id": "char-hero-full-front--v001",
+      "asset_type": "character_body_anchor",
+      "capture_profile_id": "",
+      "category": "characters",
+      "character_state_id": "",
+      "file": "references/characters/char-hero-full-front--v001.png",
+      "identity_pack_id": "identity-char-hero",
+      "location_state_id": "",
+      "location_world_id": "",
+      "primary_anchor_asset_id": "",
+      "reference_coverage": null,
+      "role": "char-hero-full-front",
+      "root_reference_ids": [
+        "char-hero-inspector--v001"
+      ],
+      "scene_state_id": "",
+      "spatial_map_id": "",
+      "suggested_handle": "@char-hero-full-front",
+      "surface_policy": "clean_authority",
+      "view_role": "",
+      "view_side": ""
+    },
+    {
+      "asset_id": "char-hero-full-back--v001",
+      "asset_type": "character_identity_view",
+      "capture_profile_id": "",
+      "category": "characters",
+      "character_state_id": "",
+      "file": "references/characters/char-hero-full-back--v001.png",
+      "identity_pack_id": "identity-char-hero",
+      "location_state_id": "",
+      "location_world_id": "",
+      "primary_anchor_asset_id": "",
+      "reference_coverage": null,
+      "role": "char-hero-full-back",
+      "root_reference_ids": [
+        "char-hero-inspector--v001"
+      ],
+      "scene_state_id": "",
+      "spatial_map_id": "",
+      "suggested_handle": "@char-hero-full-back",
+      "surface_policy": "clean_authority",
+      "view_role": "",
+      "view_side": ""
+    },
+    {
+      "asset_id": "char-hero-full-left-profile--v001",
+      "asset_type": "character_identity_view",
+      "capture_profile_id": "",
+      "category": "characters",
+      "character_state_id": "",
+      "file": "references/characters/char-hero-full-left-profile--v001.png",
+      "identity_pack_id": "identity-char-hero",
+      "location_state_id": "",
+      "location_world_id": "",
+      "primary_anchor_asset_id": "",
+      "reference_coverage": null,
+      "role": "char-hero-full-left-profile",
+      "root_reference_ids": [
+        "char-hero-inspector--v001"
+      ],
+      "scene_state_id": "",
+      "spatial_map_id": "",
+      "suggested_handle": "@char-hero-full-left-profile",
+      "surface_policy": "clean_authority",
+      "view_role": "",
+      "view_side": ""
+    },
+    {
+      "asset_id": "char-hero-full-right-profile--v001",
+      "asset_type": "character_identity_view",
+      "capture_profile_id": "",
+      "category": "characters",
+      "character_state_id": "",
+      "file": "references/characters/char-hero-full-right-profile--v001.png",
+      "identity_pack_id": "identity-char-hero",
+      "location_state_id": "",
+      "location_world_id": "",
+      "primary_anchor_asset_id": "",
+      "reference_coverage": null,
+      "role": "char-hero-full-right-profile",
+      "root_reference_ids": [
+        "char-hero-inspector--v001"
+      ],
+      "scene_state_id": "",
+      "spatial_map_id": "",
+      "suggested_handle": "@char-hero-full-right-profile",
+      "surface_policy": "clean_authority",
+      "view_role": "",
+      "view_side": ""
+    },
+    {
+      "asset_id": "char-hero-portrait-left-profile--v001",
+      "asset_type": "character_identity_view",
+      "capture_profile_id": "",
+      "category": "characters",
+      "character_state_id": "",
+      "file": "references/characters/char-hero-portrait-left-profile--v001.png",
+      "identity_pack_id": "identity-char-hero",
+      "location_state_id": "",
+      "location_world_id": "",
+      "primary_anchor_asset_id": "",
+      "reference_coverage": null,
+      "role": "char-hero-portrait-left-profile",
+      "root_reference_ids": [
+        "char-hero-inspector--v001"
+      ],
+      "scene_state_id": "",
+      "spatial_map_id": "",
+      "suggested_handle": "@char-hero-portrait-left-profile",
+      "surface_policy": "clean_authority",
+      "view_role": "",
+      "view_side": ""
+    },
+    {
+      "asset_id": "char-hero-portrait-right-profile--v001",
+      "asset_type": "character_identity_view",
+      "capture_profile_id": "",
+      "category": "characters",
+      "character_state_id": "",
+      "file": "references/characters/char-hero-portrait-right-profile--v001.png",
+      "identity_pack_id": "identity-char-hero",
+      "location_state_id": "",
+      "location_world_id": "",
+      "primary_anchor_asset_id": "",
+      "reference_coverage": null,
+      "role": "char-hero-portrait-right-profile",
+      "root_reference_ids": [
+        "char-hero-inspector--v001"
+      ],
+      "scene_state_id": "",
+      "spatial_map_id": "",
+      "suggested_handle": "@char-hero-portrait-right-profile",
+      "surface_policy": "clean_authority",
+      "view_role": "",
+      "view_side": ""
+    },
+    {
+      "asset_id": "loc-workshop--v001",
+      "asset_type": "location_master",
+      "capture_profile_id": "",
+      "category": "locations",
+      "character_state_id": "",
+      "file": "references/locations/loc-workshop--v001.png",
+      "identity_pack_id": "",
+      "location_state_id": "",
+      "location_world_id": "world-workshop",
+      "primary_anchor_asset_id": "",
+      "reference_coverage": {
+        "background_policy": "on_location_neutral",
+        "notes": [
+          "One approved geography seed; multi-axis use requires expanded coverage."
+        ],
+        "policy": "single_view",
+        "present_views": [
+          "establishing_wide"
+        ],
+        "required_views": [
+          "establishing_wide"
+        ],
+        "same_subject_or_geography_pass": true
+      },
+      "role": "loc-workshop",
+      "root_reference_ids": [],
+      "scene_state_id": "",
+      "spatial_map_id": "",
+      "suggested_handle": "@loc-workshop",
+      "surface_policy": "clean_authority",
+      "view_role": "",
+      "view_side": ""
+    },
+    {
+      "asset_id": "loc-workshop-plate--v001",
+      "asset_type": "location_plate",
+      "capture_profile_id": "cp-base-a",
+      "category": "locations",
+      "character_state_id": "",
+      "file": "references/locations/loc-workshop-plate--v001.png",
+      "identity_pack_id": "",
+      "location_state_id": "state-workshop-day",
+      "location_world_id": "world-workshop",
+      "primary_anchor_asset_id": "prop-red-worktable--v001",
+      "reference_coverage": null,
+      "role": "loc-workshop-plate",
+      "root_reference_ids": [
+        "loc-workshop--v001"
+      ],
+      "scene_state_id": "state-workshop-day",
+      "spatial_map_id": "spatial-workshop-day",
+      "suggested_handle": "@loc-workshop-plate",
+      "surface_policy": "clean_narrative",
+      "view_role": "",
+      "view_side": ""
+    },
+    {
+      "asset_id": "loc-workshop-state-day-est--v001",
+      "asset_type": "location_variant",
+      "capture_profile_id": "",
+      "category": "locations",
+      "character_state_id": "",
+      "file": "references/locations/loc-workshop-state-day-est--v001.png",
+      "identity_pack_id": "",
+      "location_state_id": "state-workshop-day",
+      "location_world_id": "world-workshop",
+      "primary_anchor_asset_id": "prop-red-worktable--v001",
+      "reference_coverage": {
+        "background_policy": "on_location_neutral",
+        "notes": [
+          "Independent scene-state view with locked geography and anchor."
+        ],
+        "policy": "single_view",
+        "present_views": [
+          "establishing_wide"
+        ],
+        "required_views": [
+          "establishing_wide"
+        ],
+        "same_subject_or_geography_pass": true
+      },
+      "role": "loc-workshop-state-day-establishing",
+      "root_reference_ids": [
+        "loc-workshop--v001"
+      ],
+      "scene_state_id": "state-workshop-day",
+      "spatial_map_id": "spatial-workshop-day",
+      "suggested_handle": "@loc-workshop-state-day-establishing",
+      "surface_policy": "clean_authority",
+      "view_role": "establishing_wide",
+      "view_side": "not_applicable"
+    },
+    {
+      "asset_id": "loc-workshop-state-day-side3q--v001",
+      "asset_type": "location_variant",
+      "capture_profile_id": "",
+      "category": "locations",
+      "character_state_id": "",
+      "file": "references/locations/loc-workshop-state-day-side3q--v001.png",
+      "identity_pack_id": "",
+      "location_state_id": "state-workshop-day",
+      "location_world_id": "world-workshop",
+      "primary_anchor_asset_id": "prop-red-worktable--v001",
+      "reference_coverage": {
+        "background_policy": "on_location_neutral",
+        "notes": [
+          "Independent scene-state view with locked geography and anchor."
+        ],
+        "policy": "single_view",
+        "present_views": [
+          "side_three_quarter_wide"
+        ],
+        "required_views": [
+          "side_three_quarter_wide"
+        ],
+        "same_subject_or_geography_pass": true
+      },
+      "role": "loc-workshop-state-day-side-three-quarter",
+      "root_reference_ids": [
+        "loc-workshop--v001"
+      ],
+      "scene_state_id": "state-workshop-day",
+      "spatial_map_id": "spatial-workshop-day",
+      "suggested_handle": "@loc-workshop-state-day-side-three-quarter",
+      "surface_policy": "clean_authority",
+      "view_role": "side_three_quarter_wide",
+      "view_side": "left"
+    },
+    {
+      "asset_id": "prop-red-worktable--v001",
+      "asset_type": "prop",
+      "capture_profile_id": "",
+      "category": "props",
+      "character_state_id": "",
+      "file": "references/props/prop-red-worktable--v001.png",
+      "identity_pack_id": "",
+      "location_state_id": "",
+      "location_world_id": "",
+      "primary_anchor_asset_id": "",
+      "reference_coverage": {
+        "background_policy": "pure_white",
+        "notes": [
+          "Same fixed steel worktable with documented approximate dimensions."
+        ],
+        "policy": "object_multiview",
+        "present_views": [
+          "front",
+          "side",
+          "three_quarter"
+        ],
+        "required_views": [
+          "front",
+          "side",
+          "three_quarter"
+        ],
+        "same_subject_or_geography_pass": true
+      },
+      "role": "prop-red-worktable",
+      "root_reference_ids": [],
+      "scene_state_id": "",
+      "spatial_map_id": "",
+      "suggested_handle": "@prop-red-worktable",
+      "surface_policy": "clean_authority",
+      "view_role": "",
+      "view_side": ""
+    },
+    {
+      "asset_id": "prop-red-worktable-state-baseline--v001",
+      "asset_type": "prop_state",
+      "capture_profile_id": "",
+      "category": "props",
+      "character_state_id": "",
+      "file": "references/props/prop-red-worktable-state-baseline--v001.png",
+      "identity_pack_id": "",
+      "location_state_id": "",
+      "location_world_id": "",
+      "primary_anchor_asset_id": "",
+      "reference_coverage": null,
+      "role": "prop-red-worktable-state-baseline",
+      "root_reference_ids": [
+        "prop-red-worktable--v001"
+      ],
+      "scene_state_id": "",
+      "spatial_map_id": "",
+      "suggested_handle": "@prop-red-worktable-state-baseline",
+      "surface_policy": "clean_authority",
+      "view_role": "",
+      "view_side": ""
+    },
+    {
+      "asset_id": "look-base-a--v001",
+      "asset_type": "look_test",
+      "capture_profile_id": "cp-base-a",
+      "category": "looks",
+      "character_state_id": "state-char-hero-baseline",
+      "file": "references/looks/look-base-a--v001.png",
+      "identity_pack_id": "identity-char-hero",
+      "location_state_id": "state-workshop-day",
+      "location_world_id": "world-workshop",
+      "primary_anchor_asset_id": "prop-red-worktable--v001",
+      "reference_coverage": null,
+      "role": "look-base-a",
+      "root_reference_ids": [
+        "char-hero-inspector--v001",
+        "loc-workshop--v001",
+        "prop-red-worktable--v001"
+      ],
+      "scene_state_id": "state-workshop-day",
+      "spatial_map_id": "spatial-workshop-day",
+      "suggested_handle": "@look-base-a",
+      "surface_policy": "clean_narrative",
+      "view_role": "",
+      "view_side": ""
+    },
+    {
+      "asset_id": "kf-sh-010-010-end--v001",
+      "asset_type": "keyframe",
+      "capture_profile_id": "cp-base-a",
+      "category": "frames",
+      "character_state_id": "state-char-hero-baseline",
+      "file": "references/frames/kf-sh-010-010-end--v001.png",
+      "identity_pack_id": "identity-char-hero",
+      "location_state_id": "state-workshop-day",
+      "location_world_id": "world-workshop",
+      "primary_anchor_asset_id": "prop-red-worktable--v001",
+      "reference_coverage": null,
+      "role": "kf-sh-010-010-end",
+      "root_reference_ids": [
+        "char-hero-inspector--v001",
+        "loc-workshop--v001",
+        "prop-red-worktable--v001"
+      ],
+      "scene_state_id": "state-workshop-day",
+      "spatial_map_id": "spatial-workshop-day",
+      "suggested_handle": "@kf-sh-010-010-end",
+      "surface_policy": "clean_narrative",
+      "view_role": "",
+      "view_side": ""
+    },
+    {
+      "asset_id": "kf-sh-010-010-start--v001",
+      "asset_type": "keyframe",
+      "capture_profile_id": "cp-base-a",
+      "category": "frames",
+      "character_state_id": "state-char-hero-baseline",
+      "file": "references/frames/kf-sh-010-010-start--v001.png",
+      "identity_pack_id": "identity-char-hero",
+      "location_state_id": "state-workshop-day",
+      "location_world_id": "world-workshop",
+      "primary_anchor_asset_id": "prop-red-worktable--v001",
+      "reference_coverage": null,
+      "role": "kf-sh-010-010-start",
+      "root_reference_ids": [
+        "char-hero-inspector--v001",
+        "loc-workshop--v001",
+        "prop-red-worktable--v001"
+      ],
+      "scene_state_id": "state-workshop-day",
+      "spatial_map_id": "spatial-workshop-day",
+      "suggested_handle": "@kf-sh-010-010-start",
+      "surface_policy": "clean_narrative",
+      "view_role": "",
+      "view_side": ""
+    },
+    {
+      "asset_id": "seq-workshop-visual-anchor--v001",
+      "asset_type": "keyframe",
+      "capture_profile_id": "cp-base-a",
+      "category": "frames",
+      "character_state_id": "state-char-hero-baseline",
+      "file": "references/frames/seq-workshop-visual-anchor--v001.png",
+      "identity_pack_id": "identity-char-hero",
+      "location_state_id": "state-workshop-day",
+      "location_world_id": "world-workshop",
+      "primary_anchor_asset_id": "prop-red-worktable--v001",
+      "reference_coverage": null,
+      "role": "sequence-workshop-joint-visual-anchor",
+      "root_reference_ids": [
+        "char-hero-inspector--v001",
+        "loc-workshop--v001",
+        "prop-red-worktable--v001"
+      ],
+      "scene_state_id": "state-workshop-day",
+      "spatial_map_id": "spatial-workshop-day",
+      "suggested_handle": "@sequence-workshop-joint-visual-anchor",
+      "surface_policy": "clean_narrative",
+      "view_role": "",
+      "view_side": ""
+    }
+  ],
+  "package_schema": "higgsfield-reference-map-1.6"
+}

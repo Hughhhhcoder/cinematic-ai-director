@@ -1,0 +1,217 @@
+{
+  "schema_version": "1.6",
+  "shots": [
+    {
+      "id": "sh-010-010",
+      "scene_id": "sc-010",
+      "order": 10,
+      "story_beat": "She notices the broken seal.",
+      "duration_s": 4.0,
+      "motion_class": "dialogue",
+      "capture_profile_id": "cp-base-a",
+      "quality_profile_id": "quality-main",
+      "shot_size": "medium close-up",
+      "focal_length_mm": 40,
+      "fov_deg": 38.6,
+      "t_stop": 2.8,
+      "focus_plan": "Hold her eyes, then rack to the seal at 2.0s.",
+      "camera_height_cm": 150,
+      "camera_support": "locked tripod",
+      "camera_axis": "doorway-to-window",
+      "camera_move": "locked off",
+      "exposure_notes": "Protect the lamp and retain rear-wall separation.",
+      "dynamic_range_plan": {
+        "policy": "finite_scene_referred",
+        "working_latitude_stops": 14.0,
+        "upper_latitude_stops": 6.0,
+        "lower_latitude_stops": 8.0,
+        "scene_contrast_stops_estimate": 15.0,
+        "exposure_priority": "protect_skin_and_practicals",
+        "middle_gray_anchor": "the courier's face and neutral gray work shirt",
+        "highlight_behavior": "the lamp housing rolls gradually while its filament core may clip",
+        "shadow_behavior": "unlit shelf gaps fall below the texture floor without gray HDR lift",
+        "allowed_clipping": [
+          "small desk-lamp filament core"
+        ],
+        "allowed_shadow_loss": [
+          "deepest unlit rear-shelf gap"
+        ],
+        "local_tone_mapping": false,
+        "multi_exposure_hdr": false,
+        "narrative_reason": "Keep attention on the discovery rather than making the whole workshop equally legible."
+      },
+      "camera_move_plan": {
+        "primitive": "locked",
+        "support": "locked tripod",
+        "start_camera_mark_id": "cam-sh-010-010",
+        "end_camera_mark_id": "cam-sh-010-010",
+        "path_points_m": [
+          {
+            "x": 2.0,
+            "y": -2.0,
+            "z": 1.5
+          }
+        ],
+        "translation_m": 0.0,
+        "rotation_deg": {
+          "yaw": 0.0,
+          "pitch": 0.0,
+          "roll": 0.0
+        },
+        "duration_s": 0.0,
+        "speed_curve": "constant",
+        "peak_speed_mps": 0.0,
+        "easing": "none; the camera is physically locked",
+        "path_clearance": {
+          "status": "pass",
+          "traversable_region": "tripod footprint in the near-side aisle",
+          "notes": []
+        },
+        "horizon_lock": "level horizon locked by the tripod head",
+        "axis_lock": "remain on the doorway-to-window side of the action axis",
+        "parallax_expectation": "none from the camera; only subject depth changes",
+        "subject_screen_occupancy": "courier remains a medium close-up without automatic reframing",
+        "occlusion_crossings": [],
+        "lens_focus_change": "manual rack from eyes to the broken seal at 2.0 seconds",
+        "settle_hold_s": 4.0,
+        "operator_contingency": "no correction after record begins",
+        "surreal_vfx_exception": {
+          "enabled": false,
+          "rationale": ""
+        }
+      },
+      "temporal_capture": {
+        "capture_fps": 24,
+        "delivery_fps": 24,
+        "playback_rate": 1.0,
+        "shutter_angle": 180,
+        "exposure_time_s": 0.020833333333333332,
+        "speed_ramp": [],
+        "rolling_shutter_allowance": {
+          "mode": "none",
+          "rationale": ""
+        }
+      },
+      "motion_blur_plan": {
+        "source": "subject",
+        "direction": "brief head and eye motion blur follows the actual turn toward the case",
+        "regions": [
+          "turning facial features during the brief movement"
+        ],
+        "amount": "low",
+        "static_reference_regions": [
+          "red worktable",
+          "service doorway",
+          "locked workshop walls"
+        ],
+        "occlusion_edge_behavior": "single clean moving edge with no doubled silhouette",
+        "reason": "natural 180-degree shutter sampling of a small subject turn",
+        "frame_blending_allowed": false,
+        "ghosting_allowed": false
+      },
+      "spatial_map_id": "spatial-workshop-day",
+      "format_plan_id": "format-plan-main-16x9",
+      "environmental_state_id": "env-workshop-clear",
+      "special_lighting_event_ids": [],
+      "camera_mark_id": "cam-sh-010-010",
+      "subject_mark_ids": {
+        "char-hero-inspector--v001": "mark-hero-table-near"
+      },
+      "anchor_projection": {
+        "visibility": "visible",
+        "screen_region": "lower-center foreground and lower-right midground",
+        "direction_from_camera": "ahead and slightly camera-left",
+        "set_fixed_direction": "origin",
+        "set_fixed_relation": "the anchor remains the fixed origin between camera and +Y service doorway",
+        "distance_m": 3.2
+      },
+      "depth_order": [
+        "char-hero-inspector--v001",
+        "prop-red-worktable--v001",
+        "lm-service-door"
+      ],
+      "action_beats": [
+        {
+          "start_s": 0.0,
+          "end_s": 2.0,
+          "action": "She remains on her floor mark and settles at the table.",
+          "changes_position": false,
+          "subject_asset_id": "",
+          "start_mark_id": "",
+          "end_mark_id": ""
+        },
+        {
+          "start_s": 2.0,
+          "end_s": 4.0,
+          "action": "Her focus moves to the broken seal without changing her ground position.",
+          "changes_position": false,
+          "subject_asset_id": "",
+          "start_mark_id": "",
+          "end_mark_id": ""
+        }
+      ],
+      "cast_asset_ids": [
+        "char-hero-inspector--v001"
+      ],
+      "character_state_bindings": {
+        "char-hero-inspector--v001": "state-char-hero-baseline"
+      },
+      "body_geometry_locks": {
+        "char-hero-inspector--v001": {
+          "proportion_signature_id": "prop-char-hero-v1",
+          "role_physique_brief_id": "role-physique-char-hero-v1",
+          "character_state_id": "state-char-hero-baseline",
+          "pose_projection": "standing three-quarter narrative projection; foreshortening is not a proportion change",
+          "critical_hand_detail": false,
+          "digit_visibility": "partially_resolvable",
+          "relative_height_m": 1.68
+        }
+      },
+      "pose_contact_anchor_ids": [],
+      "material_interaction_plan": {
+        "required": false,
+        "contacts": [
+          "both shoes remain grounded on the concrete floor"
+        ],
+        "gravity": "ordinary Earth gravity keeps weight over the planted feet",
+        "collision": "no collision event",
+        "landing": "no landing event",
+        "material_response": "shoe soles compress subtly against dry concrete; clothing remains separate from the body"
+      },
+      "location_asset_id": "loc-workshop-plate--v001",
+      "location_state_id": "state-workshop-day",
+      "prop_asset_ids": [
+        "prop-red-worktable--v001"
+      ],
+      "prop_state_bindings": {
+        "prop-red-worktable--v001": "prop-state-table-baseline"
+      },
+      "sequence_cluster_id": "seq-workshop-day-001",
+      "sequence_visual_anchor_asset_id": "seq-workshop-visual-anchor--v001",
+      "start_keyframe_id": "kf-sh-010-010-start--v001",
+      "end_keyframe_id": "kf-sh-010-010-end--v001",
+      "video_prompt_path": "prompts/video/sh-010-010.txt",
+      "model_prompt_strategy_id": "shot-model-v1.6",
+      "audio": {
+        "dialogue": [],
+        "ambience": [
+          "quiet workshop room tone"
+        ],
+        "foley": [
+          "shoe stops on concrete"
+        ],
+        "music": [],
+        "silence": []
+      },
+      "locks": [
+        "one recurring character",
+        "case remains open",
+        "clean source-led digital response"
+      ],
+      "status": "ready",
+      "adapter_notes": {
+        "lighting_state": "north-window daylight plus existing practicals"
+      }
+    }
+  ]
+}

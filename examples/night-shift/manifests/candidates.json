@@ -1,0 +1,1877 @@
+{
+  "schema_version": "1.6",
+  "policy": {
+    "identity_inspector_initial_count": 1,
+    "identity_inspector_max_batches": 1,
+    "critical_initial_count": 3,
+    "derivative_initial_count": 2,
+    "retry_count": 2,
+    "max_batches": 2,
+    "failed_candidates_visible_by_default": false
+  },
+  "candidate_sets": [
+    {
+      "id": "cset-char-hero-inspector--v001",
+      "target_asset_id": "char-hero-inspector--v001",
+      "tier": "identity_single_solve",
+      "status": "selected",
+      "operation": "generate",
+      "approval_gate_id": "review-foundation-001",
+      "prompt_path": "prompts/images/identity-inspectors/char-hero-inspector--v001.txt",
+      "reference_asset_ids": [],
+      "batches": [
+        {
+          "index": 1,
+          "reason": "initial independent candidate pool",
+          "changed_variable": "",
+          "candidates": [
+            {
+              "id": "cset-char-hero-inspector--v001-candidate-01",
+              "status": "selected",
+              "path": "assets/candidates/cset-char-hero-inspector--v001/cset-char-hero-inspector--v001-candidate-01.png",
+              "sha256": "d1b95e556289ad0e8d2415170772a508e37c01e785d980f723576209f3997e58",
+              "operation": "generate",
+              "derived_from_candidate_id": "",
+              "prompt_sha256": "a2757ee3285131d0434684a3ea3eaee535209c5425cd35f541004fe3bce7af97",
+              "reference_order": [],
+              "quality_verdict": "pass",
+              "hard_failures": [],
+              "diagnostic_regions": {
+                "face": [
+                  {
+                    "label": "visible face",
+                    "x": 0.25,
+                    "y": 0.1,
+                    "width": 0.5,
+                    "height": 0.45
+                  }
+                ],
+                "hands": [
+                  {
+                    "label": "visible hand/contact area",
+                    "x": 0.2,
+                    "y": 0.4,
+                    "width": 0.6,
+                    "height": 0.5
+                  }
+                ],
+                "materials": [
+                  {
+                    "label": "material separation",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 1.0,
+                    "height": 1.0
+                  }
+                ],
+                "highlights": [
+                  {
+                    "label": "source-shaped highlight",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ],
+                "shadows": [
+                  {
+                    "label": "shadow transition",
+                    "x": 0.5,
+                    "y": 0.5,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ]
+              },
+              "reviewed_at": "2026-08-25T12:00:00Z"
+            }
+          ]
+        }
+      ],
+      "selected_candidate_id": "cset-char-hero-inspector--v001-candidate-01",
+      "selection_reason": "Only this candidate passes the four-scale live-action, geometry and photographic gates.",
+      "reviewer": "codex-visual",
+      "reviewed_at": "2026-08-25T12:00:00Z"
+    },
+    {
+      "id": "cset-loc-workshop-state-day-est--v001",
+      "target_asset_id": "loc-workshop-state-day-est--v001",
+      "tier": "derivative",
+      "status": "selected",
+      "operation": "generate",
+      "approval_gate_id": "review-foundation-001",
+      "prompt_path": "prompts/images/loc-workshop-state-day-est--v001.txt",
+      "reference_asset_ids": [
+        "loc-workshop--v001",
+        "prop-red-worktable--v001"
+      ],
+      "batches": [
+        {
+          "index": 1,
+          "reason": "initial independent candidate pool",
+          "changed_variable": "",
+          "candidates": [
+            {
+              "id": "cset-loc-workshop-state-day-est--v001-candidate-01",
+              "status": "selected",
+              "path": "assets/candidates/cset-loc-workshop-state-day-est--v001/cset-loc-workshop-state-day-est--v001-candidate-01.png",
+              "sha256": "2182133d4a4fdfb13ac97b3821e240fdae856eda3609162d835f99129b4bf37e",
+              "operation": "generate",
+              "derived_from_candidate_id": "",
+              "prompt_sha256": "1cf851c0a61d3016c37159c634097cc4ef4a0fdd7ff2c58bd4277413935ba593",
+              "reference_order": [
+                "loc-workshop--v001",
+                "prop-red-worktable--v001"
+              ],
+              "quality_verdict": "pass",
+              "hard_failures": [],
+              "diagnostic_regions": {
+                "face": [],
+                "hands": [],
+                "materials": [
+                  {
+                    "label": "material separation",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 1.0,
+                    "height": 1.0
+                  }
+                ],
+                "highlights": [
+                  {
+                    "label": "source-shaped highlight",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ],
+                "shadows": [
+                  {
+                    "label": "shadow transition",
+                    "x": 0.5,
+                    "y": 0.5,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ]
+              },
+              "reviewed_at": "2026-08-25T12:00:00Z"
+            },
+            {
+              "id": "cset-loc-workshop-state-day-est--v001-candidate-02",
+              "status": "passed",
+              "path": "assets/candidates/cset-loc-workshop-state-day-est--v001/cset-loc-workshop-state-day-est--v001-candidate-02.png",
+              "sha256": "8f202853dea8869d342d6f74a160c06b14351af40e32773ea39e39143ecf5d38",
+              "operation": "generate",
+              "derived_from_candidate_id": "",
+              "prompt_sha256": "1cf851c0a61d3016c37159c634097cc4ef4a0fdd7ff2c58bd4277413935ba593",
+              "reference_order": [
+                "loc-workshop--v001",
+                "prop-red-worktable--v001"
+              ],
+              "quality_verdict": "pass",
+              "hard_failures": [],
+              "diagnostic_regions": {
+                "face": [],
+                "hands": [],
+                "materials": [
+                  {
+                    "label": "material separation",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 1.0,
+                    "height": 1.0
+                  }
+                ],
+                "highlights": [
+                  {
+                    "label": "source-shaped highlight",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ],
+                "shadows": [
+                  {
+                    "label": "shadow transition",
+                    "x": 0.5,
+                    "y": 0.5,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ]
+              },
+              "reviewed_at": "2026-08-25T12:00:00Z"
+            }
+          ]
+        }
+      ],
+      "selected_candidate_id": "cset-loc-workshop-state-day-est--v001-candidate-01",
+      "selection_reason": "Only this candidate passes the four-scale live-action, geometry and photographic gates.",
+      "reviewer": "codex-visual",
+      "reviewed_at": "2026-08-25T12:00:00Z"
+    },
+    {
+      "id": "cset-loc-workshop-state-day-side3q--v001",
+      "target_asset_id": "loc-workshop-state-day-side3q--v001",
+      "tier": "derivative",
+      "status": "selected",
+      "operation": "generate",
+      "approval_gate_id": "review-foundation-001",
+      "prompt_path": "prompts/images/loc-workshop-state-day-side3q--v001.txt",
+      "reference_asset_ids": [
+        "loc-workshop--v001",
+        "prop-red-worktable--v001"
+      ],
+      "batches": [
+        {
+          "index": 1,
+          "reason": "initial independent candidate pool",
+          "changed_variable": "",
+          "candidates": [
+            {
+              "id": "cset-loc-workshop-state-day-side3q--v001-candidate-01",
+              "status": "selected",
+              "path": "assets/candidates/cset-loc-workshop-state-day-side3q--v001/cset-loc-workshop-state-day-side3q--v001-candidate-01.png",
+              "sha256": "2182133d4a4fdfb13ac97b3821e240fdae856eda3609162d835f99129b4bf37e",
+              "operation": "generate",
+              "derived_from_candidate_id": "",
+              "prompt_sha256": "1cf851c0a61d3016c37159c634097cc4ef4a0fdd7ff2c58bd4277413935ba593",
+              "reference_order": [
+                "loc-workshop--v001",
+                "prop-red-worktable--v001"
+              ],
+              "quality_verdict": "pass",
+              "hard_failures": [],
+              "diagnostic_regions": {
+                "face": [],
+                "hands": [],
+                "materials": [
+                  {
+                    "label": "material separation",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 1.0,
+                    "height": 1.0
+                  }
+                ],
+                "highlights": [
+                  {
+                    "label": "source-shaped highlight",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ],
+                "shadows": [
+                  {
+                    "label": "shadow transition",
+                    "x": 0.5,
+                    "y": 0.5,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ]
+              },
+              "reviewed_at": "2026-08-25T12:00:00Z"
+            },
+            {
+              "id": "cset-loc-workshop-state-day-side3q--v001-candidate-02",
+              "status": "passed",
+              "path": "assets/candidates/cset-loc-workshop-state-day-side3q--v001/cset-loc-workshop-state-day-side3q--v001-candidate-02.png",
+              "sha256": "8f202853dea8869d342d6f74a160c06b14351af40e32773ea39e39143ecf5d38",
+              "operation": "generate",
+              "derived_from_candidate_id": "",
+              "prompt_sha256": "1cf851c0a61d3016c37159c634097cc4ef4a0fdd7ff2c58bd4277413935ba593",
+              "reference_order": [
+                "loc-workshop--v001",
+                "prop-red-worktable--v001"
+              ],
+              "quality_verdict": "pass",
+              "hard_failures": [],
+              "diagnostic_regions": {
+                "face": [],
+                "hands": [],
+                "materials": [
+                  {
+                    "label": "material separation",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 1.0,
+                    "height": 1.0
+                  }
+                ],
+                "highlights": [
+                  {
+                    "label": "source-shaped highlight",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ],
+                "shadows": [
+                  {
+                    "label": "shadow transition",
+                    "x": 0.5,
+                    "y": 0.5,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ]
+              },
+              "reviewed_at": "2026-08-25T12:00:00Z"
+            }
+          ]
+        }
+      ],
+      "selected_candidate_id": "cset-loc-workshop-state-day-side3q--v001-candidate-01",
+      "selection_reason": "Only this candidate passes the four-scale live-action, geometry and photographic gates.",
+      "reviewer": "codex-visual",
+      "reviewed_at": "2026-08-25T12:00:00Z"
+    },
+    {
+      "id": "cset-look-base-a--v001",
+      "target_asset_id": "look-base-a--v001",
+      "tier": "critical",
+      "status": "selected",
+      "operation": "generate",
+      "approval_gate_id": "review-foundation-001",
+      "prompt_path": "prompts/images/look-tests/look-base-a--v001.txt",
+      "reference_asset_ids": [
+        "char-hero-inspector--v001",
+        "char-hero-state-baseline--v001",
+        "loc-workshop--v001",
+        "loc-workshop-state-day-est--v001",
+        "loc-workshop-state-day-side3q--v001",
+        "prop-red-worktable--v001",
+        "prop-red-worktable-state-baseline--v001"
+      ],
+      "batches": [
+        {
+          "index": 1,
+          "reason": "initial independent candidate pool",
+          "changed_variable": "",
+          "candidates": [
+            {
+              "id": "cset-look-base-a--v001-candidate-01",
+              "status": "selected",
+              "path": "assets/candidates/cset-look-base-a--v001/cset-look-base-a--v001-candidate-01.png",
+              "sha256": "2182133d4a4fdfb13ac97b3821e240fdae856eda3609162d835f99129b4bf37e",
+              "operation": "generate",
+              "derived_from_candidate_id": "",
+              "prompt_sha256": "ef97c15923eaebf2c9edb2a30fb88e0e502479bc449affcd4f00e11850e58724",
+              "reference_order": [
+                "char-hero-inspector--v001",
+                "char-hero-state-baseline--v001",
+                "loc-workshop--v001",
+                "loc-workshop-state-day-est--v001",
+                "loc-workshop-state-day-side3q--v001",
+                "prop-red-worktable--v001",
+                "prop-red-worktable-state-baseline--v001"
+              ],
+              "quality_verdict": "pass",
+              "hard_failures": [],
+              "diagnostic_regions": {
+                "face": [
+                  {
+                    "label": "visible face",
+                    "x": 0.25,
+                    "y": 0.1,
+                    "width": 0.5,
+                    "height": 0.45
+                  }
+                ],
+                "hands": [
+                  {
+                    "label": "visible hand/contact area",
+                    "x": 0.2,
+                    "y": 0.4,
+                    "width": 0.6,
+                    "height": 0.5
+                  }
+                ],
+                "materials": [
+                  {
+                    "label": "material separation",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 1.0,
+                    "height": 1.0
+                  }
+                ],
+                "highlights": [
+                  {
+                    "label": "source-shaped highlight",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ],
+                "shadows": [
+                  {
+                    "label": "shadow transition",
+                    "x": 0.5,
+                    "y": 0.5,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ]
+              },
+              "reviewed_at": "2026-08-25T12:00:00Z"
+            },
+            {
+              "id": "cset-look-base-a--v001-candidate-02",
+              "status": "passed",
+              "path": "assets/candidates/cset-look-base-a--v001/cset-look-base-a--v001-candidate-02.png",
+              "sha256": "8f202853dea8869d342d6f74a160c06b14351af40e32773ea39e39143ecf5d38",
+              "operation": "generate",
+              "derived_from_candidate_id": "",
+              "prompt_sha256": "ef97c15923eaebf2c9edb2a30fb88e0e502479bc449affcd4f00e11850e58724",
+              "reference_order": [
+                "char-hero-inspector--v001",
+                "char-hero-state-baseline--v001",
+                "loc-workshop--v001",
+                "loc-workshop-state-day-est--v001",
+                "loc-workshop-state-day-side3q--v001",
+                "prop-red-worktable--v001",
+                "prop-red-worktable-state-baseline--v001"
+              ],
+              "quality_verdict": "pass",
+              "hard_failures": [],
+              "diagnostic_regions": {
+                "face": [
+                  {
+                    "label": "visible face",
+                    "x": 0.25,
+                    "y": 0.1,
+                    "width": 0.5,
+                    "height": 0.45
+                  }
+                ],
+                "hands": [
+                  {
+                    "label": "visible hand/contact area",
+                    "x": 0.2,
+                    "y": 0.4,
+                    "width": 0.6,
+                    "height": 0.5
+                  }
+                ],
+                "materials": [
+                  {
+                    "label": "material separation",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 1.0,
+                    "height": 1.0
+                  }
+                ],
+                "highlights": [
+                  {
+                    "label": "source-shaped highlight",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ],
+                "shadows": [
+                  {
+                    "label": "shadow transition",
+                    "x": 0.5,
+                    "y": 0.5,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ]
+              },
+              "reviewed_at": "2026-08-25T12:00:00Z"
+            },
+            {
+              "id": "cset-look-base-a--v001-candidate-03",
+              "status": "passed",
+              "path": "assets/candidates/cset-look-base-a--v001/cset-look-base-a--v001-candidate-03.png",
+              "sha256": "db824957c6d2d241da863d83708a8a983c7570ed63a5915041b2b2dfac43deb8",
+              "operation": "generate",
+              "derived_from_candidate_id": "",
+              "prompt_sha256": "ef97c15923eaebf2c9edb2a30fb88e0e502479bc449affcd4f00e11850e58724",
+              "reference_order": [
+                "char-hero-inspector--v001",
+                "char-hero-state-baseline--v001",
+                "loc-workshop--v001",
+                "loc-workshop-state-day-est--v001",
+                "loc-workshop-state-day-side3q--v001",
+                "prop-red-worktable--v001",
+                "prop-red-worktable-state-baseline--v001"
+              ],
+              "quality_verdict": "pass",
+              "hard_failures": [],
+              "diagnostic_regions": {
+                "face": [
+                  {
+                    "label": "visible face",
+                    "x": 0.25,
+                    "y": 0.1,
+                    "width": 0.5,
+                    "height": 0.45
+                  }
+                ],
+                "hands": [
+                  {
+                    "label": "visible hand/contact area",
+                    "x": 0.2,
+                    "y": 0.4,
+                    "width": 0.6,
+                    "height": 0.5
+                  }
+                ],
+                "materials": [
+                  {
+                    "label": "material separation",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 1.0,
+                    "height": 1.0
+                  }
+                ],
+                "highlights": [
+                  {
+                    "label": "source-shaped highlight",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ],
+                "shadows": [
+                  {
+                    "label": "shadow transition",
+                    "x": 0.5,
+                    "y": 0.5,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ]
+              },
+              "reviewed_at": "2026-08-25T12:00:00Z"
+            }
+          ]
+        }
+      ],
+      "selected_candidate_id": "cset-look-base-a--v001-candidate-01",
+      "selection_reason": "Only this candidate passes the four-scale live-action, geometry and photographic gates.",
+      "reviewer": "codex-visual",
+      "reviewed_at": "2026-08-25T12:00:00Z"
+    },
+    {
+      "id": "cset-look-base-b--v001",
+      "target_asset_id": "look-base-b--v001",
+      "tier": "critical",
+      "status": "selected",
+      "operation": "generate",
+      "approval_gate_id": "review-foundation-001",
+      "prompt_path": "prompts/images/look-tests/look-base-b--v001.txt",
+      "reference_asset_ids": [
+        "char-hero-inspector--v001",
+        "char-hero-state-baseline--v001",
+        "loc-workshop--v001",
+        "loc-workshop-state-day-est--v001",
+        "loc-workshop-state-day-side3q--v001",
+        "prop-red-worktable--v001",
+        "prop-red-worktable-state-baseline--v001"
+      ],
+      "batches": [
+        {
+          "index": 1,
+          "reason": "initial independent candidate pool",
+          "changed_variable": "",
+          "candidates": [
+            {
+              "id": "cset-look-base-b--v001-candidate-01",
+              "status": "selected",
+              "path": "assets/candidates/cset-look-base-b--v001/cset-look-base-b--v001-candidate-01.png",
+              "sha256": "2182133d4a4fdfb13ac97b3821e240fdae856eda3609162d835f99129b4bf37e",
+              "operation": "generate",
+              "derived_from_candidate_id": "",
+              "prompt_sha256": "ef97c15923eaebf2c9edb2a30fb88e0e502479bc449affcd4f00e11850e58724",
+              "reference_order": [
+                "char-hero-inspector--v001",
+                "char-hero-state-baseline--v001",
+                "loc-workshop--v001",
+                "loc-workshop-state-day-est--v001",
+                "loc-workshop-state-day-side3q--v001",
+                "prop-red-worktable--v001",
+                "prop-red-worktable-state-baseline--v001"
+              ],
+              "quality_verdict": "pass",
+              "hard_failures": [],
+              "diagnostic_regions": {
+                "face": [
+                  {
+                    "label": "visible face",
+                    "x": 0.25,
+                    "y": 0.1,
+                    "width": 0.5,
+                    "height": 0.45
+                  }
+                ],
+                "hands": [
+                  {
+                    "label": "visible hand/contact area",
+                    "x": 0.2,
+                    "y": 0.4,
+                    "width": 0.6,
+                    "height": 0.5
+                  }
+                ],
+                "materials": [
+                  {
+                    "label": "material separation",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 1.0,
+                    "height": 1.0
+                  }
+                ],
+                "highlights": [
+                  {
+                    "label": "source-shaped highlight",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ],
+                "shadows": [
+                  {
+                    "label": "shadow transition",
+                    "x": 0.5,
+                    "y": 0.5,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ]
+              },
+              "reviewed_at": "2026-08-25T12:00:00Z"
+            },
+            {
+              "id": "cset-look-base-b--v001-candidate-02",
+              "status": "passed",
+              "path": "assets/candidates/cset-look-base-b--v001/cset-look-base-b--v001-candidate-02.png",
+              "sha256": "8f202853dea8869d342d6f74a160c06b14351af40e32773ea39e39143ecf5d38",
+              "operation": "generate",
+              "derived_from_candidate_id": "",
+              "prompt_sha256": "ef97c15923eaebf2c9edb2a30fb88e0e502479bc449affcd4f00e11850e58724",
+              "reference_order": [
+                "char-hero-inspector--v001",
+                "char-hero-state-baseline--v001",
+                "loc-workshop--v001",
+                "loc-workshop-state-day-est--v001",
+                "loc-workshop-state-day-side3q--v001",
+                "prop-red-worktable--v001",
+                "prop-red-worktable-state-baseline--v001"
+              ],
+              "quality_verdict": "pass",
+              "hard_failures": [],
+              "diagnostic_regions": {
+                "face": [
+                  {
+                    "label": "visible face",
+                    "x": 0.25,
+                    "y": 0.1,
+                    "width": 0.5,
+                    "height": 0.45
+                  }
+                ],
+                "hands": [
+                  {
+                    "label": "visible hand/contact area",
+                    "x": 0.2,
+                    "y": 0.4,
+                    "width": 0.6,
+                    "height": 0.5
+                  }
+                ],
+                "materials": [
+                  {
+                    "label": "material separation",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 1.0,
+                    "height": 1.0
+                  }
+                ],
+                "highlights": [
+                  {
+                    "label": "source-shaped highlight",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ],
+                "shadows": [
+                  {
+                    "label": "shadow transition",
+                    "x": 0.5,
+                    "y": 0.5,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ]
+              },
+              "reviewed_at": "2026-08-25T12:00:00Z"
+            },
+            {
+              "id": "cset-look-base-b--v001-candidate-03",
+              "status": "passed",
+              "path": "assets/candidates/cset-look-base-b--v001/cset-look-base-b--v001-candidate-03.png",
+              "sha256": "db824957c6d2d241da863d83708a8a983c7570ed63a5915041b2b2dfac43deb8",
+              "operation": "generate",
+              "derived_from_candidate_id": "",
+              "prompt_sha256": "ef97c15923eaebf2c9edb2a30fb88e0e502479bc449affcd4f00e11850e58724",
+              "reference_order": [
+                "char-hero-inspector--v001",
+                "char-hero-state-baseline--v001",
+                "loc-workshop--v001",
+                "loc-workshop-state-day-est--v001",
+                "loc-workshop-state-day-side3q--v001",
+                "prop-red-worktable--v001",
+                "prop-red-worktable-state-baseline--v001"
+              ],
+              "quality_verdict": "pass",
+              "hard_failures": [],
+              "diagnostic_regions": {
+                "face": [
+                  {
+                    "label": "visible face",
+                    "x": 0.25,
+                    "y": 0.1,
+                    "width": 0.5,
+                    "height": 0.45
+                  }
+                ],
+                "hands": [
+                  {
+                    "label": "visible hand/contact area",
+                    "x": 0.2,
+                    "y": 0.4,
+                    "width": 0.6,
+                    "height": 0.5
+                  }
+                ],
+                "materials": [
+                  {
+                    "label": "material separation",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 1.0,
+                    "height": 1.0
+                  }
+                ],
+                "highlights": [
+                  {
+                    "label": "source-shaped highlight",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ],
+                "shadows": [
+                  {
+                    "label": "shadow transition",
+                    "x": 0.5,
+                    "y": 0.5,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ]
+              },
+              "reviewed_at": "2026-08-25T12:00:00Z"
+            }
+          ]
+        }
+      ],
+      "selected_candidate_id": "cset-look-base-b--v001-candidate-01",
+      "selection_reason": "Only this candidate passes the four-scale live-action, geometry and photographic gates.",
+      "reviewer": "codex-visual",
+      "reviewed_at": "2026-08-25T12:00:00Z"
+    },
+    {
+      "id": "cset-look-base-c--v001",
+      "target_asset_id": "look-base-c--v001",
+      "tier": "critical",
+      "status": "selected",
+      "operation": "generate",
+      "approval_gate_id": "review-foundation-001",
+      "prompt_path": "prompts/images/look-tests/look-base-c--v001.txt",
+      "reference_asset_ids": [
+        "char-hero-inspector--v001",
+        "char-hero-state-baseline--v001",
+        "loc-workshop--v001",
+        "loc-workshop-state-day-est--v001",
+        "loc-workshop-state-day-side3q--v001",
+        "prop-red-worktable--v001",
+        "prop-red-worktable-state-baseline--v001"
+      ],
+      "batches": [
+        {
+          "index": 1,
+          "reason": "initial independent candidate pool",
+          "changed_variable": "",
+          "candidates": [
+            {
+              "id": "cset-look-base-c--v001-candidate-01",
+              "status": "selected",
+              "path": "assets/candidates/cset-look-base-c--v001/cset-look-base-c--v001-candidate-01.png",
+              "sha256": "2182133d4a4fdfb13ac97b3821e240fdae856eda3609162d835f99129b4bf37e",
+              "operation": "generate",
+              "derived_from_candidate_id": "",
+              "prompt_sha256": "ef97c15923eaebf2c9edb2a30fb88e0e502479bc449affcd4f00e11850e58724",
+              "reference_order": [
+                "char-hero-inspector--v001",
+                "char-hero-state-baseline--v001",
+                "loc-workshop--v001",
+                "loc-workshop-state-day-est--v001",
+                "loc-workshop-state-day-side3q--v001",
+                "prop-red-worktable--v001",
+                "prop-red-worktable-state-baseline--v001"
+              ],
+              "quality_verdict": "pass",
+              "hard_failures": [],
+              "diagnostic_regions": {
+                "face": [
+                  {
+                    "label": "visible face",
+                    "x": 0.25,
+                    "y": 0.1,
+                    "width": 0.5,
+                    "height": 0.45
+                  }
+                ],
+                "hands": [
+                  {
+                    "label": "visible hand/contact area",
+                    "x": 0.2,
+                    "y": 0.4,
+                    "width": 0.6,
+                    "height": 0.5
+                  }
+                ],
+                "materials": [
+                  {
+                    "label": "material separation",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 1.0,
+                    "height": 1.0
+                  }
+                ],
+                "highlights": [
+                  {
+                    "label": "source-shaped highlight",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ],
+                "shadows": [
+                  {
+                    "label": "shadow transition",
+                    "x": 0.5,
+                    "y": 0.5,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ]
+              },
+              "reviewed_at": "2026-08-25T12:00:00Z"
+            },
+            {
+              "id": "cset-look-base-c--v001-candidate-02",
+              "status": "passed",
+              "path": "assets/candidates/cset-look-base-c--v001/cset-look-base-c--v001-candidate-02.png",
+              "sha256": "8f202853dea8869d342d6f74a160c06b14351af40e32773ea39e39143ecf5d38",
+              "operation": "generate",
+              "derived_from_candidate_id": "",
+              "prompt_sha256": "ef97c15923eaebf2c9edb2a30fb88e0e502479bc449affcd4f00e11850e58724",
+              "reference_order": [
+                "char-hero-inspector--v001",
+                "char-hero-state-baseline--v001",
+                "loc-workshop--v001",
+                "loc-workshop-state-day-est--v001",
+                "loc-workshop-state-day-side3q--v001",
+                "prop-red-worktable--v001",
+                "prop-red-worktable-state-baseline--v001"
+              ],
+              "quality_verdict": "pass",
+              "hard_failures": [],
+              "diagnostic_regions": {
+                "face": [
+                  {
+                    "label": "visible face",
+                    "x": 0.25,
+                    "y": 0.1,
+                    "width": 0.5,
+                    "height": 0.45
+                  }
+                ],
+                "hands": [
+                  {
+                    "label": "visible hand/contact area",
+                    "x": 0.2,
+                    "y": 0.4,
+                    "width": 0.6,
+                    "height": 0.5
+                  }
+                ],
+                "materials": [
+                  {
+                    "label": "material separation",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 1.0,
+                    "height": 1.0
+                  }
+                ],
+                "highlights": [
+                  {
+                    "label": "source-shaped highlight",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ],
+                "shadows": [
+                  {
+                    "label": "shadow transition",
+                    "x": 0.5,
+                    "y": 0.5,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ]
+              },
+              "reviewed_at": "2026-08-25T12:00:00Z"
+            },
+            {
+              "id": "cset-look-base-c--v001-candidate-03",
+              "status": "passed",
+              "path": "assets/candidates/cset-look-base-c--v001/cset-look-base-c--v001-candidate-03.png",
+              "sha256": "db824957c6d2d241da863d83708a8a983c7570ed63a5915041b2b2dfac43deb8",
+              "operation": "generate",
+              "derived_from_candidate_id": "",
+              "prompt_sha256": "ef97c15923eaebf2c9edb2a30fb88e0e502479bc449affcd4f00e11850e58724",
+              "reference_order": [
+                "char-hero-inspector--v001",
+                "char-hero-state-baseline--v001",
+                "loc-workshop--v001",
+                "loc-workshop-state-day-est--v001",
+                "loc-workshop-state-day-side3q--v001",
+                "prop-red-worktable--v001",
+                "prop-red-worktable-state-baseline--v001"
+              ],
+              "quality_verdict": "pass",
+              "hard_failures": [],
+              "diagnostic_regions": {
+                "face": [
+                  {
+                    "label": "visible face",
+                    "x": 0.25,
+                    "y": 0.1,
+                    "width": 0.5,
+                    "height": 0.45
+                  }
+                ],
+                "hands": [
+                  {
+                    "label": "visible hand/contact area",
+                    "x": 0.2,
+                    "y": 0.4,
+                    "width": 0.6,
+                    "height": 0.5
+                  }
+                ],
+                "materials": [
+                  {
+                    "label": "material separation",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 1.0,
+                    "height": 1.0
+                  }
+                ],
+                "highlights": [
+                  {
+                    "label": "source-shaped highlight",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ],
+                "shadows": [
+                  {
+                    "label": "shadow transition",
+                    "x": 0.5,
+                    "y": 0.5,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ]
+              },
+              "reviewed_at": "2026-08-25T12:00:00Z"
+            }
+          ]
+        }
+      ],
+      "selected_candidate_id": "cset-look-base-c--v001-candidate-01",
+      "selection_reason": "Only this candidate passes the four-scale live-action, geometry and photographic gates.",
+      "reviewer": "codex-visual",
+      "reviewed_at": "2026-08-25T12:00:00Z"
+    },
+    {
+      "id": "cset-loc-workshop-plate--v001",
+      "target_asset_id": "loc-workshop-plate--v001",
+      "tier": "derivative",
+      "status": "selected",
+      "operation": "generate",
+      "approval_gate_id": "review-seq-workshop-day-001",
+      "prompt_path": "prompts/images/loc-workshop-plate--v001.txt",
+      "reference_asset_ids": [
+        "loc-workshop--v001",
+        "loc-workshop-state-day-est--v001",
+        "loc-workshop-state-day-side3q--v001",
+        "prop-red-worktable--v001"
+      ],
+      "batches": [
+        {
+          "index": 1,
+          "reason": "initial independent candidate pool",
+          "changed_variable": "",
+          "candidates": [
+            {
+              "id": "cset-loc-workshop-plate--v001-candidate-01",
+              "status": "selected",
+              "path": "assets/candidates/cset-loc-workshop-plate--v001/cset-loc-workshop-plate--v001-candidate-01.png",
+              "sha256": "2182133d4a4fdfb13ac97b3821e240fdae856eda3609162d835f99129b4bf37e",
+              "operation": "generate",
+              "derived_from_candidate_id": "",
+              "prompt_sha256": "bfca6c920299b2c2d849178a70d8f55d1c5d3598c2d10d457a0bd341b8fde90e",
+              "reference_order": [
+                "loc-workshop--v001",
+                "loc-workshop-state-day-est--v001",
+                "loc-workshop-state-day-side3q--v001",
+                "prop-red-worktable--v001"
+              ],
+              "quality_verdict": "pass",
+              "hard_failures": [],
+              "diagnostic_regions": {
+                "face": [],
+                "hands": [],
+                "materials": [
+                  {
+                    "label": "material separation",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 1.0,
+                    "height": 1.0
+                  }
+                ],
+                "highlights": [
+                  {
+                    "label": "source-shaped highlight",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ],
+                "shadows": [
+                  {
+                    "label": "shadow transition",
+                    "x": 0.5,
+                    "y": 0.5,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ]
+              },
+              "reviewed_at": "2026-08-25T12:00:00Z"
+            },
+            {
+              "id": "cset-loc-workshop-plate--v001-candidate-02",
+              "status": "passed",
+              "path": "assets/candidates/cset-loc-workshop-plate--v001/cset-loc-workshop-plate--v001-candidate-02.png",
+              "sha256": "8f202853dea8869d342d6f74a160c06b14351af40e32773ea39e39143ecf5d38",
+              "operation": "generate",
+              "derived_from_candidate_id": "",
+              "prompt_sha256": "bfca6c920299b2c2d849178a70d8f55d1c5d3598c2d10d457a0bd341b8fde90e",
+              "reference_order": [
+                "loc-workshop--v001",
+                "loc-workshop-state-day-est--v001",
+                "loc-workshop-state-day-side3q--v001",
+                "prop-red-worktable--v001"
+              ],
+              "quality_verdict": "pass",
+              "hard_failures": [],
+              "diagnostic_regions": {
+                "face": [],
+                "hands": [],
+                "materials": [
+                  {
+                    "label": "material separation",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 1.0,
+                    "height": 1.0
+                  }
+                ],
+                "highlights": [
+                  {
+                    "label": "source-shaped highlight",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ],
+                "shadows": [
+                  {
+                    "label": "shadow transition",
+                    "x": 0.5,
+                    "y": 0.5,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ]
+              },
+              "reviewed_at": "2026-08-25T12:00:00Z"
+            }
+          ]
+        }
+      ],
+      "selected_candidate_id": "cset-loc-workshop-plate--v001-candidate-01",
+      "selection_reason": "Only this candidate passes the four-scale live-action, geometry and photographic gates.",
+      "reviewer": "codex-visual",
+      "reviewed_at": "2026-08-25T12:00:00Z"
+    },
+    {
+      "id": "cset-seq-workshop-visual-anchor--v001",
+      "target_asset_id": "seq-workshop-visual-anchor--v001",
+      "tier": "critical",
+      "status": "selected",
+      "operation": "generate",
+      "approval_gate_id": "review-seq-workshop-day-001",
+      "prompt_path": "prompts/images/seq-workshop-visual-anchor--v001.txt",
+      "reference_asset_ids": [
+        "char-hero-inspector--v001",
+        "char-hero-state-baseline--v001",
+        "loc-workshop--v001",
+        "loc-workshop-state-day-est--v001",
+        "loc-workshop-state-day-side3q--v001",
+        "loc-workshop-plate--v001",
+        "prop-red-worktable--v001",
+        "prop-red-worktable-state-baseline--v001"
+      ],
+      "batches": [
+        {
+          "index": 1,
+          "reason": "initial independent candidate pool",
+          "changed_variable": "",
+          "candidates": [
+            {
+              "id": "cset-seq-workshop-visual-anchor--v001-candidate-01",
+              "status": "selected",
+              "path": "assets/candidates/cset-seq-workshop-visual-anchor--v001/cset-seq-workshop-visual-anchor--v001-candidate-01.png",
+              "sha256": "2182133d4a4fdfb13ac97b3821e240fdae856eda3609162d835f99129b4bf37e",
+              "operation": "generate",
+              "derived_from_candidate_id": "",
+              "prompt_sha256": "bfca6c920299b2c2d849178a70d8f55d1c5d3598c2d10d457a0bd341b8fde90e",
+              "reference_order": [
+                "char-hero-inspector--v001",
+                "char-hero-state-baseline--v001",
+                "loc-workshop--v001",
+                "loc-workshop-state-day-est--v001",
+                "loc-workshop-state-day-side3q--v001",
+                "loc-workshop-plate--v001",
+                "prop-red-worktable--v001",
+                "prop-red-worktable-state-baseline--v001"
+              ],
+              "quality_verdict": "pass",
+              "hard_failures": [],
+              "diagnostic_regions": {
+                "face": [
+                  {
+                    "label": "visible face",
+                    "x": 0.25,
+                    "y": 0.1,
+                    "width": 0.5,
+                    "height": 0.45
+                  }
+                ],
+                "hands": [
+                  {
+                    "label": "visible hand/contact area",
+                    "x": 0.2,
+                    "y": 0.4,
+                    "width": 0.6,
+                    "height": 0.5
+                  }
+                ],
+                "materials": [
+                  {
+                    "label": "material separation",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 1.0,
+                    "height": 1.0
+                  }
+                ],
+                "highlights": [
+                  {
+                    "label": "source-shaped highlight",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ],
+                "shadows": [
+                  {
+                    "label": "shadow transition",
+                    "x": 0.5,
+                    "y": 0.5,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ]
+              },
+              "reviewed_at": "2026-08-25T12:00:00Z"
+            },
+            {
+              "id": "cset-seq-workshop-visual-anchor--v001-candidate-02",
+              "status": "passed",
+              "path": "assets/candidates/cset-seq-workshop-visual-anchor--v001/cset-seq-workshop-visual-anchor--v001-candidate-02.png",
+              "sha256": "8f202853dea8869d342d6f74a160c06b14351af40e32773ea39e39143ecf5d38",
+              "operation": "generate",
+              "derived_from_candidate_id": "",
+              "prompt_sha256": "bfca6c920299b2c2d849178a70d8f55d1c5d3598c2d10d457a0bd341b8fde90e",
+              "reference_order": [
+                "char-hero-inspector--v001",
+                "char-hero-state-baseline--v001",
+                "loc-workshop--v001",
+                "loc-workshop-state-day-est--v001",
+                "loc-workshop-state-day-side3q--v001",
+                "loc-workshop-plate--v001",
+                "prop-red-worktable--v001",
+                "prop-red-worktable-state-baseline--v001"
+              ],
+              "quality_verdict": "pass",
+              "hard_failures": [],
+              "diagnostic_regions": {
+                "face": [
+                  {
+                    "label": "visible face",
+                    "x": 0.25,
+                    "y": 0.1,
+                    "width": 0.5,
+                    "height": 0.45
+                  }
+                ],
+                "hands": [
+                  {
+                    "label": "visible hand/contact area",
+                    "x": 0.2,
+                    "y": 0.4,
+                    "width": 0.6,
+                    "height": 0.5
+                  }
+                ],
+                "materials": [
+                  {
+                    "label": "material separation",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 1.0,
+                    "height": 1.0
+                  }
+                ],
+                "highlights": [
+                  {
+                    "label": "source-shaped highlight",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ],
+                "shadows": [
+                  {
+                    "label": "shadow transition",
+                    "x": 0.5,
+                    "y": 0.5,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ]
+              },
+              "reviewed_at": "2026-08-25T12:00:00Z"
+            },
+            {
+              "id": "cset-seq-workshop-visual-anchor--v001-candidate-03",
+              "status": "passed",
+              "path": "assets/candidates/cset-seq-workshop-visual-anchor--v001/cset-seq-workshop-visual-anchor--v001-candidate-03.png",
+              "sha256": "db824957c6d2d241da863d83708a8a983c7570ed63a5915041b2b2dfac43deb8",
+              "operation": "generate",
+              "derived_from_candidate_id": "",
+              "prompt_sha256": "bfca6c920299b2c2d849178a70d8f55d1c5d3598c2d10d457a0bd341b8fde90e",
+              "reference_order": [
+                "char-hero-inspector--v001",
+                "char-hero-state-baseline--v001",
+                "loc-workshop--v001",
+                "loc-workshop-state-day-est--v001",
+                "loc-workshop-state-day-side3q--v001",
+                "loc-workshop-plate--v001",
+                "prop-red-worktable--v001",
+                "prop-red-worktable-state-baseline--v001"
+              ],
+              "quality_verdict": "pass",
+              "hard_failures": [],
+              "diagnostic_regions": {
+                "face": [
+                  {
+                    "label": "visible face",
+                    "x": 0.25,
+                    "y": 0.1,
+                    "width": 0.5,
+                    "height": 0.45
+                  }
+                ],
+                "hands": [
+                  {
+                    "label": "visible hand/contact area",
+                    "x": 0.2,
+                    "y": 0.4,
+                    "width": 0.6,
+                    "height": 0.5
+                  }
+                ],
+                "materials": [
+                  {
+                    "label": "material separation",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 1.0,
+                    "height": 1.0
+                  }
+                ],
+                "highlights": [
+                  {
+                    "label": "source-shaped highlight",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ],
+                "shadows": [
+                  {
+                    "label": "shadow transition",
+                    "x": 0.5,
+                    "y": 0.5,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ]
+              },
+              "reviewed_at": "2026-08-25T12:00:00Z"
+            }
+          ]
+        }
+      ],
+      "selected_candidate_id": "cset-seq-workshop-visual-anchor--v001-candidate-01",
+      "selection_reason": "Only this candidate passes the four-scale live-action, geometry and photographic gates.",
+      "reviewer": "codex-visual",
+      "reviewed_at": "2026-08-25T12:00:00Z"
+    },
+    {
+      "id": "cset-kf-sh-010-010-start--v001",
+      "target_asset_id": "kf-sh-010-010-start--v001",
+      "tier": "critical",
+      "status": "selected",
+      "operation": "generate",
+      "approval_gate_id": "review-seq-workshop-day-001",
+      "prompt_path": "prompts/images/kf-sh-010-010-start--v001.txt",
+      "reference_asset_ids": [
+        "char-hero-inspector--v001",
+        "char-hero-state-baseline--v001",
+        "loc-workshop--v001",
+        "loc-workshop-plate--v001",
+        "loc-workshop-state-day-side3q--v001",
+        "prop-red-worktable--v001",
+        "prop-red-worktable-state-baseline--v001"
+      ],
+      "batches": [
+        {
+          "index": 1,
+          "reason": "initial independent candidate pool",
+          "changed_variable": "",
+          "candidates": [
+            {
+              "id": "cset-kf-sh-010-010-start--v001-candidate-01",
+              "status": "selected",
+              "path": "assets/candidates/cset-kf-sh-010-010-start--v001/cset-kf-sh-010-010-start--v001-candidate-01.png",
+              "sha256": "2182133d4a4fdfb13ac97b3821e240fdae856eda3609162d835f99129b4bf37e",
+              "operation": "generate",
+              "derived_from_candidate_id": "",
+              "prompt_sha256": "bfca6c920299b2c2d849178a70d8f55d1c5d3598c2d10d457a0bd341b8fde90e",
+              "reference_order": [
+                "char-hero-inspector--v001",
+                "char-hero-state-baseline--v001",
+                "loc-workshop--v001",
+                "loc-workshop-plate--v001",
+                "loc-workshop-state-day-side3q--v001",
+                "prop-red-worktable--v001",
+                "prop-red-worktable-state-baseline--v001"
+              ],
+              "quality_verdict": "pass",
+              "hard_failures": [],
+              "diagnostic_regions": {
+                "face": [
+                  {
+                    "label": "visible face",
+                    "x": 0.25,
+                    "y": 0.1,
+                    "width": 0.5,
+                    "height": 0.45
+                  }
+                ],
+                "hands": [
+                  {
+                    "label": "visible hand/contact area",
+                    "x": 0.2,
+                    "y": 0.4,
+                    "width": 0.6,
+                    "height": 0.5
+                  }
+                ],
+                "materials": [
+                  {
+                    "label": "material separation",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 1.0,
+                    "height": 1.0
+                  }
+                ],
+                "highlights": [
+                  {
+                    "label": "source-shaped highlight",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ],
+                "shadows": [
+                  {
+                    "label": "shadow transition",
+                    "x": 0.5,
+                    "y": 0.5,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ]
+              },
+              "reviewed_at": "2026-08-25T12:00:00Z"
+            },
+            {
+              "id": "cset-kf-sh-010-010-start--v001-candidate-02",
+              "status": "passed",
+              "path": "assets/candidates/cset-kf-sh-010-010-start--v001/cset-kf-sh-010-010-start--v001-candidate-02.png",
+              "sha256": "8f202853dea8869d342d6f74a160c06b14351af40e32773ea39e39143ecf5d38",
+              "operation": "generate",
+              "derived_from_candidate_id": "",
+              "prompt_sha256": "bfca6c920299b2c2d849178a70d8f55d1c5d3598c2d10d457a0bd341b8fde90e",
+              "reference_order": [
+                "char-hero-inspector--v001",
+                "char-hero-state-baseline--v001",
+                "loc-workshop--v001",
+                "loc-workshop-plate--v001",
+                "loc-workshop-state-day-side3q--v001",
+                "prop-red-worktable--v001",
+                "prop-red-worktable-state-baseline--v001"
+              ],
+              "quality_verdict": "pass",
+              "hard_failures": [],
+              "diagnostic_regions": {
+                "face": [
+                  {
+                    "label": "visible face",
+                    "x": 0.25,
+                    "y": 0.1,
+                    "width": 0.5,
+                    "height": 0.45
+                  }
+                ],
+                "hands": [
+                  {
+                    "label": "visible hand/contact area",
+                    "x": 0.2,
+                    "y": 0.4,
+                    "width": 0.6,
+                    "height": 0.5
+                  }
+                ],
+                "materials": [
+                  {
+                    "label": "material separation",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 1.0,
+                    "height": 1.0
+                  }
+                ],
+                "highlights": [
+                  {
+                    "label": "source-shaped highlight",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ],
+                "shadows": [
+                  {
+                    "label": "shadow transition",
+                    "x": 0.5,
+                    "y": 0.5,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ]
+              },
+              "reviewed_at": "2026-08-25T12:00:00Z"
+            },
+            {
+              "id": "cset-kf-sh-010-010-start--v001-candidate-03",
+              "status": "passed",
+              "path": "assets/candidates/cset-kf-sh-010-010-start--v001/cset-kf-sh-010-010-start--v001-candidate-03.png",
+              "sha256": "db824957c6d2d241da863d83708a8a983c7570ed63a5915041b2b2dfac43deb8",
+              "operation": "generate",
+              "derived_from_candidate_id": "",
+              "prompt_sha256": "bfca6c920299b2c2d849178a70d8f55d1c5d3598c2d10d457a0bd341b8fde90e",
+              "reference_order": [
+                "char-hero-inspector--v001",
+                "char-hero-state-baseline--v001",
+                "loc-workshop--v001",
+                "loc-workshop-plate--v001",
+                "loc-workshop-state-day-side3q--v001",
+                "prop-red-worktable--v001",
+                "prop-red-worktable-state-baseline--v001"
+              ],
+              "quality_verdict": "pass",
+              "hard_failures": [],
+              "diagnostic_regions": {
+                "face": [
+                  {
+                    "label": "visible face",
+                    "x": 0.25,
+                    "y": 0.1,
+                    "width": 0.5,
+                    "height": 0.45
+                  }
+                ],
+                "hands": [
+                  {
+                    "label": "visible hand/contact area",
+                    "x": 0.2,
+                    "y": 0.4,
+                    "width": 0.6,
+                    "height": 0.5
+                  }
+                ],
+                "materials": [
+                  {
+                    "label": "material separation",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 1.0,
+                    "height": 1.0
+                  }
+                ],
+                "highlights": [
+                  {
+                    "label": "source-shaped highlight",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ],
+                "shadows": [
+                  {
+                    "label": "shadow transition",
+                    "x": 0.5,
+                    "y": 0.5,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ]
+              },
+              "reviewed_at": "2026-08-25T12:00:00Z"
+            }
+          ]
+        }
+      ],
+      "selected_candidate_id": "cset-kf-sh-010-010-start--v001-candidate-01",
+      "selection_reason": "Only this candidate passes the four-scale live-action, geometry and photographic gates.",
+      "reviewer": "codex-visual",
+      "reviewed_at": "2026-08-25T12:00:00Z"
+    },
+    {
+      "id": "cset-kf-sh-010-010-end--v001",
+      "target_asset_id": "kf-sh-010-010-end--v001",
+      "tier": "critical",
+      "status": "selected",
+      "operation": "generate",
+      "approval_gate_id": "review-seq-workshop-day-001",
+      "prompt_path": "prompts/images/kf-sh-010-010-end--v001.txt",
+      "reference_asset_ids": [
+        "char-hero-inspector--v001",
+        "char-hero-state-baseline--v001",
+        "loc-workshop--v001",
+        "loc-workshop-plate--v001",
+        "loc-workshop-state-day-side3q--v001",
+        "prop-red-worktable--v001",
+        "prop-red-worktable-state-baseline--v001"
+      ],
+      "batches": [
+        {
+          "index": 1,
+          "reason": "initial independent candidate pool",
+          "changed_variable": "",
+          "candidates": [
+            {
+              "id": "cset-kf-sh-010-010-end--v001-candidate-01",
+              "status": "selected",
+              "path": "assets/candidates/cset-kf-sh-010-010-end--v001/cset-kf-sh-010-010-end--v001-candidate-01.png",
+              "sha256": "2182133d4a4fdfb13ac97b3821e240fdae856eda3609162d835f99129b4bf37e",
+              "operation": "generate",
+              "derived_from_candidate_id": "",
+              "prompt_sha256": "bfca6c920299b2c2d849178a70d8f55d1c5d3598c2d10d457a0bd341b8fde90e",
+              "reference_order": [
+                "char-hero-inspector--v001",
+                "char-hero-state-baseline--v001",
+                "loc-workshop--v001",
+                "loc-workshop-plate--v001",
+                "loc-workshop-state-day-side3q--v001",
+                "prop-red-worktable--v001",
+                "prop-red-worktable-state-baseline--v001"
+              ],
+              "quality_verdict": "pass",
+              "hard_failures": [],
+              "diagnostic_regions": {
+                "face": [
+                  {
+                    "label": "visible face",
+                    "x": 0.25,
+                    "y": 0.1,
+                    "width": 0.5,
+                    "height": 0.45
+                  }
+                ],
+                "hands": [
+                  {
+                    "label": "visible hand/contact area",
+                    "x": 0.2,
+                    "y": 0.4,
+                    "width": 0.6,
+                    "height": 0.5
+                  }
+                ],
+                "materials": [
+                  {
+                    "label": "material separation",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 1.0,
+                    "height": 1.0
+                  }
+                ],
+                "highlights": [
+                  {
+                    "label": "source-shaped highlight",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ],
+                "shadows": [
+                  {
+                    "label": "shadow transition",
+                    "x": 0.5,
+                    "y": 0.5,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ]
+              },
+              "reviewed_at": "2026-08-25T12:00:00Z"
+            },
+            {
+              "id": "cset-kf-sh-010-010-end--v001-candidate-02",
+              "status": "passed",
+              "path": "assets/candidates/cset-kf-sh-010-010-end--v001/cset-kf-sh-010-010-end--v001-candidate-02.png",
+              "sha256": "8f202853dea8869d342d6f74a160c06b14351af40e32773ea39e39143ecf5d38",
+              "operation": "generate",
+              "derived_from_candidate_id": "",
+              "prompt_sha256": "bfca6c920299b2c2d849178a70d8f55d1c5d3598c2d10d457a0bd341b8fde90e",
+              "reference_order": [
+                "char-hero-inspector--v001",
+                "char-hero-state-baseline--v001",
+                "loc-workshop--v001",
+                "loc-workshop-plate--v001",
+                "loc-workshop-state-day-side3q--v001",
+                "prop-red-worktable--v001",
+                "prop-red-worktable-state-baseline--v001"
+              ],
+              "quality_verdict": "pass",
+              "hard_failures": [],
+              "diagnostic_regions": {
+                "face": [
+                  {
+                    "label": "visible face",
+                    "x": 0.25,
+                    "y": 0.1,
+                    "width": 0.5,
+                    "height": 0.45
+                  }
+                ],
+                "hands": [
+                  {
+                    "label": "visible hand/contact area",
+                    "x": 0.2,
+                    "y": 0.4,
+                    "width": 0.6,
+                    "height": 0.5
+                  }
+                ],
+                "materials": [
+                  {
+                    "label": "material separation",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 1.0,
+                    "height": 1.0
+                  }
+                ],
+                "highlights": [
+                  {
+                    "label": "source-shaped highlight",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ],
+                "shadows": [
+                  {
+                    "label": "shadow transition",
+                    "x": 0.5,
+                    "y": 0.5,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ]
+              },
+              "reviewed_at": "2026-08-25T12:00:00Z"
+            },
+            {
+              "id": "cset-kf-sh-010-010-end--v001-candidate-03",
+              "status": "passed",
+              "path": "assets/candidates/cset-kf-sh-010-010-end--v001/cset-kf-sh-010-010-end--v001-candidate-03.png",
+              "sha256": "db824957c6d2d241da863d83708a8a983c7570ed63a5915041b2b2dfac43deb8",
+              "operation": "generate",
+              "derived_from_candidate_id": "",
+              "prompt_sha256": "bfca6c920299b2c2d849178a70d8f55d1c5d3598c2d10d457a0bd341b8fde90e",
+              "reference_order": [
+                "char-hero-inspector--v001",
+                "char-hero-state-baseline--v001",
+                "loc-workshop--v001",
+                "loc-workshop-plate--v001",
+                "loc-workshop-state-day-side3q--v001",
+                "prop-red-worktable--v001",
+                "prop-red-worktable-state-baseline--v001"
+              ],
+              "quality_verdict": "pass",
+              "hard_failures": [],
+              "diagnostic_regions": {
+                "face": [
+                  {
+                    "label": "visible face",
+                    "x": 0.25,
+                    "y": 0.1,
+                    "width": 0.5,
+                    "height": 0.45
+                  }
+                ],
+                "hands": [
+                  {
+                    "label": "visible hand/contact area",
+                    "x": 0.2,
+                    "y": 0.4,
+                    "width": 0.6,
+                    "height": 0.5
+                  }
+                ],
+                "materials": [
+                  {
+                    "label": "material separation",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 1.0,
+                    "height": 1.0
+                  }
+                ],
+                "highlights": [
+                  {
+                    "label": "source-shaped highlight",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ],
+                "shadows": [
+                  {
+                    "label": "shadow transition",
+                    "x": 0.5,
+                    "y": 0.5,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ]
+              },
+              "reviewed_at": "2026-08-25T12:00:00Z"
+            }
+          ]
+        }
+      ],
+      "selected_candidate_id": "cset-kf-sh-010-010-end--v001-candidate-01",
+      "selection_reason": "Only this candidate passes the four-scale live-action, geometry and photographic gates.",
+      "reviewer": "codex-visual",
+      "reviewed_at": "2026-08-25T12:00:00Z"
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "authority": "showcase/originals/identity-inspectors/identity-black-woman-v001.png",
+  "authority_sha256": "69fbf6b845f7408de4ec73eb808be28dab5b9a4516f270a3f5d19dc0967bbb57",
+  "blank_cell": {
+    "column": 3,
+    "row": 1
+  },
+  "crops": [
+    {
+      "height_px": 512,
+      "path": "showcase/originals/identity-crops/identity-black-woman-v001/full_front.png",
+      "role": "full_front",
+      "sha256": "f34406620b49d7248a84c5bc57da68c33aaf584b53ee9cc616fcb020806faf18",
+      "source_cell": {
+        "column": 0,
+        "row": 0
+      },
+      "width_px": 384
+    },
+    {
+      "height_px": 512,
+      "path": "showcase/originals/identity-crops/identity-black-woman-v001/full_left_profile.png",
+      "role": "full_left_profile",
+      "sha256": "481c4f39fc0958037a56f21904d345932de8fe870e61b158b8ea48d3ee5f08bc",
+      "source_cell": {
+        "column": 1,
+        "row": 0
+      },
+      "width_px": 384
+    },
+    {
+      "height_px": 512,
+      "path": "showcase/originals/identity-crops/identity-black-woman-v001/full_right_profile.png",
+      "role": "full_right_profile",
+      "sha256": "ff65695e022661b7ff8027a7470c2189cdb3fdc327b36f16fefc7bec90f78d82",
+      "source_cell": {
+        "column": 2,
+        "row": 0
+      },
+      "width_px": 384
+    },
+    {
+      "height_px": 512,
+      "path": "showcase/originals/identity-crops/identity-black-woman-v001/full_back.png",
+      "role": "full_back",
+      "sha256": "274312dee2da35d31f9970890fd99b9a3af312424ae5cd1f9e89db499ffb651d",
+      "source_cell": {
+        "column": 3,
+        "row": 0
+      },
+      "width_px": 384
+    },
+    {
+      "height_px": 512,
+      "path": "showcase/originals/identity-crops/identity-black-woman-v001/portrait_front.png",
+      "role": "portrait_front",
+      "sha256": "57c6b1ec139673e880be141d577dbcb49e522715a99632553dfbeb9d470cd86c",
+      "source_cell": {
+        "column": 0,
+        "row": 1
+      },
+      "width_px": 384
+    },
+    {
+      "height_px": 512,
+      "path": "showcase/originals/identity-crops/identity-black-woman-v001/portrait_left_profile.png",
+      "role": "portrait_left_profile",
+      "sha256": "4ac7d487fb03ead0a475fff3638df2ad35bd2cdda5370142556d0a8bc2d9b372",
+      "source_cell": {
+        "column": 1,
+        "row": 1
+      },
+      "width_px": 384
+    },
+    {
+      "height_px": 512,
+      "path": "showcase/originals/identity-crops/identity-black-woman-v001/portrait_right_profile.png",
+      "role": "portrait_right_profile",
+      "sha256": "f98ffca4aa58e14bb7e92fd42e8c8576a1ceb01647d4232eecce259910fab707",
+      "source_cell": {
+        "column": 2,
+        "row": 1
+      },
+      "width_px": 384
+    }
+  ],
+  "crops_are_authoritative": false,
+  "grid": [
+    4,
+    2
+  ],
+  "operation": "exact-cell-crop-no-resample-no-redraw",
+  "profile": "higgsfield-character-reference-sheet-two-row-single-solve-v1.6"
+}

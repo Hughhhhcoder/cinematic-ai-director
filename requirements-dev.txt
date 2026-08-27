@@ -1,0 +1,3 @@
+-r requirements-docs.txt
+Pillow==12.2.0
+ruff==0.16.4

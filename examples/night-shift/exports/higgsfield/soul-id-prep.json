@@ -1,0 +1,11 @@
+{
+  "applicable_identity_packs": [],
+  "automatic_upload": false,
+  "operator_checklist": [
+    "Confirm likeness consent and reference usage rights before upload.",
+    "Use the one approved two-row white identity inspector as the first and primary identity input.",
+    "The seven deterministic crops are inspection/upload conveniences and may never replace or outrank the unified board.",
+    "Do not use a bridge frame or character state image as the sole Soul ID source."
+  ],
+  "package_schema": "higgsfield-soul-id-prep-1.6"
+}

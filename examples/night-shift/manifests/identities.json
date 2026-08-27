@@ -1,0 +1,257 @@
+{
+  "schema_version": "1.6",
+  "identity_packs": [
+    {
+      "id": "identity-char-hero",
+      "status": "approved",
+      "identity_kind": "fictional",
+      "identity_inspector_asset_id": "char-hero-inspector--v001",
+      "identity_view_asset_ids": {
+        "full_front": "char-hero-full-front--v001",
+        "full_left_profile": "char-hero-full-left-profile--v001",
+        "full_right_profile": "char-hero-full-right-profile--v001",
+        "full_back": "char-hero-full-back--v001",
+        "portrait_front": "char-hero-portrait-front--v001",
+        "portrait_left_profile": "char-hero-portrait-left-profile--v001",
+        "portrait_right_profile": "char-hero-portrait-right-profile--v001"
+      },
+      "face_anchor_asset_id": "char-hero-portrait-front--v001",
+      "body_anchor_asset_id": "char-hero-full-front--v001",
+      "role_physique_brief": {
+        "id": "role-physique-char-hero-v1",
+        "classification": "aspirational_athletic",
+        "source": "mixed",
+        "narrative_rationale": "The courier is a trained field operative whose lean athletic silhouette must read through practical workwear.",
+        "age_presentation": "healthy adult in the scripted age range",
+        "stature_and_frame": "moderately tall, lean frame with long balanced limbs",
+        "shoulder_waist_hip_relation": "athletic shoulders, defined but natural waist and stable pelvis",
+        "muscle_and_fat_distribution": "functional lean muscle without bodybuilding exaggeration",
+        "posture_and_gait": "upright trained posture, grounded stride and economical weight transfer",
+        "wardrobe_silhouette": "workwear preserves the shoulder line, waist and leg length rather than making the body boxy",
+        "must_have_traits": [
+          "balanced leg-to-torso impression",
+          "athletic shoulder line"
+        ],
+        "candidate_rejection_criteria": [
+          "shortened legs or collapsed torso",
+          "boxy untrained silhouette inconsistent with the role"
+        ],
+        "visual_body_balance": {
+          "target": "balanced_four_six",
+          "measurement_basis": "crown-to-functional-waist versus functional-waist-to-floor in neutral long-distance front and back authorities",
+          "upper_body_share_range": [
+            0.38,
+            0.44
+          ],
+          "lower_body_share_range": [
+            0.56,
+            0.62
+          ],
+          "perspective_policy": "natural_perspective_only",
+          "story_exception": ""
+        },
+        "quantitative_targets": [
+          {
+            "metric": "head_to_body",
+            "minimum": 0.13,
+            "maximum": 0.145,
+            "unit": "standing_height_1.0",
+            "rationale": "preserve the approved naturally elongated adult proportion"
+          },
+          {
+            "metric": "shoulder_width",
+            "minimum": 0.23,
+            "maximum": 0.25,
+            "unit": "standing_height_1.0",
+            "rationale": "retain the trained shoulder line"
+          }
+        ]
+      },
+      "physique_fit_qa": {
+        "checks": {
+          "narrative_and_casting_fit": true,
+          "quantitative_target_fit": true,
+          "visual_leg_body_balance_fit": true,
+          "silhouette_and_volume_fit": true,
+          "posture_and_gait_fit": true,
+          "wardrobe_silhouette_fit": true,
+          "no_unrequested_body_template": true
+        },
+        "verdict": "pass",
+        "hard_failures": [],
+        "notes": [
+          "The seven views preserve the role-required lean athletic build."
+        ],
+        "checked_at": "2026-08-25T12:00:00Z",
+        "reviewer": "codex-visual"
+      },
+      "proportion_signature": {
+        "id": "prop-char-hero-v1",
+        "normalization": "standing_height_1.0",
+        "measurement_asset_ids": [
+          "char-hero-full-front--v001",
+          "char-hero-full-back--v001"
+        ],
+        "projection_classes": {
+          "full_front": "measurement",
+          "full_left_profile": "silhouette_confirmation",
+          "full_right_profile": "silhouette_confirmation",
+          "full_back": "measurement",
+          "portrait_front": "silhouette_confirmation",
+          "portrait_left_profile": "silhouette_confirmation",
+          "portrait_right_profile": "silhouette_confirmation"
+        },
+        "confidence": 0.94,
+        "ratios": {
+          "head_to_body": 0.137,
+          "shoulder_width": 0.238,
+          "hip_width": 0.196,
+          "torso_length": 0.303,
+          "upper_arm_length": 0.181,
+          "forearm_length": 0.158,
+          "thigh_length": 0.247,
+          "shin_length": 0.238,
+          "arm_span": 0.985,
+          "hand_length": 0.108,
+          "foot_length": 0.151
+        },
+        "tolerances": {
+          "head_to_body": 0.03,
+          "shoulder_width": 0.03,
+          "hip_width": 0.03,
+          "torso_length": 0.03,
+          "upper_arm_length": 0.03,
+          "forearm_length": 0.03,
+          "thigh_length": 0.03,
+          "shin_length": 0.03,
+          "arm_span": 0.03,
+          "hand_length": 0.03,
+          "foot_length": 0.03
+        },
+        "intentional_asymmetries": [
+          "left shoulder rests approximately one centimetre lower"
+        ],
+        "expected_digit_topology": {
+          "left_hand": 5,
+          "right_hand": 5,
+          "left_foot": 5,
+          "right_foot": 5
+        }
+      },
+      "skeletal_lock": {
+        "locked": true,
+        "soft_tissue_delta_allowed": [
+          "age",
+          "weight",
+          "pregnancy",
+          "swelling",
+          "muscle"
+        ],
+        "notes": [
+          "Perspective shortening is projection, not a body-state change."
+        ]
+      },
+      "immutable_identity": {
+        "facial_bone_proportions": "narrow lower face, broad cheekbone plane and short chin",
+        "feature_spacing": "documented eye, brow, nose and mouth spacing from the face authority",
+        "body_build_and_height_ratio": "compact athletic build, 7.3-head adult proportion",
+        "skin_tone_range": "documented neutral medium range under neutral exposure",
+        "hairline": "slightly asymmetric left temple and stable center shape",
+        "fixed_marks": "single small mark below the right cheekbone",
+        "handedness": "right-handed"
+      },
+      "reference_board": {
+        "status": "ready",
+        "relative_path": "assets/characters/identity-inspectors/char-hero-inspector--v001--approved.png",
+        "sha256": "d1b95e556289ad0e8d2415170772a508e37c01e785d980f723576209f3997e58",
+        "source_sha256s": {
+          "full_front": "2182133d4a4fdfb13ac97b3821e240fdae856eda3609162d835f99129b4bf37e",
+          "full_left_profile": "2182133d4a4fdfb13ac97b3821e240fdae856eda3609162d835f99129b4bf37e",
+          "full_right_profile": "2182133d4a4fdfb13ac97b3821e240fdae856eda3609162d835f99129b4bf37e",
+          "full_back": "2182133d4a4fdfb13ac97b3821e240fdae856eda3609162d835f99129b4bf37e",
+          "portrait_front": "2182133d4a4fdfb13ac97b3821e240fdae856eda3609162d835f99129b4bf37e",
+          "portrait_left_profile": "2182133d4a4fdfb13ac97b3821e240fdae856eda3609162d835f99129b4bf37e",
+          "portrait_right_profile": "2182133d4a4fdfb13ac97b3821e240fdae856eda3609162d835f99129b4bf37e"
+        },
+        "layout_profile": "higgsfield-character-reference-sheet-two-row-single-solve-v1.6",
+        "authoritative": true,
+        "crop_map_path": "assets/reference-boards/identity-char-hero--identity-crops-v001.json"
+      },
+      "character_state_ids": [
+        "state-char-hero-baseline"
+      ],
+      "approval_gate_id": "review-foundation-001",
+      "qa": {
+        "checks": {
+          "face_identity": true,
+          "single_solve_identity_board": true,
+          "seven_deterministic_crops": true,
+          "role_conditioned_physique": true,
+          "proportion_signature": true,
+          "joint_topology": true,
+          "clean_texture": true,
+          "live_action_surface": true
+        },
+        "hard_failures": [],
+        "notes": [],
+        "checked_at": "2026-08-25T12:00:00Z",
+        "reviewer": "codex-structural"
+      }
+    }
+  ],
+  "character_states": [
+    {
+      "id": "state-char-hero-baseline",
+      "status": "approved",
+      "identity_pack_id": "identity-char-hero",
+      "authority_asset_id": "char-hero-state-baseline--v001",
+      "state_delta": {
+        "wardrobe": "plain navy work shirt and charcoal work trousers",
+        "hair_state": "dry hair tied low",
+        "age_stage": "adult baseline",
+        "injury": "none",
+        "wetness": "none",
+        "dirt": "none",
+        "makeup": "none",
+        "story_props": "none"
+      },
+      "soft_tissue_delta": {
+        "kind": "none",
+        "extent": "no change from root identity",
+        "cause": "baseline story state",
+        "first_visible_shot_id": "sh-010-010",
+        "preserve_skeleton": true
+      },
+      "preserve_immutable": {
+        "facial_bone_proportions": true,
+        "feature_spacing": true,
+        "body_build_and_height_ratio": true,
+        "skin_tone_range": true,
+        "hairline": true,
+        "fixed_marks": true,
+        "handedness": true
+      },
+      "preserve_proportion_signature": true,
+      "preserve_role_physique": true,
+      "first_visible_shot_id": "sh-010-010",
+      "cause": "Initial persistent character state at the start of the story.",
+      "approval_gate_id": "review-foundation-001",
+      "qa": {
+        "checks": {
+          "root_traceability": true,
+          "immutable_identity": true,
+          "role_conditioned_physique": true,
+          "proportion_signature": true,
+          "soft_tissue_delta": true,
+          "anatomy": true,
+          "clean_texture": true,
+          "live_action_surface": true
+        },
+        "hard_failures": [],
+        "notes": [],
+        "checked_at": "2026-08-25T12:00:00Z",
+        "reviewer": "codex-structural"
+      }
+    }
+  ]
+}

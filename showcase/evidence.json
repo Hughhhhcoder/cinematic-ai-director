@@ -1,0 +1,286 @@
+{
+  "assets": [
+    {
+      "actual_dimensions_px": [
+        1536,
+        1024
+      ],
+      "generation_backend": "builtin-imagegen",
+      "kind": "identity",
+      "operation": "independent_generate",
+      "original_path": "showcase/originals/identity-inspectors/identity-black-woman-v001.png",
+      "original_sha256": "69fbf6b845f7408de4ec73eb808be28dab5b9a4516f270a3f5d19dc0967bbb57",
+      "pixel_reproducible": false,
+      "prompt_path": "showcase/prompts/identity-black-woman-v001.txt",
+      "prompt_sha256": "f33e9e1f20610328de77beda5fcc91ef568fc96d9d8715ad0b7b518025a1ec13",
+      "publication_derivative_path": "docs/assets/showcase/identity-black-woman-v001.webp",
+      "publication_derivative_sha256": "8d12f166e710aa40c3fdc226291eb9243a3e470835e79b3f1c2a05096ef885ae",
+      "qa": {
+        "animation_or_cg_surface": "absent",
+        "cross_material_dirty_texture": "absent",
+        "finite_dynamic_range": {
+          "allowed_clipping": [],
+          "allowed_shadow_loss": [],
+          "exposure_priority": "protect_skin",
+          "highlight_loss_or_rolloff": "white field approaches the upper diffuse range without flattening facial planes",
+          "local_tone_mapping_detected": false,
+          "lower_latitude_stops": 8.0,
+          "measurement_note": "Visual release QA estimate only; this generated image does not claim a physical camera, EXIF, or measured sensor response.",
+          "middle_tone_anchor": "face and warm-gray shirt",
+          "multi_exposure_hdr_merge": false,
+          "policy": "finite_scene_referred",
+          "scene_contrast_stops_estimate": 5.0,
+          "shadow_loss_or_floor": "deepest trouser and shoe folds may merge without HDR lift",
+          "upper_latitude_stops": 6.0,
+          "working_latitude_stops": 14.0
+        },
+        "geometry": "pass",
+        "live_action_quality": "pass",
+        "oil_film": "absent",
+        "painterly_smear": "absent",
+        "reviewer": "codex-visual",
+        "scales_checked": [
+          "thumbnail",
+          "fit",
+          "100_percent",
+          "200_percent"
+        ],
+        "skin_surface_state": "natural_dry",
+        "source_light_causality": "pass",
+        "verdict": "pass"
+      },
+      "source_generation_id": "exec-a54b58cb-b18d-4909-97d7-d5fcaadefa1f"
+    },
+    {
+      "actual_dimensions_px": [
+        1672,
+        941
+      ],
+      "generation_backend": "builtin-imagegen",
+      "kind": "empty_scene",
+      "operation": "independent_generate",
+      "original_path": "showcase/originals/scenes/scene-observational-kitchen-v001.png",
+      "original_sha256": "c296546dddab003d3d0c6c0d19af2866e344fd2daafb9aa771c3a0cd1883a851",
+      "pixel_reproducible": false,
+      "prompt_path": "showcase/prompts/scene-observational-kitchen-v001.txt",
+      "prompt_sha256": "c8187c66925e1c3c2a9f2cbc5c2b30b3c6e147a2f845d98c9b649793281925d6",
+      "publication_derivative_path": "docs/assets/showcase/scene-observational-kitchen-v001.webp",
+      "publication_derivative_sha256": "455e502789aec6b9a2c1f18c457d60600eaf4597e182b68d35cc9f6c2dba59b4",
+      "qa": {
+        "animation_or_cg_surface": "absent",
+        "cross_material_dirty_texture": "absent",
+        "finite_dynamic_range": {
+          "allowed_clipping": [],
+          "allowed_shadow_loss": [
+            "deepest unlit cabinet and doorway recess"
+          ],
+          "exposure_priority": "balanced_middle_tones",
+          "highlight_loss_or_rolloff": "upper window values approach diffuse white while frames retain a source-shaped transition",
+          "local_tone_mapping_detected": false,
+          "lower_latitude_stops": 8.0,
+          "measurement_note": "Visual release QA estimate only; this generated image does not claim a physical camera, EXIF, or measured sensor response.",
+          "middle_tone_anchor": "pale-oak table and painted cabinet faces",
+          "multi_exposure_hdr_merge": false,
+          "policy": "finite_scene_referred",
+          "scene_contrast_stops_estimate": 11.5,
+          "shadow_loss_or_floor": "deepest under-cabinet and doorway recesses may lose fine texture",
+          "upper_latitude_stops": 6.0,
+          "working_latitude_stops": 14.0
+        },
+        "geometry": "not_applicable",
+        "live_action_quality": "pass",
+        "oil_film": "absent",
+        "painterly_smear": "absent",
+        "reviewer": "codex-visual",
+        "scales_checked": [
+          "thumbnail",
+          "fit",
+          "100_percent",
+          "200_percent"
+        ],
+        "skin_surface_state": "not_applicable",
+        "source_light_causality": "pass",
+        "verdict": "pass"
+      },
+      "source_generation_id": "exec-4db828f2-d873-487b-9243-503626d4954e"
+    },
+    {
+      "actual_dimensions_px": [
+        1672,
+        941
+      ],
+      "generation_backend": "builtin-imagegen",
+      "kind": "narrative",
+      "operation": "independent_generate",
+      "original_path": "showcase/originals/narrative/narrative-black-woman-kitchen-v001.png",
+      "original_sha256": "3857e972072743406558529a88d45b7cebf41885dcd947f39791ee44c1ce5f9d",
+      "pixel_reproducible": false,
+      "prompt_path": "showcase/prompts/narrative-black-woman-kitchen-v001.txt",
+      "prompt_sha256": "6fb895cbd84b4699e348c8cae67652007eae9dec80023b67be816dc570e8b43d",
+      "publication_derivative_path": "docs/assets/showcase/narrative-black-woman-kitchen-v001.webp",
+      "publication_derivative_sha256": "ee21011ae2099cfc52995e46b475b90078524d825f5606570b9514b43162646b",
+      "qa": {
+        "animation_or_cg_surface": "absent",
+        "cross_material_dirty_texture": "absent",
+        "finite_dynamic_range": {
+          "allowed_clipping": [
+            "small exterior diffuse-window areas if required"
+          ],
+          "allowed_shadow_loss": [
+            "deepest unlit cabinet and foreground-clothing fold"
+          ],
+          "exposure_priority": "protect_skin",
+          "highlight_loss_or_rolloff": "exterior window values approach diffuse white before facial middle tones are compressed",
+          "local_tone_mapping_detected": false,
+          "lower_latitude_stops": 8.0,
+          "measurement_note": "Visual release QA estimate only; this generated image does not claim a physical camera, EXIF, or measured sensor response.",
+          "middle_tone_anchor": "the woman's face and warm-gray shirt",
+          "multi_exposure_hdr_merge": false,
+          "policy": "finite_scene_referred",
+          "scene_contrast_stops_estimate": 12.5,
+          "shadow_loss_or_floor": "deepest under-cabinet and foreground-clothing folds may lose fine texture",
+          "upper_latitude_stops": 6.0,
+          "working_latitude_stops": 14.0
+        },
+        "geometry": "pass",
+        "live_action_quality": "pass",
+        "oil_film": "absent",
+        "painterly_smear": "absent",
+        "reviewer": "codex-visual",
+        "scales_checked": [
+          "thumbnail",
+          "fit",
+          "100_percent",
+          "200_percent"
+        ],
+        "skin_surface_state": "natural_dry",
+        "source_light_causality": "pass",
+        "verdict": "pass"
+      },
+      "source_generation_id": "exec-d7f1f406-caa7-461e-a800-283cb1b7bf07"
+    }
+  ],
+  "higgsfield_contract": {
+    "profile": "cinema-studio-4-seedance-2.5-official-2026-08-27",
+    "scope": "The Skill exporter and prompt adapter are validated against this dated official profile; gallery images are ImageGen quality evidence, not Higgsfield outputs."
+  },
+  "identity_authority_policy": "one ImageGen call, one shared identity solve, validate whole Inspector first, stop on failure, then crop exactly without resampling or redraw",
+  "identity_crops": {
+    "authority": "showcase/originals/identity-inspectors/identity-black-woman-v001.png",
+    "authority_sha256": "69fbf6b845f7408de4ec73eb808be28dab5b9a4516f270a3f5d19dc0967bbb57",
+    "blank_cell": {
+      "column": 3,
+      "row": 1
+    },
+    "crops": [
+      {
+        "height_px": 512,
+        "path": "showcase/originals/identity-crops/identity-black-woman-v001/full_front.png",
+        "role": "full_front",
+        "sha256": "f34406620b49d7248a84c5bc57da68c33aaf584b53ee9cc616fcb020806faf18",
+        "source_cell": {
+          "column": 0,
+          "row": 0
+        },
+        "width_px": 384
+      },
+      {
+        "height_px": 512,
+        "path": "showcase/originals/identity-crops/identity-black-woman-v001/full_left_profile.png",
+        "role": "full_left_profile",
+        "sha256": "481c4f39fc0958037a56f21904d345932de8fe870e61b158b8ea48d3ee5f08bc",
+        "source_cell": {
+          "column": 1,
+          "row": 0
+        },
+        "width_px": 384
+      },
+      {
+        "height_px": 512,
+        "path": "showcase/originals/identity-crops/identity-black-woman-v001/full_right_profile.png",
+        "role": "full_right_profile",
+        "sha256": "ff65695e022661b7ff8027a7470c2189cdb3fdc327b36f16fefc7bec90f78d82",
+        "source_cell": {
+          "column": 2,
+          "row": 0
+        },
+        "width_px": 384
+      },
+      {
+        "height_px": 512,
+        "path": "showcase/originals/identity-crops/identity-black-woman-v001/full_back.png",
+        "role": "full_back",
+        "sha256": "274312dee2da35d31f9970890fd99b9a3af312424ae5cd1f9e89db499ffb651d",
+        "source_cell": {
+          "column": 3,
+          "row": 0
+        },
+        "width_px": 384
+      },
+      {
+        "height_px": 512,
+        "path": "showcase/originals/identity-crops/identity-black-woman-v001/portrait_front.png",
+        "role": "portrait_front",
+        "sha256": "57c6b1ec139673e880be141d577dbcb49e522715a99632553dfbeb9d470cd86c",
+        "source_cell": {
+          "column": 0,
+          "row": 1
+        },
+        "width_px": 384
+      },
+      {
+        "height_px": 512,
+        "path": "showcase/originals/identity-crops/identity-black-woman-v001/portrait_left_profile.png",
+        "role": "portrait_left_profile",
+        "sha256": "4ac7d487fb03ead0a475fff3638df2ad35bd2cdda5370142556d0a8bc2d9b372",
+        "source_cell": {
+          "column": 1,
+          "row": 1
+        },
+        "width_px": 384
+      },
+      {
+        "height_px": 512,
+        "path": "showcase/originals/identity-crops/identity-black-woman-v001/portrait_right_profile.png",
+        "role": "portrait_right_profile",
+        "sha256": "f98ffca4aa58e14bb7e92fd42e8c8576a1ceb01647d4232eecce259910fab707",
+        "source_cell": {
+          "column": 2,
+          "row": 1
+        },
+        "width_px": 384
+      }
+    ],
+    "crops_are_authoritative": false,
+    "grid": [
+      4,
+      2
+    ],
+    "operation": "exact-cell-crop-no-resample-no-redraw",
+    "profile": "higgsfield-character-reference-sheet-two-row-single-solve-v1.6"
+  },
+  "pixel_reproducible": false,
+  "privacy": {
+    "failed_candidates_published": false,
+    "fictional_adult": true,
+    "third_party_project_media_published": false,
+    "user_calibration_reference_published": false
+  },
+  "publication_montages": [
+    {
+      "operation": "deterministic-layout-only",
+      "path": "docs/assets/showcase/hero.webp",
+      "sha256": "3584785e7795ab201748cb65092ef0cca6635057176675464896b384fb3efac0"
+    },
+    {
+      "operation": "deterministic-layout-only",
+      "path": "docs/assets/showcase/social-preview.webp",
+      "sha256": "8ff56ce8535eeff9d9e1aad1ae99b4be544c2d9bea9667c9f90fcacbe9852586"
+    }
+  ],
+  "reproducibility_class": "workflow_only",
+  "schema_version": "1.6",
+  "scope": "one unified identity Inspector, one empty location, one live-action person-in-location narrative frame",
+  "selection_claim": "Three approved examples after four-scale visual QA; this compact gallery is not a statistical pass-rate claim.",
+  "showcase_profile": "compact-release-evidence-v1.6"
+}

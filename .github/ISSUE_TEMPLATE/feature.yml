@@ -1,0 +1,31 @@
+name: Feature proposal
+description: Propose an auditable production-system improvement.
+title: "[Proposal]: "
+labels: [enhancement, triage]
+body:
+  - type: textarea
+    id: production_problem
+    attributes:
+      label: Production problem
+      description: Describe the concrete live-action failure or workflow cost.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence and transferability
+      description: Separate physical/cross-model evidence from platform-specific behavior and marketing claims.
+    validations:
+      required: true
+  - type: textarea
+    id: interface
+    attributes:
+      label: Proposed schema, CLI, or workflow change
+    validations:
+      required: true
+  - type: textarea
+    id: compatibility
+    attributes:
+      label: Compatibility and privacy impact
+    validations:
+      required: true

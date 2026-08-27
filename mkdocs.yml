@@ -1,0 +1,98 @@
+site_name: Cinematic AI Director
+site_description: Evidence-driven live-action AI filmmaking and Higgsfield-ready production packages.
+site_author: Hughhhhcoder
+site_url: https://hughhhhcoder.github.io/cinematic-ai-director/
+repo_url: https://github.com/Hughhhhcoder/cinematic-ai-director
+repo_name: Hughhhhcoder/cinematic-ai-director
+edit_uri: edit/main/docs/
+copyright: Copyright &copy; 2026 Hughhhhcoder · Apache-2.0
+
+theme:
+  name: material
+  language: en
+  logo: assets/brand/icon.svg
+  favicon: assets/brand/icon.svg
+  features:
+    - navigation.instant
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.tabs.link
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+nav:
+  - Overview: index.md
+  - Getting started: getting-started.md
+  - Production system:
+      - Complete workflow: workflow.md
+      - Live-action quality: quality-system.md
+      - Identity and physique: identity-physique.md
+      - Spatial continuity: spatial-continuity.md
+      - Cinematography and motion: cinematography-motion.md
+  - Delivery:
+      - Higgsfield export: higgsfield-export.md
+      - CLI and schema: cli-schema.md
+      - Limitations and safety: limitations.md
+  - Evidence gallery: gallery.md
+  - 简体中文:
+      - 中文首页: zh-CN/index.md
+      - 快速开始: zh-CN/getting-started.md
+      - 完整流程: zh-CN/workflow.md
+      - 实拍质量: zh-CN/quality-system.md
+      - Higgsfield 导出: zh-CN/higgsfield-export.md
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+
+plugins:
+  - search
+
+extra_css:
+  - stylesheets/extra.css
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Hughhhhcoder/cinematic-ai-director
+  alternate:
+    - name: English
+      link: https://hughhhhcoder.github.io/cinematic-ai-director/
+      lang: en
+    - name: 简体中文
+      link: https://hughhhhcoder.github.io/cinematic-ai-director/zh-CN/
+      lang: zh-CN

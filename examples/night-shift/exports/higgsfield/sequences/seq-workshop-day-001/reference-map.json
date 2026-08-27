@@ -1,0 +1,121 @@
+{
+  "camera_move_segment_limit": 1,
+  "official_conformance_profile_id": "cinema-studio-4-seedance-2.5-official-2026-08-27",
+  "package_schema": "higgsfield-sequence-reference-map-1.6",
+  "reference_count": 12,
+  "reference_limit": 50,
+  "reference_stack_sha256": "a994c4f208aa68a8fef84759f8375a66382cf0b2dc555c55f3f9efb6550032a7",
+  "references": [
+    {
+      "asset_id": "char-hero-inspector--v001",
+      "asset_type": "character_identity_inspector",
+      "file": "references/characters/char-hero-inspector--v001.png",
+      "rank": 1,
+      "required": true,
+      "suggested_handle": "@char-hero-unified-identity-inspector",
+      "usage": "identity_inspector_primary"
+    },
+    {
+      "asset_id": "char-hero-state-baseline--v001",
+      "asset_type": "character_state",
+      "file": "references/characters/char-hero-state-baseline--v001.png",
+      "rank": 2,
+      "required": true,
+      "suggested_handle": "@char-hero-state-baseline",
+      "usage": "current_character_state"
+    },
+    {
+      "asset_id": "loc-workshop-state-day-est--v001",
+      "asset_type": "location_variant",
+      "file": "references/locations/loc-workshop-state-day-est--v001.png",
+      "rank": 3,
+      "required": true,
+      "suggested_handle": "@loc-workshop-state-day-establishing",
+      "usage": "location_state_view"
+    },
+    {
+      "asset_id": "loc-workshop-state-day-side3q--v001",
+      "asset_type": "location_variant",
+      "file": "references/locations/loc-workshop-state-day-side3q--v001.png",
+      "rank": 4,
+      "required": true,
+      "suggested_handle": "@loc-workshop-state-day-side-three-quarter",
+      "usage": "location_three_quarter"
+    },
+    {
+      "asset_id": "loc-workshop-plate--v001",
+      "asset_type": "location_plate",
+      "file": "references/locations/loc-workshop-plate--v001.png",
+      "rank": 5,
+      "required": true,
+      "suggested_handle": "@loc-workshop-plate",
+      "usage": "location_shot_view"
+    },
+    {
+      "asset_id": "prop-red-worktable--v001",
+      "asset_type": "prop",
+      "file": "references/props/prop-red-worktable--v001.png",
+      "rank": 6,
+      "required": true,
+      "suggested_handle": "@prop-red-worktable",
+      "usage": "spatial_anchor"
+    },
+    {
+      "asset_id": "prop-red-worktable-state-baseline--v001",
+      "asset_type": "prop_state",
+      "file": "references/props/prop-red-worktable-state-baseline--v001.png",
+      "rank": 7,
+      "required": true,
+      "suggested_handle": "@prop-red-worktable-state-baseline",
+      "usage": "current_prop_state"
+    },
+    {
+      "asset_id": "look-base-a--v001",
+      "asset_type": "look_test",
+      "file": "references/looks/look-base-a--v001.png",
+      "rank": 8,
+      "required": false,
+      "suggested_handle": "@look-base-a",
+      "usage": "approved_look"
+    },
+    {
+      "asset_id": "seq-workshop-visual-anchor--v001",
+      "asset_type": "keyframe",
+      "file": "references/frames/seq-workshop-visual-anchor--v001.png",
+      "rank": 9,
+      "required": true,
+      "suggested_handle": "@sequence-workshop-joint-visual-anchor",
+      "usage": "sequence_visual_anchor"
+    },
+    {
+      "asset_id": "kf-sh-010-010-start--v001",
+      "asset_type": "keyframe",
+      "file": "references/frames/kf-sh-010-010-start--v001.png",
+      "rank": 10,
+      "required": true,
+      "suggested_handle": "@kf-sh-010-010-start",
+      "usage": "start_frame"
+    },
+    {
+      "asset_id": "kf-sh-010-010-end--v001",
+      "asset_type": "keyframe",
+      "file": "references/frames/kf-sh-010-010-end--v001.png",
+      "rank": 11,
+      "required": true,
+      "suggested_handle": "@kf-sh-010-010-end",
+      "usage": "end_frame"
+    },
+    {
+      "asset_id": "loc-workshop--v001",
+      "asset_type": "location_master",
+      "file": "references/locations/loc-workshop--v001.png",
+      "rank": 12,
+      "required": false,
+      "suggested_handle": "@loc-workshop",
+      "usage": "source_anchor"
+    }
+  ],
+  "sequence_cluster_id": "seq-workshop-day-001",
+  "target_model": "seedance-2.5",
+  "target_workflow": "cinema-studio-4"
+}

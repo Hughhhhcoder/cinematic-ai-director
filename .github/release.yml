@@ -1,0 +1,12 @@
+changelog:
+  categories:
+    - title: Production system
+      labels: [enhancement, quality-evidence]
+    - title: Reliability and compatibility
+      labels: [bug]
+    - title: Documentation and governance
+      labels: [documentation]
+    - title: Dependencies
+      labels: [dependencies]
+    - title: Other changes
+      labels: ["*"]

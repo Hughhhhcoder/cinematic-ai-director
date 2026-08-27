@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: tests (${{ matrix.os }}, py${{ matrix.python }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            python: "3.10"
+          - os: ubuntu-latest
+            python: "3.12"
+          - os: ubuntu-latest
+            python: "3.13"
+          - os: macos-latest
+            python: "3.12"
+          - os: windows-latest
+            python: "3.12"
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+      - name: Install package
+        run: python -m pip install --disable-pip-version-check -e .
+      - name: Run behavior and distribution tests
+        run: python -m unittest discover -s tests -v
+      - name: Check both CLI entry points
+        run: |
+          cinematic-ai-director --help
+          python scripts/film_project.py --help
+      - name: Validate public example
+        run: python scripts/film_project.py validate examples/night-shift
+
+  quality:
+    name: source, installer, and deterministic release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install --disable-pip-version-check -r requirements-dev.txt
+      - run: ruff check .
+      - run: python scripts/check_local_links.py
+      - name: Cross-platform installer contract
+        run: |
+          export CAD_CODEX_HOME="$RUNNER_TEMP/codex-home"
+          python scripts/install_skill.py install --codex-home "$CAD_CODEX_HOME"
+          python scripts/install_skill.py verify --codex-home "$CAD_CODEX_HOME"
+      - name: Deterministic release archives
+        run: |
+          python scripts/build_release.py --output "$RUNNER_TEMP/dist-a" --manifest-output "$RUNNER_TEMP/manifest-a.json"
+          python scripts/build_release.py --output "$RUNNER_TEMP/dist-b" --manifest-output "$RUNNER_TEMP/manifest-b.json"
+          cmp "$RUNNER_TEMP/dist-a/cinematic-ai-director-v1.6.0.zip" "$RUNNER_TEMP/dist-b/cinematic-ai-director-v1.6.0.zip"
+          test -f "$RUNNER_TEMP/dist-a/cinematic-ai-director-higgsfield-example-v1.6.0.zip"
+          test -f "$RUNNER_TEMP/dist-a/cinematic-ai-director-showcase-originals-v1.6.0.zip"
+
+  ci:
+    name: CI required
+    if: always()
+    needs: [tests, quality]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require all CI jobs
+        run: |
+          test "${{ needs.tests.result }}" = success
+          test "${{ needs.quality.result }}" = success

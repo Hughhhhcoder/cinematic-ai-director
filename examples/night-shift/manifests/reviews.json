@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.6",
+  "review_gates": [
+    {
+      "id": "review-foundation-001",
+      "type": "foundation",
+      "status": "approved",
+      "sequence_cluster_id": "",
+      "asset_ids": [
+        "char-hero-inspector--v001",
+        "char-hero-full-front--v001",
+        "char-hero-full-left-profile--v001",
+        "char-hero-full-right-profile--v001",
+        "char-hero-full-back--v001",
+        "char-hero-portrait-front--v001",
+        "char-hero-portrait-left-profile--v001",
+        "char-hero-portrait-right-profile--v001",
+        "char-hero-state-baseline--v001",
+        "loc-workshop--v001",
+        "prop-red-worktable--v001",
+        "prop-red-worktable-state-baseline--v001",
+        "loc-workshop-state-day-est--v001",
+        "loc-workshop-state-day-side3q--v001",
+        "look-base-a--v001",
+        "look-base-b--v001",
+        "look-base-c--v001"
+      ],
+      "profile_ids": [
+        "cp-base-a",
+        "cp-base-b",
+        "cp-base-c"
+      ],
+      "quality_profile_ids": [
+        "quality-main"
+      ],
+      "treatment_ids": [
+        "treat-base-a",
+        "treat-base-b",
+        "treat-base-c"
+      ],
+      "format_plan_ids": [
+        "format-plan-main-16x9"
+      ],
+      "comparison_set_ids": [
+        "lookset-base-001"
+      ],
+      "candidate_set_ids": [
+        "cset-char-hero-inspector--v001",
+        "cset-loc-workshop-state-day-est--v001",
+        "cset-loc-workshop-state-day-side3q--v001",
+        "cset-look-base-a--v001",
+        "cset-look-base-b--v001",
+        "cset-look-base-c--v001"
+      ],
+      "review_board_path": "assets/review-boards/review-foundation-001--fixture/overview.png",
+      "diagnostic_board_paths": {
+        "face": "assets/review-boards/review-foundation-001--fixture/face.png",
+        "hands": "assets/review-boards/review-foundation-001--fixture/hands.png",
+        "materials": "assets/review-boards/review-foundation-001--fixture/materials.png",
+        "highlights": "assets/review-boards/review-foundation-001--fixture/highlights.png",
+        "shadows": "assets/review-boards/review-foundation-001--fixture/shadows.png"
+      },
+      "decision": "approved",
+      "decision_notes": [
+        "Fixture gate approved after internal candidate isolation."
+      ],
+      "decided_at": "2026-08-25T12:00:00Z",
+      "selections": {
+        "lookset-base-001": "cp-base-a"
+      },
+      "affected_ids": [],
+      "created_at": "2026-08-25T12:00:00Z"
+    },
+    {
+      "id": "review-seq-workshop-day-001",
+      "type": "sequence",
+      "status": "approved",
+      "sequence_cluster_id": "seq-workshop-day-001",
+      "asset_ids": [
+        "loc-workshop-plate--v001",
+        "seq-workshop-visual-anchor--v001",
+        "kf-sh-010-010-start--v001",
+        "kf-sh-010-010-end--v001"
+      ],
+      "profile_ids": [],
+      "quality_profile_ids": [],
+      "treatment_ids": [],
+      "format_plan_ids": [],
+      "comparison_set_ids": [],
+      "candidate_set_ids": [
+        "cset-loc-workshop-plate--v001",
+        "cset-seq-workshop-visual-anchor--v001",
+        "cset-kf-sh-010-010-start--v001",
+        "cset-kf-sh-010-010-end--v001"
+      ],
+      "review_board_path": "assets/review-boards/review-seq-workshop-day-001--fixture/overview.png",
+      "diagnostic_board_paths": {
+        "face": "assets/review-boards/review-seq-workshop-day-001--fixture/face.png",
+        "hands": "assets/review-boards/review-seq-workshop-day-001--fixture/hands.png",
+        "materials": "assets/review-boards/review-seq-workshop-day-001--fixture/materials.png",
+        "highlights": "assets/review-boards/review-seq-workshop-day-001--fixture/highlights.png",
+        "shadows": "assets/review-boards/review-seq-workshop-day-001--fixture/shadows.png"
+      },
+      "decision": "approved",
+      "decision_notes": [
+        "Fixture gate approved after internal candidate isolation."
+      ],
+      "decided_at": "2026-08-25T12:00:00Z",
+      "selections": {},
+      "affected_ids": [],
+      "created_at": "2026-08-25T12:00:00Z"
+    }
+  ]
+}

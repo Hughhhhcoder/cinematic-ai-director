@@ -1,0 +1,69 @@
+{
+  "knowledge_snapshot": "2026-08-27",
+  "official_source_urls": [
+    "https://higgsfield.ai/blog/seedance-2-5-prompting-guide",
+    "https://higgsfield.ai/blog/ai-short-film-youtube-guide",
+    "https://higgsfield.ai/blog/realistic-ai-human-movement",
+    "https://higgsfield.ai/blog/cinema-studio-4-0"
+  ],
+  "operator_preflight": [
+    "Confirm the live Higgsfield UI still offers Cinema Studio 4 and Seedance 2.5 before any upload.",
+    "Confirm the displayed reference, duration, resolution, aspect and audio controls still match this dated profile.",
+    "If any item differs, stop; update and revalidate the Skill instead of silently changing the package."
+  ],
+  "package_schema": "higgsfield-official-conformance-1.6",
+  "profile_id": "cinema-studio-4-seedance-2.5-official-2026-08-27",
+  "strict": true,
+  "target": {
+    "model": "seedance-2.5",
+    "workflow": "cinema-studio-4"
+  },
+  "verified_contract": {
+    "identity_sheet": {
+      "authority_rule": "one single-solve board first; deterministic crops are secondary inspection/upload files",
+      "background": "clean neutral plain/white",
+      "bottom_row": [
+        "portrait_front",
+        "portrait_left_profile",
+        "portrait_right_profile",
+        "blank"
+      ],
+      "top_row": [
+        "full_front",
+        "full_left_profile",
+        "full_right_profile",
+        "full_back"
+      ]
+    },
+    "location_sheet": [
+      "front_wide",
+      "left_three_quarter_wide",
+      "right_three_quarter_wide",
+      "reverse_wide",
+      "detail_views_as_needed"
+    ],
+    "prompt_order": [
+      "GLOBAL STYLE",
+      "SCENE",
+      "CHARACTERS",
+      "LOCATION",
+      "FIRST FRAME AND BLOCKING",
+      "Shot 1",
+      "OPTICS",
+      "CAMERA",
+      "PHYSICS",
+      "LIGHTING",
+      "AUDIO"
+    ],
+    "published_capabilities": {
+      "aspect_ratio_range": "9:16 through 21:9",
+      "maximum_duration_s": 30,
+      "maximum_native_resolution": "1080p",
+      "maximum_reference_inputs": 50,
+      "native_audio": true
+    },
+    "reference_policy": "deliberate role-bound references; do not fill the reference budget without a production reason",
+    "sequence_beats": "numbered Shot blocks with explicit action, camera behavior, ending and Hard cut boundaries"
+  },
+  "version_policy": "snapshot-must-match-or-block"
+}

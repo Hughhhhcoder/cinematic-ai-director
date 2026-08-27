@@ -1,0 +1,48 @@
+:root {
+  --md-primary-fg-color: #101828;
+  --md-accent-fg-color: #0c9488;
+  --cad-warm: #e8903c;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #101828;
+  --md-accent-fg-color: #70d6c7;
+}
+
+.md-header,
+.md-tabs {
+  background: #101828;
+}
+
+.cad-hero {
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 1rem 3rem rgb(16 24 40 / 18%);
+}
+
+.cad-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1rem;
+}
+
+.cad-card {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: .75rem;
+  padding: 1rem;
+  background: var(--md-default-bg-color);
+}
+
+.cad-card img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: .5rem;
+}
+
+.cad-kicker {
+  color: var(--md-accent-fg-color);
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}

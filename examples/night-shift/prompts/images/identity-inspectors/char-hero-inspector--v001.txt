@@ -1,0 +1,20 @@
+Use case: live-action production image
+Prompt strategy: image2-live-action-identity-inspector-v1.6
+
+PHOTOGRAPHIC EVENT
+A documented story moment. A physically present production camera records an observed event.
+
+APPROVED IDENTITY WORLD AND STATE
+Use only the approved courier identity roots, role-physique-char-hero-v1, state-char-hero-baseline, state-workshop-day and prop-state-table-baseline.
+
+PHYSICAL CAMERA AND BLOCKING
+Approved 16:9 frame and reachable aisle camera. Causal blocking.
+
+SOURCE LIGHT AND MATERIAL RESPONSE
+Existing north window and desk lamp shape normal dry skin; hair, cloth, concrete, steel and glass retain distinct roughness and reflection.
+
+FOCUS EXPOSURE AND CONTINGENCY
+Focus on the narrative plane and accept source-caused falloff and partial occlusion. Finite scene-referred capture: working latitude 14 stops against 15 stops of scene contrast. Exposure priority: protect_subject_and_practicals; middle-tone anchor: the courier's face. Allowed clipping: the lamp filament core. Allowed shadow loss: the deepest shelf gap. No local tone mapping; no multi-exposure HDR merge.
+
+EXCLUSIONS
+No painterly smear or patch smear. No wax skin, plastic skin, CG render, animated rendering, game-cinematic rendering or synthetic glossy skin. No repeating swirl or cross-material texture. No rendered outline, oversharpen halo or HDR halo.

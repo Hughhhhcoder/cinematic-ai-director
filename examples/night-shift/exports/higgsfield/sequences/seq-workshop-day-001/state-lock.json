@@ -1,0 +1,404 @@
+{
+  "bridge": {
+    "frame_asset_id": "",
+    "from_sequence_id": "",
+    "may_replace_root_authorities": false,
+    "supplementary_only": true
+  },
+  "character_states": [
+    {
+      "approval_gate_id": "review-foundation-001",
+      "authority_asset_id": "char-hero-state-baseline--v001",
+      "cause": "Initial persistent character state at the start of the story.",
+      "first_visible_shot_id": "sh-010-010",
+      "id": "state-char-hero-baseline",
+      "identity_pack_id": "identity-char-hero",
+      "preserve_immutable": {
+        "body_build_and_height_ratio": true,
+        "facial_bone_proportions": true,
+        "feature_spacing": true,
+        "fixed_marks": true,
+        "hairline": true,
+        "handedness": true,
+        "skin_tone_range": true
+      },
+      "preserve_proportion_signature": true,
+      "preserve_role_physique": true,
+      "qa": {
+        "checked_at": "2026-08-25T12:00:00Z",
+        "checks": {
+          "anatomy": true,
+          "clean_texture": true,
+          "immutable_identity": true,
+          "live_action_surface": true,
+          "proportion_signature": true,
+          "role_conditioned_physique": true,
+          "root_traceability": true,
+          "soft_tissue_delta": true
+        },
+        "hard_failures": [],
+        "notes": [],
+        "reviewer": "codex-structural"
+      },
+      "soft_tissue_delta": {
+        "cause": "baseline story state",
+        "extent": "no change from root identity",
+        "first_visible_shot_id": "sh-010-010",
+        "kind": "none",
+        "preserve_skeleton": true
+      },
+      "state_delta": {
+        "age_stage": "adult baseline",
+        "dirt": "none",
+        "hair_state": "dry hair tied low",
+        "injury": "none",
+        "makeup": "none",
+        "story_props": "none",
+        "wardrobe": "plain navy work shirt and charcoal work trousers",
+        "wetness": "none"
+      },
+      "status": "approved"
+    }
+  ],
+  "identity_packs": [
+    {
+      "approval_gate_id": "review-foundation-001",
+      "body_anchor_asset_id": "char-hero-full-front--v001",
+      "character_state_ids": [
+        "state-char-hero-baseline"
+      ],
+      "face_anchor_asset_id": "char-hero-portrait-front--v001",
+      "id": "identity-char-hero",
+      "identity_inspector_asset_id": "char-hero-inspector--v001",
+      "identity_kind": "fictional",
+      "identity_view_asset_ids": {
+        "full_back": "char-hero-full-back--v001",
+        "full_front": "char-hero-full-front--v001",
+        "full_left_profile": "char-hero-full-left-profile--v001",
+        "full_right_profile": "char-hero-full-right-profile--v001",
+        "portrait_front": "char-hero-portrait-front--v001",
+        "portrait_left_profile": "char-hero-portrait-left-profile--v001",
+        "portrait_right_profile": "char-hero-portrait-right-profile--v001"
+      },
+      "immutable_identity": {
+        "body_build_and_height_ratio": "compact athletic build, 7.3-head adult proportion",
+        "facial_bone_proportions": "narrow lower face, broad cheekbone plane and short chin",
+        "feature_spacing": "documented eye, brow, nose and mouth spacing from the face authority",
+        "fixed_marks": "single small mark below the right cheekbone",
+        "hairline": "slightly asymmetric left temple and stable center shape",
+        "handedness": "right-handed",
+        "skin_tone_range": "documented neutral medium range under neutral exposure"
+      },
+      "physique_fit_qa": {
+        "checked_at": "2026-08-25T12:00:00Z",
+        "checks": {
+          "narrative_and_casting_fit": true,
+          "no_unrequested_body_template": true,
+          "posture_and_gait_fit": true,
+          "quantitative_target_fit": true,
+          "silhouette_and_volume_fit": true,
+          "visual_leg_body_balance_fit": true,
+          "wardrobe_silhouette_fit": true
+        },
+        "hard_failures": [],
+        "notes": [
+          "The seven views preserve the role-required lean athletic build."
+        ],
+        "reviewer": "codex-visual",
+        "verdict": "pass"
+      },
+      "proportion_signature": {
+        "confidence": 0.94,
+        "expected_digit_topology": {
+          "left_foot": 5,
+          "left_hand": 5,
+          "right_foot": 5,
+          "right_hand": 5
+        },
+        "id": "prop-char-hero-v1",
+        "intentional_asymmetries": [
+          "left shoulder rests approximately one centimetre lower"
+        ],
+        "measurement_asset_ids": [
+          "char-hero-full-front--v001",
+          "char-hero-full-back--v001"
+        ],
+        "normalization": "standing_height_1.0",
+        "projection_classes": {
+          "full_back": "measurement",
+          "full_front": "measurement",
+          "full_left_profile": "silhouette_confirmation",
+          "full_right_profile": "silhouette_confirmation",
+          "portrait_front": "silhouette_confirmation",
+          "portrait_left_profile": "silhouette_confirmation",
+          "portrait_right_profile": "silhouette_confirmation"
+        },
+        "ratios": {
+          "arm_span": 0.985,
+          "foot_length": 0.151,
+          "forearm_length": 0.158,
+          "hand_length": 0.108,
+          "head_to_body": 0.137,
+          "hip_width": 0.196,
+          "shin_length": 0.238,
+          "shoulder_width": 0.238,
+          "thigh_length": 0.247,
+          "torso_length": 0.303,
+          "upper_arm_length": 0.181
+        },
+        "tolerances": {
+          "arm_span": 0.03,
+          "foot_length": 0.03,
+          "forearm_length": 0.03,
+          "hand_length": 0.03,
+          "head_to_body": 0.03,
+          "hip_width": 0.03,
+          "shin_length": 0.03,
+          "shoulder_width": 0.03,
+          "thigh_length": 0.03,
+          "torso_length": 0.03,
+          "upper_arm_length": 0.03
+        }
+      },
+      "qa": {
+        "checked_at": "2026-08-25T12:00:00Z",
+        "checks": {
+          "clean_texture": true,
+          "face_identity": true,
+          "joint_topology": true,
+          "live_action_surface": true,
+          "proportion_signature": true,
+          "role_conditioned_physique": true,
+          "seven_deterministic_crops": true,
+          "single_solve_identity_board": true
+        },
+        "hard_failures": [],
+        "notes": [],
+        "reviewer": "codex-structural"
+      },
+      "reference_board": {
+        "authoritative": true,
+        "crop_map_path": "assets/reference-boards/identity-char-hero--identity-crops-v001.json",
+        "layout_profile": "higgsfield-character-reference-sheet-two-row-single-solve-v1.6",
+        "relative_path": "assets/characters/identity-inspectors/char-hero-inspector--v001--approved.png",
+        "sha256": "d1b95e556289ad0e8d2415170772a508e37c01e785d980f723576209f3997e58",
+        "source_sha256s": {
+          "full_back": "2182133d4a4fdfb13ac97b3821e240fdae856eda3609162d835f99129b4bf37e",
+          "full_front": "2182133d4a4fdfb13ac97b3821e240fdae856eda3609162d835f99129b4bf37e",
+          "full_left_profile": "2182133d4a4fdfb13ac97b3821e240fdae856eda3609162d835f99129b4bf37e",
+          "full_right_profile": "2182133d4a4fdfb13ac97b3821e240fdae856eda3609162d835f99129b4bf37e",
+          "portrait_front": "2182133d4a4fdfb13ac97b3821e240fdae856eda3609162d835f99129b4bf37e",
+          "portrait_left_profile": "2182133d4a4fdfb13ac97b3821e240fdae856eda3609162d835f99129b4bf37e",
+          "portrait_right_profile": "2182133d4a4fdfb13ac97b3821e240fdae856eda3609162d835f99129b4bf37e"
+        },
+        "status": "ready"
+      },
+      "role_physique_brief": {
+        "age_presentation": "healthy adult in the scripted age range",
+        "candidate_rejection_criteria": [
+          "shortened legs or collapsed torso",
+          "boxy untrained silhouette inconsistent with the role"
+        ],
+        "classification": "aspirational_athletic",
+        "id": "role-physique-char-hero-v1",
+        "muscle_and_fat_distribution": "functional lean muscle without bodybuilding exaggeration",
+        "must_have_traits": [
+          "balanced leg-to-torso impression",
+          "athletic shoulder line"
+        ],
+        "narrative_rationale": "The courier is a trained field operative whose lean athletic silhouette must read through practical workwear.",
+        "posture_and_gait": "upright trained posture, grounded stride and economical weight transfer",
+        "quantitative_targets": [
+          {
+            "maximum": 0.145,
+            "metric": "head_to_body",
+            "minimum": 0.13,
+            "rationale": "preserve the approved naturally elongated adult proportion",
+            "unit": "standing_height_1.0"
+          },
+          {
+            "maximum": 0.25,
+            "metric": "shoulder_width",
+            "minimum": 0.23,
+            "rationale": "retain the trained shoulder line",
+            "unit": "standing_height_1.0"
+          }
+        ],
+        "shoulder_waist_hip_relation": "athletic shoulders, defined but natural waist and stable pelvis",
+        "source": "mixed",
+        "stature_and_frame": "moderately tall, lean frame with long balanced limbs",
+        "visual_body_balance": {
+          "lower_body_share_range": [
+            0.56,
+            0.62
+          ],
+          "measurement_basis": "crown-to-functional-waist versus functional-waist-to-floor in neutral long-distance front and back authorities",
+          "perspective_policy": "natural_perspective_only",
+          "story_exception": "",
+          "target": "balanced_four_six",
+          "upper_body_share_range": [
+            0.38,
+            0.44
+          ]
+        },
+        "wardrobe_silhouette": "workwear preserves the shoulder line, waist and leg length rather than making the body boxy"
+      },
+      "skeletal_lock": {
+        "locked": true,
+        "notes": [
+          "Perspective shortening is projection, not a body-state change."
+        ],
+        "soft_tissue_delta_allowed": [
+          "age",
+          "weight",
+          "pregnancy",
+          "swelling",
+          "muscle"
+        ]
+      },
+      "status": "approved"
+    }
+  ],
+  "location_state": {
+    "approval_gate_id": "review-foundation-001",
+    "authority_asset_ids": [
+      "loc-workshop-state-day-est--v001",
+      "loc-workshop-state-day-side3q--v001",
+      "loc-workshop-plate--v001"
+    ],
+    "cause": "Initial daytime location state.",
+    "environmental_state_id": "env-workshop-clear",
+    "first_visible_shot_id": "sh-010-010",
+    "id": "state-workshop-day",
+    "location_world_id": "world-workshop",
+    "preserve_immutable": {
+      "fixed_facilities": true,
+      "material_baseline": true,
+      "openings": true,
+      "primary_anchor_asset_id": true,
+      "scale_relations": true,
+      "topology": true
+    },
+    "qa": {
+      "checked_at": "2026-08-25T12:00:00Z",
+      "checks": {
+        "anchor_and_scale": true,
+        "clean_texture": true,
+        "delta_locality": true,
+        "fixed_facilities": true,
+        "root_traceability": true,
+        "topology": true
+      },
+      "hard_failures": [],
+      "notes": [],
+      "reviewer": "codex-structural"
+    },
+    "scene_ids": [
+      "sc-010"
+    ],
+    "special_lighting_event_ids": [],
+    "state_delta": {
+      "damage": "none",
+      "dressing": "occupied workshop baseline",
+      "lighting_state": "north-window daylight plus existing practicals",
+      "time": "day",
+      "weather": "dry"
+    },
+    "status": "approved"
+  },
+  "location_world": {
+    "approval_gate_id": "review-foundation-001",
+    "id": "world-workshop",
+    "immutable_world": {
+      "fixed_facilities": [
+        "surface conduit",
+        "overhead practicals",
+        "wall service outlets"
+      ],
+      "material_baseline": [
+        "uncoated concrete floor",
+        "painted steel table",
+        "clear industrial glass"
+      ],
+      "openings": [
+        "north industrial window",
+        "+Y service doorway"
+      ],
+      "primary_anchor_asset_id": "prop-red-worktable--v001",
+      "scale_relations": [
+        "table 1.8 x 0.8 x 0.9 m",
+        "doorway 3.0 m toward +Y from anchor"
+      ],
+      "topology": "rectangular service bay with north window wall and +Y service doorway"
+    },
+    "location_master_asset_id": "loc-workshop--v001",
+    "location_state_ids": [
+      "state-workshop-day"
+    ],
+    "qa": {
+      "checked_at": "2026-08-25T12:00:00Z",
+      "checks": {
+        "anchor_and_scale": true,
+        "clean_texture": true,
+        "fixed_facilities": true,
+        "material_baseline": true,
+        "openings": true,
+        "topology": true
+      },
+      "hard_failures": [],
+      "notes": [],
+      "reviewer": "codex-structural"
+    },
+    "status": "approved"
+  },
+  "package_schema": "higgsfield-state-lock-1.6",
+  "prop_states": [
+    {
+      "approval_gate_id": "review-foundation-001",
+      "authority_asset_id": "prop-red-worktable-state-baseline--v001",
+      "cause": "Initial fixed anchor state.",
+      "first_visible_shot_id": "sh-010-010",
+      "id": "prop-state-table-baseline",
+      "preserve_structure": true,
+      "qa": {
+        "checked_at": "2026-08-25T12:00:00Z",
+        "checks": {
+          "clean_texture": true,
+          "delta_locality": true,
+          "root_traceability": true,
+          "structure_and_scale": true
+        },
+        "hard_failures": [],
+        "notes": [],
+        "reviewer": "codex-structural"
+      },
+      "root_prop_asset_id": "prop-red-worktable--v001",
+      "state_delta": {
+        "condition": "clean operational baseline",
+        "position": "fixed spatial anchor at world origin"
+      },
+      "status": "approved"
+    }
+  ],
+  "sequence_cluster_id": "seq-workshop-day-001",
+  "state_signature": {
+    "capture_profile_id": "cp-base-a",
+    "character_state_ids": [
+      "state-char-hero-baseline"
+    ],
+    "environmental_state_id": "env-workshop-clear",
+    "format_plan_id": "format-plan-main-16x9",
+    "lighting_state": "north-window daylight plus existing practicals",
+    "location_state_id": "state-workshop-day",
+    "prop_state_ids": [
+      "prop-state-table-baseline"
+    ],
+    "special_lighting_event_ids": [],
+    "temporal_capture_signature": {
+      "capture_fps": 24,
+      "delivery_fps": 24,
+      "playback_rate": 1.0,
+      "shutter_angle": 180
+    }
+  }
+}

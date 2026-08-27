@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Cinematic AI Director mark</title>
+  <desc id="desc">A clean camera frame surrounding a spatial anchor and a moving camera path.</desc>
+  <rect width="512" height="512" rx="112" fill="#101828"/>
+  <path d="M124 152h264a28 28 0 0 1 28 28v152a28 28 0 0 1-28 28H124a28 28 0 0 1-28-28V180a28 28 0 0 1 28-28Z" fill="none" stroke="#F4F7FB" stroke-width="28"/>
+  <circle cx="256" cy="256" r="58" fill="none" stroke="#70D6C7" stroke-width="24"/>
+  <circle cx="256" cy="256" r="12" fill="#70D6C7"/>
+  <path d="M150 307c38-86 118-118 214-92" fill="none" stroke="#FFB86B" stroke-width="20" stroke-linecap="round"/>
+  <path d="m337 191 42 21-32 34" fill="none" stroke="#FFB86B" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

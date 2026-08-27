@@ -1,0 +1,56 @@
+{
+  "behavior_translation_only": true,
+  "package_schema": "higgsfield-sequence-quality-profile-1.6",
+  "profile": {
+    "anchor_asset_ids": [
+      "char-hero-inspector--v001",
+      "loc-workshop--v001"
+    ],
+    "approval_gate_id": "review-foundation-001",
+    "calibration_family_ids": [],
+    "capture_circumstance": "A quiet human observer occupies the reachable near-side aisle and accepts ordinary occlusion and focus compromise.",
+    "dynamic_range_contract": {
+      "allowed_clipping": [
+        "small desk-lamp filament core"
+      ],
+      "allowed_shadow_loss": [
+        "deepest unlit rear-shelf gap"
+      ],
+      "exposure_priority": "protect_skin_and_practicals",
+      "highlight_behavior": "the lamp housing rolls gradually while its filament core may clip",
+      "local_tone_mapping": false,
+      "lower_latitude_stops": 8.0,
+      "middle_gray_anchor": "the courier's face and neutral gray work shirt",
+      "multi_exposure_hdr": false,
+      "narrative_reason": "Keep attention on the discovery rather than making the whole workshop equally legible.",
+      "policy": "finite_scene_referred",
+      "scene_contrast_stops_estimate": 15.0,
+      "shadow_behavior": "unlit shelf gaps fall below the texture floor without gray HDR lift",
+      "upper_latitude_stops": 6.0,
+      "working_latitude_stops": 14.0
+    },
+    "environment_module_ids": [],
+    "focus_optics_contract": "Conversational perspective with motivated focus falloff and no universal shallow-depth template.",
+    "id": "quality-main",
+    "illumination_contract": "The north window and existing desk lamp are the only shape-producing sources; no invented beauty or rim light.",
+    "material_response_contract": "Skin, hair, cotton, concrete, painted steel, glass and wood preserve independent roughness, edge and reflection behavior.",
+    "performance_composition_contract": "Task-led observed behavior with plausible unused space, mild occlusion and no publicity pose.",
+    "polish_ceiling": "grounded observational drama",
+    "quality_floor_id": "clean-observational-live-action-v001",
+    "scene_ids": [
+      "sc-010"
+    ],
+    "scope": "project",
+    "sequence_ids": [
+      "seq-workshop-day-001"
+    ],
+    "set_causality_contract": "Every utility, object, contact, age trace and dressing choice follows workshop use and construction.",
+    "skin_response_contract": "Natural dry skin retains continuous hue/value transitions and broad source-shaped highlights without uniform oil film.",
+    "status": "approved",
+    "tone_contrast_contract": "Protected middle tones, restrained local contrast and gradual source-specific highlight transition.",
+    "treatment_family": "naturalistic_dialogue"
+  },
+  "quality_floor_id": "clean-observational-live-action-v001",
+  "quality_floor_pixels_in_upload_map": false,
+  "sequence_cluster_id": "seq-workshop-day-001"
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.6",
+  "identity_pack_id": "identity-char-hero",
+  "identity_inspector_asset_id": "char-hero-inspector--v001",
+  "layout_profile": "higgsfield-character-reference-sheet-two-row-single-solve-v1.6",
+  "canvas_px": [
+    8,
+    4
+  ],
+  "grid": [
+    4,
+    2
+  ],
+  "background": "pure_white",
+  "authoritative": true,
+  "authority_sha256": "d1b95e556289ad0e8d2415170772a508e37c01e785d980f723576209f3997e58",
+  "generation": "one-imagegen-call-then-deterministic-crops",
+  "blank_slot": {
+    "row": 2,
+    "column": 4
+  },
+  "slots": []
+}

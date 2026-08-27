@@ -1,0 +1,33 @@
+{
+  "package_schema": "higgsfield-sequence-format-plan-1.6",
+  "sequence_cluster_id": "seq-workshop-day-001",
+  "shots": [
+    {
+      "format_plan": {
+        "approval_gate_id": "review-foundation-001",
+        "baked_black_bars": false,
+        "capture_aperture": "16:9",
+        "crop_extraction": "full working frame",
+        "delivery_aspect": "16:9",
+        "desqueeze_delivery": "none",
+        "id": "format-plan-main-16x9",
+        "narrative_reason": "Default widescreen delivery keeps the workshop geography legible without forcing a genre crop.",
+        "reframe_policy": "no automatic reframing; scene compositions honor the approved working frame",
+        "return_rule": "all scenes remain at 16:9 unless a sequence override is explicitly approved",
+        "safe_areas": {
+          "action_percent": 90,
+          "title_percent": 80
+        },
+        "scope": "project",
+        "sequence_ids": [],
+        "squeeze_ratio": 1.0,
+        "status": "approved",
+        "transition_design": "no aspect transition in this project baseline",
+        "working_frame": "16:9"
+      },
+      "generation_rule": "deliver the declared image area; do not generate black bars into image pixels",
+      "package_schema": "higgsfield-format-plan-1.6",
+      "shot_id": "sh-010-010"
+    }
+  ]
+}

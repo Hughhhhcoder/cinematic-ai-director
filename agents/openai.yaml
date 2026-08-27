@@ -1,0 +1,9 @@
+interface:
+  display_name: "Cinematic AI Director"
+  short_description: "Clean live-action assets and strict Higgsfield packages"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/logo.svg"
+  brand_color: "#101828"
+  default_prompt: "Use $cinematic-ai-director to turn my live-action script into a consistent v1.6 film project with one shared-solve identity Inspector per person, clean live-action assets, finite scene-referred exposure tradeoffs, sequence-level reviews, cinematic shot design, and a strict versioned Cinema Studio 4 + Seedance 2.5 package."
+policy:
+  allow_implicit_invocation: true

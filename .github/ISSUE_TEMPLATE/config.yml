@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions and workflow discussion
+    url: https://github.com/Hughhhhcoder/cinematic-ai-director/discussions
+    about: Ask for workflow guidance or discuss production methods.
+  - name: Security report
+    url: https://github.com/Hughhhhcoder/cinematic-ai-director/security/advisories/new
+    about: Privately report a vulnerability or accidental sensitive-data exposure.

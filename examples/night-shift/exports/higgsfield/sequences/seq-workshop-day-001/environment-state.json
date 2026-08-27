@@ -1,0 +1,64 @@
+{
+  "package_schema": "higgsfield-sequence-environment-1.6",
+  "sequence_cluster_id": "seq-workshop-day-001",
+  "shots": [
+    {
+      "continuity_rule": "weather and light events must affect depth, exposure, shadows, reflections, skin, hair, wardrobe and surfaces according to their recorded causes",
+      "environmental_state": {
+        "accumulation": "none on floor, skin, hair, wardrobe or equipment",
+        "approval_gate_id": "review-foundation-001",
+        "continuity_signature": "clear-dry-still-workshop-v1",
+        "direction": "still interior air",
+        "end_shot_id": "sh-010-010",
+        "focus_exposure_effect": "no atmosphere-driven focus or exposure compensation",
+        "id": "env-workshop-clear",
+        "intensity": "clear air with only natural distance falloff",
+        "kind": "clear",
+        "light_behavior": {
+          "distance_behavior": "contrast decreases only through normal lens and room depth",
+          "readability_source": "window and practical illumination",
+          "reflection_response": "unchanged dry material reflections",
+          "scattering_or_attenuation": "ordinary clean-air attenuation only"
+        },
+        "material_interactions": [
+          "no wetting, settling or coating"
+        ],
+        "particle_or_medium_scale": "no visible suspended particles",
+        "qa": {
+          "checked_at": "2026-08-25T12:00:00Z",
+          "checks": {
+            "accumulation_and_material_interaction": true,
+            "advection_and_direction": true,
+            "exposure_focus_effect": true,
+            "light_scattering_or_attenuation": true,
+            "physical_source": true,
+            "sound_and_continuity": true,
+            "temporal_bounds": true,
+            "visibility_and_depth": true
+          },
+          "hard_failures": [],
+          "notes": [],
+          "reviewer": "codex-structural"
+        },
+        "scene_ids": [
+          "sc-010"
+        ],
+        "sound": [
+          "quiet workshop room tone"
+        ],
+        "source_cause": "ordinary indoor air exchanged through the service doorway",
+        "start_shot_id": "sh-010-010",
+        "status": "approved",
+        "visibility_range_m": 30.0,
+        "wind": {
+          "direction": "none",
+          "gust_mps": 0.0,
+          "speed_mps": 0.0
+        }
+      },
+      "package_schema": "higgsfield-environment-state-1.6",
+      "shot_id": "sh-010-010",
+      "special_lighting_events": []
+    }
+  ]
+}

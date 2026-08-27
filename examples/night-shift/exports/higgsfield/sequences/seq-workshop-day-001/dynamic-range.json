@@ -1,0 +1,32 @@
+{
+  "continuity_rule": "Exposure priority may change only when the recorded light or narrative point of view changes; clipping and shadow floors remain temporally stable within a shot.",
+  "package_schema": "higgsfield-sequence-dynamic-range-1.6",
+  "sequence_cluster_id": "seq-workshop-day-001",
+  "shots": [
+    {
+      "hard_rule": "one finite scene-referred exposure; do not recover every highlight and shadow with local tone mapping or exposure fusion",
+      "package_schema": "higgsfield-dynamic-range-1.6",
+      "plan": {
+        "allowed_clipping": [
+          "small desk-lamp filament core"
+        ],
+        "allowed_shadow_loss": [
+          "deepest unlit rear-shelf gap"
+        ],
+        "exposure_priority": "protect_skin_and_practicals",
+        "highlight_behavior": "the lamp housing rolls gradually while its filament core may clip",
+        "local_tone_mapping": false,
+        "lower_latitude_stops": 8.0,
+        "middle_gray_anchor": "the courier's face and neutral gray work shirt",
+        "multi_exposure_hdr": false,
+        "narrative_reason": "Keep attention on the discovery rather than making the whole workshop equally legible.",
+        "policy": "finite_scene_referred",
+        "scene_contrast_stops_estimate": 15.0,
+        "shadow_behavior": "unlit shelf gaps fall below the texture floor without gray HDR lift",
+        "upper_latitude_stops": 6.0,
+        "working_latitude_stops": 14.0
+      },
+      "shot_id": "sh-010-010"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+Use case: live-action production image
+Prompt strategy: image2-live-action-location-v1.6
+
+PHOTOGRAPHIC EVENT
+A documented story moment. A physically present production camera records an observed event.
+
+APPROVED IDENTITY WORLD AND STATE
+Use only approved location world loc-workshop, state-workshop-day and the fixed red worktable spatial anchor. No people.
+
+PHYSICAL CAMERA AND BLOCKING
+Approved 16:9 frame and reachable aisle camera. Causal blocking.
+
+SOURCE LIGHT AND MATERIAL RESPONSE
+Existing north window and desk lamp shape concrete, steel, glass and wood with separate roughness and reflection; no decorative fill light.
+
+FOCUS EXPOSURE AND CONTINGENCY
+Focus on the narrative plane and accept source-caused falloff and partial occlusion. Finite scene-referred capture: working latitude 14 stops against 15 stops of scene contrast. Exposure priority: protect_subject_and_practicals; middle-tone anchor: the mid-gray painted wall. Allowed clipping: the lamp filament core. Allowed shadow loss: the deepest shelf gap. No local tone mapping; no multi-exposure HDR merge.
+
+EXCLUSIONS
+No painterly smear or patch smear. No illustration, animation, CG/PBR render or game-environment finish. No repeating swirl or cross-material texture. No rendered outline, oversharpen halo or HDR halo.
