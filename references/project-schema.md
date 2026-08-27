@@ -214,7 +214,7 @@ Foundation 批准必须为每个比较组选一套 Profile；门内 `qualified` 
 
 `aspirational_lean / aspirational_athletic / aspirational_muscular / fashion_model / dancer_performer / strength_power / endurance_trained` 至少两个量化目标与两个淘汰条件；实际比例必须落在目标范围。Character state 必须 `preserve_role_physique:true`，只把统一 Inspector 作为身份根，并保存 state delta 与 soft-tissue delta。
 
-`build-reference-board` 验证统一 Inspector 并从固定 4×2 网格确定性裁出七张 PNG；不调用 ImageGen、不重绘、不重采样、不覆盖。crop map 记录裁框和 SHA-256；Inspector `authoritative:true`，裁图为次要检查/上传文件。
+`build-reference-board` 验证统一 Inspector，保持固定四列/两排职责顺序，检测中心附近唯一明确的白色横向 gutter，并按记录的实际 `row_split_px` 确定性裁出七张 PNG；不调用 ImageGen、不重绘、不重采样、不覆盖。crop map 记录 gutter 检测证据、裁框和 SHA-256；分隔缺失/歧义或内容跨界会阻断。Inspector `authoritative:true`，裁图为次要检查/上传文件。
 
 ## `world-state.json` 与 `spatial.json`
 

@@ -1,0 +1,151 @@
+{
+  "authority": "showcase/originals/identity-inspectors/identity-white-arctic-survey-pilot-v003.png",
+  "authority_sha256": "8719a195f11116cf5d4c40df2bd8c46e6d23d081a1df14b96ea6cc37e894c826",
+  "blank_cell": {
+    "column": 3,
+    "row": 1
+  },
+  "crops": [
+    {
+      "crop_box_px": [
+        0,
+        0,
+        384,
+        550
+      ],
+      "height_px": 550,
+      "path": "showcase/originals/identity-crops/identity-white-arctic-survey-pilot-v003/full_front.png",
+      "role": "full_front",
+      "sha256": "f851bb8344664d8e6216132180c35493aa3cbc8727e874ed8fdb71db05a8f453",
+      "source_cell": {
+        "column": 0,
+        "row": 0
+      },
+      "width_px": 384
+    },
+    {
+      "crop_box_px": [
+        384,
+        0,
+        384,
+        550
+      ],
+      "height_px": 550,
+      "path": "showcase/originals/identity-crops/identity-white-arctic-survey-pilot-v003/full_left_profile.png",
+      "role": "full_left_profile",
+      "sha256": "914956cf3cf5a72b2ec99d89494d08a4e6f03342c99f7e84ec11302ecc03465f",
+      "source_cell": {
+        "column": 1,
+        "row": 0
+      },
+      "width_px": 384
+    },
+    {
+      "crop_box_px": [
+        768,
+        0,
+        384,
+        550
+      ],
+      "height_px": 550,
+      "path": "showcase/originals/identity-crops/identity-white-arctic-survey-pilot-v003/full_right_profile.png",
+      "role": "full_right_profile",
+      "sha256": "67cde120d2c9c5252ca52ed5422397aac51ddefda6d997056c3bf547e88c4a3c",
+      "source_cell": {
+        "column": 2,
+        "row": 0
+      },
+      "width_px": 384
+    },
+    {
+      "crop_box_px": [
+        1152,
+        0,
+        384,
+        550
+      ],
+      "height_px": 550,
+      "path": "showcase/originals/identity-crops/identity-white-arctic-survey-pilot-v003/full_back.png",
+      "role": "full_back",
+      "sha256": "aee04d17c24d35e4a79a4db4dd8c85c95c06d4be179b180d103859189a418905",
+      "source_cell": {
+        "column": 3,
+        "row": 0
+      },
+      "width_px": 384
+    },
+    {
+      "crop_box_px": [
+        0,
+        550,
+        384,
+        474
+      ],
+      "height_px": 474,
+      "path": "showcase/originals/identity-crops/identity-white-arctic-survey-pilot-v003/portrait_front.png",
+      "role": "portrait_front",
+      "sha256": "c3b0ce250ef99991de1fb0da76082559a96d5f537e56391f8dcf429eb6a58f83",
+      "source_cell": {
+        "column": 0,
+        "row": 1
+      },
+      "width_px": 384
+    },
+    {
+      "crop_box_px": [
+        384,
+        550,
+        384,
+        474
+      ],
+      "height_px": 474,
+      "path": "showcase/originals/identity-crops/identity-white-arctic-survey-pilot-v003/portrait_left_profile.png",
+      "role": "portrait_left_profile",
+      "sha256": "997714e75cf35481674b46c8c31bab097ff4280e5ac7be57818d1e555c6f9d32",
+      "source_cell": {
+        "column": 1,
+        "row": 1
+      },
+      "width_px": 384
+    },
+    {
+      "crop_box_px": [
+        768,
+        550,
+        384,
+        474
+      ],
+      "height_px": 474,
+      "path": "showcase/originals/identity-crops/identity-white-arctic-survey-pilot-v003/portrait_right_profile.png",
+      "role": "portrait_right_profile",
+      "sha256": "46d11363b0d0047a2d7aab12ca236e7c43c8942b2a7df2e08145ac18e0f5cedc",
+      "source_cell": {
+        "column": 2,
+        "row": 1
+      },
+      "width_px": 384
+    }
+  ],
+  "crops_are_authoritative": false,
+  "grid": [
+    4,
+    2
+  ],
+  "gutter_detection": {
+    "accepted_gutter_rows_px": [
+      528,
+      572
+    ],
+    "maximum_nonwhite_pixels_per_row": 31,
+    "method": "central-near-white-gutter-v1.6.1",
+    "near_white_min_channel": 238,
+    "search_rows_px": [
+      409,
+      634
+    ],
+    "split_y_px": 550
+  },
+  "operation": "exact-cell-crop-no-resample-no-redraw",
+  "profile": "higgsfield-character-reference-sheet-two-row-single-solve-v1.6",
+  "row_split_px": 550
+}

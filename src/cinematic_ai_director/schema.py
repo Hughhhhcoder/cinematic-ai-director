@@ -708,7 +708,7 @@ Status: draft
 ## Identity geometry and state contract
 
 - Identity-pack authority: one complete white-background 4×2 identity inspector generated in one ImageGen call and validated as a whole before any downstream work
-- Inspection/upload views: seven deterministic, non-resampled crops from that authority board; crops never become separate identity solves
+- Inspection/upload views: seven deterministic, non-resampled crops from that authority board; record the one unambiguous central white row gutter and its actual split instead of blindly assuming equal row heights; crops never become separate identity solves
 - Proportion signature: identity-specific head/body, shoulder/hip, torso/limb, arm-span, hand/foot and intentional-asymmetry ratios
 - Immutable identity fields: skeletal proportions, feature spacing, skin range, hairline, fixed marks, handedness and expected digit topology
 - Persistent state fields: wardrobe, hair state, age stage, injury, wetness, dirt, makeup, story props

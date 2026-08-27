@@ -76,7 +76,7 @@ flowchart LR
 
 每个持续人物只有一个第一身份权威：一次 ImageGen 调用生成一张纯白背景 `4×2` 统一身份检查板，让所有角度共享同一次身份解算。上排固定为全身正面、全身左侧、全身右侧、全身背面；下排固定为脸部正面、脸部左侧、脸部右侧、留白。
 
-必须先验收整张检查板。任何一格出现身份、解剖、比例、皮肤、头发、衣着、光线、涂抹、CG 或重复底纹问题，就立即阻断该人物，不允许污染下游。通过后才无缩放、无重绘地确定性裁出七张 PNG，供检查和界面上传；裁图永远不能替代统一板的权威地位。全身正背面建立人物自身的归一化比例签名，左右侧面验证体积和脸部拓扑。
+必须先验收整张检查板。任何一格出现身份、解剖、比例、皮肤、头发、衣着、光线、涂抹、CG 或重复底纹问题，就立即阻断该人物，不允许污染下游。通过后才无缩放、无重绘地确定性裁出七张 PNG，供检查和界面上传。裁图器记录靠近画布中心的明确白色横向分隔带，不强行假设上下排数学等高，避免 ImageGen 轻微移动分隔带时切掉鞋；分隔带缺失、歧义、有人体跨越或裁掉头发/鞋履都会明确失败。裁图永远不能替代统一板的权威地位。全身正背面建立人物自身的归一化比例签名，左右侧面验证体积和脸部拓扑。
 
 `role_physique_brief` 根据年龄、职业、训练史、健康、年代、叙事作用、服装轮廓和明确选角意图推导普通可信、修长、健美、肌肉、模特、舞者、力量、耐力等体态。所谓“好比例”必须变成可测范围与轮廓要求；广角拉腿、塌腰、骨盆错误、肩腰胯丢失、衣服吞掉批准身材都直接失败。
 
@@ -130,13 +130,13 @@ python3 scripts/film_project.py validate ./ai-film/night-shift
 
 ## 效果展示
 
-v1.6 公开画廊按最新要求收敛为一个虚构成年人和一个原创场景，只使用 Codex 内置 ImageGen。不会公开你的质量参考照片、旧 benchmark、失败图或第三方项目媒体。
+v1.6.1 公开画廊按最新要求收敛为一个虚构白人女主和一个原创场景，只使用 Codex 内置 ImageGen。场景图和人物入景图均为原生 2.39:1 剧院宽银幕画面，不烧入黑边。不会公开你的质量参考照片、旧 benchmark、失败图或第三方项目媒体。
 
 | 单次共享身份解算检查板 | 无人物空场景 | 同人物进入同场景 |
 |---|---|---|
-| ![同一虚构黑人女性的 4×2 白底统一身份检查板](docs/assets/showcase/identity-black-woman-v001.webp) | ![以蓝色水壶为固定空间锚点的观察式公寓厨房](docs/assets/showcase/scene-observational-kitchen-v001.webp) | ![同一虚构人物自然出现在批准厨房中的实拍叙事帧](docs/assets/showcase/narrative-black-woman-kitchen-v001.webp) |
+| ![同一虚构白人女性北极勘测飞行员的一次共享身份解算白底检查板](docs/assets/showcase/identity-white-arctic-survey-pilot-v003.webp) | ![原生 2.39 比 1 的暴雪北极搜救机库空场景，以黄色除冰柜为固定空间锚点](docs/assets/showcase/scene-arctic-rescue-hangar-v003.webp) | ![同一虚构白人勘测飞行员以后侧四分之三视角进入批准北极机库的原生 2.39 比 1 真人实拍叙事帧](docs/assets/showcase/narrative-white-survey-pilot-arctic-hangar-v003.webp) |
 
-这是刻意精简的发布证明，不虚构统计通过率。保留提示、生成来源 ID、原图与 WebP 的 SHA-256、统一板七张确定性裁图、四尺度 QA 和有限动态范围审查均记录在 [`showcase/evidence.json`](showcase/evidence.json) 与[画廊文档](https://hughhhhcoder.github.io/cinematic-ai-director/gallery/)。
+这是刻意精简的发布证明，不虚构统计通过率。保留提示、生成来源 ID、原图与 WebP 的 SHA-256、统一板七张确定性裁图、四尺度 QA、原生 2.39:1 画幅证据和有限动态范围审查均记录在 [`showcase/evidence.json`](showcase/evidence.json) 与[画廊文档](https://hughhhhcoder.github.io/cinematic-ai-director/gallery/)。
 
 ## 可复现性和限制
 

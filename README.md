@@ -98,7 +98,7 @@ Each recurring person has exactly one first identity authority: a single pure-wh
 `full_front · full_left_profile · full_right_profile · full_back`  
 `portrait_front · portrait_left_profile · portrait_right_profile · blank`
 
-The whole inspector is validated before anything is cropped. Any identity, anatomy, proportion, skin, hair, garment, lighting, smear, CG, or repeated-texture failure blocks that person immediately; no failed cell may propagate downstream. Seven exact PNG views are then cropped without resampling or repainting for inspection and UI upload convenience. Those crops never replace the inspector as ground truth. Front/back establish a person-specific normalized proportion signature; profiles verify body volume and facial topology. A separate role-physique brief explains why the body should read as ordinary, lean, athletic, muscular, fashion-model, dancer, strength/power, endurance-trained, story-specific deconditioned, or a controlled transition.
+The whole inspector is validated before anything is cropped. Any identity, anatomy, proportion, skin, hair, garment, lighting, smear, CG, or repeated-texture failure blocks that person immediately; no failed cell may propagate downstream. Seven exact PNG views are then cropped without resampling or repainting for inspection and UI upload convenience. The cropper records an unambiguous central white gutter instead of assuming a mathematically equal row split, so a slightly taller full-body row cannot cut the shoes; a missing/ambiguous gutter or content crossing it fails loudly. Those crops never replace the inspector as ground truth. Front/back establish a person-specific normalized proportion signature; profiles verify body volume and facial topology. A separate role-physique brief explains why the body should read as ordinary, lean, athletic, muscular, fashion-model, dancer, strength/power, endurance-trained, story-specific deconditioned, or a controlled transition.
 
 “Good proportions” are converted into measurable ranges and silhouette requirements. The system rejects lens-distorted long legs, collapsed pelvis/spine, lost shoulder-waist-hip relationships, melted garments, or wardrobe that changes an approved body into another physique.
 
@@ -195,13 +195,13 @@ It does **not** install a plugin, authenticate, upload references, call a genera
 
 ## Showcase
 
-The compact public v1.6 gallery uses one new fictional adult and one original location generated with built-in ImageGen. It excludes the user's calibration photo, old benchmark images, failed candidates, and third-party project media.
+The compact public v1.6.1 gallery uses one new fictional adult and one original location generated with built-in ImageGen. The scene and narrative frame are native 2.39:1 theatrical widescreen images with no baked black bars. It excludes the user's calibration photo, old benchmark images, failed candidates, and third-party project media.
 
 | One shared-solve identity Inspector | One empty location | One person-in-location frame |
 |---|---|---|
-| ![One 4×2 white identity Inspector with seven views of the same fictional Black woman](docs/assets/showcase/identity-black-woman-v001.webp) | ![An empty observational apartment kitchen with a cobalt kettle as spatial anchor](docs/assets/showcase/scene-observational-kitchen-v001.webp) | ![The same fictional woman naturally observed in the approved kitchen](docs/assets/showcase/narrative-black-woman-kitchen-v001.webp) |
+| ![One white identity Inspector with seven views from the same shared solve for a fictional Arctic survey pilot](docs/assets/showcase/identity-white-arctic-survey-pilot-v003.webp) | ![A native 2.39:1 empty Arctic search-and-rescue hangar during a snow squall, with a yellow deicing cabinet as spatial anchor](docs/assets/showcase/scene-arctic-rescue-hangar-v003.webp) | ![The same fictional white survey pilot seen from rear three-quarter inside the approved Arctic hangar in a native 2.39:1 live-action frame](docs/assets/showcase/narrative-white-survey-pilot-arctic-hangar-v003.webp) |
 
-This is intentionally a small release proof, not a fabricated statistical pass-rate claim. Exact retained prompts, source-generation IDs, original and derivative SHA-256 values, deterministic identity crops, four-scale QA, and finite-dynamic-range review are in [`showcase/evidence.json`](showcase/evidence.json) and the [gallery documentation](https://hughhhhcoder.github.io/cinematic-ai-director/gallery/).
+This is intentionally a small release proof, not a fabricated statistical pass-rate claim. Exact retained prompts, source-generation IDs, original and derivative SHA-256 values, deterministic identity crops, four-scale QA, native 2.39:1 format evidence, and finite-dynamic-range review are in [`showcase/evidence.json`](showcase/evidence.json) and the [gallery documentation](https://hughhhhcoder.github.io/cinematic-ai-director/gallery/).
 
 ## Repository layout
 

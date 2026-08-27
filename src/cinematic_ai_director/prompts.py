@@ -122,10 +122,11 @@ def _compile_image_prompt(
         )
         authority_scope = "This unified sheet is the first identity authority; later crops are inspection/upload derivatives only."
         event_body = (
-            f"One neutral casting session records {role} as a single 4-by-2 pure-white technical reference sheet. "
+            f"One neutral casting session records {role} as a single four-column, two-row pure-white technical reference sheet. "
             "Top row, left to right: full-body front, full-body left profile, full-body right profile, full-body back. "
             "Bottom row, left to right: face close-up front, face close-up left profile, face close-up right profile, one empty white cell. "
-            "No captions, labels, borders, props or environment."
+            "Use four equal-width columns and one continuous unambiguous pure-white horizontal gutter near canvas center; allow the full-body row enough height to preserve complete hair and footwear, and let no person, garment or shadow cross any cell boundary. "
+            "No captions, labels, drawn borders, props or environment."
         )
         light_body = (
             "One broad neutral soft source and restrained fill are identical across all seven panels, with normal white balance and no rim light. "
@@ -198,7 +199,8 @@ def _compile_image_prompt(
     if asset_type == "character_identity_inspector":
         physical_camera_body = (
             "One locked technical capture geometry for the entire 4-by-2 sheet. Full-body panels use the same level height, long distance, neutral A-pose, scale and foot line; "
-            "portrait panels use the same level face camera and crop. No panel-specific beauty angle, expression, focal-length shift or body redesign."
+            "portrait panels use the same level face camera and crop. The role order is fixed, but do not sacrifice full-body anatomy merely to force mathematically equal row heights; preserve a clean detectable white row gutter. "
+            "No panel-specific beauty angle, expression, focal-length shift or body redesign."
         )
     elif asset_type == "character_face_anchor":
         physical_camera_body = (

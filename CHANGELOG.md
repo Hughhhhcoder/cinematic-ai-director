@@ -2,6 +2,16 @@
 
 All notable public changes are documented here. The project follows [Semantic Versioning](https://semver.org/).
 
+## [1.6.1] — 2026-08-28
+
+### Changed
+
+- Replaced the first public showcase with a new shared-solve white Arctic survey-pilot identity Inspector and a physically grounded search-and-rescue hangar sequence.
+- Upgraded both location examples to native 2.39:1 theatrical widescreen delivery without baked black bars.
+- Tightened publication evidence for natural-dry skin, role-matched long-legged body balance, material separation, finite highlight clipping, real shadow loss, and reference-stack provenance.
+- Made identity cropping gutter-aware: the runtime now detects and records an unambiguous central white row gutter before exact, non-resampled crops, preventing full-body anatomy from being cut when ImageGen shifts the row split.
+- Rebuilt the deterministic hero, social preview, WebP derivatives, identity crops, evidence manifest, and release archive; the superseded showcase remains recoverable only through Git history.
+
 ## [1.6.0] — 2026-08-27
 
 First public release.

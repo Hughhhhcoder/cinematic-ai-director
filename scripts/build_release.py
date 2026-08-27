@@ -12,7 +12,7 @@ from pathlib import Path
 
 from install_skill import REPOSITORY_ROOT, SKILL_NAME, manifest, runtime_files
 
-VERSION = "1.6.0"
+VERSION = "1.6.1"
 ZIP_TIMESTAMP = (2026, 1, 1, 0, 0, 0)
 
 

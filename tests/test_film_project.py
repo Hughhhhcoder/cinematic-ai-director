@@ -16,6 +16,12 @@ from pathlib import Path
 from typing import Any
 
 SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "film_project.py"
+SOURCE_ROOT = Path(__file__).resolve().parents[1] / "src"
+if str(SOURCE_ROOT) not in sys.path:
+    sys.path.insert(0, str(SOURCE_ROOT))
+
+from cinematic_ai_director.boards import _detect_horizontal_gutter_split  # noqa: E402
+
 TIMESTAMP = "2026-08-25T12:00:00Z"
 STORY_MOMENT = "The courier notices the opened case under the existing desk lamp."
 LOCKED_BLOCKING = (
@@ -3409,7 +3415,34 @@ class FilmProjectTests(unittest.TestCase):
             assets = fixture.read("manifests/assets.json")
             inspector = next(item for item in assets["assets"] if item["id"] == fixture.identity_inspector_id)
             inspector_path = fixture.path / inspector["approved_path"]
-            inspector_bytes = inspector_path.read_bytes()
+            width = 8
+            rows = [
+                *((72, 78, 86),) * 10,
+                *((255, 255, 255),) * 2,
+                *((96, 102, 110),) * 8,
+            ]
+            raw = b"".join(bytes([0]) + bytes(rgb) * width for rgb in rows)
+            header = struct.pack(">IIBBBBB", width, len(rows), 8, 2, 0, 0, 0)
+
+            def chunk(kind: bytes, payload: bytes) -> bytes:
+                return (
+                    struct.pack(">I", len(payload))
+                    + kind
+                    + payload
+                    + struct.pack(">I", zlib.crc32(kind + payload) & 0xFFFFFFFF)
+                )
+
+            inspector_bytes = (
+                b"\x89PNG\r\n\x1a\n"
+                + chunk(b"IHDR", header)
+                + chunk(b"IDAT", zlib.compress(raw))
+                + chunk(b"IEND", b"")
+            )
+            inspector_path.write_bytes(inspector_bytes)
+            output = inspector["generation_provenance"]["output"]
+            output["sha256"] = hashlib.sha256(inspector_bytes).hexdigest()
+            output["width_px"] = width
+            output["height_px"] = len(rows)
             for asset in assets["assets"]:
                 if asset.get("generator") != "deterministic-crop":
                     continue
@@ -3452,6 +3485,10 @@ class FilmProjectTests(unittest.TestCase):
         self.assertEqual(metadata["generation"], "one-imagegen-call-then-deterministic-crops")
         self.assertEqual(len(metadata["slots"]), 7)
         self.assertEqual(metadata["identity_inspector_asset_id"], fixture.identity_inspector_id)
+        self.assertEqual(metadata["row_split_px"], 11)
+        self.assertEqual(metadata["gutter_detection"]["accepted_gutter_rows_px"], [10, 12])
+        self.assertEqual(metadata["slots"][0]["crop_box_px"], [0, 0, 2, 11])
+        self.assertEqual(metadata["slots"][4]["crop_box_px"], [0, 11, 2, 9])
         first_crops = {
             slot["role"]: (fixture.path / next(
                 item["candidate_path"] for item in fixture.read("manifests/assets.json")["assets"]
@@ -3485,6 +3522,11 @@ class FilmProjectTests(unittest.TestCase):
         )
         self.assertEqual(duplicate.returncode, 2)
         self.assertIn("refusing to overwrite", duplicate.stderr)
+
+    def test_identity_gutter_detector_rejects_a_board_without_a_clear_split(self) -> None:
+        pixels = bytes((72, 78, 86)) * 8 * 10
+        with self.assertRaisesRegex(ValueError, "no deterministic near-white horizontal gutter"):
+            _detect_horizontal_gutter_split(8, 10, pixels)
 
     def test_aspirational_role_physique_requires_measurable_targets(self) -> None:
         fixture = self.fixture()
@@ -3692,10 +3734,12 @@ class FilmProjectTests(unittest.TestCase):
             fixture.path
             / "prompts/compiled/review-foundation-001--v001/images/char-hero-inspector--v001.txt"
         ).read_text(encoding="utf-8")
-        self.assertIn("single 4-by-2 pure-white technical reference sheet", prompt)
+        self.assertIn("single four-column, two-row pure-white technical reference sheet", prompt)
         self.assertIn("full-body front, full-body left profile, full-body right profile, full-body back", prompt)
         self.assertIn("face close-up front, face close-up left profile, face close-up right profile", prompt)
         self.assertIn("one empty white cell", prompt)
+        self.assertIn("continuous unambiguous pure-white horizontal gutter", prompt)
+        self.assertIn("complete hair and footwear", prompt)
         self.assertIn("same face", prompt)
         self.assertNotIn("near-side aisle", prompt)
         self.assertNotIn("north window and existing desk lamp", prompt)

@@ -59,7 +59,7 @@ class DistributionTests(unittest.TestCase):
             verified = run(sys.executable, str(INSTALLER), "verify", "--codex-home", str(home))
             self.assertEqual(verified.returncode, 0, verified.stderr)
             payload = json.loads((home / "skills" / "cinematic-ai-director" / "runtime-manifest.json").read_text())
-            self.assertEqual(payload["version"], "1.6.0")
+            self.assertEqual(payload["version"], "1.6.1")
             self.assertTrue(all(not Path(item["path"]).is_absolute() for item in payload["files"]))
 
     def test_install_refuses_overwrite_and_replace_creates_backup(self) -> None:
@@ -100,7 +100,7 @@ class DistributionTests(unittest.TestCase):
                     str(manifest),
                 )
                 self.assertEqual(result.returncode, 0, result.stderr)
-                outputs.append(output / "cinematic-ai-director-v1.6.0.zip")
+                outputs.append(output / "cinematic-ai-director-v1.6.1.zip")
             self.assertEqual(digest(outputs[0]), digest(outputs[1]))
 
     def test_runtime_source_contains_no_private_machine_paths_or_caches(self) -> None:
@@ -116,7 +116,7 @@ class DistributionTests(unittest.TestCase):
 
     def test_compact_showcase_has_exactly_three_hashed_originals(self) -> None:
         evidence = json.loads((ROOT / "showcase" / "evidence.json").read_text(encoding="utf-8"))
-        self.assertEqual(evidence["showcase_profile"], "compact-release-evidence-v1.6")
+        self.assertEqual(evidence["showcase_profile"], "compact-theatrical-widescreen-evidence-v1.6.1")
         self.assertFalse(evidence["pixel_reproducible"])
         self.assertEqual(
             [item["kind"] for item in evidence["assets"]],
@@ -138,6 +138,8 @@ class DistributionTests(unittest.TestCase):
             self.assertFalse(dynamic_range["multi_exposure_hdr_merge"])
         crop_map = evidence["identity_crops"]
         self.assertEqual(crop_map["operation"], "exact-cell-crop-no-resample-no-redraw")
+        self.assertEqual(crop_map["row_split_px"], crop_map["gutter_detection"]["split_y_px"])
+        self.assertEqual(crop_map["gutter_detection"]["method"], "central-near-white-gutter-v1.6.1")
         self.assertEqual(len(crop_map["crops"]), 7)
         for crop in crop_map["crops"]:
             self.assertEqual(digest(ROOT / crop["path"]), crop["sha256"])

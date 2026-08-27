@@ -1,0 +1,18 @@
+Use case: photorealistic-natural. Asset: one complete live-action identity Inspector generated in one image and one shared identity solve.
+
+PHOTOGRAPHIC EVENT
+Neutral feature-film casting evidence for one new fictional white European female lead, age 31, an Arctic survey pilot and former competitive fencer. She reads as a credible major-film action lead through distinct facial structure, height, elegant athletic balance and alert presence, never through cosmetic gloss or fantasy anatomy.
+
+IDENTITY AND ROLE-MATCHED SKELETON
+Exactly the same woman in all seven occupied cells: subtly asymmetric tapered-oval face, slightly higher right brow, grey-blue eyes, straight nose with a small natural deviation, short ash-brown bob behind the ears, neutral expression. Tall slender athletic skeleton with a visibly compact ribcage and abdominal segment, level shoulders, naturally high iliac crest, stable narrow pelvis, long femurs and long tibias, proportional hands and feet. In the level front and back views the natural anatomical waist sits clearly above the canvas-body midpoint, and true waist-to-floor is visibly 61–63% of standing height. This elegant long-legged three-seven impression must come from the skeleton, not a tiny head, raised trouser waist, low camera, wide lens or stretched shins. Matte midnight-navy fitted long-sleeve cotton crewneck ending at the true waist; straight charcoal work trousers whose waistband aligns exactly with the anatomical waist; black flat-soled safety boots.
+
+EXACT BOARD GEOMETRY
+One 1536 by 1024 canvas divided into four equal-width columns and two equal-height rows, each cell exactly 384 by 512. The white gutters intersect exactly at the canvas center; no content crosses them.
+Top: complete full front; exact full left profile; exact full right profile; complete full back.
+Bottom: portrait front; portrait left profile; portrait right profile; completely blank pure-white cell.
+Every full body remains entirely inside the top 512 pixels with full hair, complete boot soles and white safety margins. Same scale, foot line, face, hair, body volume, clothing and dry skin. Neutral stance; level camera at anatomical waist; long working distance; no perspective elongation. Pure white only, no labels, visible rules, props or scenery.
+
+LIGHT, SKIN AND FINITE RANGE
+A ceiling-size indirect north-window source passes through white diffusion, producing diffuse tonal modeling without a visible facial specular lobe. Natural dry matte fair skin: forehead, nose bridge and tip, cheeks, lips, ears and neck remain continuous midtones with no isolated bright patch; only tiny eye catchlights may be brighter. White field approaches diffuse white; deepest navy, charcoal and boot folds may lose detail. No HDR, local clarity, face relighting, smoothing or shadow lift.
+
+No oily film, wet shine, cosmetic sheen, wax, plastic or synthetic glossy skin. No animation, CG, game character or mannequin rendering. No painterly smearing, repeating cross-material texture or garment melt. No rim light, sharpening halo, makeup, text or watermark.

@@ -9,7 +9,7 @@ One recurring person owns exactly one pure-white `4×2` identity Inspector gener
 
 All angles therefore share one identity solve. Validate the whole Inspector first; any drift, anatomy/proportion error, oily or plastic skin, smear, CG finish, copied texture, lighting mismatch, garment change, or panel defect blocks this person immediately. A failed Inspector is never retried as the same identity and never becomes a downstream reference.
 
-After approval, `build-reference-board` crops seven exact PNG views from the fixed grid without resampling or repainting. The crops are inspection and UI-upload aids only; the Inspector remains the first and only identity authority. Full-body cells use normal perspective, natural camera height, complete feet, neutral posture, and no story light, graphics, labels, props, or scenery.
+After approval, `build-reference-board` preserves the fixed four-column/two-row role order, detects and records the one unambiguous near-white horizontal gutter near canvas center, then crops seven PNG views without resampling or repainting. It does not blindly cut the mathematical midpoint if ImageGen made the full-body row slightly taller. A missing/ambiguous gutter, content crossing it, or cropped hair/footwear fails loudly. The crops are inspection and UI-upload aids only; the Inspector remains the first and only identity authority. Full-body cells use normal perspective, natural camera height, complete feet, neutral posture, and no story light, graphics, labels, props, or scenery.
 
 ## Proportion signature
 

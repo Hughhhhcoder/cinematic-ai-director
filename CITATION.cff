@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: "If this project supports your production or research, cite the software release."
 title: "cinematic-ai-director"
 type: software
-version: "1.6.0"
-date-released: "2026-08-27"
+version: "1.6.1"
+date-released: "2026-08-28"
 authors:
   - family-names: "Hughhhhcoder"
 repository-code: "https://github.com/Hughhhhcoder/cinematic-ai-director"

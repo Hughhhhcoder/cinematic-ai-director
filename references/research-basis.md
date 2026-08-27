@@ -51,7 +51,7 @@ v1.6 的后台候选与低打扰审批采纳了公开项目可观察到的“多
 
 ### B/C：提示和参考的实际职责
 
-- [AI Short Film – Full Prompt Library](https://higgsfield.ai/blog/ai-short-film-youtube-guide)：官方完整短片例给出一张两排人物 reference sheet：上排全身正面、左侧、右侧、背面，下排脸部正面、左侧、右侧和留白；地点 reference sheet 使用正面、左右 angled perspective、反向广角和细节。结论：人物多角度应共享同一张身份表的联合解算，而不是七次随机身份；地点多视角承担真实空间覆盖。Skill 严格采用该 4×2 职责布局，并增加“整板先验收、再无缩放确定性裁七图、Inspector 始终是第一权威”的可审计实现。地点 `side_three_quarter_wide` 的 30–60° 范围是对官方 `angled perspective` 的内部可验证规范，不冒充官方精确角度要求。
+- [AI Short Film – Full Prompt Library](https://higgsfield.ai/blog/ai-short-film-youtube-guide)：官方完整短片例给出一张两排人物 reference sheet：上排全身正面、左侧、右侧、背面，下排脸部正面、左侧、右侧和留白；地点 reference sheet 使用正面、左右 angled perspective、反向广角和细节。结论：人物多角度应共享同一张身份表的联合解算，而不是七次随机身份；地点多视角承担真实空间覆盖。Skill 严格采用该四列两排职责布局，并增加“整板先验收、记录实际白色横向 gutter、再无缩放确定性裁七图、Inspector 始终是第一权威”的可审计实现；不把官方职责顺序误写成必须数学等高的像素网格。地点 `side_three_quarter_wide` 的 30–60° 范围是对官方 `angled perspective` 的内部可验证规范，不冒充官方精确角度要求。
 - [Realistic AI Human Movement](https://higgsfield.ai/blog/realistic-ai-human-movement)：Cinema Studio Cast 的 character sheet 明确包含 front/side/back；与上项构成交叉证据。
 - [How to Write a Good Prompt](https://higgsfield.ai/creator-hub/help-center/getting-started/how-do-i-write-a-good-prompt)：先做中性人物底图，明确 keep/change；有起始图后，视频提示转向动作、镜头和时序；简单任务保持简单，迭代时一次改一项，少量关键 negatives 即可。
 - [Common Prompt Mistakes](https://higgsfield.ai/blog/ai-video-prompt-mistakes)：过量细节会竞争注意力；主体/年龄/体型/服装与空间阻挡应优先，长排除清单会稀释目标。

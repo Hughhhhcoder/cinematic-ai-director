@@ -189,6 +189,70 @@ def _encode_png_rgb(width: int, height: int, pixels: bytes) -> bytes:
     )
 
 
+def _detect_horizontal_gutter_split(
+    width: int,
+    height: int,
+    pixels: bytes,
+) -> tuple[int, dict[str, Any]]:
+    """Find the approved white gutter between identity-board rows.
+
+    ImageGen can preserve the official two-row role order while making the
+    full-body row slightly taller than the portrait row.  Equal-height crops
+    can then amputate boots even though the authority board is otherwise
+    valid.  This deterministic detector searches only near the canvas centre,
+    records the accepted white run, and never interprets or redraws a person.
+    """
+    if len(pixels) != width * height * 3:
+        raise ValueError("identity inspector RGB byte count does not match dimensions")
+    search_start = max(1, int(height * 0.40))
+    search_end = min(height - 1, int(height * 0.62))
+    maximum_nonwhite = max(2, int(round(width * 0.02)))
+    qualifying: list[int] = []
+    for y in range(search_start, search_end):
+        nonwhite = 0
+        row_start = y * width * 3
+        for x in range(width):
+            offset = row_start + x * 3
+            red, green, blue = pixels[offset:offset + 3]
+            if min(red, green, blue) < 238 or max(red, green, blue) - min(red, green, blue) > 10:
+                nonwhite += 1
+                if nonwhite > maximum_nonwhite:
+                    break
+        if nonwhite <= maximum_nonwhite:
+            qualifying.append(y)
+    runs: list[tuple[int, int]] = []
+    if qualifying:
+        run_start = qualifying[0]
+        previous = qualifying[0]
+        for value in qualifying[1:]:
+            if value != previous + 1:
+                runs.append((run_start, previous))
+                run_start = value
+            previous = value
+        runs.append((run_start, previous))
+    runs = [run for run in runs if run[1] - run[0] + 1 >= 2]
+    if not runs:
+        raise ValueError(
+            "identity inspector has no deterministic near-white horizontal gutter near the canvas centre"
+        )
+    centre = height / 2
+    selected = min(
+        runs,
+        key=lambda run: (abs(((run[0] + run[1] + 1) / 2) - centre), -(run[1] - run[0] + 1)),
+    )
+    split = (selected[0] + selected[1] + 1) // 2
+    if split <= 0 or split >= height:
+        raise ValueError("detected identity-board row split is outside the canvas")
+    return split, {
+        "method": "central-near-white-gutter-v1.6.1",
+        "search_rows_px": [search_start, search_end],
+        "accepted_gutter_rows_px": [selected[0], selected[1] + 1],
+        "split_y_px": split,
+        "near_white_min_channel": 238,
+        "maximum_nonwhite_pixels_per_row": maximum_nonwhite,
+    }
+
+
 def build_reference_board(args: argparse.Namespace) -> int:
     """Crop seven upload/check views from one approved single-solve board.
 
@@ -326,17 +390,20 @@ def build_reference_board(args: argparse.Namespace) -> int:
     created: list[Path] = []
     try:
         width, height, pixels = _decode_png_rgb(source)
-        if width % REFERENCE_BOARD_COLUMNS or height % REFERENCE_BOARD_ROWS:
-            raise ValueError("identity inspector dimensions must divide exactly into a 4x2 grid")
+        if width % REFERENCE_BOARD_COLUMNS:
+            raise ValueError("identity inspector width must divide exactly into four columns")
         cell_width = width // REFERENCE_BOARD_COLUMNS
-        cell_height = height // REFERENCE_BOARD_ROWS
+        row_split, gutter_detection = _detect_horizontal_gutter_split(width, height, pixels)
+        row_tops = (0, row_split)
+        row_heights = (row_split, height - row_split)
         slots: list[dict[str, Any]] = []
         source_hashes: dict[str, str] = {}
         for slot_index, (role, crop_asset, crop_path) in enumerate(crop_assets):
             column = slot_index % REFERENCE_BOARD_COLUMNS
             row = slot_index // REFERENCE_BOARD_COLUMNS
             left = column * cell_width
-            top = row * cell_height
+            top = row_tops[row]
+            cell_height = row_heights[row]
             crop_pixels = bytearray(cell_width * cell_height * 3)
             for crop_y in range(cell_height):
                 source_start = ((top + crop_y) * width + left) * 3
@@ -396,6 +463,8 @@ def build_reference_board(args: argparse.Namespace) -> int:
                 "layout_profile": "higgsfield-character-reference-sheet-two-row-single-solve-v1.6",
                 "canvas_px": [width, height],
                 "grid": [4, 2],
+                "row_split_px": row_split,
+                "gutter_detection": gutter_detection,
                 "background": "pure_white",
                 "authoritative": True,
                 "authority_sha256": board_hash,
@@ -413,6 +482,7 @@ def build_reference_board(args: argparse.Namespace) -> int:
             "layout_profile": "higgsfield-character-reference-sheet-two-row-single-solve-v1.6",
             "authoritative": True,
             "crop_map_path": map_relative.as_posix(),
+            "row_split_px": row_split,
         }
         write_json(assets_path, asset_manifest)
         write_json(identities_path, identities)

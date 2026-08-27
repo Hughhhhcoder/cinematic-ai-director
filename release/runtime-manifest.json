@@ -2,8 +2,8 @@
   "files": [
     {
       "path": "SKILL.md",
-      "sha256": "de3c8489b2559e2fb89c8375838e054e56335232e994e81e194ba984665506ef",
-      "size": 13776
+      "sha256": "454e61dab573f5a29fe918c95b2a693201a01554fbf018779570d2074101eb08",
+      "size": 14152
     },
     {
       "path": "agents/openai.yaml",
@@ -62,13 +62,13 @@
     },
     {
       "path": "references/human-geometry.md",
-      "sha256": "15fecb0e672db2c82a6fcf7513a5a63b78913a320a4e51c8dad146d45bdac0da",
-      "size": 6985
+      "sha256": "7cae026fe89d328d0de44bd6081d6202d22aea8e295f86249430525370099d9e",
+      "size": 7310
     },
     {
       "path": "references/identity-state.md",
-      "sha256": "599ae0effe8af151a1e3a4a7ffdd390f6f6567c51fa93cbf52937e021a4b685d",
-      "size": 5018
+      "sha256": "d2f90f604367bd07aa9eddc3377adc6650ef2cb72c38fc91a31f7215972926af",
+      "size": 5148
     },
     {
       "path": "references/image2-clean.md",
@@ -87,13 +87,13 @@
     },
     {
       "path": "references/pipeline.md",
-      "sha256": "2fe47f93b3c1bd5771a3fed99188d168215069a129213333cec203bc4196867f",
-      "size": 8595
+      "sha256": "561b8d67b4f1d14187a97182b3817d46a66e68afe50274490c05cb75aa3aec66",
+      "size": 8760
     },
     {
       "path": "references/project-schema.md",
-      "sha256": "aba34afa8d9ac4a9273a7450decf94a32365c07f46dd681a3a3f6eeb69273604",
-      "size": 14659
+      "sha256": "25338e8fd0d04d3caa0b2624fae720194455053432d14cbb801b172e35ff074b",
+      "size": 14838
     },
     {
       "path": "references/quality-evidence.md",
@@ -102,8 +102,8 @@
     },
     {
       "path": "references/research-basis.md",
-      "sha256": "3dd4b7067a0661610f5bc30553efb3a98dd351dee35a8fd06d7eef83d5a82619",
-      "size": 23752
+      "sha256": "439c5727ca5cb817ba0336ff6cf8980893f52acbb375b6b4acb11d6ebe89d141",
+      "size": 23861
     },
     {
       "path": "references/role-physique.md",
@@ -117,8 +117,8 @@
     },
     {
       "path": "references/static-assets.md",
-      "sha256": "c454cc7b0823cb8574c314f5e004533f7f60cdebda773b3423b25f03e7ed781c",
-      "size": 8055
+      "sha256": "a364fcf86bc15007d3afb24265d283ac1ff568c5909ec91bcce22bd278dcda88",
+      "size": 8245
     },
     {
       "path": "references/video-prompting.md",
@@ -136,8 +136,33 @@
       "size": 450
     },
     {
+      "path": "src/cinematic_ai_director.egg-info/PKG-INFO",
+      "sha256": "a0228df084aa5af123e9e4602b83559a2556a684ec2741bba7bc86eb7620d68e",
+      "size": 18959
+    },
+    {
+      "path": "src/cinematic_ai_director.egg-info/SOURCES.txt",
+      "sha256": "06d791c5e181fc9e2e32526fbf4ed0d3fe6fcba79bffb720c58e2dbc35ebe155",
+      "size": 793
+    },
+    {
+      "path": "src/cinematic_ai_director.egg-info/dependency_links.txt",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "size": 1
+    },
+    {
+      "path": "src/cinematic_ai_director.egg-info/entry_points.txt",
+      "sha256": "1100cf6b9ec34d4e630281cf7b49cd2af524065f21d1a1add65a6f8fcf50360a",
+      "size": 73
+    },
+    {
+      "path": "src/cinematic_ai_director.egg-info/top_level.txt",
+      "sha256": "91666bbbd735ad41416158b57dd1a283b258a0aa6970d738266fd9ad34eb998c",
+      "size": 22
+    },
+    {
       "path": "src/cinematic_ai_director/__init__.py",
-      "sha256": "df969298ba5ff199589668ea141f0c3fe901b2a108d35be8ce05e7f755c847ea",
+      "sha256": "c24f8290ec8686d1c9c642b8df7902f163f0746587a7b690bae2ad8527afd896",
       "size": 141
     },
     {
@@ -152,8 +177,8 @@
     },
     {
       "path": "src/cinematic_ai_director/boards.py",
-      "sha256": "5f87c838ee5ed149ce660650391078b32bcf4e98071ad9b2c688c9a2d5c61cd6",
-      "size": 30693
+      "sha256": "bd14e9d41785d7b7061f44b85f1b5f2a8412693aef185f7925f588aae8dda33b",
+      "size": 33594
     },
     {
       "path": "src/cinematic_ai_director/cli.py",
@@ -177,8 +202,8 @@
     },
     {
       "path": "src/cinematic_ai_director/prompts.py",
-      "sha256": "e7bdc9bbfe8958efa005e586ef7bf9f9fb4fa9173c2e4c051abb22c22a136d88",
-      "size": 30458
+      "sha256": "38f28b746190d8232207dc47946d869110b9d847cc15cb57b0feafd56f4385ab",
+      "size": 30917
     },
     {
       "path": "src/cinematic_ai_director/reviews.py",
@@ -187,8 +212,8 @@
     },
     {
       "path": "src/cinematic_ai_director/schema.py",
-      "sha256": "a84d576eb510690dfcc8923d10982bf0aac3df8486c77ac44d10faf6240b5c59",
-      "size": 35286
+      "sha256": "2c1f0138bb6644911e1b970ff5f391221c8ec6bc81512c1a47c88c91a29984ac",
+      "size": 35406
     },
     {
       "path": "src/cinematic_ai_director/validation.py",
@@ -198,5 +223,5 @@
   ],
   "schema_version": "1.6",
   "skill": "cinematic-ai-director",
-  "version": "1.6.0"
+  "version": "1.6.1"
 }
