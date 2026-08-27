@@ -85,6 +85,11 @@ def is_compiled_prompt_path(value: Any, kind: str) -> bool:
     return len(parts) >= 5 and parts[0:2] == ["prompts", "compiled"] and parts[3] == kind
 
 
+def portable_manifest_path(value: Any) -> str:
+    """Normalize a manifest path for policy checks without using host path rules."""
+    return value.replace("\\", "/") if isinstance(value, str) else ""
+
+
 def validate_layout(project_dir: Path, report: Report) -> None:
     for relative in REQUIRED_DIRS:
         if not (project_dir / relative).is_dir():
@@ -1438,7 +1443,7 @@ def validate_assets(
             required=generated,
         )
         if prompt_path and not (
-            str(Path(asset["prompt_path"])).startswith("prompts/images/")
+            portable_manifest_path(asset["prompt_path"]).startswith("prompts/images/")
             or is_compiled_prompt_path(asset.get("prompt_path"), "images")
         ):
             report.warning("PATH_CONVENTION", f"Asset prompt should live under prompts/images/: {asset['prompt_path']}")
@@ -1460,7 +1465,7 @@ def validate_assets(
         if prompt_path and generated and prompt_strategy in IMAGE_PROMPT_STRATEGIES:
             validate_image_prompt_sections(prompt_path, asset_id, str(prompt_strategy), asset, report)
         if asset_type == "look_test" and prompt_path and not (
-            str(Path(asset["prompt_path"])).startswith("prompts/images/look-tests/")
+            portable_manifest_path(asset["prompt_path"]).startswith("prompts/images/look-tests/")
             or is_compiled_prompt_path(asset.get("prompt_path"), "images")
         ):
             report.warning("PATH_CONVENTION", f"Look Test prompt should live under prompts/images/look-tests/: {asset['prompt_path']}")
@@ -1473,7 +1478,7 @@ def validate_assets(
             report,
             required=candidate_required,
         )
-        if candidate_path and not str(Path(asset["candidate_path"])).startswith("assets/"):
+        if candidate_path and not portable_manifest_path(asset["candidate_path"]).startswith("assets/"):
             report.warning("PATH_CONVENTION", f"Candidate should live under assets/: {asset['candidate_path']}")
 
         approved_required = status in {"approved", "superseded"}
@@ -1484,7 +1489,7 @@ def validate_assets(
             report,
             required=approved_required,
         )
-        if approved_path and not str(Path(asset["approved_path"])).startswith("assets/"):
+        if approved_path and not portable_manifest_path(asset["approved_path"]).startswith("assets/"):
             report.warning("PATH_CONVENTION", f"Approved asset should live under assets/: {asset['approved_path']}")
         if status == "approved" and isinstance(asset.get("approved_path"), str) and "candidate" in asset["approved_path"].lower():
             report.warning("PATH_CONVENTION", f"Approved asset path still looks like a candidate: {asset['approved_path']}")
@@ -5085,7 +5090,7 @@ def validate_shots(
         )
         if prompt_path:
             if not (
-                str(Path(shot["video_prompt_path"])).startswith("prompts/video/")
+                portable_manifest_path(shot["video_prompt_path"]).startswith("prompts/video/")
                 or is_compiled_prompt_path(shot.get("video_prompt_path"), "video")
             ):
                 report.warning("PATH_CONVENTION", f"Shot prompt should live under prompts/video/: {shot['video_prompt_path']}")

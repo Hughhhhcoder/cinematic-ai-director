@@ -11,6 +11,10 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+
+from cinematic_ai_director.validation import portable_manifest_path  # noqa: E402
+
 INSTALLER = ROOT / "scripts" / "install_skill.py"
 RELEASE_BUILDER = ROOT / "scripts" / "build_release.py"
 
@@ -24,6 +28,29 @@ def digest(path: Path) -> str:
 
 
 class DistributionTests(unittest.TestCase):
+    def test_manifest_path_policy_is_host_separator_independent(self) -> None:
+        self.assertEqual(
+            portable_manifest_path(r"assets\characters\identity-inspectors\hero.png"),
+            "assets/characters/identity-inspectors/hero.png",
+        )
+
+    def test_public_example_preserves_required_empty_directories_in_git(self) -> None:
+        sentinels = (
+            "assets/style/.gitkeep",
+            "assets/characters/identity-packs/.gitkeep",
+            "assets/characters/pose-anchors/.gitkeep",
+            "assets/quality-evidence/.gitkeep",
+            "assets/storyboards/.gitkeep",
+            "assets/key-art/.gitkeep",
+            "prompts/images/identity-packs/.gitkeep",
+            "prompts/images/identity-views/.gitkeep",
+            "prompts/images/pose-anchors/.gitkeep",
+            "prompts/images/states/.gitkeep",
+            "prompts/compiled/.gitkeep",
+        )
+        example = ROOT / "examples" / "night-shift"
+        self.assertTrue(all((example / relative).is_file() for relative in sentinels))
+
     def test_install_and_verify_are_cross_platform_path_safe(self) -> None:
         with tempfile.TemporaryDirectory(prefix="cad-install-") as directory:
             home = Path(directory)
