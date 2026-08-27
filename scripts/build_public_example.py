@@ -15,6 +15,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURE_MODULE = ROOT / "tests" / "test_film_project.py"
 CLI = ROOT / "scripts" / "film_project.py"
+FIXED_TIMESTAMP = "2026-08-25T12:00:00Z"
 EXAMPLE_README = """# Night Shift — validated structural example
 
 This sanitized fixture demonstrates one complete Schema 1.6 sequence: approved identity and role-physique facts, a location state with a side-three-quarter view and fixed spatial anchor, quality/cinematography/format records, candidate isolation, Foundation and sequence gates, compiled image/video prompts, and a deterministic Higgsfield export.
@@ -69,6 +70,8 @@ def main(argv: list[str] | None = None) -> int:
                 "slug": "night-shift",
                 "logline": "A bicycle courier discovers that a sealed case in a daylight repair workshop was opened before she arrived.",
                 "language": "en",
+                "created_at": FIXED_TIMESTAMP,
+                "updated_at": FIXED_TIMESTAMP,
             }
         )
         project_path.write_text(
@@ -79,6 +82,12 @@ def main(argv: list[str] | None = None) -> int:
         # copyfile keeps the public fixture byte-identical without propagating
         # macOS quarantine/provenance xattrs from the temporary build tree.
         shutil.copytree(fixture.path, output, copy_function=shutil.copyfile)
+
+    # Git does not track empty directories. Preserve every schema directory in
+    # a clean clone so the committed example validates on CI and user machines.
+    for directory in sorted(path for path in output.rglob("*") if path.is_dir()):
+        if not any(directory.iterdir()):
+            (directory / ".gitkeep").write_text("", encoding="utf-8", newline="\n")
 
     # The test fixture exercises failed-candidate isolation. The public example
     # intentionally contains no failed candidate record or binary, so every
