@@ -33,7 +33,7 @@ Positive evidence is stored for every QA check. A face or authority asset failin
 
 A clean Inspector and a clean location do not prove that ImageGen will integrate them as one photograph. Before Looks, special atmosphere, multi-person frames, Photoboards, keyframes, Ready shots, or export, the project must pass one `live_action_probe`: one approved adult, one approved place, one simple task/contact, one reachable medium camera, ordinary broad source light, and finite exposure. It deliberately contains no cinematic styling, equipment brand, film reference, grain, halation, colored rim, or special weather.
 
-The probe passes only when person and world share projection, light, focus, occlusion, contact, color contamination, edge behavior, and tone mapping at all four scales. Oily/waxy/plastic skin, a game-rendered person, cut-out edges, separate subject HDR/sharpening, or copied artifact texture is a hard failure. After two independent failed batches the pair becomes `backend_realism_blocked`; the workflow requests lawful real-photo references or remains package-only rather than hiding the failure with style.
+The approved empty location is the probe's first reference and immutable edit target; the unified Inspector is second and supplies identity only. Every candidate independently edits that same plate and may change only the bounded person/contact/cast-shadow regions. The probe passes only when person and world share projection, light, focus, occlusion, contact, color contamination, edge behavior, and tone mapping at all four scales—and when table/counter geometry, door/window construction, fixtures, spatial anchor, camera, crop and background detail remain corresponding. At least six landmarks and edit-region-excluded pixel statistics are required. Oily/waxy/plastic skin, a game-rendered person, cut-out edges, separate subject HDR/sharpening, copied artifact texture, or location drift is a hard failure. After two independent failed batches the pair becomes `backend_realism_blocked`; the workflow requests lawful real-photo references or remains package-only rather than hiding the failure with style.
 
 ## Finite dynamic range
 
@@ -43,6 +43,6 @@ When estimated scene contrast exceeds working latitude, the plan must sacrifice 
 
 ## Candidate isolation
 
-Critical assets receive three independent candidates; derivatives receive two. Candidates cannot edit or derive from one another. If the entire first batch fails, one highest-priority prompt variable may change and two independent retries are allowed. A second complete failure becomes `model_blocked` and requests a lawful real reference.
+Critical assets receive three independent candidates; derivatives receive two. Candidates cannot edit or derive from one another. The integration probe is the sole controlled exception to generate-only candidates: each candidate may edit the same approved empty-location authority, never another candidate. If the entire first batch fails, one highest-priority prompt variable may change and two independent retries are allowed. A second complete failure becomes `model_blocked` and requests a lawful real reference.
 
 Failure is therefore expected and contained. Stability means a failed candidate never reaches users or production—not that stochastic generation becomes deterministic.

@@ -30,7 +30,7 @@
 
 ## 先证实人物能进入真实世界
 
-参数正确不等于像素真实。统一身份 Inspector、地点根、人体比例和摄影计划全部通过后，仍必须以一个普通光、单人、简单任务的 `live_action_probe` 检验人物是否与场景共享投影、光源、焦点、遮挡、接触、色彩污染和有限曝光。探针禁止风格、器材、导演/片名、颗粒、光晕和特殊天气词；两批仍有油光、塑料/游戏表面或 cut-out 感时记录 `backend_realism_blocked`。详见 [live-action-integration.md](live-action-integration.md)。
+参数正确不等于像素真实。统一身份 Inspector、地点根、人体比例和摄影计划全部通过后，仍必须以一个普通光、单人、简单任务的 `live_action_probe` 检验人物是否与场景共享投影、光源、焦点、遮挡、接触、色彩污染和有限曝光。v1.6.5 起，地点根是不可变第一引用/编辑底片，身份板是第二引用；探针还必须用地标与编辑框外像素统计证明桌台、门窗、设施、锚点、机位和裁切没有漂移。探针禁止风格、器材、导演/片名、颗粒、光晕和特殊天气词；两批仍有场景漂移、油光、塑料/游戏表面或 cut-out 感时记录 `backend_realism_blocked`。详见 [live-action-integration.md](live-action-integration.md)。
 
 ## 皮肤状态
 

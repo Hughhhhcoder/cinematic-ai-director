@@ -139,13 +139,13 @@
               },
               "hard_failures": [],
               "id": "cset-live-action-probe-char-hero-workshop--v001-candidate-01",
-              "operation": "generate",
+              "operation": "edit",
               "path": "assets/candidates/cset-live-action-probe-char-hero-workshop--v001/cset-live-action-probe-char-hero-workshop--v001-candidate-01.png",
-              "prompt_sha256": "66805f3945e96a9fee5d6621964b0cdfe4b36f797daa287012f77b53dd64d042",
+              "prompt_sha256": "7a715db3e2ec2c3e6d2c7c0dd06168bc5c4e239a0445cc420edfeaff96f7aeb4",
               "quality_verdict": "pass",
               "reference_order": [
-                "char-hero-inspector--v001",
-                "loc-workshop--v001"
+                "loc-workshop--v001",
+                "char-hero-inspector--v001"
               ],
               "reviewed_at": "2026-08-25T12:00:00Z",
               "sha256": "2182133d4a4fdfb13ac97b3821e240fdae856eda3609162d835f99129b4bf37e",
@@ -202,13 +202,13 @@
               },
               "hard_failures": [],
               "id": "cset-live-action-probe-char-hero-workshop--v001-candidate-02",
-              "operation": "generate",
+              "operation": "edit",
               "path": "assets/candidates/cset-live-action-probe-char-hero-workshop--v001/cset-live-action-probe-char-hero-workshop--v001-candidate-02.png",
-              "prompt_sha256": "66805f3945e96a9fee5d6621964b0cdfe4b36f797daa287012f77b53dd64d042",
+              "prompt_sha256": "7a715db3e2ec2c3e6d2c7c0dd06168bc5c4e239a0445cc420edfeaff96f7aeb4",
               "quality_verdict": "pass",
               "reference_order": [
-                "char-hero-inspector--v001",
-                "loc-workshop--v001"
+                "loc-workshop--v001",
+                "char-hero-inspector--v001"
               ],
               "reviewed_at": "2026-08-25T12:00:00Z",
               "sha256": "8f202853dea8869d342d6f74a160c06b14351af40e32773ea39e39143ecf5d38",
@@ -265,13 +265,13 @@
               },
               "hard_failures": [],
               "id": "cset-live-action-probe-char-hero-workshop--v001-candidate-03",
-              "operation": "generate",
+              "operation": "edit",
               "path": "assets/candidates/cset-live-action-probe-char-hero-workshop--v001/cset-live-action-probe-char-hero-workshop--v001-candidate-03.png",
-              "prompt_sha256": "66805f3945e96a9fee5d6621964b0cdfe4b36f797daa287012f77b53dd64d042",
+              "prompt_sha256": "7a715db3e2ec2c3e6d2c7c0dd06168bc5c4e239a0445cc420edfeaff96f7aeb4",
               "quality_verdict": "pass",
               "reference_order": [
-                "char-hero-inspector--v001",
-                "loc-workshop--v001"
+                "loc-workshop--v001",
+                "char-hero-inspector--v001"
               ],
               "reviewed_at": "2026-08-25T12:00:00Z",
               "sha256": "db824957c6d2d241da863d83708a8a983c7570ed63a5915041b2b2dfac43deb8",
@@ -284,11 +284,11 @@
         }
       ],
       "id": "cset-live-action-probe-char-hero-workshop--v001",
-      "operation": "generate",
+      "operation": "edit",
       "prompt_path": "prompts/images/live-action-probe-char-hero-workshop--v001.txt",
       "reference_asset_ids": [
-        "char-hero-inspector--v001",
-        "loc-workshop--v001"
+        "loc-workshop--v001",
+        "char-hero-inspector--v001"
       ],
       "reviewed_at": "2026-08-25T12:00:00Z",
       "reviewer": "codex-visual",

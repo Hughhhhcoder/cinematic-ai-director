@@ -729,6 +729,170 @@ def validate_live_action_quality_qa(asset: dict[str, Any], where: str, report: R
         report.error("QUALITY_HARD_FAIL", f"Asset {asset.get('id')} has quality hard failures without a fail verdict.")
 
 
+def locked_scene_qa_passed(asset: dict[str, Any]) -> bool:
+    qa = asset.get("locked_scene_qa")
+    return (
+        isinstance(qa, dict)
+        and qa.get("verdict") == "pass"
+        and qa.get("non_subject_change_detected") is False
+        and not qa.get("hard_failures")
+        and isinstance(qa.get("pixel_correspondence"), dict)
+        and qa["pixel_correspondence"].get("verdict") == "pass"
+        and isinstance(qa.get("checks"), dict)
+        and all(qa["checks"].get(field) == "pass" for field in LOCKED_SCENE_QA_CHECKS)
+    )
+
+
+def validate_locked_scene_qa(asset: dict[str, Any], where: str, report: Report) -> None:
+    """Validate pixel-correspondence evidence for a bounded person insertion.
+
+    Image generation is not assumed to preserve an approved set merely because it
+    was referenced.  A passing probe must instead prove that the edit target's
+    camera, architecture, furniture, fixtures, anchor, and material identity did
+    not move outside the declared person/contact regions.
+    """
+    qa = asset.get("locked_scene_qa")
+    required = (
+        "policy", "edit_target_asset_id", "identity_reference_asset_id",
+        "non_subject_region_policy", "checks", "landmarks", "bounded_edit_regions", "pixel_correspondence",
+        "non_subject_change_detected", "verdict", "hard_failures", "reviewer", "checked_at",
+    )
+    if not require_keys(qa, required, f"{where}.locked_scene_qa", report):
+        return
+    if qa.get("policy") != "approved-location-locked-insertion-v1.6.5":
+        report.error("LOCKED_SCENE_QA", f"{where} must use approved-location-locked-insertion-v1.6.5.")
+    if qa.get("non_subject_region_policy") != "preserve_approved_location":
+        report.error("LOCKED_SCENE_QA", f"{where} must preserve every non-subject region of the approved location.")
+    checks = qa.get("checks")
+    if require_keys(checks, LOCKED_SCENE_QA_CHECKS, f"{where}.locked_scene_qa.checks", report):
+        for field in LOCKED_SCENE_QA_CHECKS:
+            if checks.get(field) not in {"pending", "pass", "fail"}:
+                report.error("ENUM", f"{where}.locked_scene_qa.checks.{field} is invalid: {checks.get(field)}")
+    landmarks = qa.get("landmarks")
+    if not isinstance(landmarks, list) or len(landmarks) < 6:
+        report.error("LOCKED_SCENE_LANDMARK", f"{where} requires at least six set landmarks spanning furniture and fixed architecture.")
+        landmarks = []
+    landmark_ids: set[str] = set()
+    landmark_roles: set[str] = set()
+    for index, landmark in enumerate(landmarks):
+        landmark_where = f"{where}.locked_scene_qa.landmarks[{index}]"
+        if not require_keys(
+            landmark,
+            ("id", "role", "expected_norm", "observed_norm", "tolerance", "visibility", "pass"),
+            landmark_where,
+            report,
+        ):
+            continue
+        landmark_id = landmark.get("id")
+        if require_string(landmark_id, f"{landmark_where}.id", report):
+            if landmark_id in landmark_ids:
+                report.error("DUPLICATE_ID", f"Duplicate locked-scene landmark id: {landmark_id}")
+            landmark_ids.add(landmark_id)
+        role = landmark.get("role")
+        if role not in {"furniture", "architecture", "fixture", "spatial_anchor", "projection"}:
+            report.error("ENUM", f"{landmark_where}.role is invalid: {role}")
+        elif isinstance(role, str):
+            landmark_roles.add(role)
+        points: list[list[float]] = []
+        for point_field in ("expected_norm", "observed_norm"):
+            point = landmark.get(point_field)
+            if (
+                not isinstance(point, list)
+                or len(point) != 2
+                or any(not is_number(value) or not 0 <= float(value) <= 1 for value in point)
+            ):
+                report.error("LOCKED_SCENE_LANDMARK", f"{landmark_where}.{point_field} must be one normalized [x, y] point.")
+            else:
+                points.append([float(point[0]), float(point[1])])
+        tolerance = landmark.get("tolerance")
+        if not is_number(tolerance) or not 0 < float(tolerance) <= 0.03:
+            report.error("LOCKED_SCENE_LANDMARK", f"{landmark_where}.tolerance must be greater than 0 and no more than 0.03 of frame size.")
+        if landmark.get("visibility") not in {"visible", "temporarily_occluded_by_inserted_subject"}:
+            report.error("ENUM", f"{landmark_where}.visibility is invalid: {landmark.get('visibility')}")
+        if landmark.get("pass") not in {True, False}:
+            report.error("TYPE", f"{landmark_where}.pass must be boolean.")
+        elif len(points) == 2 and is_number(tolerance):
+            delta = ((points[0][0] - points[1][0]) ** 2 + (points[0][1] - points[1][1]) ** 2) ** 0.5
+            expected_pass = delta <= float(tolerance)
+            if landmark.get("pass") is not expected_pass:
+                report.error("LOCKED_SCENE_LANDMARK", f"{landmark_where}.pass disagrees with its measured normalized displacement.")
+    if not {"furniture", "architecture", "fixture"}.issubset(landmark_roles):
+        report.error("LOCKED_SCENE_LANDMARK", f"{where} landmarks must cover furniture, architecture, and a fixed fixture.")
+    regions = qa.get("bounded_edit_regions")
+    if not isinstance(regions, list) or not regions:
+        report.error("LOCKED_SCENE_REGION", f"{where} requires at least one bounded person/contact edit region.")
+        regions = []
+    for index, region in enumerate(regions):
+        region_where = f"{where}.locked_scene_qa.bounded_edit_regions[{index}]"
+        if not require_keys(region, ("label", "x", "y", "width", "height"), region_where, report):
+            continue
+        require_string(region.get("label"), f"{region_where}.label", report)
+        values = [region.get(field) for field in ("x", "y", "width", "height")]
+        if any(not is_number(value) for value in values):
+            report.error("LOCKED_SCENE_REGION", f"{region_where} coordinates must be numeric and normalized.")
+            continue
+        x, y, width, height = (float(value) for value in values)
+        if x < 0 or y < 0 or width <= 0 or height <= 0 or x + width > 1.000001 or y + height > 1.000001:
+            report.error("LOCKED_SCENE_REGION", f"{region_where} must be a positive normalized box within the frame.")
+    correspondence = qa.get("pixel_correspondence")
+    correspondence_fields = (
+        "alignment_method", "source_dimensions_px", "output_dimensions_px",
+        "outside_edit_region_mae", "outside_edit_region_p95",
+        "outside_edit_region_fraction_above_20", "thresholds", "verdict",
+    )
+    if require_keys(correspondence, correspondence_fields, f"{where}.locked_scene_qa.pixel_correspondence", report):
+        if correspondence.get("alignment_method") != "resize_to_edit_target_for_audit_only":
+            report.error("LOCKED_SCENE_PIXEL", f"{where} must audit a normalized copy without modifying the approved output.")
+        dimensions: list[list[int]] = []
+        for field in ("source_dimensions_px", "output_dimensions_px"):
+            value = correspondence.get(field)
+            if not isinstance(value, list) or len(value) != 2 or any(not is_integer(item) or item <= 0 for item in value):
+                report.error("LOCKED_SCENE_PIXEL", f"{where}.locked_scene_qa.pixel_correspondence.{field} must be [width, height].")
+            else:
+                dimensions.append(value)
+        if len(dimensions) == 2:
+            source_ratio = dimensions[0][0] / dimensions[0][1]
+            output_ratio = dimensions[1][0] / dimensions[1][1]
+            if abs(source_ratio - output_ratio) / source_ratio > 0.005:
+                report.error("LOCKED_SCENE_PIXEL", f"{where} output aspect-ratio drift exceeds 0.5 percent.")
+        thresholds = correspondence.get("thresholds")
+        threshold_fields = ("max_mae", "max_p95", "max_fraction_above_20")
+        if require_keys(thresholds, threshold_fields, f"{where}.locked_scene_qa.pixel_correspondence.thresholds", report):
+            for field in threshold_fields:
+                if not is_number(thresholds.get(field)) or float(thresholds.get(field)) < 0:
+                    report.error("LOCKED_SCENE_PIXEL", f"{where}.locked_scene_qa.pixel_correspondence.thresholds.{field} must be non-negative.")
+        metrics_pass = True
+        for metric_field, threshold_field in (
+            ("outside_edit_region_mae", "max_mae"),
+            ("outside_edit_region_p95", "max_p95"),
+            ("outside_edit_region_fraction_above_20", "max_fraction_above_20"),
+        ):
+            metric = correspondence.get(metric_field)
+            threshold = thresholds.get(threshold_field) if isinstance(thresholds, dict) else None
+            if not is_number(metric) or float(metric) < 0:
+                report.error("LOCKED_SCENE_PIXEL", f"{where}.locked_scene_qa.pixel_correspondence.{metric_field} must be non-negative.")
+                metrics_pass = False
+            elif is_number(threshold) and float(metric) > float(threshold):
+                metrics_pass = False
+        expected_correspondence_verdict = "pass" if metrics_pass else "fail"
+        if correspondence.get("verdict") != expected_correspondence_verdict:
+            report.error("LOCKED_SCENE_PIXEL", f"{where} pixel-correspondence verdict disagrees with the recorded thresholds.")
+        if asset.get("status") in {"qualified", "approved", "superseded"} and not metrics_pass:
+            report.error("LOCKED_SCENE_GATE", f"Approved probe {asset.get('id')} changes too much of the location outside its bounded edit regions.")
+    require_string_list(qa.get("hard_failures"), f"{where}.locked_scene_qa.hard_failures", report)
+    if qa.get("non_subject_change_detected") not in {True, False}:
+        report.error("TYPE", f"{where}.locked_scene_qa.non_subject_change_detected must be boolean.")
+    if qa.get("verdict") not in {"pending", "pass", "fail"}:
+        report.error("ENUM", f"{where}.locked_scene_qa.verdict is invalid: {qa.get('verdict')}")
+    require_string(qa.get("reviewer"), f"{where}.locked_scene_qa.reviewer", report, allow_empty=True)
+    require_string(qa.get("checked_at"), f"{where}.locked_scene_qa.checked_at", report, allow_empty=True)
+    if asset.get("status") in {"qualified", "approved", "superseded"}:
+        if not locked_scene_qa_passed(asset):
+            report.error("LOCKED_SCENE_GATE", f"Approved probe {asset.get('id')} has not passed locked-scene correspondence.")
+        if qa.get("reviewer") != "codex-visual" or not valid_timestamp(qa.get("checked_at")):
+            report.error("LOCKED_SCENE_GATE", f"Approved probe {asset.get('id')} requires Codex visual correspondence review and timestamp.")
+
+
 def _sha256_file(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -1300,15 +1464,18 @@ def validate_assets(
         if asset.get("surface_policy") not in SURFACE_POLICIES:
             report.error("ENUM", f"{where}.surface_policy is invalid: {asset.get('surface_policy')}")
         if asset_type == "live_action_probe":
-            if generator != "builtin-imagegen" or mode != "generate":
-                report.error("LIVE_ACTION_PROBE_ASSET", f"Probe asset {asset_id} must be an independent built-in ImageGen generation.")
+            if generator != "builtin-imagegen" or mode != "edit":
+                report.error("LIVE_ACTION_PROBE_ASSET", f"Probe asset {asset_id} must be an independent built-in ImageGen edit of the approved empty location.")
             if asset.get("surface_policy") != "clean_narrative":
                 report.error("LIVE_ACTION_PROBE_ASSET", f"Probe asset {asset_id} must use surface_policy=clean_narrative.")
-            if asset.get("derived_from") or len(asset.get("reference_asset_ids", [])) != 2:
+            references = asset.get("reference_asset_ids", [])
+            if not asset.get("derived_from") or len(references) != 2 or references[0] != asset.get("derived_from"):
                 report.error(
                     "LIVE_ACTION_PROBE_REFERENCE",
-                    f"Probe asset {asset_id} must directly reference exactly one unified identity Inspector and one location authority; no derived candidate chain.",
+                    f"Probe asset {asset_id} must use the approved empty location as its edit target and first reference, followed by one unified identity Inspector; no candidate may derive from another candidate.",
                 )
+            if asset.get("prompt_strategy_id") != "image2-live-action-locked-insertion-probe-v1.6":
+                report.error("LIVE_ACTION_PROBE_ASSET", f"Probe asset {asset_id} must use the locked-insertion prompt strategy.")
             for field in (
                 "probe_task",
                 "probe_blocking",
@@ -1360,6 +1527,8 @@ def validate_assets(
         validate_reference_provenance(asset, where, report)
         validate_geometry_qa(asset, where, report)
         validate_live_action_quality_qa(asset, where, report)
+        if asset_type == "live_action_probe":
+            validate_locked_scene_qa(asset, where, report)
         validate_generation_provenance(project_dir, asset, where, report)
         validate_reference_coverage(asset, where, report)
 
@@ -3095,8 +3264,12 @@ def validate_image_prompt_sections(
             positive_lines.append(line)
     positive_text = "\n".join(positive_lines).casefold()
     exclusions = " ".join(exclusion_lines).casefold()
-    if strategy == "image2-live-action-integration-probe-v1.6":
-        for concept in ("photorealistic", "candid", "on-location photograph", "exposure priority", "clip", "lose detail", "no local hdr"):
+    if strategy == "image2-live-action-locked-insertion-probe-v1.6":
+        for concept in (
+            "photorealistic", "candid", "on-location photograph", "bounded image edit",
+            "first attached image", "immutable approved empty-location plate", "change pixels only",
+            "exposure priority", "clip", "lose detail", "no local hdr",
+        ):
             if concept not in positive_text:
                 report.error("LIVE_ACTION_PROBE_PROMPT", f"Asset {asset_id} integration probe prompt omits `{concept}`.")
         forbidden_styling = (
@@ -3117,6 +3290,7 @@ def validate_image_prompt_sections(
             "oily/waxy/plastic skin": ("oily", "waxy", "plastic skin"),
             "cut-out or separately tone-mapped subject": ("cut-out", "cut out", "separate subject tone mapping"),
             "repeated artifact texture": ("repeated artifact texture", "repeating artifact texture"),
+            "scene geometry or fixture drift": ("scene geometry", "fixture"),
         }
         for label, alternatives in probe_exclusions.items():
             if not any(value in exclusions for value in alternatives):
@@ -6325,6 +6499,7 @@ def validate_quality_manifest(
     probe_fields = (
         "id", "status", "approval_gate_id", "quality_profile_id", "identity_inspector_asset_id",
         "location_asset_id", "probe_asset_id", "prompt_strategy_id", "reference_asset_ids",
+        "edit_target_asset_id", "edit_region_policy",
         "attempt_batch_count", "max_attempt_batches", "retry_changed_variable", "ordinary_light_only",
         "special_environment_disabled", "scales_checked", "ai_visual_verdict", "failure_classes",
         "evidence", "reviewer", "checked_at",
@@ -6346,16 +6521,20 @@ def validate_quality_manifest(
         require_string(probe.get("quality_profile_id"), f"{where}.quality_profile_id", report)
         for field in ("identity_inspector_asset_id", "location_asset_id", "probe_asset_id"):
             require_string(probe.get(field), f"{where}.{field}", report, allow_empty=status == "planned")
-        if probe.get("prompt_strategy_id") != "image2-live-action-integration-probe-v1.6":
-            report.error("LIVE_ACTION_PROBE", f"Probe {probe_id} must use image2-live-action-integration-probe-v1.6.")
+        if probe.get("prompt_strategy_id") != "image2-live-action-locked-insertion-probe-v1.6":
+            report.error("LIVE_ACTION_PROBE", f"Probe {probe_id} must use image2-live-action-locked-insertion-probe-v1.6.")
         references = probe.get("reference_asset_ids")
         require_string_list(references, f"{where}.reference_asset_ids", report)
-        expected_references = [probe.get("identity_inspector_asset_id"), probe.get("location_asset_id")]
+        expected_references = [probe.get("location_asset_id"), probe.get("identity_inspector_asset_id")]
         if status != "planned" and references != expected_references:
             report.error(
                 "LIVE_ACTION_PROBE_REFERENCE",
-                f"Probe {probe_id} must reference the unified identity Inspector first and approved location root second, with no inherited failed image.",
+                f"Probe {probe_id} must use the approved empty location as edit target and first reference, then the unified identity Inspector, with no inherited failed image.",
             )
+        if status != "planned" and probe.get("edit_target_asset_id") != probe.get("location_asset_id"):
+            report.error("LIVE_ACTION_PROBE_REFERENCE", f"Probe {probe_id} edit target must be its approved location authority.")
+        if probe.get("edit_region_policy") != "person_contact_and_cast_shadow_only":
+            report.error("LIVE_ACTION_PROBE_REFERENCE", f"Probe {probe_id} must restrict edits to the person, contact, and necessary cast-shadow regions.")
         attempts = probe.get("attempt_batch_count")
         if not is_integer(attempts) or attempts < 0 or attempts > 2:
             report.error("LIVE_ACTION_PROBE_ATTEMPTS", f"{where}.attempt_batch_count must be 0, 1, or 2.")
@@ -6414,9 +6593,11 @@ def validate_quality_manifest(
             elif (
                 probe_asset.get("prompt_strategy_id") != probe.get("prompt_strategy_id")
                 or probe_asset.get("reference_asset_ids") != references
+                or probe_asset.get("mode") != "edit"
+                or probe_asset.get("derived_from") != probe.get("location_asset_id")
                 or probe_asset.get("surface_policy") != "clean_narrative"
             ):
-                report.error("LIVE_ACTION_PROBE_ASSET", f"Probe asset {probe.get('probe_asset_id')} does not preserve the clean two-root diagnostic contract.")
+                report.error("LIVE_ACTION_PROBE_ASSET", f"Probe asset {probe.get('probe_asset_id')} does not preserve the locked-location two-root edit contract.")
         if status == "approved":
             if attempts not in {1, 2} or verdict != "pass" or failures:
                 report.error("LIVE_ACTION_PROBE_GATE", f"Approved probe {probe_id} must pass with no hard failure class within two batches.")
@@ -6426,6 +6607,7 @@ def validate_quality_manifest(
                 live_action_quality_passed(probe_asset)
                 and texture_qa_passed(probe_asset, require_user_approval=False)
                 and photographic_qa_passed(probe_asset)
+                and locked_scene_qa_passed(probe_asset)
             ):
                 report.error("LIVE_ACTION_PROBE_GATE", f"Approved probe asset {probe.get('probe_asset_id')} has not passed all visual evidence gates.")
         if status == "backend_realism_blocked":
@@ -6627,6 +6809,12 @@ def validate_candidate_manifest(
             report.error("ENUM", f"{where}.status is invalid: {candidate_set.get('status')}")
         if candidate_set.get("operation") not in CANDIDATE_OPERATIONS:
             report.error("ENUM", f"{where}.operation is invalid: {candidate_set.get('operation')}")
+        expected_operation = "edit" if target and target.get("type") == "live_action_probe" else "generate"
+        if target and candidate_set.get("operation") != expected_operation:
+            report.error(
+                "CANDIDATE_OPERATION",
+                f"Candidate set {set_id} must use operation={expected_operation} for target type {target.get('type')}.",
+            )
         require_string(candidate_set.get("approval_gate_id"), f"{where}.approval_gate_id", report)
         if target and candidate_set.get("approval_gate_id") != target.get("approval_gate_id"):
             report.error("REVIEW_GATE", f"Candidate set {set_id} and target {target_id} must share approval_gate_id.")
@@ -6679,8 +6867,11 @@ def validate_candidate_manifest(
                 all_variant_ids.add(variant_id)
                 if variant.get("status") not in CANDIDATE_VARIANT_STATUSES:
                     report.error("ENUM", f"{variant_where}.status is invalid: {variant.get('status')}")
-                if variant.get("operation") != "generate" or variant.get("derived_from_candidate_id"):
-                    report.error("CANDIDATE_INDEPENDENCE", f"Candidate {variant_id} must be an independent generate, never an edit or another candidate's derivative.")
+                if variant.get("operation") != expected_operation or variant.get("derived_from_candidate_id"):
+                    report.error(
+                        "CANDIDATE_INDEPENDENCE",
+                        f"Candidate {variant_id} must be an independent {expected_operation} from the authority roots, never another candidate's derivative.",
+                    )
                 require_string_list(variant.get("reference_order"), f"{variant_where}.reference_order", report)
                 if variant.get("reference_order") != candidate_set.get("reference_asset_ids"):
                     report.error("CANDIDATE_REFERENCE", f"Candidate {variant_id} reference order differs from its set.")

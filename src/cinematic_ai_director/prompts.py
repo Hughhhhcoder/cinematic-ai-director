@@ -50,27 +50,27 @@ def _compile_live_action_probe_prompt(
         "",
         _prompt_block(
             "PHOTOGRAPHIC EVENT",
-            f"A photorealistic candid on-location photograph records the approved fictional adult as they {task}. The camera is present for this ordinary observable event, not for a poster, fashion portrait, or effects demonstration.",
+            f"A photorealistic candid on-location photograph records the approved adult as they {task}, an ordinary event rather than a poster.",
         ),
         _prompt_block(
             "APPROVED IDENTITY WORLD AND STATE",
-            "Use the first attached unified identity Inspector as the only person authority and the second attached approved location image as the only world authority. Preserve that face, body proportions, clothing, room construction, fixtures, scale, and material identities.",
+            "This is a bounded image edit. The first attached image is the immutable approved empty-location plate and edit target; the second is the unified identity Inspector. Insert that adult. Preserve the plate's camera, crop, projection, architecture, table dimensions and supports, windows, doors, fixtures, anchor, materials, and every other non-subject detail.",
         ),
         _prompt_block(
             "PHYSICAL CAMERA AND BLOCKING",
-            f"Use {camera}. {blocking}. The person and room must share one projection, ground plane, contact, occlusion order, focus falloff, and edge behavior; allow mild foreground obstruction or unused space when physically natural.",
+            f"Keep the plate camera exactly; {camera} only describes it. {blocking}. Change pixels only inside the person, contact, and necessary cast-shadow regions. Share projection, ground plane, contact, occlusion, focus falloff, and edge behavior. Do not redesign the set.",
         ),
         _prompt_block(
             "SOURCE LIGHT AND MATERIAL RESPONSE",
-            f"{light}. The same source direction and room bounce reach the face, clothing, contact object, and adjacent set. Natural-dry skin has continuous matte-diffuse tone with only weak source-shaped reflection; skin, hair, fabric, painted surfaces, glass, wood, and metal remain visibly separate.",
+            f"{light}. The same source and room bounce reach face, clothing, contact object, and set. Natural-dry skin stays matte-diffuse with weak source-shaped reflection; skin, hair, fabric, paint, glass, wood, and metal remain separate.",
         ),
         _prompt_block(
             "FOCUS EXPOSURE AND CONTINGENCY",
-            f"Focus favors the eyes and working contact without making every plane equally sharp. Exposure priority: {plan.get('exposure_priority')}. Let {clipping} clip when necessary and let {shadow_loss} lose detail. Keep normal middle tones and finite capture latitude; no local HDR equalization.",
+            f"Focus favors eyes and contact without equal sharpness everywhere. Exposure priority: {plan.get('exposure_priority')}. Let {clipping} clip and {shadow_loss} lose detail. Keep normal middle tones and finite latitude; no local HDR equalization.",
         ),
         _prompt_block(
             "EXCLUSIONS",
-            "No synthetic-rendered or game-like person; no oily, waxy, or plastic skin; no cut-out subject edges or separate subject tone mapping; no repeated artifact texture.",
+            "No synthetic-rendered or game-like person; no oily, waxy, or plastic skin; no cut-out subject edges, separate subject tone mapping, or repeated artifact texture; no scene geometry, fixture, camera, crop, or background-detail drift.",
         ),
     ]
     return "\n".join(blocks).strip() + "\n"

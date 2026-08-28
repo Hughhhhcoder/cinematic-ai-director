@@ -66,9 +66,9 @@ jobs:
         run: |
           python scripts/build_release.py --output "$RUNNER_TEMP/dist-a" --manifest-output "$RUNNER_TEMP/manifest-a.json"
           python scripts/build_release.py --output "$RUNNER_TEMP/dist-b" --manifest-output "$RUNNER_TEMP/manifest-b.json"
-          cmp "$RUNNER_TEMP/dist-a/cinematic-ai-director-v1.6.4.zip" "$RUNNER_TEMP/dist-b/cinematic-ai-director-v1.6.4.zip"
-          test -f "$RUNNER_TEMP/dist-a/cinematic-ai-director-higgsfield-example-v1.6.4.zip"
-          test -f "$RUNNER_TEMP/dist-a/cinematic-ai-director-showcase-originals-v1.6.4.zip"
+          cmp "$RUNNER_TEMP/dist-a/cinematic-ai-director-v1.6.5.zip" "$RUNNER_TEMP/dist-b/cinematic-ai-director-v1.6.5.zip"
+          test -f "$RUNNER_TEMP/dist-a/cinematic-ai-director-higgsfield-example-v1.6.5.zip"
+          test -f "$RUNNER_TEMP/dist-a/cinematic-ai-director-showcase-originals-v1.6.5.zip"
 
   ci:
     name: CI required

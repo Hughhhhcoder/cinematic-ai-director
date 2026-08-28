@@ -3600,7 +3600,7 @@
         "single authoritative production role"
       ],
       "created_at": "2026-08-25T12:00:00Z",
-      "derived_from": "",
+      "derived_from": "loc-workshop--v001",
       "dynamic_range_plan": {
         "allowed_clipping": [
           "small desk-lamp filament core"
@@ -3623,7 +3623,7 @@
       },
       "generation_provenance": {
         "backend": "builtin-imagegen",
-        "operation": "generate",
+        "operation": "edit",
         "output": {
           "color_mode": "RGB",
           "height_px": 1080,
@@ -3633,22 +3633,22 @@
           "width_px": 1920
         },
         "pixel_reproducible": false,
-        "prompt_sha256": "66805f3945e96a9fee5d6621964b0cdfe4b36f797daa287012f77b53dd64d042",
+        "prompt_sha256": "7a715db3e2ec2c3e6d2c7c0dd06168bc5c4e239a0445cc420edfeaff96f7aeb4",
         "reference_inputs": [
-          {
-            "asset_id": "char-hero-inspector--v001",
-            "relative_path": "assets/characters/identity-inspectors/char-hero-inspector--v001--approved.png",
-            "sha256": "d1b95e556289ad0e8d2415170772a508e37c01e785d980f723576209f3997e58"
-          },
           {
             "asset_id": "loc-workshop--v001",
             "relative_path": "assets/locations/loc-workshop--v001--approved.png",
             "sha256": "2182133d4a4fdfb13ac97b3821e240fdae856eda3609162d835f99129b4bf37e"
+          },
+          {
+            "asset_id": "char-hero-inspector--v001",
+            "relative_path": "assets/characters/identity-inspectors/char-hero-inspector--v001--approved.png",
+            "sha256": "d1b95e556289ad0e8d2415170772a508e37c01e785d980f723576209f3997e58"
           }
         ],
         "reference_order": [
-          "char-hero-inspector--v001",
-          "loc-workshop--v001"
+          "loc-workshop--v001",
+          "char-hero-inspector--v001"
         ],
         "reproducibility_class": "workflow_only",
         "software_agent": "Codex built-in ImageGen fixture"
@@ -3759,6 +3759,148 @@
       "localized_story_evidence": [],
       "location_state_id": "",
       "location_world_id": "",
+      "locked_scene_qa": {
+        "bounded_edit_regions": [
+          {
+            "height": 0.83,
+            "label": "person-contact-and-cast-shadow",
+            "width": 0.45,
+            "x": 0.28,
+            "y": 0.08
+          }
+        ],
+        "checked_at": "2026-08-25T12:00:00Z",
+        "checks": {
+          "anchor_position_scale_orientation": "pass",
+          "background_material_identity": "pass",
+          "camera_projection_and_crop": "pass",
+          "fixed_architecture": "pass",
+          "fixture_count_and_placement": "pass",
+          "no_unrelated_relighting_or_tone_mapping": "pass",
+          "person_contact_region_only": "pass",
+          "table_counter_geometry": "pass"
+        },
+        "edit_target_asset_id": "loc-workshop--v001",
+        "hard_failures": [],
+        "identity_reference_asset_id": "char-hero-inspector--v001",
+        "landmarks": [
+          {
+            "expected_norm": [
+              0.18,
+              0.72
+            ],
+            "id": "table-front-left",
+            "observed_norm": [
+              0.18,
+              0.72
+            ],
+            "pass": true,
+            "role": "furniture",
+            "tolerance": 0.01,
+            "visibility": "visible"
+          },
+          {
+            "expected_norm": [
+              0.72,
+              0.72
+            ],
+            "id": "table-front-right",
+            "observed_norm": [
+              0.72,
+              0.72
+            ],
+            "pass": true,
+            "role": "furniture",
+            "tolerance": 0.01,
+            "visibility": "visible"
+          },
+          {
+            "expected_norm": [
+              0.62,
+              0.2
+            ],
+            "id": "window-mullion",
+            "observed_norm": [
+              0.62,
+              0.2
+            ],
+            "pass": true,
+            "role": "architecture",
+            "tolerance": 0.01,
+            "visibility": "visible"
+          },
+          {
+            "expected_norm": [
+              0.1,
+              0.48
+            ],
+            "id": "door-latch",
+            "observed_norm": [
+              0.1,
+              0.48
+            ],
+            "pass": true,
+            "role": "architecture",
+            "tolerance": 0.01,
+            "visibility": "visible"
+          },
+          {
+            "expected_norm": [
+              0.76,
+              0.35
+            ],
+            "id": "fixed-lamp",
+            "observed_norm": [
+              0.76,
+              0.35
+            ],
+            "pass": true,
+            "role": "fixture",
+            "tolerance": 0.01,
+            "visibility": "visible"
+          },
+          {
+            "expected_norm": [
+              0.46,
+              0.65
+            ],
+            "id": "red-table-anchor",
+            "observed_norm": [
+              0.46,
+              0.65
+            ],
+            "pass": true,
+            "role": "spatial_anchor",
+            "tolerance": 0.01,
+            "visibility": "temporarily_occluded_by_inserted_subject"
+          }
+        ],
+        "non_subject_change_detected": false,
+        "non_subject_region_policy": "preserve_approved_location",
+        "pixel_correspondence": {
+          "alignment_method": "resize_to_edit_target_for_audit_only",
+          "output_dimensions_px": [
+            1600,
+            900
+          ],
+          "outside_edit_region_fraction_above_20": 0.01,
+          "outside_edit_region_mae": 2.4,
+          "outside_edit_region_p95": 8.0,
+          "source_dimensions_px": [
+            1600,
+            900
+          ],
+          "thresholds": {
+            "max_fraction_above_20": 0.05,
+            "max_mae": 6.0,
+            "max_p95": 20.0
+          },
+          "verdict": "pass"
+        },
+        "policy": "approved-location-locked-insertion-v1.6.5",
+        "reviewer": "codex-visual",
+        "verdict": "pass"
+      },
       "material_response_contract": {
         "color_contamination_sources": [
           "existing desk lamp at physically reached surfaces"
@@ -3782,7 +3924,7 @@
         "tone_mapping_policy": "scene-referred highlight rolloff without clarity or HDR shaping"
       },
       "medium_signature_id": "",
-      "mode": "generate",
+      "mode": "edit",
       "ordinary_light_source": "One broad north window and low room bounce",
       "photographic_qa": {
         "checked_at": "2026-08-25T12:00:00Z",
@@ -3805,7 +3947,7 @@
       "probe_camera_condition": "a reachable eye-level medium camera",
       "probe_task": "checks one paper seal by hand",
       "prompt_path": "prompts/images/live-action-probe-char-hero-workshop--v001.txt",
-      "prompt_strategy_id": "image2-live-action-integration-probe-v1.6",
+      "prompt_strategy_id": "image2-live-action-locked-insertion-probe-v1.6",
       "qa": {
         "checked_at": "2026-08-25T12:00:00Z",
         "hard_failures": [],
@@ -3813,8 +3955,8 @@
       },
       "quality_profile_id": "quality-main",
       "reference_asset_ids": [
-        "char-hero-inspector--v001",
-        "loc-workshop--v001"
+        "loc-workshop--v001",
+        "char-hero-inspector--v001"
       ],
       "reference_coverage": null,
       "reference_provenance": {

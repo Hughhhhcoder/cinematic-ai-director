@@ -19,7 +19,7 @@
 | 4 人物状态 | state authority + delta/soft-tissue delta | 直接追溯统一身份板，骨架/比例保留 |
 | 5 地点世界与物件 | location master + prop roots | 拓扑、设施、制造结构、材质基线批准 |
 | 6 地点状态与空间 | 多视角、主锚点、spatial map | 空间/表面 QA，环境状态因果成立 |
-| 7 实拍融合探针 | 单人普通光 `live_action_probe` | 人物与地点共享投影、光线、焦点、遮挡、曝光和材质；两批失败即阻断 |
+| 7 实拍融合探针 | 锁定空场景底片的单人普通光 `live_action_probe` | 桌台/门窗/设施/锚点/机位不漂移，人物与地点共享投影、光线、焦点、遮挡、曝光和材质；两批失败即阻断 |
 | 8 Treatment 与格式 | cinematic treatment + approved format | 原创可观察行为、无烧入黑边 |
 | 9 Foundation | 三套合格 Look/Profile + 身份/地点/格式板 | 一次盲选、整门批量批准 |
 | 10 叙事资产 | sequence anchor、plate、Photoboard、pose anchor、首尾帧 | 后台候选通过；状态、几何、环境、格式和空间可追溯 |

@@ -7,7 +7,7 @@ flowchart TD
     B --> D[4 Location worlds and prop roots]
     C --> E[5 Character states]
     D --> F[6 Location state views + spatial maps]
-    E --> P[7 Ordinary-light live-action integration probe]
+    E --> P[7 Locked-location ordinary-light person insertion]
     F --> P
     P --> G[8 Treatment, format, finite dynamic range, environment, three Looks]
     G --> H{9 Foundation gate}
@@ -38,7 +38,7 @@ States always derive directly from approved roots—never from the previous stat
 
 ## 7. Live-action integration proof
 
-Before styling, generate a compact ordinary-light probe from only the unified identity Inspector and one approved location authority. It must show a readable face, a simple task/contact, surrounding set, shared light/focus/occlusion, and a finite exposure without oil film, synthetic game surfaces, cut-out edges, or separate subject tone mapping. Two failed batches block all downstream person-bearing generation.
+Before styling, use the approved empty location as an immutable edit plate and insert the unified-Inspector subject in a bounded region under ordinary light. It must show a readable face, a simple task/contact, shared light/focus/occlusion and finite exposure without oil film, synthetic game surfaces, cut-out edges or separate subject tone mapping. At least six location landmarks and outside-edit-region pixel correspondence must also prove that furniture, architecture, fixtures, camera and crop did not drift. Two failed batches block all downstream person-bearing generation.
 
 ## 8–9. Look and Foundation
 

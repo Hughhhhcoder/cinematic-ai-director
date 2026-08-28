@@ -2,6 +2,21 @@
 
 All notable public changes are documented here. The project follows [Semantic Versioning](https://semver.org/).
 
+## [1.6.5] — 2026-08-28
+
+### Added
+
+- Added `image2-live-action-locked-insertion-probe-v1.6`: the approved empty location is now the immutable first image/edit target, while the unified identity Inspector is the second image and supplies identity only.
+- Added `locked_scene_qa` with bounded person/contact/cast-shadow edit regions, at least six normalized furniture/architecture/fixture landmarks, aspect-ratio tolerance, and edit-region-excluded pixel correspondence thresholds.
+- Added hard failures for table/counter dimension, front-edge, support, door/window, fixture, spatial-anchor, camera, crop, vanishing-relation, background-detail, and global relighting drift.
+- Added regression tests proving that probe candidates may independently edit the same authority plate but may never regenerate the room or derive from another candidate.
+
+### Changed
+
+- Replaced the public empty location and person-in-location frame with a clean 2.39:1 coastal survey room and an independently edited ordinary-light person insertion. The fixed workbench, both end supports, windows, door, chart cabinet, red anchor and harbor remain corresponding outside the bounded subject regions.
+- Removed the superseded v1.6.4 scene, integration image, prompts, and publication derivatives from the current release tree.
+- Kept the project schema at `1.6`; v1.0–v1.5 remain legacy and are not migrated automatically.
+
 ## [1.6.4] — 2026-08-28
 
 ### Added

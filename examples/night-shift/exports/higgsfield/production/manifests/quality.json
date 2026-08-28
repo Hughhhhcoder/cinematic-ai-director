@@ -6,9 +6,12 @@
       "approval_gate_id": "review-foundation-001",
       "attempt_batch_count": 1,
       "checked_at": "2026-08-25T12:00:00Z",
+      "edit_region_policy": "person_contact_and_cast_shadow_only",
+      "edit_target_asset_id": "loc-workshop--v001",
       "evidence": {
         "face_and_skin_readable": "Natural-dry face remains readable without oil film, wax response, or cosmetic shaping.",
         "finite_dynamic_range": "Lamp core clips and the deepest shelf gap loses detail while middle tones remain ordinary.",
+        "locked_scene_correspondence": "Table dimensions, supports, windows, door, fixtures, anchor, camera, crop, and material identities match the approved empty plate outside the bounded person/contact region.",
         "shared_focus_and_occlusion": "Face, working contact, table edge, and wall share one focus and occlusion stack.",
         "shared_light": "One north-window direction and room bounce affect person and workshop together.",
         "skin_material_separation": "Skin, hair, cotton, paper, paint, glass, wood, and metal keep independent responses.",
@@ -21,11 +24,11 @@
       "max_attempt_batches": 2,
       "ordinary_light_only": true,
       "probe_asset_id": "live-action-probe-char-hero-workshop--v001",
-      "prompt_strategy_id": "image2-live-action-integration-probe-v1.6",
+      "prompt_strategy_id": "image2-live-action-locked-insertion-probe-v1.6",
       "quality_profile_id": "quality-main",
       "reference_asset_ids": [
-        "char-hero-inspector--v001",
-        "loc-workshop--v001"
+        "loc-workshop--v001",
+        "char-hero-inspector--v001"
       ],
       "retry_changed_variable": "",
       "reviewer": "codex-visual",

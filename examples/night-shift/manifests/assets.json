@@ -3574,12 +3574,12 @@
       "status": "approved",
       "revision": 1,
       "generator": "builtin-imagegen",
-      "mode": "generate",
-      "derived_from": "",
+      "mode": "edit",
+      "derived_from": "loc-workshop--v001",
       "replaces_asset_id": "",
       "reference_asset_ids": [
-        "char-hero-inspector--v001",
-        "loc-workshop--v001"
+        "loc-workshop--v001",
+        "char-hero-inspector--v001"
       ],
       "scene_ids": [
         "sc-010"
@@ -3599,7 +3599,7 @@
       "prompt_path": "prompts/images/live-action-probe-char-hero-workshop--v001.txt",
       "candidate_path": "",
       "approved_path": "assets/quality-evidence/live-action-probes/live-action-probe-char-hero-workshop--v001--approved.png",
-      "prompt_strategy_id": "image2-live-action-integration-probe-v1.6",
+      "prompt_strategy_id": "image2-live-action-locked-insertion-probe-v1.6",
       "calibration_family": "image2-live-action-evidence-v1.6",
       "candidate_set_id": "cset-live-action-probe-char-hero-workshop--v001",
       "quality_profile_id": "quality-main",
@@ -3842,22 +3842,22 @@
         "backend": "builtin-imagegen",
         "reproducibility_class": "workflow_only",
         "pixel_reproducible": false,
-        "operation": "generate",
-        "prompt_sha256": "66805f3945e96a9fee5d6621964b0cdfe4b36f797daa287012f77b53dd64d042",
+        "operation": "edit",
+        "prompt_sha256": "7a715db3e2ec2c3e6d2c7c0dd06168bc5c4e239a0445cc420edfeaff96f7aeb4",
         "reference_order": [
-          "char-hero-inspector--v001",
-          "loc-workshop--v001"
+          "loc-workshop--v001",
+          "char-hero-inspector--v001"
         ],
         "reference_inputs": [
-          {
-            "asset_id": "char-hero-inspector--v001",
-            "relative_path": "assets/characters/identity-inspectors/char-hero-inspector--v001--approved.png",
-            "sha256": "d1b95e556289ad0e8d2415170772a508e37c01e785d980f723576209f3997e58"
-          },
           {
             "asset_id": "loc-workshop--v001",
             "relative_path": "assets/locations/loc-workshop--v001--approved.png",
             "sha256": "2182133d4a4fdfb13ac97b3821e240fdae856eda3609162d835f99129b4bf37e"
+          },
+          {
+            "asset_id": "char-hero-inspector--v001",
+            "relative_path": "assets/characters/identity-inspectors/char-hero-inspector--v001--approved.png",
+            "sha256": "d1b95e556289ad0e8d2415170772a508e37c01e785d980f723576209f3997e58"
           }
         ],
         "output": {
@@ -3874,7 +3874,149 @@
       "probe_task": "checks one paper seal by hand",
       "probe_blocking": "Medium frame includes face, torso, hand, seal, table edge, and adjacent wall",
       "probe_camera_condition": "a reachable eye-level medium camera",
-      "ordinary_light_source": "One broad north window and low room bounce"
+      "ordinary_light_source": "One broad north window and low room bounce",
+      "locked_scene_qa": {
+        "policy": "approved-location-locked-insertion-v1.6.5",
+        "edit_target_asset_id": "loc-workshop--v001",
+        "identity_reference_asset_id": "char-hero-inspector--v001",
+        "non_subject_region_policy": "preserve_approved_location",
+        "checks": {
+          "camera_projection_and_crop": "pass",
+          "table_counter_geometry": "pass",
+          "fixed_architecture": "pass",
+          "fixture_count_and_placement": "pass",
+          "anchor_position_scale_orientation": "pass",
+          "background_material_identity": "pass",
+          "no_unrelated_relighting_or_tone_mapping": "pass",
+          "person_contact_region_only": "pass"
+        },
+        "landmarks": [
+          {
+            "id": "table-front-left",
+            "role": "furniture",
+            "expected_norm": [
+              0.18,
+              0.72
+            ],
+            "observed_norm": [
+              0.18,
+              0.72
+            ],
+            "tolerance": 0.01,
+            "visibility": "visible",
+            "pass": true
+          },
+          {
+            "id": "table-front-right",
+            "role": "furniture",
+            "expected_norm": [
+              0.72,
+              0.72
+            ],
+            "observed_norm": [
+              0.72,
+              0.72
+            ],
+            "tolerance": 0.01,
+            "visibility": "visible",
+            "pass": true
+          },
+          {
+            "id": "window-mullion",
+            "role": "architecture",
+            "expected_norm": [
+              0.62,
+              0.2
+            ],
+            "observed_norm": [
+              0.62,
+              0.2
+            ],
+            "tolerance": 0.01,
+            "visibility": "visible",
+            "pass": true
+          },
+          {
+            "id": "door-latch",
+            "role": "architecture",
+            "expected_norm": [
+              0.1,
+              0.48
+            ],
+            "observed_norm": [
+              0.1,
+              0.48
+            ],
+            "tolerance": 0.01,
+            "visibility": "visible",
+            "pass": true
+          },
+          {
+            "id": "fixed-lamp",
+            "role": "fixture",
+            "expected_norm": [
+              0.76,
+              0.35
+            ],
+            "observed_norm": [
+              0.76,
+              0.35
+            ],
+            "tolerance": 0.01,
+            "visibility": "visible",
+            "pass": true
+          },
+          {
+            "id": "red-table-anchor",
+            "role": "spatial_anchor",
+            "expected_norm": [
+              0.46,
+              0.65
+            ],
+            "observed_norm": [
+              0.46,
+              0.65
+            ],
+            "tolerance": 0.01,
+            "visibility": "temporarily_occluded_by_inserted_subject",
+            "pass": true
+          }
+        ],
+        "bounded_edit_regions": [
+          {
+            "label": "person-contact-and-cast-shadow",
+            "x": 0.28,
+            "y": 0.08,
+            "width": 0.45,
+            "height": 0.83
+          }
+        ],
+        "pixel_correspondence": {
+          "alignment_method": "resize_to_edit_target_for_audit_only",
+          "source_dimensions_px": [
+            1600,
+            900
+          ],
+          "output_dimensions_px": [
+            1600,
+            900
+          ],
+          "outside_edit_region_mae": 2.4,
+          "outside_edit_region_p95": 8.0,
+          "outside_edit_region_fraction_above_20": 0.01,
+          "thresholds": {
+            "max_mae": 6.0,
+            "max_p95": 20.0,
+            "max_fraction_above_20": 0.05
+          },
+          "verdict": "pass"
+        },
+        "non_subject_change_detected": false,
+        "verdict": "pass",
+        "hard_failures": [],
+        "reviewer": "codex-visual",
+        "checked_at": "2026-08-25T12:00:00Z"
+      }
     },
     {
       "id": "loc-workshop-state-day-est--v001",

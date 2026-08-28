@@ -183,7 +183,7 @@ IMAGE_PROMPT_STRATEGIES = {
     f"image2-live-action-{family}-v1.6": IMAGE_PROMPT_SECTIONS
     for family in (
         "identity-inspector", "character-face", "character-body", "identity-view", "character-state",
-        "location", "object", "pose-contact", "integration-probe", "narrative",
+        "location", "object", "pose-contact", "integration-probe", "locked-insertion-probe", "narrative",
     )
 }
 IMAGE_PROMPT_STRATEGY_BY_TYPE = {
@@ -201,7 +201,7 @@ IMAGE_PROMPT_STRATEGY_BY_TYPE = {
     "vehicle": "image2-live-action-object-v1.6",
     "animal": "image2-live-action-object-v1.6",
     "pose_contact_anchor": "image2-live-action-pose-contact-v1.6",
-    "live_action_probe": "image2-live-action-integration-probe-v1.6",
+    "live_action_probe": "image2-live-action-locked-insertion-probe-v1.6",
     "look_test": "image2-live-action-narrative-v1.6",
     "storyboard": "image2-live-action-narrative-v1.6",
     "keyframe": "image2-live-action-narrative-v1.6",
@@ -327,6 +327,8 @@ LIVE_ACTION_PROBE_FAILURE_CLASSES = {
     "repeating_artifact_texture",
     "body_geometry_or_contact_failure",
     "finite_dynamic_range_failure",
+    "scene_geometry_or_fixture_drift",
+    "unbounded_background_edit",
 }
 LIVE_ACTION_PROBE_SCALES = ("thumbnail", "fit", "100_percent", "200_percent")
 LIVE_ACTION_PROBE_EVIDENCE_FIELDS = (
@@ -336,6 +338,17 @@ LIVE_ACTION_PROBE_EVIDENCE_FIELDS = (
     "shared_focus_and_occlusion",
     "finite_dynamic_range",
     "skin_material_separation",
+    "locked_scene_correspondence",
+)
+LOCKED_SCENE_QA_CHECKS = (
+    "camera_projection_and_crop",
+    "table_counter_geometry",
+    "fixed_architecture",
+    "fixture_count_and_placement",
+    "anchor_position_scale_orientation",
+    "background_material_identity",
+    "no_unrelated_relighting_or_tone_mapping",
+    "person_contact_region_only",
 )
 IDENTITY_PACK_STATUSES = {"planned", "qualified", "approved", "blocked", "model_blocked"}
 IDENTITY_KINDS = {"fictional", "real_person"}
@@ -463,7 +476,7 @@ ENVIRONMENT_MODULES = {
 CANDIDATE_SET_STATUSES = {"planned", "generating", "reviewed", "selected", "model_blocked"}
 CANDIDATE_VARIANT_STATUSES = {"planned", "generated", "passed", "failed", "selected", "discarded"}
 CANDIDATE_TIERS = {"identity_single_solve", "critical", "derivative"}
-CANDIDATE_OPERATIONS = {"generate", "provided"}
+CANDIDATE_OPERATIONS = {"generate", "edit", "provided"}
 REVIEW_GATE_TYPES = {"foundation", "sequence"}
 REVIEW_GATE_STATUSES = {"building", "ready_for_review", "approved", "changes_requested", "superseded"}
 REVIEW_DECISIONS = {"pending", "approved", "changes_requested"}

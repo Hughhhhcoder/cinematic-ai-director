@@ -225,29 +225,28 @@ def live_action_probe_prompt() -> str:
     bodies = {
         "PHOTOGRAPHIC EVENT": (
             "A photorealistic candid on-location photograph records the approved fictional adult as she checks a paper seal on the worktable. "
-            "The camera is present for an ordinary observable task, not for a poster, fashion portrait, or effects demonstration."
+            "It documents an ordinary event, not a poster or effects demonstration."
         ),
         "APPROVED IDENTITY WORLD AND STATE": (
-            "Use the first attached unified identity Inspector as the only person authority and the second attached approved workshop image as the only world authority. "
-            "Preserve that face, body proportions, clothing, room construction, fixtures, scale, and material identities."
+            "This is a bounded image edit. The first attached image is the immutable approved empty-location plate and edit target; the second is the unified identity Inspector. "
+            "Insert that adult. Preserve the plate camera, crop, projection, architecture, table dimensions and supports, windows, doors, fixtures, anchor, materials, and every other non-subject detail."
         ),
         "PHYSICAL CAMERA AND BLOCKING": (
-            "Use a reachable eye-level medium camera at natural working distance. Keep the face, torso, working hand, paper seal, table edge, and adjacent room in one frame. "
-            "The person and room share one projection, ground plane, contact, occlusion order, focus falloff, and edge behavior."
+            "Keep the plate camera exactly; a reachable eye-level medium camera only describes it. Keep the face, torso, working hand, paper seal, table edge, and adjacent room in one frame. "
+            "Change pixels only inside the person, contact, and necessary cast-shadow regions. Share projection, ground plane, contact, occlusion, focus falloff, and edge behavior. Do not redesign the set."
         ),
         "SOURCE LIGHT AND MATERIAL RESPONSE": (
-            "One broad north window is the only shape-producing source, with low room bounce. The same direction reaches face, clothing, paper, table, and wall. "
-            "Natural-dry skin has continuous matte-diffuse tone with weak source-shaped reflection; skin, hair, cotton, paint, glass, wood, and metal remain separate."
+            "One broad north window and low room bounce reach face, clothing, paper, table, and wall. Natural-dry skin stays matte-diffuse with weak source-shaped reflection; skin, hair, cotton, paint, glass, wood, and metal remain separate."
         ),
         "FOCUS EXPOSURE AND CONTINGENCY": (
-            "Focus favors the eyes and working contact without making every plane equally sharp. Exposure priority: protect_skin_and_practicals. "
-            "Let the small lamp core clip and let the deepest unlit shelf gap lose detail. Keep normal middle tones and finite capture latitude; no local HDR equalization."
+            "Focus favors eyes and contact without equal sharpness everywhere. Exposure priority: protect_skin_and_practicals. "
+            "Let the small lamp core clip and the deepest unlit shelf gap lose detail. Keep normal middle tones and finite latitude; no local HDR equalization."
         ),
         "EXCLUSIONS": (
-            "No synthetic-rendered or game-like person; no oily, waxy, or plastic skin; no cut-out subject edges or separate subject tone mapping; no repeated artifact texture."
+            "No synthetic-rendered or game-like person; no oily, waxy, or plastic skin; no cut-out subject edges, separate subject tone mapping, or repeated artifact texture; no scene geometry or fixture drift."
         ),
     }
-    lines = ["Prompt strategy: image2-live-action-integration-probe-v1.6", ""]
+    lines = ["Prompt strategy: image2-live-action-locked-insertion-probe-v1.6", ""]
     for heading in IMAGE_HEADINGS:
         lines.extend([heading, bodies[heading], ""])
     return "\n".join(lines)
@@ -845,7 +844,7 @@ class ProjectFixture:
                 "prop": "image2-live-action-object-v1.6",
                 "prop_state": "image2-live-action-object-v1.6",
                 "pose_contact_anchor": "image2-live-action-pose-contact-v1.6",
-                "live_action_probe": "image2-live-action-integration-probe-v1.6",
+                "live_action_probe": "image2-live-action-locked-insertion-probe-v1.6",
                 "look_test": IMAGE_STRATEGY,
                 "keyframe": IMAGE_STRATEGY,
                 "storyboard": IMAGE_STRATEGY,
@@ -1056,6 +1055,47 @@ class ProjectFixture:
                     "probe_blocking": "Medium frame includes face, torso, hand, seal, table edge, and adjacent wall",
                     "probe_camera_condition": "a reachable eye-level medium camera",
                     "ordinary_light_source": "One broad north window and low room bounce",
+                    "locked_scene_qa": {
+                        "policy": "approved-location-locked-insertion-v1.6.5",
+                        "edit_target_asset_id": references[0] if references else "",
+                        "identity_reference_asset_id": references[1] if len(references) > 1 else "",
+                        "non_subject_region_policy": "preserve_approved_location",
+                        "checks": {
+                            field: "pass"
+                            for field in (
+                                "camera_projection_and_crop", "table_counter_geometry", "fixed_architecture",
+                                "fixture_count_and_placement", "anchor_position_scale_orientation",
+                                "background_material_identity", "no_unrelated_relighting_or_tone_mapping",
+                                "person_contact_region_only",
+                            )
+                        },
+                        "landmarks": [
+                            {"id": "table-front-left", "role": "furniture", "expected_norm": [0.18, 0.72], "observed_norm": [0.18, 0.72], "tolerance": 0.01, "visibility": "visible", "pass": True},
+                            {"id": "table-front-right", "role": "furniture", "expected_norm": [0.72, 0.72], "observed_norm": [0.72, 0.72], "tolerance": 0.01, "visibility": "visible", "pass": True},
+                            {"id": "window-mullion", "role": "architecture", "expected_norm": [0.62, 0.20], "observed_norm": [0.62, 0.20], "tolerance": 0.01, "visibility": "visible", "pass": True},
+                            {"id": "door-latch", "role": "architecture", "expected_norm": [0.10, 0.48], "observed_norm": [0.10, 0.48], "tolerance": 0.01, "visibility": "visible", "pass": True},
+                            {"id": "fixed-lamp", "role": "fixture", "expected_norm": [0.76, 0.35], "observed_norm": [0.76, 0.35], "tolerance": 0.01, "visibility": "visible", "pass": True},
+                            {"id": "red-table-anchor", "role": "spatial_anchor", "expected_norm": [0.46, 0.65], "observed_norm": [0.46, 0.65], "tolerance": 0.01, "visibility": "temporarily_occluded_by_inserted_subject", "pass": True},
+                        ],
+                        "bounded_edit_regions": [
+                            {"label": "person-contact-and-cast-shadow", "x": 0.28, "y": 0.08, "width": 0.45, "height": 0.83}
+                        ],
+                        "pixel_correspondence": {
+                            "alignment_method": "resize_to_edit_target_for_audit_only",
+                            "source_dimensions_px": [1600, 900],
+                            "output_dimensions_px": [1600, 900],
+                            "outside_edit_region_mae": 2.4,
+                            "outside_edit_region_p95": 8.0,
+                            "outside_edit_region_fraction_above_20": 0.01,
+                            "thresholds": {"max_mae": 6.0, "max_p95": 20.0, "max_fraction_above_20": 0.05},
+                            "verdict": "pass",
+                        },
+                        "non_subject_change_detected": False,
+                        "verdict": "pass",
+                        "hard_failures": [],
+                        "reviewer": "codex-visual",
+                        "checked_at": TIMESTAMP,
+                    },
                 }
             )
         if generated:
@@ -1205,9 +1245,10 @@ class ProjectFixture:
                 asset_type="live_action_probe",
                 status="approved",
                 generator="builtin-imagegen",
-                mode="generate",
-                references=[self.identity_inspector_id, "loc-workshop--v001"],
+                mode="edit",
+                references=["loc-workshop--v001", self.identity_inspector_id],
                 scenes=["sc-010"],
+                derived_from="loc-workshop--v001",
                 prompt_path=probe_prompt,
                 approved_path=probe_image,
                 photo_mode="cinematic_frame",
@@ -1217,7 +1258,7 @@ class ProjectFixture:
                 identity_pack_id="identity-char-hero",
                 root_reference_ids=[self.identity_inspector_id, "loc-workshop--v001"],
                 surface_policy="clean_narrative",
-                prompt_strategy_id="image2-live-action-integration-probe-v1.6",
+                prompt_strategy_id="image2-live-action-locked-insertion-probe-v1.6",
                 approval_gate_id="review-foundation-001",
             )
         )
@@ -2156,6 +2197,7 @@ class ProjectFixture:
             selected_file.write_bytes(selected_bytes)
             identity_single_solve = asset["type"] == "character_identity_inspector"
             critical = asset["type"] in {"live_action_probe", "look_test", "keyframe", "key_art"}
+            candidate_operation = "edit" if asset["type"] == "live_action_probe" else "generate"
             count = 1 if identity_single_solve else 3 if critical else 2
             variants = [
                 {
@@ -2163,7 +2205,7 @@ class ProjectFixture:
                     "status": "selected",
                     "path": selected_path,
                     "sha256": hashlib.sha256(selected_bytes).hexdigest(),
-                    "operation": "generate",
+                    "operation": candidate_operation,
                     "derived_from_candidate_id": "",
                     "prompt_sha256": hashlib.sha256((self.path / asset["prompt_path"]).read_bytes()).hexdigest(),
                     "reference_order": list(asset["reference_asset_ids"]),
@@ -2190,7 +2232,7 @@ class ProjectFixture:
                         "status": "failed",
                         "path": failed_path,
                         "sha256": hashlib.sha256(failed_bytes).hexdigest(),
-                        "operation": "generate",
+                        "operation": candidate_operation,
                         "derived_from_candidate_id": "",
                         "prompt_sha256": hashlib.sha256((self.path / asset["prompt_path"]).read_bytes()).hexdigest(),
                         "reference_order": list(asset["reference_asset_ids"]),
@@ -2206,7 +2248,7 @@ class ProjectFixture:
                     "target_asset_id": asset["id"],
                     "tier": "identity_single_solve" if identity_single_solve else "critical" if critical else "derivative",
                     "status": "selected",
-                    "operation": "generate",
+                    "operation": candidate_operation,
                     "approval_gate_id": asset["approval_gate_id"],
                     "prompt_path": asset["prompt_path"],
                     "reference_asset_ids": list(asset["reference_asset_ids"]),
@@ -2285,8 +2327,10 @@ class ProjectFixture:
                 "identity_inspector_asset_id": self.identity_inspector_id,
                 "location_asset_id": "loc-workshop--v001",
                 "probe_asset_id": "live-action-probe-char-hero-workshop--v001",
-                "prompt_strategy_id": "image2-live-action-integration-probe-v1.6",
-                "reference_asset_ids": [self.identity_inspector_id, "loc-workshop--v001"],
+                "prompt_strategy_id": "image2-live-action-locked-insertion-probe-v1.6",
+                "reference_asset_ids": ["loc-workshop--v001", self.identity_inspector_id],
+                "edit_target_asset_id": "loc-workshop--v001",
+                "edit_region_policy": "person_contact_and_cast_shadow_only",
                 "attempt_batch_count": 1,
                 "max_attempt_batches": 2,
                 "retry_changed_variable": "",
@@ -2302,6 +2346,7 @@ class ProjectFixture:
                     "shared_focus_and_occlusion": "Face, working contact, table edge, and wall share one focus and occlusion stack.",
                     "finite_dynamic_range": "Lamp core clips and the deepest shelf gap loses detail while middle tones remain ordinary.",
                     "skin_material_separation": "Skin, hair, cotton, paper, paint, glass, wood, and metal keep independent responses.",
+                    "locked_scene_correspondence": "Table dimensions, supports, windows, door, fixtures, anchor, camera, crop, and material identities match the approved empty plate outside the bounded person/contact region.",
                 },
                 "reviewer": "codex-visual",
                 "checked_at": TIMESTAMP,
@@ -3375,13 +3420,60 @@ class FilmProjectTests(unittest.TestCase):
         fixture.write("manifests/quality.json", quality)
         self.assert_error(fixture.validate(), "LIVE_ACTION_PROBE_GATE")
 
-    def test_integration_probe_must_use_only_identity_inspector_then_location_root(self) -> None:
+    def test_integration_probe_must_use_location_edit_target_then_identity_inspector(self) -> None:
         fixture = self.fixture()
         quality = fixture.read("manifests/quality.json")
         probe = quality["live_action_integration_probes"][0]
-        probe["reference_asset_ids"] = ["loc-workshop--v001", fixture.identity_inspector_id]
+        probe["reference_asset_ids"] = [fixture.identity_inspector_id, "loc-workshop--v001"]
         fixture.write("manifests/quality.json", quality)
         self.assert_error(fixture.validate(), "LIVE_ACTION_PROBE_REFERENCE")
+
+    def test_integration_probe_cannot_regenerate_the_approved_location(self) -> None:
+        fixture = self.fixture()
+        assets = fixture.read("manifests/assets.json")
+        probe = next(item for item in assets["assets"] if item["type"] == "live_action_probe")
+        probe["mode"] = "generate"
+        probe["derived_from"] = ""
+        probe["generation_provenance"]["operation"] = "generate"
+        fixture.write("manifests/assets.json", assets)
+        self.assert_error(fixture.validate(), "LIVE_ACTION_PROBE_ASSET")
+
+    def test_integration_probe_rejects_table_or_fixture_landmark_drift(self) -> None:
+        fixture = self.fixture()
+        assets = fixture.read("manifests/assets.json")
+        probe = next(item for item in assets["assets"] if item["type"] == "live_action_probe")
+        landmark = probe["locked_scene_qa"]["landmarks"][0]
+        landmark["observed_norm"] = [0.28, 0.72]
+        fixture.write("manifests/assets.json", assets)
+        self.assert_error(fixture.validate(), "LOCKED_SCENE_LANDMARK")
+
+    def test_integration_probe_rejects_any_non_subject_background_change(self) -> None:
+        fixture = self.fixture()
+        assets = fixture.read("manifests/assets.json")
+        probe = next(item for item in assets["assets"] if item["type"] == "live_action_probe")
+        probe["locked_scene_qa"]["non_subject_change_detected"] = True
+        fixture.write("manifests/assets.json", assets)
+        self.assert_error(fixture.validate(), "LOCKED_SCENE_GATE")
+
+    def test_integration_probe_rejects_excess_outside_region_pixel_change(self) -> None:
+        fixture = self.fixture()
+        assets = fixture.read("manifests/assets.json")
+        probe = next(item for item in assets["assets"] if item["type"] == "live_action_probe")
+        correspondence = probe["locked_scene_qa"]["pixel_correspondence"]
+        correspondence["outside_edit_region_mae"] = 12.0
+        correspondence["verdict"] = "fail"
+        fixture.write("manifests/assets.json", assets)
+        self.assert_error(fixture.validate(), "LOCKED_SCENE_GATE")
+
+    def test_probe_candidates_are_independent_edits_of_the_same_location_root(self) -> None:
+        fixture = self.fixture()
+        candidates = fixture.read("manifests/candidates.json")
+        candidate_set = next(item for item in candidates["candidate_sets"] if item["target_asset_id"] == "live-action-probe-char-hero-workshop--v001")
+        self.assertEqual(candidate_set["operation"], "edit")
+        self.assertTrue(all(item["operation"] == "edit" for item in candidate_set["batches"][0]["candidates"]))
+        candidate_set["batches"][0]["candidates"][1]["operation"] = "generate"
+        fixture.write("manifests/candidates.json", candidates)
+        self.assert_error(fixture.validate(), "CANDIDATE_INDEPENDENCE")
 
     def test_integration_probe_oily_or_synthetic_skin_cannot_pass(self) -> None:
         fixture = self.fixture()

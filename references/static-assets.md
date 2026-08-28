@@ -9,7 +9,7 @@
 3. 人物持续状态中性参考；需要时的局部状态近景。
 4. 无人物地点 master、物件根与主空间锚点。
 5. 地点状态多视角与 spatial map。
-6. 普通光单人 `live_action_probe`；通过前禁用特殊天气、电影风格和多人叙事。
+6. 以批准空场景为不可变底片的普通光单人 `live_action_probe`；通过前禁用特殊天气、电影风格和多人叙事。
 7. 环境状态、特殊光事件、Treatment 与 format approval。
 8. 三张独立 Look Test 盲选。
 9. 地点 plate、pose/contact anchor、Photoboard、关键帧。
@@ -40,7 +40,7 @@
 
 表面使用 `clean_narrative`；只有稳定的介质 A/B 记录允许 `calibrated_medium_signature`。
 
-所有含人物叙事资产还有一个更早的像素门：普通光 `live_action_probe`。身份板和地点根可分别合格，但只要人物入景后出现油膜、蜡/塑料皮肤、游戏/CG 模型感、贴图边缘、独立锐化/tone mapping，或不共享场景光线、焦点、遮挡与有限曝光，就停止该身份—地点组合。完整协议见 [live-action-integration.md](live-action-integration.md)。
+所有含人物叙事资产还有一个更早的像素门：普通光 `live_action_probe`。探针必须独立编辑已批准空场景，不得整帧重生；桌台尺寸/前缘/支撑、门窗、固定设施、锚点、机位和裁切必须通过地标与编辑框外像素对应检查。身份板和地点根可分别合格，但只要人物入景后出现地点漂移、油膜、蜡/塑料皮肤、游戏/CG 模型感、贴图边缘、独立锐化/tone mapping，或不共享场景光线、焦点、遮挡与有限曝光，就停止该身份—地点组合。完整协议见 [live-action-integration.md](live-action-integration.md)。
 
 ## 人物
 
@@ -84,7 +84,7 @@ python3 scripts/film_project.py build-reference-board <project> --identity-pack 
 
 1. 英文提示先保存到版本化 `prompts/images/`。
 2. 新根用 `generate`；参考驱动资产只使用项目内批准根路径。
-3. 身份检查板每人物恰好一次调用，失败即停止；其他关键资产首批三张，其余首批两张，候选不得互相编辑。
+3. 身份检查板每人物恰好一次调用，失败即停止；其他关键资产首批三张，其余首批两张。探针候选可分别编辑同一权威空场景；任何候选都不得编辑另一个候选。
 4. 工具返回后必须用 `view_image` 查看实际像素。
 5. 输出写入 `assets/candidates/<set-id>/`，不覆盖旧版本；失败图不占用生产资产职责。
 6. 登记提示、参考顺序和输出 SHA-256、尺寸、色彩模式、MIME 与软件代理。

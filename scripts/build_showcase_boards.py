@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the v1.6.4 single-chain showcase without redrawing approved pixels."""
+"""Build the v1.6.5 locked-location showcase without redrawing approved pixels."""
 
 from __future__ import annotations
 
@@ -32,22 +32,22 @@ IDENTITY = Path(
     "showcase/originals/identity-inspectors/identity-white-coastal-survey-engineer-v001.png"
 )
 EMPTY_SCENE = Path(
-    "showcase/originals/scenes/scene-coastal-tide-station-overcast-v001.png"
+    "showcase/originals/scenes/scene-coastal-survey-room-overcast-v002.png"
 )
 LIVE_ACTION_PROBE = Path(
-    "showcase/originals/narrative/live-action-probe-coastal-survey-engineer-v001.png"
+    "showcase/originals/narrative/live-action-probe-coastal-survey-engineer-v002.png"
 )
 PROMPTS = {
     "identity": Path("showcase/prompts/identity-white-coastal-survey-engineer-v001.txt"),
-    "empty_scene": Path("showcase/prompts/scene-coastal-tide-station-overcast-v001.txt"),
+    "empty_scene": Path("showcase/prompts/scene-coastal-survey-room-overcast-v002.txt"),
     "live_action_probe": Path(
-        "showcase/prompts/live-action-probe-coastal-survey-engineer-v001.txt"
+        "showcase/prompts/live-action-probe-coastal-survey-engineer-v002.txt"
     ),
 }
 SOURCE_GENERATIONS = {
     "identity": "exec-54f49254-c489-4a69-bfc0-3764c1ce393a",
-    "empty_scene": "exec-a61709cd-80fb-4c63-8c2f-a1afa8519282",
-    "live_action_probe": "exec-98116d6f-fee0-4913-babb-a8f32bf7304b",
+    "empty_scene": "exec-6d3490d6-6f1a-462e-8166-315bc0c87b72",
+    "live_action_probe": "exec-90fdd686-6afb-438b-a455-fd78d5a54527",
 }
 IDENTITY_ROLES = (
     "full_front",
@@ -247,14 +247,14 @@ def qa_record(kind: str) -> dict[str, Any]:
         "finite_dynamic_range": finite_dynamic_range(kind),
         "positive_evidence": {
             "photographic_event": (
-                "One task-led survey engineer writes on a chart in a reachable room camera."
+                "One task-led survey engineer reads a clipboard in a reachable room camera."
                 if kind == "live_action_probe"
                 else "One shared neutral casting solve."
                 if kind == "identity"
                 else "A reachable side-three-quarter location-scout view proves one physical room."
             ),
             "skin_and_material": (
-                "Natural-dry skin has broad weak window response; hair, cotton, wool, paper, paint, glass and steel stay separate."
+                "Natural-dry skin has broad weak window response; hair, cotton, wool, paper, paint, glass, steel and rubber stay separate."
                 if kind == "live_action_probe"
                 else "Natural-dry skin, hair, cotton, wool and leather stay separate under one neutral source."
                 if kind == "identity"
@@ -279,7 +279,7 @@ def evidence_record(
         "kind": kind,
         "source_generation_id": SOURCE_GENERATIONS[kind],
         "generator": "builtin-imagegen",
-        "operation": "generate",
+        "operation": "edit" if kind == "live_action_probe" else "generate",
         "original_path": original_relative.as_posix(),
         "original_sha256": sha256(original),
         "prompt_path": PROMPTS[kind].as_posix(),
@@ -304,26 +304,28 @@ def evidence_record(
             "three_quarter_yaw_deg": 45,
             "adjacent_planes_visible": True,
             "camera_accessible": True,
-            "primary_anchor": "pale-grey chart cabinet plus muted-red calibration case",
+            "primary_anchor": "compact red calibration case on the fixed workbench",
             "anchor_grounded_and_scaled": True,
             "verdict": "pass",
         }
     if kind == "live_action_probe":
-        record["reference_stack"] = [IDENTITY.as_posix(), EMPTY_SCENE.as_posix()]
+        record["reference_stack"] = [EMPTY_SCENE.as_posix(), IDENTITY.as_posix()]
         record["live_action_integration_probe"] = {
             "status": "approved",
             "attempt_batch_count": 1,
             "max_attempt_batches": 2,
             "ordinary_light_only": True,
             "special_environment_disabled": True,
-            "prompt_strategy_id": "image2-live-action-integration-probe-v1.6",
+            "prompt_strategy_id": "image2-live-action-locked-insertion-probe-v1.6",
+            "edit_target": EMPTY_SCENE.as_posix(),
+            "edit_region_policy": "person_contact_and_cast_shadow_only",
             "verdict": "pass",
             "failure_classes": [],
         }
         record["subject_environment_integration_qa"] = {
             "shared_light": "one broad overcast harbor-window source plus weak room bounce",
-            "shared_focus_and_occlusion": "face, hands, chart, counter edge and room share one optical stack",
-            "contact_and_grounding": "both hands contact the chart/counter and both feet share the room floor",
+            "shared_focus_and_occlusion": "face, hands, clipboard, door plane, bench and room share one optical stack",
+            "contact_and_grounding": "both hands contact the clipboard and both feet share the room floor",
             "shared_tone_mapping": True,
             "cutout_edges_detected": False,
             "separate_person_tone_mapping_detected": False,
@@ -334,6 +336,45 @@ def evidence_record(
             "approved_identity_proportions_preserved": True,
             "hands_and_contact": "pass",
             "perspective_and_grounding": "pass",
+            "verdict": "pass",
+        }
+        record["locked_scene_qa"] = {
+            "policy": "approved-location-locked-insertion-v1.6.5",
+            "edit_target": EMPTY_SCENE.as_posix(),
+            "non_subject_region_policy": "preserve_approved_location",
+            "bounded_edit_regions": [
+                {"label": "person-clipboard-and-cast-shadow", "x": 0.24, "y": 0.08, "width": 0.22, "height": 0.88},
+                {"label": "floor-contact-shadow", "x": 0.20, "y": 0.78, "width": 0.30, "height": 0.22},
+            ],
+            "checks": {
+                "camera_projection_and_crop": "pass",
+                "table_counter_geometry": "pass",
+                "fixed_architecture": "pass",
+                "fixture_count_and_placement": "pass",
+                "anchor_position_scale_orientation": "pass",
+                "background_material_identity": "pass",
+                "no_unrelated_relighting_or_tone_mapping": "pass",
+                "person_contact_region_only": "pass",
+            },
+            "landmarks": [
+                {"id": "chart-cabinet-top-left", "role": "fixture", "expected_norm": [0.011, 0.086], "observed_norm": [0.011, 0.086], "tolerance": 0.01, "pass": True},
+                {"id": "door-top-right", "role": "architecture", "expected_norm": [0.300, 0.022], "observed_norm": [0.300, 0.022], "tolerance": 0.01, "pass": True},
+                {"id": "first-window-lower-left", "role": "architecture", "expected_norm": [0.404, 0.474], "observed_norm": [0.404, 0.474], "tolerance": 0.01, "pass": True},
+                {"id": "red-case-center", "role": "spatial_anchor", "expected_norm": [0.386, 0.468], "observed_norm": [0.386, 0.468], "tolerance": 0.01, "pass": True},
+                {"id": "bench-front-right", "role": "furniture", "expected_norm": [0.925, 0.594], "observed_norm": [0.925, 0.594], "tolerance": 0.01, "pass": True},
+                {"id": "right-support-floor", "role": "furniture", "expected_norm": [0.912, 0.957], "observed_norm": [0.912, 0.957], "tolerance": 0.01, "pass": True},
+            ],
+            "pixel_correspondence": {
+                "alignment_method": "resize_to_edit_target_for_audit_only",
+                "source_dimensions_px": [1935, 812],
+                "output_dimensions_px": [1933, 814],
+                "outside_edit_region_mae": 4.795,
+                "outside_edit_region_p95": 15.334,
+                "outside_edit_region_fraction_above_20": 0.0383,
+                "thresholds": {"max_mae": 6.0, "max_p95": 20.0, "max_fraction_above_20": 0.05},
+                "verdict": "pass",
+            },
+            "non_subject_change_detected": False,
             "verdict": "pass",
         }
     return record
@@ -349,17 +390,17 @@ def main() -> int:
         IDENTITY, "identity-white-coastal-survey-engineer-v001.webp"
     )
     scene_webp = save_webp(
-        EMPTY_SCENE, "scene-coastal-tide-station-overcast-v001.webp"
+        EMPTY_SCENE, "scene-coastal-survey-room-overcast-v002.webp"
     )
     probe_webp = save_webp(
-        LIVE_ACTION_PROBE, "live-action-probe-coastal-survey-engineer-v001.webp"
+        LIVE_ACTION_PROBE, "live-action-probe-coastal-survey-engineer-v002.webp"
     )
     hero = build_montage("hero.webp", (1600, 900))
     social = build_montage("social-preview.webp", (1200, 630))
     evidence = {
         "schema_version": "1.6",
-        "release_version": "1.6.4",
-        "showcase_profile": "single-chain-live-action-probe-v1.6.4",
+        "release_version": "1.6.5",
+        "showcase_profile": "locked-location-live-action-probe-v1.6.5",
         "generator": "builtin-imagegen",
         "reproducibility_class": "workflow_only",
         "pixel_reproducible": False,
@@ -367,15 +408,19 @@ def main() -> int:
             "one_authoritative_identity_board": True,
             "failed_or_rejected_candidates_public": False,
             "old_arctic_and_western_material_removed": True,
+            "superseded_unlocked_location_probe_removed": True,
             "user_quality_reference_included": False,
             "third_party_media_included": False,
         },
         "candidate_pool": {
             "target": "live_action_probe",
             "independent_generations": 3,
+            "operation": "edit",
+            "same_approved_empty_location_target": True,
             "selected_generation_id": SOURCE_GENERATIONS["live_action_probe"],
             "selected_count": 1,
-            "unselected_generations_retained_outside_public_tree": 2,
+            "unselected_generations_retained_outside_public_tree": 0,
+            "unselected_generations_removed_after_review": 2,
             "mutual_editing": False,
         },
         "assets": [
@@ -398,7 +443,7 @@ def main() -> int:
         },
     }
     write_json(REPOSITORY_ROOT / "showcase/evidence.json", evidence)
-    print("Built v1.6.4 showcase: one Inspector, one empty 2.39:1 location, and one approved ordinary-light live-action probe")
+    print("Built v1.6.5 showcase: one Inspector, one clean 2.39:1 location, and one locked-location live-action insertion probe")
     return 0
 
 

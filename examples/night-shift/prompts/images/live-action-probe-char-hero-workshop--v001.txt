@@ -1,19 +1,19 @@
-Prompt strategy: image2-live-action-integration-probe-v1.6
+Prompt strategy: image2-live-action-locked-insertion-probe-v1.6
 
 PHOTOGRAPHIC EVENT
-A photorealistic candid on-location photograph records the approved fictional adult as she checks a paper seal on the worktable. The camera is present for an ordinary observable task, not for a poster, fashion portrait, or effects demonstration.
+A photorealistic candid on-location photograph records the approved fictional adult as she checks a paper seal on the worktable. It documents an ordinary event, not a poster or effects demonstration.
 
 APPROVED IDENTITY WORLD AND STATE
-Use the first attached unified identity Inspector as the only person authority and the second attached approved workshop image as the only world authority. Preserve that face, body proportions, clothing, room construction, fixtures, scale, and material identities.
+This is a bounded image edit. The first attached image is the immutable approved empty-location plate and edit target; the second is the unified identity Inspector. Insert that adult. Preserve the plate camera, crop, projection, architecture, table dimensions and supports, windows, doors, fixtures, anchor, materials, and every other non-subject detail.
 
 PHYSICAL CAMERA AND BLOCKING
-Use a reachable eye-level medium camera at natural working distance. Keep the face, torso, working hand, paper seal, table edge, and adjacent room in one frame. The person and room share one projection, ground plane, contact, occlusion order, focus falloff, and edge behavior.
+Keep the plate camera exactly; a reachable eye-level medium camera only describes it. Keep the face, torso, working hand, paper seal, table edge, and adjacent room in one frame. Change pixels only inside the person, contact, and necessary cast-shadow regions. Share projection, ground plane, contact, occlusion, focus falloff, and edge behavior. Do not redesign the set.
 
 SOURCE LIGHT AND MATERIAL RESPONSE
-One broad north window is the only shape-producing source, with low room bounce. The same direction reaches face, clothing, paper, table, and wall. Natural-dry skin has continuous matte-diffuse tone with weak source-shaped reflection; skin, hair, cotton, paint, glass, wood, and metal remain separate.
+One broad north window and low room bounce reach face, clothing, paper, table, and wall. Natural-dry skin stays matte-diffuse with weak source-shaped reflection; skin, hair, cotton, paint, glass, wood, and metal remain separate.
 
 FOCUS EXPOSURE AND CONTINGENCY
-Focus favors the eyes and working contact without making every plane equally sharp. Exposure priority: protect_skin_and_practicals. Let the small lamp core clip and let the deepest unlit shelf gap lose detail. Keep normal middle tones and finite capture latitude; no local HDR equalization.
+Focus favors eyes and contact without equal sharpness everywhere. Exposure priority: protect_skin_and_practicals. Let the small lamp core clip and the deepest unlit shelf gap lose detail. Keep normal middle tones and finite latitude; no local HDR equalization.
 
 EXCLUSIONS
-No synthetic-rendered or game-like person; no oily, waxy, or plastic skin; no cut-out subject edges or separate subject tone mapping; no repeated artifact texture.
+No synthetic-rendered or game-like person; no oily, waxy, or plastic skin; no cut-out subject edges, separate subject tone mapping, or repeated artifact texture; no scene geometry or fixture drift.

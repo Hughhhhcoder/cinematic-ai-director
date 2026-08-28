@@ -81,11 +81,13 @@
       "identity_inspector_asset_id": "char-hero-inspector--v001",
       "location_asset_id": "loc-workshop--v001",
       "probe_asset_id": "live-action-probe-char-hero-workshop--v001",
-      "prompt_strategy_id": "image2-live-action-integration-probe-v1.6",
+      "prompt_strategy_id": "image2-live-action-locked-insertion-probe-v1.6",
       "reference_asset_ids": [
-        "char-hero-inspector--v001",
-        "loc-workshop--v001"
+        "loc-workshop--v001",
+        "char-hero-inspector--v001"
       ],
+      "edit_target_asset_id": "loc-workshop--v001",
+      "edit_region_policy": "person_contact_and_cast_shadow_only",
       "attempt_batch_count": 1,
       "max_attempt_batches": 2,
       "retry_changed_variable": "",
@@ -105,7 +107,8 @@
         "shared_light": "One north-window direction and room bounce affect person and workshop together.",
         "shared_focus_and_occlusion": "Face, working contact, table edge, and wall share one focus and occlusion stack.",
         "finite_dynamic_range": "Lamp core clips and the deepest shelf gap loses detail while middle tones remain ordinary.",
-        "skin_material_separation": "Skin, hair, cotton, paper, paint, glass, wood, and metal keep independent responses."
+        "skin_material_separation": "Skin, hair, cotton, paper, paint, glass, wood, and metal keep independent responses.",
+        "locked_scene_correspondence": "Table dimensions, supports, windows, door, fixtures, anchor, camera, crop, and material identities match the approved empty plate outside the bounded person/contact region."
       },
       "reviewer": "codex-visual",
       "checked_at": "2026-08-25T12:00:00Z"

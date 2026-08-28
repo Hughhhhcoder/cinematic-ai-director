@@ -118,7 +118,7 @@ Scene 保存 `capture_profile_id / cinematic_treatment_id / format_plan_id / sce
 - `quality_floor_id:clean-observational-live-action-v001`。
 - `quality_floors` 只能作 `calibration_only`，且 `direct_generation_reference:false`。
 - `project_quality_profiles` 保存 scope、scene/sequence、审批门、Treatment/环境、摄影发生条件、光源、皮肤、材料、中间调/对比、有限 `dynamic_range_contract`、焦点、布景因果、表演/构图和 polish ceiling。
-- `live_action_integration_probes` 保存统一身份 Inspector、地点根、探针图、精确引用顺序、两个批次上限、单变量重试、四尺度、失败类型与人物—地点共享摄影证据；批准 Profile 通过 `live_action_probe_id` 指向唯一合格探针。
+- `live_action_integration_probes` 保存统一身份 Inspector、不可变地点编辑底片、探针图、`edit_target_asset_id`、人物/接触/阴影编辑区、精确引用顺序、两个批次上限、单变量重试、四尺度、失败类型与人物—地点共享摄影证据；批准 Profile 通过 `live_action_probe_id` 指向唯一合格探针。
 - `calibration_families` 保存两轮三候选的证据；未达发布阈值不得 `stable`，回退 `clean_digital_capture`。
 
 ## `assets.json`
@@ -151,7 +151,9 @@ Scene 保存 `capture_profile_id / cinematic_treatment_id / format_plan_id / sce
 - `image2-live-action-identity-inspector-v1.6`：唯一实际生成的身份策略。
 - face/body/identity-view 是 `deterministic-crop`，不能编译为 ImageGen 提示。
 - `image2-live-action-character-state-v1.6`
-- `image2-live-action-integration-probe-v1.6`：只用于普通光人物—地点像素门；120–260 英文词、两根引用、无电影风格/器材/特殊环境词，不作为 Higgsfield 上传参考。
+- `image2-live-action-locked-insertion-probe-v1.6`：只用于普通光人物—地点像素门；以批准地点为第一引用和编辑目标、统一身份板为第二引用，120–260 英文词、无电影风格/器材/特殊环境词，不作为 Higgsfield 上传参考。
+
+`live_action_probe` 必须使用 `mode:edit`、`derived_from:<approved-location-id>`，并写入 `locked_scene_qa`。QA 至少包含六个覆盖家具/建筑/固定设施的归一化地标、编辑框、机位/裁切/桌台/设施/锚点检查，以及只用于审计的编辑框外像素对应指标。默认硬门为 MAE ≤ 6/255、P95 ≤ 20/255、大于 20/255 的像素比例 ≤ 5%，同时画幅比漂移不得超过 0.5%。
 - `image2-live-action-location-v1.6`
 - `image2-live-action-object-v1.6`
 - `image2-live-action-pose-contact-v1.6`
@@ -189,7 +191,7 @@ Scene 保存 `capture_profile_id / cinematic_treatment_id / format_plan_id / sce
 Policy 必须与 `project.json` 一致。每个 candidate set 保存：目标生产资产、tier、状态、operation、审批门、prompt、根引用、selected candidate、选择理由、reviewer/time。`identity_single_solve` 恰好一个 candidate、最多一批；其他 tier 最多两批。
 
 - Critical 首批恰好 3，derivative 首批恰好 2；第二批恰好 2。
-- Variant 必须 `operation:generate` 且无 candidate derivative。
+- 除 `live_action_probe` 外，Variant 必须 `operation:generate`；探针 Variant 必须分别 `operation:edit` 同一批准地点根。所有 Variant 都必须无 candidate derivative。
 - 每张保存文件/提示 SHA-256、根引用顺序、质量 verdict、硬失败和 face/hands/materials/highlights/shadows 诊断框。
 - 第二批只在首批全 fail 时允许，并必须命名一个 `changed_variable`。
 - `selected` 集合恰好一张且其字节哈希等于目标生产资产活动文件。

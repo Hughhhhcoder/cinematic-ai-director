@@ -58,7 +58,7 @@ class DistributionTests(unittest.TestCase):
             verified = run(sys.executable, str(INSTALLER), "verify", "--codex-home", str(home))
             self.assertEqual(verified.returncode, 0, verified.stderr)
             payload = json.loads((home / "skills" / "cinematic-ai-director" / "runtime-manifest.json").read_text())
-            self.assertEqual(payload["version"], "1.6.4")
+            self.assertEqual(payload["version"], "1.6.5")
             self.assertTrue(all(not Path(item["path"]).is_absolute() for item in payload["files"]))
 
     def test_install_refuses_overwrite_and_replace_creates_backup(self) -> None:
@@ -99,7 +99,7 @@ class DistributionTests(unittest.TestCase):
                     str(manifest),
                 )
                 self.assertEqual(result.returncode, 0, result.stderr)
-                outputs.append(output / "cinematic-ai-director-v1.6.4.zip")
+                outputs.append(output / "cinematic-ai-director-v1.6.5.zip")
             self.assertEqual(digest(outputs[0]), digest(outputs[1]))
 
     def test_runtime_source_contains_no_private_machine_paths_or_caches(self) -> None:
@@ -115,7 +115,7 @@ class DistributionTests(unittest.TestCase):
 
     def test_compact_showcase_has_one_clean_probe_chain_and_hashed_originals(self) -> None:
         evidence = json.loads((ROOT / "showcase" / "evidence.json").read_text(encoding="utf-8"))
-        self.assertEqual(evidence["showcase_profile"], "single-chain-live-action-probe-v1.6.4")
+        self.assertEqual(evidence["showcase_profile"], "locked-location-live-action-probe-v1.6.5")
         self.assertFalse(evidence["pixel_reproducible"])
         self.assertEqual(
             [item["kind"] for item in evidence["assets"]],
@@ -146,9 +146,19 @@ class DistributionTests(unittest.TestCase):
         self.assertEqual(
             probe["reference_stack"],
             [
+                "showcase/originals/scenes/scene-coastal-survey-room-overcast-v002.png",
                 "showcase/originals/identity-inspectors/identity-white-coastal-survey-engineer-v001.png",
-                "showcase/originals/scenes/scene-coastal-tide-station-overcast-v001.png",
             ],
+        )
+        self.assertEqual(probe["operation"], "edit")
+        locked = probe["locked_scene_qa"]
+        self.assertEqual(locked["verdict"], "pass")
+        self.assertFalse(locked["non_subject_change_detected"])
+        self.assertGreaterEqual(len(locked["landmarks"]), 6)
+        self.assertEqual(locked["pixel_correspondence"]["verdict"], "pass")
+        self.assertLessEqual(
+            locked["pixel_correspondence"]["outside_edit_region_mae"],
+            locked["pixel_correspondence"]["thresholds"]["max_mae"],
         )
         self.assertEqual(probe["qa"]["skin_surface_state"], "natural_dry")
         self.assertEqual(probe["qa"]["oil_film"], "absent")
