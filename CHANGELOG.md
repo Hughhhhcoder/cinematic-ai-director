@@ -2,6 +2,20 @@
 
 All notable public changes are documented here. The project follows [Semantic Versioning](https://semver.org/).
 
+## [1.6.2] — 2026-08-28
+
+### Added
+
+- Added a hard multi-person projection contract: every shared frame now preserves each approved Inspector body, records one camera projection, subject distances, expected/observed scale, crop-aware landmarks, horizon/vanishing lines, occlusion, and ground/elevation logic.
+- Added two single-call shared-solve Western identity Inspectors, a native 2.39:1 observational frontier-street authority, and a native 2.39:1 two-person confrontation evidence frame.
+- Added machine-readable projection QA proving that no person was separately scaled for composition.
+
+### Changed
+
+- Rebuilt the public hero, social preview, gallery, WebP derivatives, identity crop manifests, hashes, prompts, and release archives around the seven approved evidence assets.
+- Tightened the live-action gate against effects-driven Western posters, game-cinematic rendering, artificial dust/haze, pseudo-HDR, inconsistent foreground/background anatomy, floating feet, and crop/blur used to hide proportion errors.
+- Kept all rejected aircraft and stylized Western candidates outside the repository, manifests, documentation, and release artifacts.
+
 ## [1.6.1] — 2026-08-28
 
 ### Changed

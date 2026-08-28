@@ -248,6 +248,7 @@ Ready 镜头必须包含：
 - `quality_profile_id / sequence_visual_anchor_asset_id`。
 - 准确人物/地点/道具/环境/format/capture Profile 状态绑定。
 - `body_geometry_locks`：每人同时绑定 `proportion_signature_id / role_physique_brief_id / character_state_id / pose_projection`。
+- 两人及以上镜头必须增加 `multi_person_projection`：记录统一机位/整流投影、摄影机高度与俯仰、每人批准身高/场地标记/镜头距离、预期与观察投影比及容差、裁切时采用的身体地标、地平线/消失线、遮挡顺序、共同地面或明确高差，以及 `per_person_scale_transform:false`。
 - `spatial_map_id / camera_mark_id / subject_mark_ids / anchor_projection / depth_order`。
 - focal/FOV/T-stop/focus/exposure、`camera_move_plan`。
 - `dynamic_range_plan`：与当前光线/环境/镜头匹配的有限 scene-referred 曝光取舍；若场景反差大于工作宽容度却未声明亮暗损失，Ready 失败。

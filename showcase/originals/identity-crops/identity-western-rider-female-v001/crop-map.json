@@ -1,0 +1,151 @@
+{
+  "authority": "showcase/originals/identity-inspectors/identity-western-rider-female-v001.png",
+  "authority_sha256": "62f10be4f3d47901265032553f43ca11bab2297c31495b6f1864f06f22afce6e",
+  "blank_cell": {
+    "column": 3,
+    "row": 1
+  },
+  "crops": [
+    {
+      "crop_box_px": [
+        0,
+        0,
+        384,
+        599
+      ],
+      "height_px": 599,
+      "path": "showcase/originals/identity-crops/identity-western-rider-female-v001/full_front.png",
+      "role": "full_front",
+      "sha256": "98e3a311a180d2837c32a9db3c3fd4078d415e55549d318d454edba6e2732073",
+      "source_cell": {
+        "column": 0,
+        "row": 0
+      },
+      "width_px": 384
+    },
+    {
+      "crop_box_px": [
+        384,
+        0,
+        384,
+        599
+      ],
+      "height_px": 599,
+      "path": "showcase/originals/identity-crops/identity-western-rider-female-v001/full_left_profile.png",
+      "role": "full_left_profile",
+      "sha256": "eac74a568e36651833937b26991cd8b54e3ef13f7a9646bc06fc57408104d84c",
+      "source_cell": {
+        "column": 1,
+        "row": 0
+      },
+      "width_px": 384
+    },
+    {
+      "crop_box_px": [
+        768,
+        0,
+        384,
+        599
+      ],
+      "height_px": 599,
+      "path": "showcase/originals/identity-crops/identity-western-rider-female-v001/full_right_profile.png",
+      "role": "full_right_profile",
+      "sha256": "87e1a7e077ea92299ab707b3c48ecbec53fcf7e38e226fe646d8dc00db1aaa35",
+      "source_cell": {
+        "column": 2,
+        "row": 0
+      },
+      "width_px": 384
+    },
+    {
+      "crop_box_px": [
+        1152,
+        0,
+        384,
+        599
+      ],
+      "height_px": 599,
+      "path": "showcase/originals/identity-crops/identity-western-rider-female-v001/full_back.png",
+      "role": "full_back",
+      "sha256": "2d1e0e94f4eea9d78b7c60bad0c479c9d1ee30fbab0b31cdf8879f1a9ab6fc5c",
+      "source_cell": {
+        "column": 3,
+        "row": 0
+      },
+      "width_px": 384
+    },
+    {
+      "crop_box_px": [
+        0,
+        599,
+        384,
+        425
+      ],
+      "height_px": 425,
+      "path": "showcase/originals/identity-crops/identity-western-rider-female-v001/portrait_front.png",
+      "role": "portrait_front",
+      "sha256": "effb661ab93e5af47b4861d221941a9ca7398064ff08637992a0f2df9c63b196",
+      "source_cell": {
+        "column": 0,
+        "row": 1
+      },
+      "width_px": 384
+    },
+    {
+      "crop_box_px": [
+        384,
+        599,
+        384,
+        425
+      ],
+      "height_px": 425,
+      "path": "showcase/originals/identity-crops/identity-western-rider-female-v001/portrait_left_profile.png",
+      "role": "portrait_left_profile",
+      "sha256": "c66c940f707d2613cd94b77389fea0e77c67a3f963ead03d0e09fb6bb12d7f67",
+      "source_cell": {
+        "column": 1,
+        "row": 1
+      },
+      "width_px": 384
+    },
+    {
+      "crop_box_px": [
+        768,
+        599,
+        384,
+        425
+      ],
+      "height_px": 425,
+      "path": "showcase/originals/identity-crops/identity-western-rider-female-v001/portrait_right_profile.png",
+      "role": "portrait_right_profile",
+      "sha256": "78179a2b12e4b6701f0b304399ef84b4fa881871b29ed861a7d5744abe327944",
+      "source_cell": {
+        "column": 2,
+        "row": 1
+      },
+      "width_px": 384
+    }
+  ],
+  "crops_are_authoritative": false,
+  "grid": [
+    4,
+    2
+  ],
+  "gutter_detection": {
+    "accepted_gutter_rows_px": [
+      584,
+      615
+    ],
+    "maximum_nonwhite_pixels_per_row": 31,
+    "method": "central-near-white-gutter-v1.6.1",
+    "near_white_min_channel": 238,
+    "search_rows_px": [
+      409,
+      634
+    ],
+    "split_y_px": 599
+  },
+  "operation": "exact-cell-crop-no-resample-no-redraw",
+  "profile": "higgsfield-character-reference-sheet-two-row-single-solve-v1.6",
+  "row_split_px": 599
+}

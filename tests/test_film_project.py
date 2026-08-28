@@ -21,6 +21,8 @@ if str(SOURCE_ROOT) not in sys.path:
     sys.path.insert(0, str(SOURCE_ROOT))
 
 from cinematic_ai_director.boards import _detect_horizontal_gutter_split  # noqa: E402
+from cinematic_ai_director.schema import Report  # noqa: E402
+from cinematic_ai_director.validation import validate_multi_person_projection  # noqa: E402
 
 TIMESTAMP = "2026-08-25T12:00:00Z"
 STORY_MOMENT = "The courier notices the opened case under the existing desk lamp."
@@ -3587,6 +3589,87 @@ class FilmProjectTests(unittest.TestCase):
         shots["shots"][0]["body_geometry_locks"][fixture.identity_inspector_id]["role_physique_brief_id"] = "generic-body"
         fixture.write("manifests/shots.json", shots)
         self.assert_error(fixture.validate(), "PHYSIQUE_LOCK")
+
+    def test_two_person_projection_uses_one_camera_and_approved_body_heights(self) -> None:
+        plan = {
+            "policy": "approved-body-geometry-plus-single-camera-projection-v1.6.2",
+            "projection": "rectilinear_normal-to-short-telephoto",
+            "camera_height_m": 1.55,
+            "camera_pitch_deg": 0.0,
+            "subjects": {
+                "char-near": {
+                    "approved_height_m": 1.78,
+                    "camera_distance_m": 2.0,
+                    "ground_elevation_m": 0.2,
+                    "frame_coverage": "cropped",
+                    "visible_landmarks": ["head", "shoulder", "waist"],
+                },
+                "char-far": {
+                    "approved_height_m": 1.84,
+                    "camera_distance_m": 10.0,
+                    "ground_elevation_m": 0.0,
+                    "frame_coverage": "complete",
+                    "visible_landmarks": ["head", "shoulder", "waist", "knee", "feet"],
+                },
+            },
+            "projected_height_relations": [
+                {
+                    "numerator_asset_id": "char-near",
+                    "denominator_asset_id": "char-far",
+                    "expected_ratio": 4.837,
+                    "observed_ratio": None,
+                    "tolerance_fraction": 0.12,
+                    "cropped_landmark_method": "head-shoulder-waist spacing against the approved Inspector",
+                    "pass": True,
+                }
+            ],
+            "horizon_vanishing_lines": "one level horizon and one coherent street vanishing system",
+            "ground_contact": "connected porch and road with a recorded 0.2 m elevation offset",
+            "occlusion_order": "near woman, spatial anchor, far man, buildings",
+            "per_person_scale_transform": False,
+            "verdict": "pass",
+            "hard_failures": [],
+        }
+        report = Report()
+        validate_multi_person_projection(
+            plan,
+            shot_id="shot-western-001",
+            cast_ids=["char-near", "char-far"],
+            geometry_locks={
+                "char-near": {"relative_height_m": 1.78},
+                "char-far": {"relative_height_m": 1.84},
+            },
+            production_ready=True,
+            where="shot.multi_person_projection",
+            report=report,
+        )
+        self.assertEqual(report.errors, [])
+
+    def test_two_person_projection_rejects_independent_character_scaling(self) -> None:
+        report = Report()
+        validate_multi_person_projection(
+            {
+                "policy": "approved-body-geometry-plus-single-camera-projection-v1.6.2",
+                "projection": "rectilinear",
+                "camera_height_m": 1.5,
+                "camera_pitch_deg": 0.0,
+                "subjects": {},
+                "projected_height_relations": [],
+                "horizon_vanishing_lines": "one horizon",
+                "ground_contact": "one ground plane",
+                "occlusion_order": "near then far",
+                "per_person_scale_transform": True,
+                "verdict": "pass",
+                "hard_failures": [],
+            },
+            shot_id="shot-invalid-001",
+            cast_ids=["char-a", "char-b"],
+            geometry_locks={},
+            production_ready=True,
+            where="shot.multi_person_projection",
+            report=report,
+        )
+        self.assertTrue(any(item["code"] == "MULTI_PERSON_PROJECTION" for item in report.errors))
 
     def test_character_state_cannot_drop_role_physique(self) -> None:
         fixture = self.fixture()

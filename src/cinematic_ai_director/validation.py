@@ -3261,6 +3261,33 @@ def validate_prompt_sections(
     for lock in geometry_locks.values():
         if not isinstance(lock, dict):
             report.error("BODY_GEOMETRY_PROMPT", f"Shot {shot_id} has an invalid body geometry lock.")
+    cast_ids = shot.get("cast_asset_ids") if isinstance(shot.get("cast_asset_ids"), list) else []
+    if len(cast_ids) >= 2:
+        multi_person = (
+            shot.get("multi_person_projection")
+            if isinstance(shot.get("multi_person_projection"), dict)
+            else {}
+        )
+        if "one shared camera projection" not in normalized_text:
+            report.error(
+                "MULTI_PERSON_PROJECTION_PROMPT",
+                f"Shot {shot_id} prompt must state one shared camera projection for all people.",
+            )
+        if "do not independently scale" not in normalized_text:
+            report.error(
+                "MULTI_PERSON_PROJECTION_PROMPT",
+                f"Shot {shot_id} prompt must forbid independent per-person scaling.",
+            )
+        subjects = multi_person.get("subjects") if isinstance(multi_person.get("subjects"), dict) else {}
+        for root_id, subject in subjects.items():
+            if not isinstance(subject, dict):
+                continue
+            distance = subject.get("camera_distance_m")
+            if is_number(distance) and f"{distance} m" not in normalized_text:
+                report.error(
+                    "MULTI_PERSON_PROJECTION_PROMPT",
+                    f"Shot {shot_id} prompt omits {root_id} camera distance {distance} m.",
+                )
     if geometry_locks:
         skin_prompt_concepts = {
             "skin key source": ("skin key source", "skin light source"),
@@ -4366,6 +4393,197 @@ def validate_motion_blur_plan(
         report.error("MOTION_BLUR", f"Shot {shot_id} with blur requires at least one static reference region.")
 
 
+def validate_multi_person_projection(
+    plan: Any,
+    *,
+    shot_id: str,
+    cast_ids: list[str],
+    geometry_locks: dict[str, Any],
+    production_ready: bool,
+    where: str,
+    report: Report,
+) -> None:
+    """Validate that every body in a shared frame obeys one camera projection."""
+    if len(cast_ids) < 2:
+        return
+    if not production_ready and plan in (None, {}):
+        return
+    fields = (
+        "policy",
+        "projection",
+        "camera_height_m",
+        "camera_pitch_deg",
+        "subjects",
+        "projected_height_relations",
+        "horizon_vanishing_lines",
+        "ground_contact",
+        "occlusion_order",
+        "per_person_scale_transform",
+        "verdict",
+        "hard_failures",
+    )
+    if not require_keys(plan, fields, where, report):
+        return
+    if production_ready and plan.get("policy") != "approved-body-geometry-plus-single-camera-projection-v1.6.2":
+        report.error(
+            "MULTI_PERSON_PROJECTION",
+            f"Ready shot {shot_id} must use the v1.6.2 single-camera multi-person projection policy.",
+        )
+    require_string(plan.get("projection"), f"{where}.projection", report)
+    camera_height = plan.get("camera_height_m")
+    if not is_number(camera_height) or camera_height <= 0:
+        report.error("MULTI_PERSON_PROJECTION", f"{where}.camera_height_m must be positive.")
+    camera_pitch = plan.get("camera_pitch_deg")
+    if not is_number(camera_pitch) or not -90 <= camera_pitch <= 90:
+        report.error("MULTI_PERSON_PROJECTION", f"{where}.camera_pitch_deg must be between -90 and 90.")
+
+    subjects = plan.get("subjects")
+    if not isinstance(subjects, dict):
+        report.error("TYPE", f"{where}.subjects must map every cast root to projection facts.")
+        subjects = {}
+    if production_ready and set(subjects) != set(cast_ids):
+        report.error(
+            "MULTI_PERSON_PROJECTION",
+            f"Ready shot {shot_id} requires one projection subject record for every and only cast root.",
+        )
+    for root_id, subject in subjects.items():
+        subject_where = f"{where}.subjects.{root_id}"
+        if root_id not in cast_ids:
+            report.error("MULTI_PERSON_PROJECTION", f"{subject_where} is not a cast root in shot {shot_id}.")
+        if not require_keys(
+            subject,
+            (
+                "approved_height_m",
+                "camera_distance_m",
+                "ground_elevation_m",
+                "frame_coverage",
+                "visible_landmarks",
+            ),
+            subject_where,
+            report,
+        ):
+            continue
+        height = subject.get("approved_height_m")
+        distance = subject.get("camera_distance_m")
+        elevation = subject.get("ground_elevation_m")
+        if not is_number(height) or height <= 0:
+            report.error("MULTI_PERSON_PROJECTION", f"{subject_where}.approved_height_m must be positive.")
+        else:
+            geometry_lock = geometry_locks.get(root_id)
+            locked_height = geometry_lock.get("relative_height_m") if isinstance(geometry_lock, dict) else None
+            if is_number(locked_height) and abs(float(height) - float(locked_height)) > 0.02:
+                report.error(
+                    "MULTI_PERSON_PROJECTION",
+                    f"{subject_where}.approved_height_m conflicts with the body's geometry lock.",
+                )
+        if not is_number(distance) or distance <= 0:
+            report.error("MULTI_PERSON_PROJECTION", f"{subject_where}.camera_distance_m must be positive.")
+        elif abs(float(distance) * 10 - round(float(distance) * 10)) > 1e-6:
+            report.error(
+                "SPATIAL_PRECISION",
+                f"{subject_where}.camera_distance_m must use approximately 0.1 m precision.",
+            )
+        if not is_number(elevation):
+            report.error("MULTI_PERSON_PROJECTION", f"{subject_where}.ground_elevation_m must be numeric.")
+        if subject.get("frame_coverage") not in {"complete", "cropped", "occluded"}:
+            report.error(
+                "MULTI_PERSON_PROJECTION",
+                f"{subject_where}.frame_coverage must be complete, cropped, or occluded.",
+            )
+        landmarks = subject.get("visible_landmarks")
+        require_string_list(landmarks, f"{subject_where}.visible_landmarks", report)
+        if production_ready and not landmarks:
+            report.error("MULTI_PERSON_PROJECTION", f"{subject_where} requires visible body landmarks.")
+
+    relations = plan.get("projected_height_relations")
+    if not isinstance(relations, list):
+        report.error("TYPE", f"{where}.projected_height_relations must be an array.")
+        relations = []
+    expected_relation_count = len(cast_ids) * (len(cast_ids) - 1) // 2
+    if production_ready and len(relations) != expected_relation_count:
+        report.error(
+            "MULTI_PERSON_PROJECTION",
+            f"Ready shot {shot_id} requires {expected_relation_count} pairwise projected-height relation(s).",
+        )
+    seen_pairs: set[tuple[str, str]] = set()
+    for index, relation in enumerate(relations):
+        relation_where = f"{where}.projected_height_relations[{index}]"
+        if not require_keys(
+            relation,
+            (
+                "numerator_asset_id",
+                "denominator_asset_id",
+                "expected_ratio",
+                "observed_ratio",
+                "tolerance_fraction",
+                "cropped_landmark_method",
+                "pass",
+            ),
+            relation_where,
+            report,
+        ):
+            continue
+        numerator = relation.get("numerator_asset_id")
+        denominator = relation.get("denominator_asset_id")
+        if numerator not in cast_ids or denominator not in cast_ids or numerator == denominator:
+            report.error("MULTI_PERSON_PROJECTION", f"{relation_where} must compare two distinct cast roots.")
+            continue
+        pair = tuple(sorted((str(numerator), str(denominator))))
+        if pair in seen_pairs:
+            report.error("MULTI_PERSON_PROJECTION", f"{relation_where} duplicates cast pair {pair}.")
+        seen_pairs.add(pair)
+        numerator_subject = subjects.get(numerator, {}) if isinstance(subjects.get(numerator), dict) else {}
+        denominator_subject = subjects.get(denominator, {}) if isinstance(subjects.get(denominator), dict) else {}
+        numerator_height = numerator_subject.get("approved_height_m")
+        denominator_height = denominator_subject.get("approved_height_m")
+        numerator_distance = numerator_subject.get("camera_distance_m")
+        denominator_distance = denominator_subject.get("camera_distance_m")
+        expected = relation.get("expected_ratio")
+        if all(
+            is_number(value) and value > 0
+            for value in (numerator_height, denominator_height, numerator_distance, denominator_distance)
+        ):
+            calculated = (float(numerator_height) / float(numerator_distance)) / (
+                float(denominator_height) / float(denominator_distance)
+            )
+            if not is_number(expected) or expected <= 0 or abs(float(expected) - calculated) / calculated > 0.03:
+                report.error(
+                    "MULTI_PERSON_PROJECTION",
+                    f"{relation_where}.expected_ratio must match approved height divided by camera distance (about {calculated:.3f}).",
+                )
+        elif not is_number(expected) or expected <= 0:
+            report.error("MULTI_PERSON_PROJECTION", f"{relation_where}.expected_ratio must be positive.")
+        tolerance = relation.get("tolerance_fraction")
+        if not is_number(tolerance) or not 0 <= tolerance <= 0.5:
+            report.error("MULTI_PERSON_PROJECTION", f"{relation_where}.tolerance_fraction must be between 0 and 0.5.")
+            tolerance = 0.0
+        observed = relation.get("observed_ratio")
+        if observed is None:
+            require_string(
+                relation.get("cropped_landmark_method"),
+                f"{relation_where}.cropped_landmark_method",
+                report,
+            )
+        elif not is_number(observed) or observed <= 0:
+            report.error("MULTI_PERSON_PROJECTION", f"{relation_where}.observed_ratio must be positive or null for a crop.")
+        elif is_number(expected) and expected > 0 and is_number(tolerance):
+            if abs(float(observed) - float(expected)) / float(expected) > float(tolerance):
+                report.error(
+                    "MULTI_PERSON_PROJECTION",
+                    f"{relation_where}.observed_ratio falls outside its declared tolerance.",
+                )
+        if relation.get("pass") is not True:
+            report.error("MULTI_PERSON_PROJECTION", f"{relation_where}.pass must be true for a Ready shot.")
+
+    for field in ("horizon_vanishing_lines", "ground_contact", "occlusion_order"):
+        require_string(plan.get(field), f"{where}.{field}", report)
+    if plan.get("per_person_scale_transform") is not False:
+        report.error("MULTI_PERSON_PROJECTION", f"Shot {shot_id} must set per_person_scale_transform=false.")
+    if plan.get("verdict") != "pass" or plan.get("hard_failures"):
+        report.error("MULTI_PERSON_PROJECTION", f"Ready shot {shot_id} has not passed multi-person projection QA.")
+    require_string_list(plan.get("hard_failures"), f"{where}.hard_failures", report)
+
+
 def validate_shots(
     project_dir: Path,
     data: dict[str, Any] | None,
@@ -4887,6 +5105,16 @@ def validate_shots(
                 report.error("ENUM", f"{lock_where}.digit_visibility is invalid: {lock.get('digit_visibility')}")
             if not is_number(lock.get("relative_height_m")) or lock.get("relative_height_m") <= 0:
                 report.error("BODY_GEOMETRY_LOCK", f"{lock_where}.relative_height_m must be positive.")
+
+        validate_multi_person_projection(
+            shot.get("multi_person_projection"),
+            shot_id=str(shot_id),
+            cast_ids=[str(value) for value in cast_ids],
+            geometry_locks=geometry_locks,
+            production_ready=production_ready,
+            where=f"{where}.multi_person_projection",
+            report=report,
+        )
 
         pose_anchor_ids = shot.get("pose_contact_anchor_ids")
         require_string_list(pose_anchor_ids, f"{where}.pose_contact_anchor_ids", report)

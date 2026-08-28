@@ -1,0 +1,151 @@
+{
+  "authority": "showcase/originals/identity-inspectors/identity-western-enforcer-male-v001.png",
+  "authority_sha256": "90dc961a7e3d3dc865f600ad9811830be00ad74bde0d3b24ba6aedcb216fa26b",
+  "blank_cell": {
+    "column": 3,
+    "row": 1
+  },
+  "crops": [
+    {
+      "crop_box_px": [
+        0,
+        0,
+        384,
+        620
+      ],
+      "height_px": 620,
+      "path": "showcase/originals/identity-crops/identity-western-enforcer-male-v001/full_front.png",
+      "role": "full_front",
+      "sha256": "54e066e9d56eec58af04262a9365d97f782eab9c6c34cf165709f43f975716cf",
+      "source_cell": {
+        "column": 0,
+        "row": 0
+      },
+      "width_px": 384
+    },
+    {
+      "crop_box_px": [
+        384,
+        0,
+        384,
+        620
+      ],
+      "height_px": 620,
+      "path": "showcase/originals/identity-crops/identity-western-enforcer-male-v001/full_left_profile.png",
+      "role": "full_left_profile",
+      "sha256": "7f71caa43ac6f1563d90f1c8b53a0e249d5189d2b4373a6051e89e42ba7329df",
+      "source_cell": {
+        "column": 1,
+        "row": 0
+      },
+      "width_px": 384
+    },
+    {
+      "crop_box_px": [
+        768,
+        0,
+        384,
+        620
+      ],
+      "height_px": 620,
+      "path": "showcase/originals/identity-crops/identity-western-enforcer-male-v001/full_right_profile.png",
+      "role": "full_right_profile",
+      "sha256": "3d48914c424b85b59e4fbac43f166a2ad6a73d456bd3e7bfc90e3c57f78809de",
+      "source_cell": {
+        "column": 2,
+        "row": 0
+      },
+      "width_px": 384
+    },
+    {
+      "crop_box_px": [
+        1152,
+        0,
+        384,
+        620
+      ],
+      "height_px": 620,
+      "path": "showcase/originals/identity-crops/identity-western-enforcer-male-v001/full_back.png",
+      "role": "full_back",
+      "sha256": "901c3812df861bda6ce5e31a7c43316f3fb9333313af9a4bb19b538a51b9ad25",
+      "source_cell": {
+        "column": 3,
+        "row": 0
+      },
+      "width_px": 384
+    },
+    {
+      "crop_box_px": [
+        0,
+        620,
+        384,
+        404
+      ],
+      "height_px": 404,
+      "path": "showcase/originals/identity-crops/identity-western-enforcer-male-v001/portrait_front.png",
+      "role": "portrait_front",
+      "sha256": "9e4ec5a00736751dfdb1ce63d62098394f875893ec2c54bf536f712f47109c5a",
+      "source_cell": {
+        "column": 0,
+        "row": 1
+      },
+      "width_px": 384
+    },
+    {
+      "crop_box_px": [
+        384,
+        620,
+        384,
+        404
+      ],
+      "height_px": 404,
+      "path": "showcase/originals/identity-crops/identity-western-enforcer-male-v001/portrait_left_profile.png",
+      "role": "portrait_left_profile",
+      "sha256": "3e7dd1ad4eb64a42cebd6b1dec77c3541ebcab77ca698b32c2720f3b29538078",
+      "source_cell": {
+        "column": 1,
+        "row": 1
+      },
+      "width_px": 384
+    },
+    {
+      "crop_box_px": [
+        768,
+        620,
+        384,
+        404
+      ],
+      "height_px": 404,
+      "path": "showcase/originals/identity-crops/identity-western-enforcer-male-v001/portrait_right_profile.png",
+      "role": "portrait_right_profile",
+      "sha256": "2ee47a4e154bca17778744a36cb8315ebf2d4cd545db77f6c9d51bd994ec2a94",
+      "source_cell": {
+        "column": 2,
+        "row": 1
+      },
+      "width_px": 384
+    }
+  ],
+  "crops_are_authoritative": false,
+  "grid": [
+    4,
+    2
+  ],
+  "gutter_detection": {
+    "accepted_gutter_rows_px": [
+      606,
+      634
+    ],
+    "maximum_nonwhite_pixels_per_row": 31,
+    "method": "central-near-white-gutter-v1.6.1",
+    "near_white_min_channel": 238,
+    "search_rows_px": [
+      409,
+      634
+    ],
+    "split_y_px": 620
+  },
+  "operation": "exact-cell-crop-no-resample-no-redraw",
+  "profile": "higgsfield-character-reference-sheet-two-row-single-solve-v1.6",
+  "row_split_px": 620
+}

@@ -266,6 +266,43 @@ def _format_camera_path(plan: Any) -> str:
     )
 
 
+def _format_multi_person_projection(plan: Any) -> str:
+    if not isinstance(plan, dict) or plan.get("verdict") != "pass":
+        return ""
+    subjects = plan.get("subjects") if isinstance(plan.get("subjects"), dict) else {}
+    subject_text = "; ".join(
+        (
+            f"{asset_id}: approved standing height {subject.get('approved_height_m')} m, "
+            f"camera distance {subject.get('camera_distance_m')} m, ground elevation "
+            f"{subject.get('ground_elevation_m')} m, {subject.get('frame_coverage')}, visible landmarks "
+            f"{', '.join(subject.get('visible_landmarks', []))}"
+        )
+        for asset_id, subject in sorted(subjects.items())
+        if isinstance(subject, dict)
+    )
+    relation_text = "; ".join(
+        (
+            f"{relation.get('numerator_asset_id')} relative to {relation.get('denominator_asset_id')}: "
+            f"expected projected-height ratio {relation.get('expected_ratio')} with tolerance "
+            f"{relation.get('tolerance_fraction')}; "
+            + (
+                f"observed ratio {relation.get('observed_ratio')}"
+                if relation.get("observed_ratio") is not None
+                else f"cropped-body check {relation.get('cropped_landmark_method')}"
+            )
+        )
+        for relation in plan.get("projected_height_relations", [])
+        if isinstance(relation, dict)
+    )
+    return (
+        f"Use one shared camera projection: {plan.get('projection')} at {plan.get('camera_height_m')} m, "
+        f"pitch {plan.get('camera_pitch_deg')} degrees. {subject_text}. {relation_text}. "
+        f"Horizon and vanishing lines: {plan.get('horizon_vanishing_lines')}. "
+        f"Ground contact: {plan.get('ground_contact')}. Occlusion order: {plan.get('occlusion_order')}. "
+        "Do not independently scale, stretch, shrink, or reproject any person."
+    )
+
+
 def _compile_video_prompt(
     shot: dict[str, Any],
     spatial_map: dict[str, Any],
@@ -284,6 +321,9 @@ def _compile_video_prompt(
     geometry_text = "; ".join(
         f"{root}: proportion {lock.get('proportion_signature_id')}, role physique {lock.get('role_physique_brief_id')}, state {lock.get('character_state_id')}, projection {lock.get('pose_projection')}"
         for root, lock in geometry_locks.items() if isinstance(lock, dict)
+    )
+    multi_person_projection_text = _format_multi_person_projection(
+        shot.get("multi_person_projection")
     )
     temporal = shot.get("temporal_capture") if isinstance(shot.get("temporal_capture"), dict) else {}
     blur = shot.get("motion_blur_plan") if isinstance(shot.get("motion_blur_plan"), dict) else {}
@@ -338,12 +378,13 @@ def _compile_video_prompt(
         "SCENE": f"{shot.get('story_beat')} {environment_text}",
         "CHARACTERS": (
             f"Bind these exact approved references by handle: {reference_text}. {geometry_text or 'No person is present; do not invent one.'}. "
-            f"{temporal_surface_locks}"
+            f"{multi_person_projection_text} {temporal_surface_locks}"
         ),
         "LOCATION": render_spatial_prompt_block(shot, spatial_map),
         "FIRST FRAME AND BLOCKING": (
             f"Begin at the exact camera and subject marks declared in LOCATION. {geometry_text}. "
-            "Preserve set-fixed facing, foreground/midground/background order, relative height, weight bearing, garment/body separation, contact points and occlusion order."
+            f"{multi_person_projection_text} Preserve set-fixed facing, foreground/midground/background order, relative height, "
+            "weight bearing, garment/body separation, contact points and occlusion order."
         ),
         "Shot 1": (
             f"One continuous {shot.get('duration_s')}-second shot. Execute in order: "

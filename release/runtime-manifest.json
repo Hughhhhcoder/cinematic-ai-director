@@ -2,8 +2,8 @@
   "files": [
     {
       "path": "SKILL.md",
-      "sha256": "454e61dab573f5a29fe918c95b2a693201a01554fbf018779570d2074101eb08",
-      "size": 14152
+      "sha256": "5726cb55d30224cd0fb7ee8743b975a1e787d53863a4f10091c6a6177e8559ad",
+      "size": 14655
     },
     {
       "path": "agents/openai.yaml",
@@ -47,8 +47,8 @@
     },
     {
       "path": "references/continuity-qa.md",
-      "sha256": "6a6b8ca78712f9f28bbc9c479fc0b86054e73474a2fd7f89e80de735a00685fa",
-      "size": 5722
+      "sha256": "447b4e3fad7a46541fccdb3788c01448809e2569e830abf949fcba7c9c23be55",
+      "size": 5903
     },
     {
       "path": "references/higgsfield-export.md",
@@ -62,8 +62,8 @@
     },
     {
       "path": "references/human-geometry.md",
-      "sha256": "7cae026fe89d328d0de44bd6081d6202d22aea8e295f86249430525370099d9e",
-      "size": 7310
+      "sha256": "5bc72a0190c974bd0e4b7b0212791c45d017c7367ec39d1523eacbcc5c622509",
+      "size": 9438
     },
     {
       "path": "references/identity-state.md",
@@ -92,8 +92,8 @@
     },
     {
       "path": "references/project-schema.md",
-      "sha256": "25338e8fd0d04d3caa0b2624fae720194455053432d14cbb801b172e35ff074b",
-      "size": 14838
+      "sha256": "6c90c2f6a5d3695c11d67acff19b7d6d08695e836a0082043bf24138adec4bab",
+      "size": 15191
     },
     {
       "path": "references/quality-evidence.md",
@@ -122,8 +122,8 @@
     },
     {
       "path": "references/video-prompting.md",
-      "sha256": "9392e2137597e60fbaad4f4df4859e302018a79270499040459bbc75a3873a27",
-      "size": 7184
+      "sha256": "f4f77f8177a7140022ef071a68ab284eb77e492a7b77189cbd5f47edb841daee",
+      "size": 7954
     },
     {
       "path": "references/world-sequences.md",
@@ -137,8 +137,8 @@
     },
     {
       "path": "src/cinematic_ai_director.egg-info/PKG-INFO",
-      "sha256": "a0228df084aa5af123e9e4602b83559a2556a684ec2741bba7bc86eb7620d68e",
-      "size": 18959
+      "sha256": "5d2efcb794012122fcc670608a6ce6399b77906934baa08f3d2285d49473a4e2",
+      "size": 20701
     },
     {
       "path": "src/cinematic_ai_director.egg-info/SOURCES.txt",
@@ -162,7 +162,7 @@
     },
     {
       "path": "src/cinematic_ai_director/__init__.py",
-      "sha256": "c24f8290ec8686d1c9c642b8df7902f163f0746587a7b690bae2ad8527afd896",
+      "sha256": "cd381b18ecba302cb1ab360a1c23433a1574bc9be6b84376b322abc17b74a6ea",
       "size": 141
     },
     {
@@ -192,8 +192,8 @@
     },
     {
       "path": "src/cinematic_ai_director/higgsfield.py",
-      "sha256": "286123e5f590c319a34174dd70a40f436140fb2b87a75e3618901b6a055699ca",
-      "size": 73751
+      "sha256": "fd5112a5c4288607e7c037dd18ba3019aa8636c79c3c51dfc730b2b3eeee47df",
+      "size": 74254
     },
     {
       "path": "src/cinematic_ai_director/initialization.py",
@@ -202,8 +202,8 @@
     },
     {
       "path": "src/cinematic_ai_director/prompts.py",
-      "sha256": "38f28b746190d8232207dc47946d869110b9d847cc15cb57b0feafd56f4385ab",
-      "size": 30917
+      "sha256": "1ef41e89c4d43a446a44771a9553737c82d8f4346405bc60a15952e103ba0819",
+      "size": 32986
     },
     {
       "path": "src/cinematic_ai_director/reviews.py",
@@ -217,11 +217,11 @@
     },
     {
       "path": "src/cinematic_ai_director/validation.py",
-      "sha256": "e36b8da71b2cfb5dacbec13c31789ef4f0674a0a8e3ae6a1a155a010ce62e602",
-      "size": 386235
+      "sha256": "5f170786c1d5e78530669913b942411bc56b35c7135e98e978a2c58f3ab79ef7",
+      "size": 397358
     }
   ],
   "schema_version": "1.6",
   "skill": "cinematic-ai-director",
-  "version": "1.6.1"
+  "version": "1.6.2"
 }

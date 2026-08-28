@@ -250,6 +250,7 @@ def _resolved_shot_spatial_payload(
         "subject_marks": subject_marks,
         "movement_paths": movement_paths,
         "anchor_projection": shot.get("anchor_projection"),
+        "multi_person_projection": shot.get("multi_person_projection"),
         "depth_order": shot.get("depth_order"),
         "deterministic_prompt_block": render_spatial_prompt_block(shot, spatial_map),
     }
@@ -332,6 +333,7 @@ def _higgsfield_settings(
             "camera_mark_id": shot.get("camera_mark_id"),
             "subject_mark_ids": shot.get("subject_mark_ids"),
             "anchor_projection": shot.get("anchor_projection"),
+            "multi_person_projection": shot.get("multi_person_projection"),
             "depth_order": shot.get("depth_order"),
             "coordinate_system": spatial_payload.get("coordinate_system"),
         },
@@ -346,6 +348,7 @@ def _higgsfield_settings(
             "special_lighting_event_ids": shot.get("special_lighting_event_ids"),
             "format_plan_id": shot.get("format_plan_id"),
             "body_geometry_locks": shot.get("body_geometry_locks"),
+            "multi_person_projection": shot.get("multi_person_projection"),
             "pose_contact_anchor_ids": shot.get("pose_contact_anchor_ids"),
         },
         "reference_bindings": bindings,
@@ -1033,6 +1036,11 @@ def export_higgsfield(args: argparse.Namespace) -> int:
                 "location_state": location_state,
                 "location_world": location_world,
                 "prop_states": prop_state_records,
+                "multi_person_projections": {
+                    str(cluster_shot.get("id")): cluster_shot.get("multi_person_projection")
+                    for cluster_shot in cluster_shots
+                    if cluster_shot.get("multi_person_projection")
+                },
                 "bridge": {
                     "from_sequence_id": cluster.get("bridge_from_sequence_id"),
                     "frame_asset_id": bridge_frame_id,

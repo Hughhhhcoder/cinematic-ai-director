@@ -25,6 +25,14 @@ Fictional adult leads default to a naturally measured `4:6` visual leg/body bala
 
 Age, disability, size, and health are not defects. The gate asks whether the result matches the role and user intent while maintaining anatomically coherent joints, support, garment separation, and continuity.
 
+## Multi-person projection
+
+A two-or-more-person frame inherits each person's approved standing height and body geometry from that person's unified Inspector. Record one rectilinear camera projection, camera height and pitch, every subject mark and camera distance, the expected and observed projected-height relation with tolerance, crop-aware body landmarks, horizon and vanishing lines, occlusion order, and a shared ground surface or explicit elevation offset.
+
+For subjects near the optical axis without severe lens distortion, use the sanity check `projected height A / projected height B ≈ (approved height A / distance A) / (approved height B / distance B)`. A cropped foreground body is checked from visible head–shoulder–waist or waist–knee landmarks; the workflow must not invent its off-frame height. Long lenses compress the impression of distance but do not cancel inverse-distance scale. Wide lenses may exaggerate near/far scale but may not stretch one person's legs, shrink a head, widen an edge body, or change shoulder/hip structure.
+
+Per-person scaling, floating or buried feet, incompatible body and head perspectives, contradictory ground contact, or hiding a proportion error with crop, shallow focus, or motion blur is a hard failure.
+
 ## State changes
 
 Age, weight, pregnancy, swelling, or muscle changes use a documented `soft_tissue_delta` with cause and first visible shot. Skeleton, identity geometry, and all undeclared features stay locked. Every state returns directly to the approved Inspector; state-to-state edit chains are forbidden.

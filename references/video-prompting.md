@@ -11,6 +11,7 @@
 - 有限 `dynamic_range_plan`：工作纬度、场景反差估计、中灰锚点、曝光优先级、允许的高光 clipping 和暗部信息损失。
 - 空间地图、机位/人物 mark、主锚点投影、depth order 与动作路径。
 - 统一 4×2 人物 Inspector、七张确定性裁图、准确人物状态、`role_physique_brief`、`proportion_signature`/skeletal lock、需要时的 pose/contact anchor。
+- 两人及以上镜头增加 `multi_person_projection`：同一整流投影、摄影机高度/俯仰、每人批准身高与镜头距离、预期/观察投影比、裁切地标、地平线/消失线、遮挡和接地/高差；固定 `per_person_scale_transform:false`。
 - 地点 world/state/plate、主锚点、道具根/状态。
 - environment state、特殊光事件与材料交互。
 - 人物 `material_response_contract`：皮肤主光来源/相对尺寸/方向、补光、干湿状态、高光范围、彩光传播、局部对比/色调映射、材质粗糙度与表演策略。
@@ -33,11 +34,13 @@ The single narrative event, current environment and temporal phase.
 CHARACTERS
 Portable @handles in the approved reference order: the 4×2 identity Inspector first, then current state, deterministic crops only when the interface needs them, pose/contact evidence and supplementary bridge last. Preserve identity, role physique, body proportions and current state.
 
+For two or more people, declare one shared camera projection and each approved standing height/camera distance. Preserve the pairwise projected-height relationship; never independently scale, stretch, shrink or reproject a person.
+
 LOCATION
 Named location state, set-fixed axes and boundaries, camera-to-primary-anchor distance, camera/subject marks, facing, depth order, movement marks, and the anchor's visible/partial/off-screen direction and distance.
 
 FIRST FRAME AND BLOCKING
-Exact first pose, weight bearing, shoulder/waist/hip and wardrobe silhouette, hand/foot visibility, contact points, occlusion order, relative height, and the declared first camera mark.
+Exact first pose, weight bearing, shoulder/waist/hip and wardrobe silhouette, hand/foot visibility, contact points, occlusion order, relative height, one horizon/vanishing system, ground surface or explicit elevation offset, and the declared first camera mark.
 
 Shot 1
 One continuous timed shot. Numbered visible action and performance beats in physical order; end pose/camera mark; `Hard cut` when another numbered Shot follows.
@@ -77,6 +80,7 @@ Dialogue, room tone, weather, Foley, mechanics and off-screen cues with timing.
 ## 人体、环境与时间锁
 
 - 每个人物绑定准确 `character_state_id`、`role_physique_brief_id` 和 `proportion_signature_id`。
+- 多人物镜头必须在提示中保留 one shared camera projection、每人镜头距离和禁止单独缩放；被裁切人物用可见身体地标核验，不伪造画外全身高度。
 - 每镜出现准确 `quality_profile_id` 与 `sequence_visual_anchor_asset_id`。
 - 高风险动作必须引用批准 `pose_contact_anchor`。
 - 环境段必须出现准确 environment ID；特殊光事件出现准确 event ID。

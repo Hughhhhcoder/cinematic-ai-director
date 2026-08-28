@@ -41,7 +41,7 @@ Many AI-film workflows optimize for an attractive first frame. Production needs 
 |---|---|
 | Live-action quality | Positive photographic evidence, motivated skin highlights, independent material roughness, four-scale smear/CG/texture inspection |
 | Casting and physique | Role-conditioned body brief, measurable targets, wardrobe silhouette, rejection criteria, no generic short-legged or boxy fallback |
-| Identity geometry | One 4×2 white identity inspector per person, one shared identity solve, seven deterministic crops, person-specific proportions and skeleton lock |
+| Identity geometry | One 4×2 white identity inspector per person, one shared identity solve, seven deterministic crops, person-specific proportions, skeleton lock, and multi-person projection QA |
 | World continuity | Location worlds and states, production-design DNA, prop manufacturing/state locks, return-to-location reuse |
 | Spatial execution | Establishing plus side-three-quarter views, one fixed scene anchor, set coordinates, camera/subject marks, off-screen direction and distance |
 | Cinematography | Script-derived treatment, observer identity, format gate, motivated light, finite scene-referred dynamic range, exposure/focus behavior, polish ceiling |
@@ -103,6 +103,8 @@ The whole inspector is validated before anything is cropped. Any identity, anato
 “Good proportions” are converted into measurable ranges and silhouette requirements. The system rejects lens-distorted long legs, collapsed pelvis/spine, lost shoulder-waist-hip relationships, melted garments, or wardrobe that changes an approved body into another physique.
 
 For fictional adult leads, the default visual leg/body target is a natural `4:6` balance; fashion, dance, action, or performance roles may use a justified `3:7` impression. An unintended `5:5` silhouette is rejected at the identity, wardrobe-state, and narrative-frame gates. These targets are measured with a level camera and normal perspective—never manufactured with a low angle, wide lens, tiny head, or stretched shins.
+
+When two or more people share a frame, the Skill keeps every Inspector's approved height and geometry, then checks them through one camera projection. It records camera height/pitch, subject marks and distances, expected versus observed projected-height relationships, crop-aware body landmarks, horizon/vanishing lines, occlusion order, and a shared ground surface or explicit elevation offset. Per-person scaling, locally inconsistent perspective, floating feet, and hiding an error with crop, defocus, or motion blur are hard failures.
 
 ## Location and spatial continuity
 
@@ -195,11 +197,19 @@ It does **not** install a plugin, authenticate, upload references, call a genera
 
 ## Showcase
 
-The compact public v1.6.1 gallery uses one new fictional adult and one original location generated with built-in ImageGen. The scene and narrative frame are native 2.39:1 theatrical widescreen images with no baked black bars. It excludes the user's calibration photo, old benchmark images, failed candidates, and third-party project media.
+The compact public v1.6.2 gallery contains three one-call shared-solve identity Inspectors plus two original locations and two person-in-location frames generated with built-in ImageGen. It adds an observational Western evidence chain: two independently approved bodies, one ordinary practical street, and one two-person confrontation checked through a single physical camera projection. All scene and narrative frames are native 2.39:1 with no baked black bars. The gallery excludes the user's calibration photo, old benchmarks, failed candidates, and third-party project media.
 
 | One shared-solve identity Inspector | One empty location | One person-in-location frame |
 |---|---|---|
 | ![One white identity Inspector with seven views from the same shared solve for a fictional Arctic survey pilot](docs/assets/showcase/identity-white-arctic-survey-pilot-v003.webp) | ![A native 2.39:1 empty Arctic search-and-rescue hangar during a snow squall, with a yellow deicing cabinet as spatial anchor](docs/assets/showcase/scene-arctic-rescue-hangar-v003.webp) | ![The same fictional white survey pilot seen from rear three-quarter inside the approved Arctic hangar in a native 2.39:1 live-action frame](docs/assets/showcase/narrative-white-survey-pilot-arctic-hangar-v003.webp) |
+
+| Western woman identity authority | Western man identity authority |
+|---|---|
+| ![One white identity Inspector with seven consistent views of a fictional female frontier rider](docs/assets/showcase/identity-western-rider-female-v001.webp) | ![One white identity Inspector with seven consistent views of a fictional male rail-company enforcer](docs/assets/showcase/identity-western-enforcer-male-v001.webp) |
+
+| Empty observational Western location | Two-person projection and blocking proof |
+|---|---|
+| ![A native 2.39:1 observational location-scout photograph of a practical Southwestern frontier street with a green pump anchor](docs/assets/showcase/scene-southwestern-frontier-street-v001.webp) | ![A native 2.39:1 live-action frame of the approved woman and man facing each other across the approved street with physically plausible near-far scale](docs/assets/showcase/narrative-western-standoff-two-character-v001.webp) |
 
 This is intentionally a small release proof, not a fabricated statistical pass-rate claim. Exact retained prompts, source-generation IDs, original and derivative SHA-256 values, deterministic identity crops, four-scale QA, native 2.39:1 format evidence, and finite-dynamic-range review are in [`showcase/evidence.json`](showcase/evidence.json) and the [gallery documentation](https://hughhhhcoder.github.io/cinematic-ai-director/gallery/).
 
