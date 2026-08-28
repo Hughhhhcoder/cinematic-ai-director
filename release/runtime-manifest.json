@@ -2,13 +2,13 @@
   "files": [
     {
       "path": "SKILL.md",
-      "sha256": "5726cb55d30224cd0fb7ee8743b975a1e787d53863a4f10091c6a6177e8559ad",
-      "size": 14655
+      "sha256": "afd63f860862569ade64705ba1725e54c634b3eb55140659f63270dfe231b313",
+      "size": 18110
     },
     {
       "path": "agents/openai.yaml",
-      "sha256": "8deb72a5d59f59bd39b4baaa8e01be572f90f6fa7c9433f917dc9ff29e7c1d0d",
-      "size": 609
+      "sha256": "d05653c58962fbd2c2afcbe9ea2a4d68d2bcde7a52c5cfda699d6ed36a2f7ef9",
+      "size": 701
     },
     {
       "path": "assets/icon.svg",
@@ -22,8 +22,8 @@
     },
     {
       "path": "references/atmosphere-weather.md",
-      "sha256": "62881c87783871ca17e9aac3e989090ac5303c17277ae9b8288131f74b8cb4af",
-      "size": 4466
+      "sha256": "cea6b650f2dd989034c889fc6c65b4fc441e44472ff36fba40befe10ef3c7251",
+      "size": 5347
     },
     {
       "path": "references/camera-motion-temporal.md",
@@ -32,13 +32,13 @@
     },
     {
       "path": "references/candidate-selection.md",
-      "sha256": "81f4699328859fa6e86c6f05b098f994f841eb24788c1f97212e198a5030da8a",
-      "size": 3873
+      "sha256": "7c0ab51707604571bd8f8c9e9066e1483e1a44837e396bd8d797824013f0b075",
+      "size": 4270
     },
     {
       "path": "references/cinematic-grammar.md",
-      "sha256": "73493089dd03f8e5330c04ad00234e354b3b43e2228dc720832dde4a6cb649fc",
-      "size": 6606
+      "sha256": "f355d34cedd925f3d1f9ff779fc790ec37eb557237750c48243db18e09b90aee",
+      "size": 9820
     },
     {
       "path": "references/cinematography.md",
@@ -47,8 +47,8 @@
     },
     {
       "path": "references/continuity-qa.md",
-      "sha256": "447b4e3fad7a46541fccdb3788c01448809e2569e830abf949fcba7c9c23be55",
-      "size": 5903
+      "sha256": "f159f8a25a24e911ca679d4a53a56939b6973772624d2d16398323789e0444f1",
+      "size": 6838
     },
     {
       "path": "references/higgsfield-export.md",
@@ -81,24 +81,29 @@
       "size": 11494
     },
     {
+      "path": "references/live-action-integration.md",
+      "sha256": "648711af90d41719f7c8f3a9d23c3d0c82fe49f699a1ec040627cd9b091443b3",
+      "size": 5201
+    },
+    {
       "path": "references/photographic-authenticity.md",
       "sha256": "a421ec7ad60ad6ab56254e5b458a591ede2b4e21870eb6a85287ee1b3704cf78",
       "size": 9059
     },
     {
       "path": "references/pipeline.md",
-      "sha256": "561b8d67b4f1d14187a97182b3817d46a66e68afe50274490c05cb75aa3aec66",
-      "size": 8760
+      "sha256": "d05a41b087e75e91c1503b8c0b8e2e1315bf03fc73f1f1bc649642c341fae140",
+      "size": 9404
     },
     {
       "path": "references/project-schema.md",
-      "sha256": "6c90c2f6a5d3695c11d67acff19b7d6d08695e836a0082043bf24138adec4bab",
-      "size": 15191
+      "sha256": "ddd7539105387f3eab3c5351b0c00453d7672e7068d1d56e8353a9e80fdd21c7",
+      "size": 16561
     },
     {
       "path": "references/quality-evidence.md",
-      "sha256": "fdba483e6122d95811162836a1c31ed690bbc16135d7a4ef7d2771408aaeaec0",
-      "size": 4504
+      "sha256": "fed7312034bbdd70dfe7cf8dbde852964a6034143bf1827c58326224d10167e1",
+      "size": 5811
     },
     {
       "path": "references/research-basis.md",
@@ -117,13 +122,13 @@
     },
     {
       "path": "references/static-assets.md",
-      "sha256": "a364fcf86bc15007d3afb24265d283ac1ff568c5909ec91bcce22bd278dcda88",
-      "size": 8245
+      "sha256": "9214a6069754f190c49d5bb9e4ed5ac0e23c0bb7bfe501cc7862bc7f227346b8",
+      "size": 9678
     },
     {
       "path": "references/video-prompting.md",
-      "sha256": "f4f77f8177a7140022ef071a68ab284eb77e492a7b77189cbd5f47edb841daee",
-      "size": 7954
+      "sha256": "36a2e32f596b5e1af5bdbce9b43bdda775b19152a0f1c7ae7af920cf0fe81114",
+      "size": 9282
     },
     {
       "path": "references/world-sequences.md",
@@ -162,7 +167,7 @@
     },
     {
       "path": "src/cinematic_ai_director/__init__.py",
-      "sha256": "cd381b18ecba302cb1ab360a1c23433a1574bc9be6b84376b322abc17b74a6ea",
+      "sha256": "0bcf386cc4207bf39ecd67c3314f7984d651c182aa1d0e60990a7d39cab3f032",
       "size": 141
     },
     {
@@ -192,36 +197,36 @@
     },
     {
       "path": "src/cinematic_ai_director/higgsfield.py",
-      "sha256": "fd5112a5c4288607e7c037dd18ba3019aa8636c79c3c51dfc730b2b3eeee47df",
-      "size": 74254
+      "sha256": "4cec4c7472ea65dd37523c2a219a6a60516c09f0e4329e33d031cbc21ca1c119",
+      "size": 75692
     },
     {
       "path": "src/cinematic_ai_director/initialization.py",
-      "sha256": "b51a537d93bfb792d106c4f4459a3db0e997d934c77ae7343043c6a659a9436a",
-      "size": 11540
+      "sha256": "779be1f578980e6344e358ce0d98ef56b3e356c788710e1eaba2bb5a6c219819",
+      "size": 12073
     },
     {
       "path": "src/cinematic_ai_director/prompts.py",
-      "sha256": "1ef41e89c4d43a446a44771a9553737c82d8f4346405bc60a15952e103ba0819",
-      "size": 32986
+      "sha256": "2060f22e4812445ed2afbab06e68ccf68607c5d77153759a87f6de141ea9f12f",
+      "size": 38472
     },
     {
       "path": "src/cinematic_ai_director/reviews.py",
-      "sha256": "192388fbaafa8749242fa1b7d248dad5f6ca0e21ff40e9e6bb5e2c1ee8ae9c29",
-      "size": 12134
+      "sha256": "ee3faa4cab999d11fb5e3906e1cb531512ea0cb346ea13ab38af2d6416697734",
+      "size": 12409
     },
     {
       "path": "src/cinematic_ai_director/schema.py",
-      "sha256": "2c1f0138bb6644911e1b970ff5f391221c8ec6bc81512c1a47c88c91a29984ac",
-      "size": 35406
+      "sha256": "4b02ea25c3e7aea0897411085ef51b2daa8f918bb5b90ccf36094a2697c06174",
+      "size": 36408
     },
     {
       "path": "src/cinematic_ai_director/validation.py",
-      "sha256": "5f170786c1d5e78530669913b942411bc56b35c7135e98e978a2c58f3ab79ef7",
-      "size": 397358
+      "sha256": "566caa352d89ab8684c843e6388fa1cbc247437369ff3ce29c8b77bff8862edd",
+      "size": 418449
     }
   ],
   "schema_version": "1.6",
   "skill": "cinematic-ai-director",
-  "version": "1.6.2"
+  "version": "1.6.4"
 }

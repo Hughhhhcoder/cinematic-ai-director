@@ -22,7 +22,11 @@ if str(SOURCE_ROOT) not in sys.path:
 
 from cinematic_ai_director.boards import _detect_horizontal_gutter_split  # noqa: E402
 from cinematic_ai_director.schema import Report  # noqa: E402
-from cinematic_ai_director.validation import validate_multi_person_projection  # noqa: E402
+from cinematic_ai_director.validation import (  # noqa: E402
+    validate_dramatic_coverage_plan,
+    validate_multi_person_projection,
+    validate_subject_environment_integration,
+)
 
 TIMESTAMP = "2026-08-25T12:00:00Z"
 STORY_MOMENT = "The courier notices the opened case under the existing desk lamp."
@@ -213,6 +217,38 @@ def image_prompt(
     }
     lines = ["Use case: live-action production image", f"Prompt strategy: {strategy}", ""]
     for heading in headings:
+        lines.extend([heading, bodies[heading], ""])
+    return "\n".join(lines)
+
+
+def live_action_probe_prompt() -> str:
+    bodies = {
+        "PHOTOGRAPHIC EVENT": (
+            "A photorealistic candid on-location photograph records the approved fictional adult as she checks a paper seal on the worktable. "
+            "The camera is present for an ordinary observable task, not for a poster, fashion portrait, or effects demonstration."
+        ),
+        "APPROVED IDENTITY WORLD AND STATE": (
+            "Use the first attached unified identity Inspector as the only person authority and the second attached approved workshop image as the only world authority. "
+            "Preserve that face, body proportions, clothing, room construction, fixtures, scale, and material identities."
+        ),
+        "PHYSICAL CAMERA AND BLOCKING": (
+            "Use a reachable eye-level medium camera at natural working distance. Keep the face, torso, working hand, paper seal, table edge, and adjacent room in one frame. "
+            "The person and room share one projection, ground plane, contact, occlusion order, focus falloff, and edge behavior."
+        ),
+        "SOURCE LIGHT AND MATERIAL RESPONSE": (
+            "One broad north window is the only shape-producing source, with low room bounce. The same direction reaches face, clothing, paper, table, and wall. "
+            "Natural-dry skin has continuous matte-diffuse tone with weak source-shaped reflection; skin, hair, cotton, paint, glass, wood, and metal remain separate."
+        ),
+        "FOCUS EXPOSURE AND CONTINGENCY": (
+            "Focus favors the eyes and working contact without making every plane equally sharp. Exposure priority: protect_skin_and_practicals. "
+            "Let the small lamp core clip and let the deepest unlit shelf gap lose detail. Keep normal middle tones and finite capture latitude; no local HDR equalization."
+        ),
+        "EXCLUSIONS": (
+            "No synthetic-rendered or game-like person; no oily, waxy, or plastic skin; no cut-out subject edges or separate subject tone mapping; no repeated artifact texture."
+        ),
+    }
+    lines = ["Prompt strategy: image2-live-action-integration-probe-v1.6", ""]
+    for heading in IMAGE_HEADINGS:
         lines.extend([heading, bodies[heading], ""])
     return "\n".join(lines)
 
@@ -809,6 +845,7 @@ class ProjectFixture:
                 "prop": "image2-live-action-object-v1.6",
                 "prop_state": "image2-live-action-object-v1.6",
                 "pose_contact_anchor": "image2-live-action-pose-contact-v1.6",
+                "live_action_probe": "image2-live-action-integration-probe-v1.6",
                 "look_test": IMAGE_STRATEGY,
                 "keyframe": IMAGE_STRATEGY,
                 "storyboard": IMAGE_STRATEGY,
@@ -820,9 +857,9 @@ class ProjectFixture:
         pose_contact_anchor_ids = list(pose_contact_anchor_ids or [])
         human_surface = asset_type in {
             "character_identity_inspector", "character_face_anchor", "character_body_anchor", "character_identity_view", "character_master",
-            "character_variant", "character_state", "pose_contact_anchor",
+            "character_variant", "character_state", "pose_contact_anchor", "live_action_probe",
         } or bool(identity_pack_id)
-        narrative_surface = asset_type in {"look_test", "location_plate", "storyboard", "keyframe", "key_art"}
+        narrative_surface = asset_type in {"look_test", "location_plate", "storyboard", "keyframe", "key_art", "live_action_probe"}
         if human_surface and narrative_surface:
             dynamic_range_plan = {
                 "policy": "finite_scene_referred",
@@ -874,7 +911,7 @@ class ProjectFixture:
                 "multi_exposure_hdr": False,
                 "narrative_reason": "Preserve readable geography without making every bright and dark surface equally clear.",
             }
-        if asset_type in {"look_test", "location_plate", "storyboard", "keyframe", "key_art"} and surface_policy == "clean_authority":
+        if asset_type in {"look_test", "location_plate", "storyboard", "keyframe", "key_art", "live_action_probe"} and surface_policy == "clean_authority":
             surface_policy = "clean_narrative"
         active_output = approved_path if status in {"approved", "superseded"} else candidate_path
         reference_inputs = []
@@ -980,7 +1017,7 @@ class ProjectFixture:
             "reference_provenance": provenance(
                 provenance_kind,
                 character=asset_type in {
-                    "character_identity_inspector", "character_face_anchor", "character_body_anchor", "character_identity_view", "character_variant", "character_state", "pose_contact_anchor"
+                    "character_identity_inspector", "character_face_anchor", "character_body_anchor", "character_identity_view", "character_variant", "character_state", "pose_contact_anchor", "live_action_probe"
                 },
             ),
             "reference_coverage": reference_coverage(asset_type),
@@ -991,7 +1028,7 @@ class ProjectFixture:
             "geometry_qa": geometry_qa(
                 human=asset_type in {
                     "character_identity_inspector", "character_face_anchor", "character_body_anchor", "character_identity_view",
-                    "character_variant", "character_state", "pose_contact_anchor"
+                    "character_variant", "character_state", "pose_contact_anchor", "live_action_probe"
                 } or bool(identity_pack_id),
                 mode=(
                     "identity_authority" if asset_type in {"character_identity_inspector", "character_face_anchor", "character_body_anchor", "character_identity_view"}
@@ -1007,11 +1044,20 @@ class ProjectFixture:
             ),
             "live_action_quality_qa": live_action_quality_qa(
                 human=human_surface,
-                narrative=asset_type in {"look_test", "location_plate", "storyboard", "keyframe", "key_art"},
+                narrative=asset_type in {"look_test", "location_plate", "storyboard", "keyframe", "key_art", "live_action_probe"},
             ),
             "generation_provenance": generation,
             "created_at": TIMESTAMP,
         }
+        if asset_type == "live_action_probe":
+            asset.update(
+                {
+                    "probe_task": "checks one paper seal by hand",
+                    "probe_blocking": "Medium frame includes face, torso, hand, seal, table edge, and adjacent wall",
+                    "probe_camera_condition": "a reachable eye-level medium camera",
+                    "ordinary_light_source": "One broad north window and low room bounce",
+                }
+            )
         if generated:
             asset["calibration_family"] = "image2-live-action-evidence-v1.6"
         if approved_path:
@@ -1148,6 +1194,33 @@ class ProjectFixture:
                 root_reference_ids=["prop-red-worktable--v001"], state_delta=prop_delta,
             ),
         ])
+        probe_prompt = "prompts/images/live-action-probe-char-hero-workshop--v001.txt"
+        probe_image = "assets/quality-evidence/live-action-probes/live-action-probe-char-hero-workshop--v001--approved.png"
+        self._file(probe_prompt, live_action_probe_prompt())
+        self._file(probe_image)
+        assets.append(
+            self._asset(
+                asset_id="live-action-probe-char-hero-workshop--v001",
+                role="ordinary-light-person-world-integration-proof",
+                asset_type="live_action_probe",
+                status="approved",
+                generator="builtin-imagegen",
+                mode="generate",
+                references=[self.identity_inspector_id, "loc-workshop--v001"],
+                scenes=["sc-010"],
+                prompt_path=probe_prompt,
+                approved_path=probe_image,
+                photo_mode="cinematic_frame",
+                auth_mode="narrative_frame",
+                user_decision="approved",
+                provenance_kind="generated_anchor",
+                identity_pack_id="identity-char-hero",
+                root_reference_ids=[self.identity_inspector_id, "loc-workshop--v001"],
+                surface_policy="clean_narrative",
+                prompt_strategy_id="image2-live-action-integration-probe-v1.6",
+                approval_gate_id="review-foundation-001",
+            )
+        )
         character_state_asset = next(item for item in assets if item["id"] == "char-hero-state-baseline--v001")
         character_state_asset["generation_provenance"]["reference_inputs"] = [
             {
@@ -1920,6 +1993,22 @@ class ProjectFixture:
                     "relative_height_m": 1.68,
                 }
             },
+            "subject_environment_integration": {
+                "policy": "shared-light-air-focus-occlusion-v1.6.4",
+                "shared_light_sources": ["north workshop window", "existing desk lamp"],
+                "shared_atmosphere_state_id": "env-workshop-clear",
+                "atmosphere_depth_behavior": "clear workshop air preserves ordinary distance contrast without invented haze",
+                "focus_and_occlusion": "the courier, table edge and broken seal share the recorded optical depth order",
+                "contact_and_grounding": "both shoes contact the concrete and the near hand is supported by the existing table edge",
+                "material_response_match": "skin, cotton, painted steel, glass and concrete each retain source-shaped roughness",
+                "color_contamination_match": "window coolness and desk-lamp warmth affect the courier and adjacent set surfaces together",
+                "edge_integration": "hair, sleeves and body edges follow the same focus falloff as neighboring set geometry",
+                "cutout_edges_detected": False,
+                "separate_person_tone_mapping_detected": False,
+                "background_only_atmosphere_detected": False,
+                "verdict": "pass",
+                "hard_failures": [],
+            },
             "pose_contact_anchor_ids": [],
             "material_interaction_plan": {
                 "required": False,
@@ -2066,7 +2155,7 @@ class ProjectFixture:
             selected_file.parent.mkdir(parents=True, exist_ok=True)
             selected_file.write_bytes(selected_bytes)
             identity_single_solve = asset["type"] == "character_identity_inspector"
-            critical = asset["type"] in {"look_test", "keyframe", "key_art"}
+            critical = asset["type"] in {"live_action_probe", "look_test", "keyframe", "key_art"}
             count = 1 if identity_single_solve else 3 if critical else 2
             variants = [
                 {
@@ -2184,6 +2273,38 @@ class ProjectFixture:
                 "polish_ceiling": "grounded observational drama",
                 "anchor_asset_ids": [self.identity_inspector_id, "loc-workshop--v001"],
                 "calibration_family_ids": [],
+                "live_action_probe_id": "probe-char-hero-workshop-v001",
+            }
+        ]
+        quality["live_action_integration_probes"] = [
+            {
+                "id": "probe-char-hero-workshop-v001",
+                "status": "approved",
+                "approval_gate_id": "review-foundation-001",
+                "quality_profile_id": "quality-main",
+                "identity_inspector_asset_id": self.identity_inspector_id,
+                "location_asset_id": "loc-workshop--v001",
+                "probe_asset_id": "live-action-probe-char-hero-workshop--v001",
+                "prompt_strategy_id": "image2-live-action-integration-probe-v1.6",
+                "reference_asset_ids": [self.identity_inspector_id, "loc-workshop--v001"],
+                "attempt_batch_count": 1,
+                "max_attempt_batches": 2,
+                "retry_changed_variable": "",
+                "ordinary_light_only": True,
+                "special_environment_disabled": True,
+                "scales_checked": ["thumbnail", "fit", "100_percent", "200_percent"],
+                "ai_visual_verdict": "pass",
+                "failure_classes": [],
+                "evidence": {
+                    "face_and_skin_readable": "Natural-dry face remains readable without oil film, wax response, or cosmetic shaping.",
+                    "task_contact_readable": "The working hand, paper seal, and worktable share a physically continuous contact.",
+                    "shared_light": "One north-window direction and room bounce affect person and workshop together.",
+                    "shared_focus_and_occlusion": "Face, working contact, table edge, and wall share one focus and occlusion stack.",
+                    "finite_dynamic_range": "Lamp core clips and the deepest shelf gap loses detail while middle tones remain ordinary.",
+                    "skin_material_separation": "Skin, hair, cotton, paper, paint, glass, wood, and metal keep independent responses.",
+                },
+                "reviewer": "codex-visual",
+                "checked_at": TIMESTAMP,
             }
         ]
         quality["calibration_families"] = []
@@ -2344,6 +2465,9 @@ class FilmProjectTests(unittest.TestCase):
         for profile in quality["project_quality_profiles"]:
             if profile.get("approval_gate_id") == gate_id:
                 profile["status"] = "qualified"
+        for probe in quality["live_action_integration_probes"]:
+            if probe.get("approval_gate_id") == gate_id:
+                probe["status"] = "qualified"
         fixture.write("manifests/quality.json", quality)
 
         identities = fixture.read("manifests/identities.json")
@@ -2950,6 +3074,14 @@ class FilmProjectTests(unittest.TestCase):
         self.assertIn("sequences/seq-workshop-day-001/verify.py", files_a)
         self.assertIn("soul-id-prep.json", files_a)
         self.assertIn("elements-soul-cast-prep.json", files_a)
+        self.assertNotIn(
+            "references/other/live-action-probe-char-hero-workshop--v001.png",
+            files_a,
+        )
+        self.assertNotIn(
+            "live-action-probe-char-hero-workshop--v001",
+            files_a["upload-order.csv"].decode("utf-8"),
+        )
         self.assertNotIn(str(self.root).encode("utf-8"), b"\n".join(files_a.values()))
 
         prompt_text = files_a["shots/sc-010/sh-010-010/prompt.txt"].decode("utf-8")
@@ -3234,6 +3366,65 @@ class FilmProjectTests(unittest.TestCase):
         keyframe["live_action_quality_qa"] = live_action_quality_qa(human=True, narrative=True, passed=False)
         fixture.write("manifests/assets.json", assets)
         self.assert_error(fixture.validate(), "QUALITY_GATE")
+
+    def test_person_bearing_narrative_assets_require_an_approved_integration_probe(self) -> None:
+        fixture = self.fixture()
+        quality = fixture.read("manifests/quality.json")
+        quality["live_action_integration_probes"] = []
+        quality["project_quality_profiles"][0]["live_action_probe_id"] = ""
+        fixture.write("manifests/quality.json", quality)
+        self.assert_error(fixture.validate(), "LIVE_ACTION_PROBE_GATE")
+
+    def test_integration_probe_must_use_only_identity_inspector_then_location_root(self) -> None:
+        fixture = self.fixture()
+        quality = fixture.read("manifests/quality.json")
+        probe = quality["live_action_integration_probes"][0]
+        probe["reference_asset_ids"] = ["loc-workshop--v001", fixture.identity_inspector_id]
+        fixture.write("manifests/quality.json", quality)
+        self.assert_error(fixture.validate(), "LIVE_ACTION_PROBE_REFERENCE")
+
+    def test_integration_probe_oily_or_synthetic_skin_cannot_pass(self) -> None:
+        fixture = self.fixture()
+        quality = fixture.read("manifests/quality.json")
+        probe = quality["live_action_integration_probes"][0]
+        probe["ai_visual_verdict"] = "fail"
+        probe["failure_classes"] = ["oily_waxy_or_plastic_skin", "synthetic_person_rendering"]
+        fixture.write("manifests/quality.json", quality)
+        self.assert_error(fixture.validate(), "LIVE_ACTION_PROBE_GATE")
+
+    def test_second_failed_probe_batch_blocks_backend_and_names_one_changed_variable(self) -> None:
+        fixture = self.fixture()
+        quality = fixture.read("manifests/quality.json")
+        probe = quality["live_action_integration_probes"][0]
+        probe["status"] = "backend_realism_blocked"
+        probe["attempt_batch_count"] = 2
+        probe["retry_changed_variable"] = ""
+        probe["ai_visual_verdict"] = "fail"
+        probe["failure_classes"] = ["person_world_cutout"]
+        assets = fixture.read("manifests/assets.json")
+        asset = next(item for item in assets["assets"] if item["id"] == probe["probe_asset_id"])
+        asset["status"] = "model_blocked"
+        asset["approved_path"] = ""
+        fixture.write("manifests/assets.json", assets)
+        fixture.write("manifests/quality.json", quality)
+        self.assert_error(fixture.validate(), "LIVE_ACTION_PROBE_ATTEMPTS")
+
+    def test_integration_probe_prompt_rejects_cinematic_styling_before_realism_proof(self) -> None:
+        fixture = self.fixture()
+        assets = fixture.read("manifests/assets.json")
+        probe = next(item for item in assets["assets"] if item["type"] == "live_action_probe")
+        prompt_path = fixture.path / probe["prompt_path"]
+        prompt_path.write_text(prompt_path.read_text(encoding="utf-8").replace("photorealistic candid", "cinematic film look candid"), encoding="utf-8")
+        digest = hashlib.sha256(prompt_path.read_bytes()).hexdigest()
+        probe["generation_provenance"]["prompt_sha256"] = digest
+        candidates = fixture.read("manifests/candidates.json")
+        candidate_set = next(item for item in candidates["candidate_sets"] if item["target_asset_id"] == probe["id"])
+        for batch in candidate_set["batches"]:
+            for candidate in batch["candidates"]:
+                candidate["prompt_sha256"] = digest
+        fixture.write("manifests/assets.json", assets)
+        fixture.write("manifests/candidates.json", candidates)
+        self.assert_error(fixture.validate(), "LIVE_ACTION_PROBE_STYLING")
 
     def test_live_action_quality_gate_rejects_synthetic_skin_highlight_topology(self) -> None:
         fixture = self.fixture()
@@ -3592,7 +3783,7 @@ class FilmProjectTests(unittest.TestCase):
 
     def test_two_person_projection_uses_one_camera_and_approved_body_heights(self) -> None:
         plan = {
-            "policy": "approved-body-geometry-plus-single-camera-projection-v1.6.2",
+            "policy": "approved-body-geometry-plus-single-camera-projection-v1.6.4",
             "projection": "rectilinear_normal-to-short-telephoto",
             "camera_height_m": 1.55,
             "camera_pitch_deg": 0.0,
@@ -3649,7 +3840,7 @@ class FilmProjectTests(unittest.TestCase):
         report = Report()
         validate_multi_person_projection(
             {
-                "policy": "approved-body-geometry-plus-single-camera-projection-v1.6.2",
+                "policy": "approved-body-geometry-plus-single-camera-projection-v1.6.4",
                 "projection": "rectilinear",
                 "camera_height_m": 1.5,
                 "camera_pitch_deg": 0.0,
@@ -3670,6 +3861,89 @@ class FilmProjectTests(unittest.TestCase):
             report=report,
         )
         self.assertTrue(any(item["code"] == "MULTI_PERSON_PROJECTION" for item in report.errors))
+
+    def test_two_person_narrative_coverage_rejects_spatial_diagram_blocking(self) -> None:
+        report = Report()
+        validate_dramatic_coverage_plan(
+            {
+                "policy": "narrative-coverage-not-spatial-diagram-v1.6.4",
+                "coverage_role": "wide_exception",
+                "shot_size": "wide",
+                "observer_position": "eye level on the street centerline",
+                "foreground_subject_ids": [],
+                "focus_subject_ids": ["char-a", "char-b"],
+                "crop_landmarks": [],
+                "eyeline_contract": "both actors face each other across the street",
+                "motivated_action_beat": "both actors wait without touching the set",
+                "composition_asymmetry": "none; equal full bodies at equal screen weight",
+                "wide_two_shot_justification": "",
+                "spatial_proof_only": True,
+                "game_level_blocking_detected": True,
+                "verdict": "pass",
+                "hard_failures": [],
+            },
+            shot_id="shot-diagram-001",
+            cast_ids=["char-a", "char-b"],
+            production_ready=True,
+            where="shot.dramatic_coverage_plan",
+            report=report,
+        )
+        self.assertTrue(any(item["code"] == "DRAMATIC_COVERAGE" for item in report.errors))
+
+    def test_two_person_narrative_coverage_accepts_motivated_dirty_single(self) -> None:
+        report = Report()
+        validate_dramatic_coverage_plan(
+            {
+                "policy": "narrative-coverage-not-spatial-diagram-v1.6.4",
+                "coverage_role": "dirty_single",
+                "shot_size": "over_shoulder",
+                "observer_position": "just behind char-a at eye level beside the depot jamb",
+                "foreground_subject_ids": ["char-a"],
+                "focus_subject_ids": ["char-b"],
+                "crop_landmarks": ["char-a below shoulder", "char-b at mid-thigh"],
+                "eyeline_contract": "char-b looks past the jamb to char-a's established eye line",
+                "motivated_action_beat": "char-b pauses with one hand on the real door latch",
+                "composition_asymmetry": "soft cropped witness left, focused latch performance right",
+                "wide_two_shot_justification": "",
+                "spatial_proof_only": False,
+                "game_level_blocking_detected": False,
+                "verdict": "pass",
+                "hard_failures": [],
+            },
+            shot_id="shot-coverage-001",
+            cast_ids=["char-a", "char-b"],
+            production_ready=True,
+            where="shot.dramatic_coverage_plan",
+            report=report,
+        )
+        self.assertEqual(report.errors, [])
+
+    def test_human_shot_rejects_pasted_subject_environment_integration(self) -> None:
+        report = Report()
+        validate_subject_environment_integration(
+            {
+                "policy": "shared-light-air-focus-occlusion-v1.6.4",
+                "shared_light_sources": ["late-afternoon open sky"],
+                "shared_atmosphere_state_id": "env-dust",
+                "atmosphere_depth_behavior": "dust loses contrast with distance",
+                "focus_and_occlusion": "door jamb crosses the foreground body",
+                "contact_and_grounding": "feet and latch contact are plausible",
+                "material_response_match": "skin, cotton and pine remain separate",
+                "color_contamination_match": "warm exterior bounce reaches subject and threshold",
+                "edge_integration": "foreground focus falloff is shared",
+                "cutout_edges_detected": True,
+                "separate_person_tone_mapping_detected": True,
+                "background_only_atmosphere_detected": True,
+                "verdict": "pass",
+                "hard_failures": [],
+            },
+            shot_id="shot-pasted-001",
+            has_human=True,
+            production_ready=True,
+            where="shot.subject_environment_integration",
+            report=report,
+        )
+        self.assertTrue(any(item["code"] == "SUBJECT_ENVIRONMENT_INTEGRATION" for item in report.errors))
 
     def test_character_state_cannot_drop_role_physique(self) -> None:
         fixture = self.fixture()

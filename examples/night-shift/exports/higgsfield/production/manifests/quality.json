@@ -1,5 +1,44 @@
 {
   "calibration_families": [],
+  "live_action_integration_probes": [
+    {
+      "ai_visual_verdict": "pass",
+      "approval_gate_id": "review-foundation-001",
+      "attempt_batch_count": 1,
+      "checked_at": "2026-08-25T12:00:00Z",
+      "evidence": {
+        "face_and_skin_readable": "Natural-dry face remains readable without oil film, wax response, or cosmetic shaping.",
+        "finite_dynamic_range": "Lamp core clips and the deepest shelf gap loses detail while middle tones remain ordinary.",
+        "shared_focus_and_occlusion": "Face, working contact, table edge, and wall share one focus and occlusion stack.",
+        "shared_light": "One north-window direction and room bounce affect person and workshop together.",
+        "skin_material_separation": "Skin, hair, cotton, paper, paint, glass, wood, and metal keep independent responses.",
+        "task_contact_readable": "The working hand, paper seal, and worktable share a physically continuous contact."
+      },
+      "failure_classes": [],
+      "id": "probe-char-hero-workshop-v001",
+      "identity_inspector_asset_id": "char-hero-inspector--v001",
+      "location_asset_id": "loc-workshop--v001",
+      "max_attempt_batches": 2,
+      "ordinary_light_only": true,
+      "probe_asset_id": "live-action-probe-char-hero-workshop--v001",
+      "prompt_strategy_id": "image2-live-action-integration-probe-v1.6",
+      "quality_profile_id": "quality-main",
+      "reference_asset_ids": [
+        "char-hero-inspector--v001",
+        "loc-workshop--v001"
+      ],
+      "retry_changed_variable": "",
+      "reviewer": "codex-visual",
+      "scales_checked": [
+        "thumbnail",
+        "fit",
+        "100_percent",
+        "200_percent"
+      ],
+      "special_environment_disabled": true,
+      "status": "approved"
+    }
+  ],
   "project_quality_profiles": [
     {
       "anchor_asset_ids": [
@@ -33,6 +72,7 @@
       "focus_optics_contract": "Conversational perspective with motivated focus falloff and no universal shallow-depth template.",
       "id": "quality-main",
       "illumination_contract": "The north window and existing desk lamp are the only shape-producing sources; no invented beauty or rim light.",
+      "live_action_probe_id": "probe-char-hero-workshop-v001",
       "material_response_contract": "Skin, hair, cotton, concrete, painted steel, glass and wood preserve independent roughness, edge and reflection behavior.",
       "performance_composition_contract": "Task-led observed behavior with plausible unused space, mild occlusion and no publicity pose.",
       "polish_ceiling": "grounded observational drama",

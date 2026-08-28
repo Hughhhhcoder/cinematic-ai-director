@@ -27,6 +27,55 @@ def _dynamic_range_text(plan: Any) -> str:
     )
 
 
+def _compile_live_action_probe_prompt(
+    asset: dict[str, Any], quality_profile: dict[str, Any]
+) -> str:
+    """Compile the deliberately small, ordinary-light realism diagnostic.
+
+    This prompt is intentionally not a miniature production bible.  It asks the
+    backend to solve one person, one real place, one simple contact, and one
+    exposure decision before cinematic styling is allowed to hide defects.
+    """
+    plan = asset.get("dynamic_range_plan")
+    if not isinstance(plan, dict):
+        raise ValueError("a finite dynamic-range plan is required")
+    task = str(asset.get("probe_task") or "performs one ordinary, readable task")
+    blocking = str(asset.get("probe_blocking") or "the torso, face, working hand, contact object, and surrounding room share one frame")
+    camera = str(asset.get("probe_camera_condition") or "a reachable eye-level medium camera at a natural working distance")
+    light = str(asset.get("ordinary_light_source") or quality_profile.get("illumination_contract") or "one broad existing window source")
+    clipping = "; ".join(str(value) for value in plan.get("allowed_clipping", [])) or "small source cores only"
+    shadow_loss = "; ".join(str(value) for value in plan.get("allowed_shadow_loss", [])) or "the deepest unlit recesses"
+    blocks = [
+        f"Prompt strategy: {IMAGE_PROMPT_STRATEGY_BY_TYPE['live_action_probe']}",
+        "",
+        _prompt_block(
+            "PHOTOGRAPHIC EVENT",
+            f"A photorealistic candid on-location photograph records the approved fictional adult as they {task}. The camera is present for this ordinary observable event, not for a poster, fashion portrait, or effects demonstration.",
+        ),
+        _prompt_block(
+            "APPROVED IDENTITY WORLD AND STATE",
+            "Use the first attached unified identity Inspector as the only person authority and the second attached approved location image as the only world authority. Preserve that face, body proportions, clothing, room construction, fixtures, scale, and material identities.",
+        ),
+        _prompt_block(
+            "PHYSICAL CAMERA AND BLOCKING",
+            f"Use {camera}. {blocking}. The person and room must share one projection, ground plane, contact, occlusion order, focus falloff, and edge behavior; allow mild foreground obstruction or unused space when physically natural.",
+        ),
+        _prompt_block(
+            "SOURCE LIGHT AND MATERIAL RESPONSE",
+            f"{light}. The same source direction and room bounce reach the face, clothing, contact object, and adjacent set. Natural-dry skin has continuous matte-diffuse tone with only weak source-shaped reflection; skin, hair, fabric, painted surfaces, glass, wood, and metal remain visibly separate.",
+        ),
+        _prompt_block(
+            "FOCUS EXPOSURE AND CONTINGENCY",
+            f"Focus favors the eyes and working contact without making every plane equally sharp. Exposure priority: {plan.get('exposure_priority')}. Let {clipping} clip when necessary and let {shadow_loss} lose detail. Keep normal middle tones and finite capture latitude; no local HDR equalization.",
+        ),
+        _prompt_block(
+            "EXCLUSIONS",
+            "No synthetic-rendered or game-like person; no oily, waxy, or plastic skin; no cut-out subject edges or separate subject tone mapping; no repeated artifact texture.",
+        ),
+    ]
+    return "\n".join(blocks).strip() + "\n"
+
+
 def _compile_image_prompt(
     asset: dict[str, Any],
     quality_profile: dict[str, Any],
@@ -43,6 +92,8 @@ def _compile_image_prompt(
     strategy = str(asset.get("prompt_strategy_id") or IMAGE_PROMPT_STRATEGY_BY_TYPE.get(str(asset.get("type")), ""))
     if strategy not in IMAGE_PROMPT_STRATEGIES:
         raise ValueError(f"asset {asset.get('id')} has no supported v1.6 image prompt strategy")
+    if asset_type == "live_action_probe":
+        return _compile_live_action_probe_prompt(asset, quality_profile)
     role = str(asset.get("role") or asset.get("id"))
     state_delta = asset.get("state_delta") if isinstance(asset.get("state_delta"), dict) else {}
     physique = identity_pack.get("role_physique_brief") if isinstance(identity_pack, dict) and isinstance(identity_pack.get("role_physique_brief"), dict) else {}
@@ -303,6 +354,33 @@ def _format_multi_person_projection(plan: Any) -> str:
     )
 
 
+def _format_dramatic_coverage(plan: Any) -> str:
+    if not isinstance(plan, dict) or plan.get("verdict") != "pass":
+        return ""
+    foreground = ", ".join(plan.get("foreground_subject_ids", [])) or "no foreground cast root"
+    focus = ", ".join(plan.get("focus_subject_ids", [])) or "the recorded story subject"
+    crops = ", ".join(plan.get("crop_landmarks", [])) or "no body crop"
+    return (
+        f"Coverage role {plan.get('coverage_role')} at {plan.get('shot_size')} from {plan.get('observer_position')}. "
+        f"Foreground {foreground}; focus {focus}; crop only at {crops}. "
+        f"Eyeline contract: {plan.get('eyeline_contract')}. Action beat: {plan.get('motivated_action_beat')}. "
+        f"Composition: {plan.get('composition_asymmetry')}. This is dramatic coverage, not a symmetric spatial diagram."
+    )
+
+
+def _format_subject_environment_integration(plan: Any) -> str:
+    if not isinstance(plan, dict) or plan.get("verdict") != "pass":
+        return ""
+    sources = ", ".join(plan.get("shared_light_sources", []))
+    return (
+        f"Subject and set share these physical light sources: {sources}. "
+        f"Atmosphere {plan.get('shared_atmosphere_state_id')}: {plan.get('atmosphere_depth_behavior')}. "
+        f"Focus and occlusion: {plan.get('focus_and_occlusion')}. Contact: {plan.get('contact_and_grounding')}. "
+        f"Materials: {plan.get('material_response_match')}. Color contamination: {plan.get('color_contamination_match')}. "
+        f"Edges: {plan.get('edge_integration')}. Do not isolate, relight, sharpen, tone-map, or paste a person over the world."
+    )
+
+
 def _compile_video_prompt(
     shot: dict[str, Any],
     spatial_map: dict[str, Any],
@@ -324,6 +402,10 @@ def _compile_video_prompt(
     )
     multi_person_projection_text = _format_multi_person_projection(
         shot.get("multi_person_projection")
+    )
+    dramatic_coverage_text = _format_dramatic_coverage(shot.get("dramatic_coverage_plan"))
+    subject_environment_text = _format_subject_environment_integration(
+        shot.get("subject_environment_integration")
     )
     temporal = shot.get("temporal_capture") if isinstance(shot.get("temporal_capture"), dict) else {}
     blur = shot.get("motion_blur_plan") if isinstance(shot.get("motion_blur_plan"), dict) else {}
@@ -375,7 +457,7 @@ def _compile_video_prompt(
             "No animation, illustration, CG/PBR or game-render finish; no synthetic glossy skin, uniform oil film, painterly smear, repeating cross-material texture, "
             "unmotivated rim light, sharpening halo, frame blending, ghost limbs, texture crawl or jelly warping."
         ),
-        "SCENE": f"{shot.get('story_beat')} {environment_text}",
+        "SCENE": f"{shot.get('story_beat')} {environment_text} {dramatic_coverage_text}",
         "CHARACTERS": (
             f"Bind these exact approved references by handle: {reference_text}. {geometry_text or 'No person is present; do not invent one.'}. "
             f"{multi_person_projection_text} {temporal_surface_locks}"
@@ -383,7 +465,7 @@ def _compile_video_prompt(
         "LOCATION": render_spatial_prompt_block(shot, spatial_map),
         "FIRST FRAME AND BLOCKING": (
             f"Begin at the exact camera and subject marks declared in LOCATION. {geometry_text}. "
-            f"{multi_person_projection_text} Preserve set-fixed facing, foreground/midground/background order, relative height, "
+            f"{dramatic_coverage_text} {multi_person_projection_text} Preserve set-fixed facing, foreground/midground/background order, relative height, "
             "weight bearing, garment/body separation, contact points and occlusion order."
         ),
         "Shot 1": (
@@ -401,7 +483,8 @@ def _compile_video_prompt(
         ),
         "PHYSICS": physics_text,
         "LIGHTING": (
-            f"{light_material_response} {quality_profile.get('tone_contrast_contract', '')} {dynamic_range}"
+            f"{light_material_response} {subject_environment_text} "
+            f"{quality_profile.get('tone_contrast_contract', '')} {dynamic_range}"
         ),
         "AUDIO": str(shot.get("audio")),
     }

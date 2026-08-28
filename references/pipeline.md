@@ -19,11 +19,12 @@
 | 4 人物状态 | state authority + delta/soft-tissue delta | 直接追溯统一身份板，骨架/比例保留 |
 | 5 地点世界与物件 | location master + prop roots | 拓扑、设施、制造结构、材质基线批准 |
 | 6 地点状态与空间 | 多视角、主锚点、spatial map | 空间/表面 QA，环境状态因果成立 |
-| 7 Treatment 与格式 | cinematic treatment + approved format | 原创可观察行为、无烧入黑边 |
-| 8 Foundation | 三套合格 Look/Profile + 身份/地点/格式板 | 一次盲选、整门批量批准 |
-| 9 叙事资产 | sequence anchor、plate、Photoboard、pose anchor、首尾帧 | 后台候选通过；状态、几何、环境、格式和空间可追溯 |
-| 10 镜头与序列 | shots + sequence clusters + review boards | 路径、时间、模糊、物理、音频完整；逐序列批准 |
-| 11 导出/回片 | Higgsfield 包 + 可选 takes | validate 零错误、适配器支持、离线验证通过 |
+| 7 实拍融合探针 | 单人普通光 `live_action_probe` | 人物与地点共享投影、光线、焦点、遮挡、曝光和材质；两批失败即阻断 |
+| 8 Treatment 与格式 | cinematic treatment + approved format | 原创可观察行为、无烧入黑边 |
+| 9 Foundation | 三套合格 Look/Profile + 身份/地点/格式板 | 一次盲选、整门批量批准 |
+| 10 叙事资产 | sequence anchor、plate、Photoboard、pose anchor、首尾帧 | 后台候选通过；状态、几何、环境、格式和空间可追溯 |
+| 11 镜头与序列 | shots + sequence clusters + review boards | 路径、时间、模糊、物理、音频完整；逐序列批准 |
+| 12 导出/回片 | Higgsfield 包 + 可选 takes | validate 零错误、适配器支持、离线验证通过 |
 
 ## 1. 剧本拆解
 
@@ -58,6 +59,8 @@ python3 scripts/film_project.py build-reference-board <project> --identity-pack 
 每场显式绑定 `environmental_state_id`。雨雪、雾烟、尘、火、水下、热浪及特殊光事件必须有来源、方向、材料后果、光学影响和时间边界，详见 [atmosphere-weather.md](atmosphere-weather.md)。
 
 ## 6. 质量 Profile、Treatment、格式与 Look
+
+在任何 Look 之前，先按 [live-action-integration.md](live-action-integration.md) 生成普通光单人融合探针。它只引用统一身份 Inspector 和一个地点权威，使用简单任务/接触、可达中景、无特殊天气/风格/介质词，并检查皮肤、材质、投影、共享光线、焦点、遮挡和有限曝光。第二批仍失败时项目进入 `backend_realism_blocked`；不得用更强调色、烟雾、颗粒或镜头词继续试图遮盖。
 
 先按 [quality-evidence.md](quality-evidence.md) 推导项目质量 Profile 和有限 `dynamic_range_contract`，再按 [cinematic-grammar.md](cinematic-grammar.md) 从剧本推导原创 Treatment，把影视参考译成可观察行为。随后把捕获/工作/交付画幅、裁切、安全区、squeeze/desqueeze 与重构规则放入 Foundation 门。每张资产还要依据自身光线和反差继承/细化 `dynamic_range_plan`，明确曝光保护对象和允许的高光/阴影损失。格式或动态范围合同未合格，Look Test 不开始。
 

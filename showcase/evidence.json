@@ -1,361 +1,64 @@
 {
-  "additional_identity_crops": [
-    {
-      "authority": "showcase/originals/identity-inspectors/identity-western-rider-female-v001.png",
-      "authority_sha256": "62f10be4f3d47901265032553f43ca11bab2297c31495b6f1864f06f22afce6e",
-      "blank_cell": {
-        "column": 3,
-        "row": 1
-      },
-      "crops": [
-        {
-          "crop_box_px": [
-            0,
-            0,
-            384,
-            599
-          ],
-          "height_px": 599,
-          "path": "showcase/originals/identity-crops/identity-western-rider-female-v001/full_front.png",
-          "role": "full_front",
-          "sha256": "98e3a311a180d2837c32a9db3c3fd4078d415e55549d318d454edba6e2732073",
-          "source_cell": {
-            "column": 0,
-            "row": 0
-          },
-          "width_px": 384
-        },
-        {
-          "crop_box_px": [
-            384,
-            0,
-            384,
-            599
-          ],
-          "height_px": 599,
-          "path": "showcase/originals/identity-crops/identity-western-rider-female-v001/full_left_profile.png",
-          "role": "full_left_profile",
-          "sha256": "eac74a568e36651833937b26991cd8b54e3ef13f7a9646bc06fc57408104d84c",
-          "source_cell": {
-            "column": 1,
-            "row": 0
-          },
-          "width_px": 384
-        },
-        {
-          "crop_box_px": [
-            768,
-            0,
-            384,
-            599
-          ],
-          "height_px": 599,
-          "path": "showcase/originals/identity-crops/identity-western-rider-female-v001/full_right_profile.png",
-          "role": "full_right_profile",
-          "sha256": "87e1a7e077ea92299ab707b3c48ecbec53fcf7e38e226fe646d8dc00db1aaa35",
-          "source_cell": {
-            "column": 2,
-            "row": 0
-          },
-          "width_px": 384
-        },
-        {
-          "crop_box_px": [
-            1152,
-            0,
-            384,
-            599
-          ],
-          "height_px": 599,
-          "path": "showcase/originals/identity-crops/identity-western-rider-female-v001/full_back.png",
-          "role": "full_back",
-          "sha256": "2d1e0e94f4eea9d78b7c60bad0c479c9d1ee30fbab0b31cdf8879f1a9ab6fc5c",
-          "source_cell": {
-            "column": 3,
-            "row": 0
-          },
-          "width_px": 384
-        },
-        {
-          "crop_box_px": [
-            0,
-            599,
-            384,
-            425
-          ],
-          "height_px": 425,
-          "path": "showcase/originals/identity-crops/identity-western-rider-female-v001/portrait_front.png",
-          "role": "portrait_front",
-          "sha256": "effb661ab93e5af47b4861d221941a9ca7398064ff08637992a0f2df9c63b196",
-          "source_cell": {
-            "column": 0,
-            "row": 1
-          },
-          "width_px": 384
-        },
-        {
-          "crop_box_px": [
-            384,
-            599,
-            384,
-            425
-          ],
-          "height_px": 425,
-          "path": "showcase/originals/identity-crops/identity-western-rider-female-v001/portrait_left_profile.png",
-          "role": "portrait_left_profile",
-          "sha256": "c66c940f707d2613cd94b77389fea0e77c67a3f963ead03d0e09fb6bb12d7f67",
-          "source_cell": {
-            "column": 1,
-            "row": 1
-          },
-          "width_px": 384
-        },
-        {
-          "crop_box_px": [
-            768,
-            599,
-            384,
-            425
-          ],
-          "height_px": 425,
-          "path": "showcase/originals/identity-crops/identity-western-rider-female-v001/portrait_right_profile.png",
-          "role": "portrait_right_profile",
-          "sha256": "78179a2b12e4b6701f0b304399ef84b4fa881871b29ed861a7d5744abe327944",
-          "source_cell": {
-            "column": 2,
-            "row": 1
-          },
-          "width_px": 384
-        }
-      ],
-      "crops_are_authoritative": false,
-      "grid": [
-        4,
-        2
-      ],
-      "gutter_detection": {
-        "accepted_gutter_rows_px": [
-          584,
-          615
-        ],
-        "maximum_nonwhite_pixels_per_row": 31,
-        "method": "central-near-white-gutter-v1.6.1",
-        "near_white_min_channel": 238,
-        "search_rows_px": [
-          409,
-          634
-        ],
-        "split_y_px": 599
-      },
-      "operation": "exact-cell-crop-no-resample-no-redraw",
-      "profile": "higgsfield-character-reference-sheet-two-row-single-solve-v1.6",
-      "row_split_px": 599
-    },
-    {
-      "authority": "showcase/originals/identity-inspectors/identity-western-enforcer-male-v001.png",
-      "authority_sha256": "90dc961a7e3d3dc865f600ad9811830be00ad74bde0d3b24ba6aedcb216fa26b",
-      "blank_cell": {
-        "column": 3,
-        "row": 1
-      },
-      "crops": [
-        {
-          "crop_box_px": [
-            0,
-            0,
-            384,
-            620
-          ],
-          "height_px": 620,
-          "path": "showcase/originals/identity-crops/identity-western-enforcer-male-v001/full_front.png",
-          "role": "full_front",
-          "sha256": "54e066e9d56eec58af04262a9365d97f782eab9c6c34cf165709f43f975716cf",
-          "source_cell": {
-            "column": 0,
-            "row": 0
-          },
-          "width_px": 384
-        },
-        {
-          "crop_box_px": [
-            384,
-            0,
-            384,
-            620
-          ],
-          "height_px": 620,
-          "path": "showcase/originals/identity-crops/identity-western-enforcer-male-v001/full_left_profile.png",
-          "role": "full_left_profile",
-          "sha256": "7f71caa43ac6f1563d90f1c8b53a0e249d5189d2b4373a6051e89e42ba7329df",
-          "source_cell": {
-            "column": 1,
-            "row": 0
-          },
-          "width_px": 384
-        },
-        {
-          "crop_box_px": [
-            768,
-            0,
-            384,
-            620
-          ],
-          "height_px": 620,
-          "path": "showcase/originals/identity-crops/identity-western-enforcer-male-v001/full_right_profile.png",
-          "role": "full_right_profile",
-          "sha256": "3d48914c424b85b59e4fbac43f166a2ad6a73d456bd3e7bfc90e3c57f78809de",
-          "source_cell": {
-            "column": 2,
-            "row": 0
-          },
-          "width_px": 384
-        },
-        {
-          "crop_box_px": [
-            1152,
-            0,
-            384,
-            620
-          ],
-          "height_px": 620,
-          "path": "showcase/originals/identity-crops/identity-western-enforcer-male-v001/full_back.png",
-          "role": "full_back",
-          "sha256": "901c3812df861bda6ce5e31a7c43316f3fb9333313af9a4bb19b538a51b9ad25",
-          "source_cell": {
-            "column": 3,
-            "row": 0
-          },
-          "width_px": 384
-        },
-        {
-          "crop_box_px": [
-            0,
-            620,
-            384,
-            404
-          ],
-          "height_px": 404,
-          "path": "showcase/originals/identity-crops/identity-western-enforcer-male-v001/portrait_front.png",
-          "role": "portrait_front",
-          "sha256": "9e4ec5a00736751dfdb1ce63d62098394f875893ec2c54bf536f712f47109c5a",
-          "source_cell": {
-            "column": 0,
-            "row": 1
-          },
-          "width_px": 384
-        },
-        {
-          "crop_box_px": [
-            384,
-            620,
-            384,
-            404
-          ],
-          "height_px": 404,
-          "path": "showcase/originals/identity-crops/identity-western-enforcer-male-v001/portrait_left_profile.png",
-          "role": "portrait_left_profile",
-          "sha256": "3e7dd1ad4eb64a42cebd6b1dec77c3541ebcab77ca698b32c2720f3b29538078",
-          "source_cell": {
-            "column": 1,
-            "row": 1
-          },
-          "width_px": 384
-        },
-        {
-          "crop_box_px": [
-            768,
-            620,
-            384,
-            404
-          ],
-          "height_px": 404,
-          "path": "showcase/originals/identity-crops/identity-western-enforcer-male-v001/portrait_right_profile.png",
-          "role": "portrait_right_profile",
-          "sha256": "2ee47a4e154bca17778744a36cb8315ebf2d4cd545db77f6c9d51bd994ec2a94",
-          "source_cell": {
-            "column": 2,
-            "row": 1
-          },
-          "width_px": 384
-        }
-      ],
-      "crops_are_authoritative": false,
-      "grid": [
-        4,
-        2
-      ],
-      "gutter_detection": {
-        "accepted_gutter_rows_px": [
-          606,
-          634
-        ],
-        "maximum_nonwhite_pixels_per_row": 31,
-        "method": "central-near-white-gutter-v1.6.1",
-        "near_white_min_channel": 238,
-        "search_rows_px": [
-          409,
-          634
-        ],
-        "split_y_px": 620
-      },
-      "operation": "exact-cell-crop-no-resample-no-redraw",
-      "profile": "higgsfield-character-reference-sheet-two-row-single-solve-v1.6",
-      "row_split_px": 620
-    }
-  ],
   "assets": [
     {
       "actual_dimensions_px": [
         1536,
         1024
       ],
-      "format_plan": {
-        "baked_black_bars": false,
-        "delivery_frame": "3:2 authority board",
-        "working_frame": "4x2 identity inspector on 3:2 canvas"
-      },
-      "generation_backend": "builtin-imagegen",
-      "kind": "identity",
-      "operation": "independent_generate",
-      "original_path": "showcase/originals/identity-inspectors/identity-white-arctic-survey-pilot-v003.png",
-      "original_sha256": "8719a195f11116cf5d4c40df2bd8c46e6d23d081a1df14b96ea6cc37e894c826",
-      "pixel_reproducible": false,
-      "prompt_path": "showcase/prompts/identity-white-arctic-survey-pilot-v003.txt",
-      "prompt_sha256": "3342ff7c39ec1861c4dc589a63652bb054d8f15b81914ea5f2d30f9204fa0a88",
-      "publication_derivative_path": "docs/assets/showcase/identity-white-arctic-survey-pilot-v003.webp",
-      "publication_derivative_sha256": "ef9e3c7731af2fcedab8765a8e998bac1669226610ac792ba12218e80942aca0",
-      "qa": {
-        "animation_or_cg_surface": "absent",
-        "cross_material_dirty_texture": "absent",
-        "finite_dynamic_range": {
-          "allowed_clipping": [],
-          "allowed_shadow_loss": [
-            "deepest black-trouser and shoe folds"
-          ],
-          "exposure_priority": "protect_skin",
-          "highlight_loss_or_rolloff": "white field approaches the upper diffuse range without flattening facial planes",
-          "local_tone_mapping_detected": false,
-          "lower_latitude_stops": 8.0,
-          "measurement_note": "Visual release QA estimate only; this generated image does not claim a physical camera, EXIF, or measured sensor response.",
-          "middle_tone_anchor": "face and midnight-blue cotton base layer",
-          "multi_exposure_hdr_merge": false,
-          "policy": "finite_scene_referred",
-          "scene_contrast_stops_estimate": 5.0,
-          "shadow_loss_or_floor": "deepest trouser and shoe folds may merge without HDR lift",
-          "upper_latitude_stops": 6.0,
-          "working_latitude_stops": 14.0
-        },
-        "geometry": "pass",
-        "live_action_quality": "pass",
-        "material_pairs": [
-          "natural dry skin vs matte cotton",
-          "hair vs white seamless field"
+      "generator": "builtin-imagegen",
+      "identity_inspector": {
+        "authoritative": true,
+        "grid": [
+          4,
+          2
         ],
+        "roles": [
+          "full_front",
+          "full_left_profile",
+          "full_right_profile",
+          "full_back",
+          "portrait_front",
+          "portrait_left_profile",
+          "portrait_right_profile",
+          "blank"
+        ],
+        "single_identity_solve": true,
+        "unintended_five_five": false,
+        "visible_body_balance": "balanced_four_six"
+      },
+      "kind": "identity",
+      "operation": "generate",
+      "original_path": "showcase/originals/identity-inspectors/identity-white-coastal-survey-engineer-v001.png",
+      "original_sha256": "1b41aa9ef3350566d5ab3798b3558d59ca80cc7fa1cea81dbd62bfb3ab68e217",
+      "prompt_path": "showcase/prompts/identity-white-coastal-survey-engineer-v001.txt",
+      "prompt_sha256": "11ee7d0c71ef7eea14585252ca16d9980775c657c4cf59aa97b08221983d126c",
+      "publication_derivative_path": "docs/assets/showcase/identity-white-coastal-survey-engineer-v001.webp",
+      "publication_derivative_sha256": "78ac0d8973ed478225c7499e1d53ac1cd5b831e27fdaac8252b81cfacdc37105",
+      "qa": {
+        "ai_visual_verdict": "pass",
+        "animation_cg_or_game_surface": "absent",
+        "finite_dynamic_range": {
+          "allowed_highlight_loss": [],
+          "allowed_shadow_loss": [
+            "deepest charcoal trouser folds"
+          ],
+          "exposure_priority": "natural-dry face and neutral clothing",
+          "local_tone_mapping_detected": false,
+          "middle_tone_anchor": "light-blue shirt and facial middle tones",
+          "multi_exposure_hdr_merge": false,
+          "policy": "finite_scene_referred"
+        },
+        "hard_failures": [],
         "oil_film": "absent",
         "painterly_smear": "absent",
-        "positive_evidence": "One shared solve preserves the same face, haircut, body volume and clothing across seven views; matte skin, cotton and hair retain separate responses.",
+        "positive_evidence": {
+          "exposure_tradeoff": "The white field approaches the upper diffuse range while deepest dark-fabric folds retain a real floor.",
+          "photographic_event": "One shared neutral casting solve.",
+          "skin_and_material": "Natural-dry skin, hair, cotton, wool and leather stay separate under one neutral source."
+        },
+        "repeating_cross_material_texture": "absent",
+        "reviewed_at": "2026-08-28T00:00:00Z",
         "reviewer": "codex-visual",
-        "same_repeating_texture": false,
         "scales_checked": [
           "thumbnail",
           "fit",
@@ -363,68 +66,52 @@
           "200_percent"
         ],
         "skin_surface_state": "natural_dry",
-        "source_light_causality": "pass",
-        "verdict": "pass"
+        "unmotivated_rim_or_beauty_light": "absent"
       },
-      "source_generation_id": "exec-432fddbb-9c60-42c0-b078-74921ed214c6"
+      "source_generation_id": "exec-54f49254-c489-4a69-bfc0-3764c1ce393a"
     },
     {
       "actual_dimensions_px": [
-        1942,
-        809
+        1939,
+        811
       ],
-      "format_plan": {
-        "baked_black_bars": false,
-        "delivery_frame": "2.39:1",
-        "working_frame": "2.39:1"
-      },
-      "generation_backend": "builtin-imagegen",
+      "generator": "builtin-imagegen",
       "kind": "empty_scene",
-      "operation": "independent_generate",
-      "original_path": "showcase/originals/scenes/scene-arctic-rescue-hangar-v003.png",
-      "original_sha256": "7e953ec30f4d60ea2cde606a634d39c4e9e3f0d2072eb024f1ca812ed2d80835",
-      "pixel_reproducible": false,
-      "prompt_path": "showcase/prompts/scene-arctic-rescue-hangar-v003.txt",
-      "prompt_sha256": "3e88159d0cd4b610b3a2f9911440a0f9040e839696f622c2b2a1d88537e1e93c",
-      "publication_derivative_path": "docs/assets/showcase/scene-arctic-rescue-hangar-v003.webp",
-      "publication_derivative_sha256": "e7a0a5e0a075723f9ff981bda156f5eb44b3956f6923ea126ce1d74617ff8f33",
+      "operation": "generate",
+      "original_path": "showcase/originals/scenes/scene-coastal-tide-station-overcast-v001.png",
+      "original_sha256": "3a6251ad60aa69155ca15a0b0ba6c00bb747bf6a591cf334e77a6ea25f56fe4e",
+      "prompt_path": "showcase/prompts/scene-coastal-tide-station-overcast-v001.txt",
+      "prompt_sha256": "062e7871909a91e73f71feb60e846663608f7e2e7b48743cab6631b6e46c7ffa",
+      "publication_derivative_path": "docs/assets/showcase/scene-coastal-tide-station-overcast-v001.webp",
+      "publication_derivative_sha256": "d4e0a7b6377be8017afc52a6452ed577a967f9fea2f76fbd20823f1bc60d5a4d",
       "qa": {
-        "animation_or_cg_surface": "absent",
-        "cross_material_dirty_texture": "absent",
+        "ai_visual_verdict": "pass",
+        "animation_cg_or_game_surface": "absent",
         "finite_dynamic_range": {
-          "allowed_clipping": [
-            "small apron floodlight cores",
-            "tiny aircraft landing-light cores"
+          "allowed_highlight_loss": [
+            "bright overcast harbor sky"
           ],
           "allowed_shadow_loss": [
-            "upper roof void",
-            "rear service bays",
-            "runway sky"
+            "unlit doorway",
+            "space below the work counter"
           ],
-          "exposure_priority": "balanced_middle_tones",
-          "highlight_loss_or_rolloff": "apron floodlight and aircraft-light cores clip while the snow-lit falloff retains shape",
+          "exposure_priority": "middle-grey room and chart cabinet",
           "local_tone_mapping_detected": false,
-          "lower_latitude_stops": 8.0,
-          "measurement_note": "Visual release QA estimate only; this generated image does not claim a physical camera, EXIF, or measured sensor response.",
-          "middle_tone_anchor": "interior concrete, off-white insulated panels and yellow deicing cabinet",
+          "middle_tone_anchor": "painted concrete and pale-grey steel chart cabinet",
           "multi_exposure_hdr_merge": false,
-          "policy": "finite_scene_referred",
-          "scene_contrast_stops_estimate": 16.5,
-          "shadow_loss_or_floor": "the upper roof void, rear service bays and runway sky fall to black",
-          "upper_latitude_stops": 6.0,
-          "working_latitude_stops": 14.0
+          "policy": "finite_scene_referred"
         },
-        "geometry": "not_applicable",
-        "live_action_quality": "pass",
-        "material_pairs": [
-          "structural steel vs matte concrete",
-          "snow vs off-white insulated panels"
-        ],
+        "hard_failures": [],
         "oil_film": "not_applicable",
         "painterly_smear": "absent",
-        "positive_evidence": "A reachable side-three-quarter camera, coherent portal frame, gantry, door, drains and service bays, a fixed yellow anchor, source-visible snow and deliberate floodlight clipping establish a reconstructable live-action hangar.",
+        "positive_evidence": {
+          "exposure_tradeoff": "Bright harbor sky loses information while the unlit doorway and counter recess approach black.",
+          "photographic_event": "A reachable side-three-quarter location-scout view proves one physical room.",
+          "skin_and_material": "Concrete paint, linoleum, paper, glass, steel, cable and the red case keep independent response."
+        },
+        "repeating_cross_material_texture": "absent",
+        "reviewed_at": "2026-08-28T00:00:00Z",
         "reviewer": "codex-visual",
-        "same_repeating_texture": false,
         "scales_checked": [
           "thumbnail",
           "fit",
@@ -432,389 +119,77 @@
           "200_percent"
         ],
         "skin_surface_state": "not_applicable",
-        "source_light_causality": "pass",
-        "verdict": "pass"
+        "unmotivated_rim_or_beauty_light": "absent"
       },
-      "source_generation_id": "exec-26aafbec-b83d-4f63-b87e-594242c74027"
+      "source_generation_id": "exec-a61709cd-80fb-4c63-8c2f-a1afa8519282",
+      "spatial_qa": {
+        "adjacent_planes_visible": true,
+        "anchor_grounded_and_scaled": true,
+        "camera_accessible": true,
+        "primary_anchor": "pale-grey chart cabinet plus muted-red calibration case",
+        "three_quarter_yaw_deg": 45,
+        "verdict": "pass",
+        "view_role": "side_three_quarter_wide"
+      }
     },
     {
       "actual_dimensions_px": [
         1938,
-        812
+        811
       ],
-      "format_plan": {
-        "baked_black_bars": false,
-        "delivery_frame": "2.39:1",
-        "working_frame": "2.39:1"
-      },
-      "generation_backend": "builtin-imagegen",
-      "kind": "narrative",
-      "operation": "generate_with_approved_references",
-      "original_path": "showcase/originals/narrative/narrative-white-survey-pilot-arctic-hangar-v003.png",
-      "original_sha256": "8608598ab62b6cd4ce7fad745906db82fb79c52812eb8ef5854a1c04ac6e7f5c",
-      "pixel_reproducible": false,
-      "prompt_path": "showcase/prompts/narrative-white-survey-pilot-arctic-hangar-v003.txt",
-      "prompt_sha256": "ee7f124c0e91c8bbe9a1add04513f2568713137afe15159c160a47db9dfa12b5",
-      "publication_derivative_path": "docs/assets/showcase/narrative-white-survey-pilot-arctic-hangar-v003.webp",
-      "publication_derivative_sha256": "cd56aad99befc743ec2e51f03e81c4d60752e5ab140e6abf48035a12f19fa985",
-      "qa": {
-        "animation_or_cg_surface": "absent",
-        "cross_material_dirty_texture": "absent",
-        "finite_dynamic_range": {
-          "allowed_clipping": [
-            "small apron floodlight cores",
-            "tiny aircraft landing-light cores"
-          ],
-          "allowed_shadow_loss": [
-            "upper roof void",
-            "rear service bay",
-            "runway sky",
-            "deepest trouser folds"
-          ],
-          "exposure_priority": "protect_subject_separation_and_spatial_anchor",
-          "highlight_loss_or_rolloff": "apron floodlight and aircraft-light cores clip before the body silhouette or yellow anchor are flattened",
-          "local_tone_mapping_detected": false,
-          "lower_latitude_stops": 8.0,
-          "measurement_note": "Visual release QA estimate only; this generated image does not claim a physical camera, EXIF, or measured sensor response.",
-          "middle_tone_anchor": "the woman's navy-charcoal separation, body silhouette and yellow deicing cabinet",
-          "multi_exposure_hdr_merge": false,
-          "policy": "finite_scene_referred",
-          "scene_contrast_stops_estimate": 17.0,
-          "shadow_loss_or_floor": "the roof void, rear service bay, runway sky and deepest trouser folds lose fine information",
-          "upper_latitude_stops": 6.0,
-          "working_latitude_stops": 14.0
-        },
-        "geometry": "pass",
-        "live_action_quality": "pass",
-        "material_pairs": [
-          "ash-brown hair vs matte navy cotton",
-          "painted yellow steel vs wet concrete"
-        ],
-        "oil_film": "not_visible_by_shot_design",
-        "painterly_smear": "absent",
-        "positive_evidence": "The approved white lead, long-legged role-matched physique, hangar topology and yellow anchor persist. A grounded rear-three-quarter stance carries scale, decision and weather while deliberately leaving face coverage to the identity Inspector; practical peaks clip and real dark regions remain lost.",
-        "reviewer": "codex-visual",
-        "same_repeating_texture": false,
-        "scales_checked": [
-          "thumbnail",
-          "fit",
-          "100_percent",
-          "200_percent"
-        ],
-        "skin_surface_state": "not_visibly_evaluated_by_shot_design",
-        "source_light_causality": "pass",
+      "generator": "builtin-imagegen",
+      "geometry_qa": {
+        "approved_identity_proportions_preserved": true,
+        "hands_and_contact": "pass",
+        "perspective_and_grounding": "pass",
         "verdict": "pass"
       },
-      "reference_stack": [
-        "showcase/originals/identity-inspectors/identity-white-arctic-survey-pilot-v003.png",
-        "showcase/originals/scenes/scene-arctic-rescue-hangar-v003.png"
-      ],
-      "source_generation_id": "exec-6ebfccb6-6e59-4988-9ba0-82b32e72c554"
-    },
-    {
-      "actual_dimensions_px": [
-        1536,
-        1024
-      ],
-      "format_plan": {
-        "baked_black_bars": false,
-        "delivery_frame": "3:2 authority board",
-        "working_frame": "4x2 identity inspector on 3:2 canvas"
-      },
-      "generation_backend": "builtin-imagegen",
-      "kind": "western_female_identity",
-      "operation": "independent_generate",
-      "original_path": "showcase/originals/identity-inspectors/identity-western-rider-female-v001.png",
-      "original_sha256": "62f10be4f3d47901265032553f43ca11bab2297c31495b6f1864f06f22afce6e",
-      "pixel_reproducible": false,
-      "prompt_path": "showcase/prompts/identity-western-rider-female-v001.txt",
-      "prompt_sha256": "5bf48b8e346383b5bc9bb35c5f6ce308b48bb1b4480b2ce875db1077eb91fce6",
-      "publication_derivative_path": "docs/assets/showcase/identity-western-rider-female-v001.webp",
-      "publication_derivative_sha256": "04a4a4f299d6b9c6d03cd4af4b48885722381f08abf922bc5bb97f14cd045fbe",
-      "qa": {
-        "animation_or_cg_surface": "absent",
-        "cross_material_dirty_texture": "absent",
-        "finite_dynamic_range": {
-          "allowed_clipping": [],
-          "allowed_shadow_loss": [
-            "deepest black-trouser and shoe folds"
-          ],
-          "exposure_priority": "protect_skin",
-          "highlight_loss_or_rolloff": "white field approaches the upper diffuse range without flattening facial planes",
-          "local_tone_mapping_detected": false,
-          "lower_latitude_stops": 8.0,
-          "measurement_note": "Visual release QA estimate only; this generated image does not claim a physical camera, EXIF, or measured sensor response.",
-          "middle_tone_anchor": "face, deep-green cotton and dark-brown wool",
-          "multi_exposure_hdr_merge": false,
-          "policy": "finite_scene_referred",
-          "scene_contrast_stops_estimate": 5.0,
-          "shadow_loss_or_floor": "deepest trouser and shoe folds may merge without HDR lift",
-          "upper_latitude_stops": 6.0,
-          "working_latitude_stops": 14.0
-        },
-        "geometry": "pass",
-        "live_action_quality": "pass",
-        "material_pairs": [
-          "natural-dry skin vs matte green cotton",
-          "braided hair vs white field"
-        ],
-        "oil_film": "absent",
-        "painterly_smear": "absent",
-        "positive_evidence": "One shared solve preserves the same face, braid coil, long-legged athletic skeleton and green-and-brown wardrobe across all seven views; skin, hair, cotton, wool and leather remain separate.",
-        "reviewer": "codex-visual",
-        "same_repeating_texture": false,
-        "scales_checked": [
-          "thumbnail",
-          "fit",
-          "100_percent",
-          "200_percent"
-        ],
-        "skin_surface_state": "natural_dry",
-        "source_light_causality": "pass",
+      "kind": "live_action_probe",
+      "live_action_integration_probe": {
+        "attempt_batch_count": 1,
+        "failure_classes": [],
+        "max_attempt_batches": 2,
+        "ordinary_light_only": true,
+        "prompt_strategy_id": "image2-live-action-integration-probe-v1.6",
+        "special_environment_disabled": true,
+        "status": "approved",
         "verdict": "pass"
       },
-      "source_generation_id": "exec-d9ef3fe7-0855-464c-95e5-2967a11676e1"
-    },
-    {
-      "actual_dimensions_px": [
-        1536,
-        1024
-      ],
-      "format_plan": {
-        "baked_black_bars": false,
-        "delivery_frame": "3:2 authority board",
-        "working_frame": "4x2 identity inspector on 3:2 canvas"
-      },
-      "generation_backend": "builtin-imagegen",
-      "kind": "western_male_identity",
-      "operation": "independent_generate",
-      "original_path": "showcase/originals/identity-inspectors/identity-western-enforcer-male-v001.png",
-      "original_sha256": "90dc961a7e3d3dc865f600ad9811830be00ad74bde0d3b24ba6aedcb216fa26b",
-      "pixel_reproducible": false,
-      "prompt_path": "showcase/prompts/identity-western-enforcer-male-v001.txt",
-      "prompt_sha256": "d8f64dc5a7bbace6160f14ee293da0bd00e01cea590f54da58b7b9d552319d94",
-      "publication_derivative_path": "docs/assets/showcase/identity-western-enforcer-male-v001.webp",
-      "publication_derivative_sha256": "21dc7223cd254c6a4386f3148adc08247d76fb3e88d8c27ae56f4a28e5993709",
+      "operation": "generate",
+      "original_path": "showcase/originals/narrative/live-action-probe-coastal-survey-engineer-v001.png",
+      "original_sha256": "b02adcc185ec67bc8b469f4cf95226827b911d06677b782ad70fe736046a948a",
+      "prompt_path": "showcase/prompts/live-action-probe-coastal-survey-engineer-v001.txt",
+      "prompt_sha256": "747f5ae2b0dcf6c15f2ed71ecd84316b835be2c0751b7cdaf2f586f6a4145238",
+      "publication_derivative_path": "docs/assets/showcase/live-action-probe-coastal-survey-engineer-v001.webp",
+      "publication_derivative_sha256": "997d289e7eef52000975c8358f3db33ae575966f5fa6b22aed78ccd10a9d4cea",
       "qa": {
-        "animation_or_cg_surface": "absent",
-        "cross_material_dirty_texture": "absent",
+        "ai_visual_verdict": "pass",
+        "animation_cg_or_game_surface": "absent",
         "finite_dynamic_range": {
-          "allowed_clipping": [],
-          "allowed_shadow_loss": [
-            "deepest black-trouser and shoe folds"
-          ],
-          "exposure_priority": "protect_skin",
-          "highlight_loss_or_rolloff": "white field approaches the upper diffuse range without flattening facial planes",
-          "local_tone_mapping_detected": false,
-          "lower_latitude_stops": 8.0,
-          "measurement_note": "Visual release QA estimate only; this generated image does not claim a physical camera, EXIF, or measured sensor response.",
-          "middle_tone_anchor": "face, sand cotton and charcoal wool waistcoat",
-          "multi_exposure_hdr_merge": false,
-          "policy": "finite_scene_referred",
-          "scene_contrast_stops_estimate": 5.0,
-          "shadow_loss_or_floor": "deepest trouser and shoe folds may merge without HDR lift",
-          "upper_latitude_stops": 6.0,
-          "working_latitude_stops": 14.0
-        },
-        "geometry": "pass",
-        "live_action_quality": "pass",
-        "material_pairs": [
-          "natural-dry skin vs sand cotton",
-          "charcoal wool vs white field"
-        ],
-        "oil_film": "absent",
-        "painterly_smear": "absent",
-        "positive_evidence": "One shared solve preserves the same face, hair, balanced athletic skeleton and sand-charcoal-brown wardrobe across all seven views; skin, cotton, wool and leather remain separate.",
-        "reviewer": "codex-visual",
-        "same_repeating_texture": false,
-        "scales_checked": [
-          "thumbnail",
-          "fit",
-          "100_percent",
-          "200_percent"
-        ],
-        "skin_surface_state": "natural_dry",
-        "source_light_causality": "pass",
-        "verdict": "pass"
-      },
-      "source_generation_id": "exec-d795ee03-ecb3-422a-88f2-7f9f7d0bb034"
-    },
-    {
-      "actual_dimensions_px": [
-        1937,
-        812
-      ],
-      "format_plan": {
-        "baked_black_bars": false,
-        "delivery_frame": "2.39:1",
-        "working_frame": "2.39:1"
-      },
-      "generation_backend": "builtin-imagegen",
-      "kind": "western_scene",
-      "operation": "independent_generate",
-      "original_path": "showcase/originals/scenes/scene-southwestern-frontier-street-v001.png",
-      "original_sha256": "621f53b486d0b37c27f1b269361b9e16cd87debacbe734c44454c7821aa7a7ec",
-      "pixel_reproducible": false,
-      "prompt_path": "showcase/prompts/scene-southwestern-frontier-street-v001.txt",
-      "prompt_sha256": "b3aaa22d11237fdc2c491eba9aff141336ceffad1d223b9436d08617bd012700",
-      "publication_derivative_path": "docs/assets/showcase/scene-southwestern-frontier-street-v001.webp",
-      "publication_derivative_sha256": "f570a0d36824f46d1a232cbef86968e7c9590707e73a87711b6c7eb6c1014c66",
-      "qa": {
-        "animation_or_cg_surface": "absent",
-        "cross_material_dirty_texture": "absent",
-        "finite_dynamic_range": {
-          "allowed_clipping": [
-            "small window reflection",
-            "brightest pale-sky region"
+          "allowed_highlight_loss": [
+            "bright overcast harbor sky"
           ],
           "allowed_shadow_loss": [
-            "deep porch interiors",
-            "open livery shelter"
+            "unlit doorway",
+            "space below the work counter"
           ],
-          "exposure_priority": "protect_location_middle_tones_and_spatial_anchor",
-          "highlight_loss_or_rolloff": "the pale high-cloud sky approaches featureless white and one small window reflection may clip",
+          "exposure_priority": "face and middle-grey room",
           "local_tone_mapping_detected": false,
-          "lower_latitude_stops": 8.0,
-          "measurement_note": "Visual release QA estimate only; this generated image does not claim a physical camera, EXIF, or measured sensor response.",
-          "middle_tone_anchor": "lime plaster, green hand pump and packed-earth road",
+          "middle_tone_anchor": "face, pale-blue shirt, and painted concrete",
           "multi_exposure_hdr_merge": false,
-          "policy": "finite_scene_referred",
-          "scene_contrast_stops_estimate": 11.5,
-          "shadow_loss_or_floor": "deep porch interiors and the open livery shelter lose fine information",
-          "upper_latitude_stops": 6.0,
-          "working_latitude_stops": 14.0
+          "policy": "finite_scene_referred"
         },
-        "geometry": "not_applicable",
-        "live_action_quality": "pass",
-        "material_pairs": [
-          "broad lime plaster vs restrained timber",
-          "green cast iron vs packed earth"
-        ],
-        "oil_film": "not_applicable",
-        "painterly_smear": "absent",
-        "positive_evidence": "An ordinary reachable porch-edge camera records six irregular practical buildings, a near-post obstruction, optical distance falloff and one fixed green pump. Plain high-cloud daylight, featureless bright sky and genuinely dark livery/porch regions replace effects-driven spectacle.",
-        "reviewer": "codex-visual",
-        "same_repeating_texture": false,
-        "scales_checked": [
-          "thumbnail",
-          "fit",
-          "100_percent",
-          "200_percent"
-        ],
-        "skin_surface_state": "not_applicable",
-        "source_light_causality": "pass",
-        "verdict": "pass"
-      },
-      "source_generation_id": "exec-2607df4f-413d-42d5-b1a9-ee4e347126a0"
-    },
-    {
-      "actual_dimensions_px": [
-        1935,
-        812
-      ],
-      "format_plan": {
-        "baked_black_bars": false,
-        "delivery_frame": "2.39:1",
-        "working_frame": "2.39:1"
-      },
-      "generation_backend": "builtin-imagegen",
-      "kind": "western_narrative",
-      "multi_person_projection_qa": {
-        "camera_height_m": 1.55,
-        "camera_pitch_deg": 0.0,
-        "ground_contact": "pass; porch floor and road are connected surfaces with an explicit elevation offset",
         "hard_failures": [],
-        "horizon_and_vanishing_lines": "pass",
-        "measurement_note": "Blocking-derived visual QA estimates, not surveyed set measurements or camera metadata.",
-        "occlusion_order": "pass",
-        "per_person_scale_transform": false,
-        "policy": "approved-body-geometry-plus-single-camera-projection-v1.6.2",
-        "projected_height_relations": [
-          {
-            "cropped_landmark_method": "head-shoulder-waist spacing remains coherent with the approved Inspector",
-            "denominator_asset_id": "western_enforcer_male",
-            "expected_ratio": 4.65,
-            "numerator_asset_id": "western_rider_female",
-            "observed_ratio": null,
-            "pass": true,
-            "tolerance_fraction": 0.12
-          }
-        ],
-        "projection": "rectilinear_normal-to-short-telephoto",
-        "subjects": {
-          "western_enforcer_male": {
-            "approved_height_m": 1.84,
-            "camera_distance_m": 10.1,
-            "frame_coverage": "complete",
-            "ground_elevation_m": 0.0,
-            "visible_landmarks": [
-              "head",
-              "shoulder",
-              "waist",
-              "knee",
-              "feet"
-            ]
-          },
-          "western_rider_female": {
-            "approved_height_m": 1.78,
-            "camera_distance_m": 2.1,
-            "frame_coverage": "cropped",
-            "ground_elevation_m": 0.2,
-            "visible_landmarks": [
-              "head",
-              "shoulder",
-              "waist",
-              "hip"
-            ]
-          }
-        },
-        "verdict": "pass"
-      },
-      "operation": "generate_with_approved_references",
-      "original_path": "showcase/originals/narrative/narrative-western-standoff-two-character-v001.png",
-      "original_sha256": "3cf7784754e01f299d74abff7547c791387be3b1a97c193f6a0938d0587d01e4",
-      "pixel_reproducible": false,
-      "prompt_path": "showcase/prompts/narrative-western-standoff-two-character-v001.txt",
-      "prompt_sha256": "fc3cd90deadf5b1d8f878e22cd695557486faddc76d2c1f5403ce61314df6979",
-      "publication_derivative_path": "docs/assets/showcase/narrative-western-standoff-two-character-v001.webp",
-      "publication_derivative_sha256": "5d260bf5816cc7f9ac78bbf86c6fc3e14693e3e616c0ba27b2ad59591daf3a65",
-      "qa": {
-        "animation_or_cg_surface": "absent",
-        "cross_material_dirty_texture": "absent",
-        "finite_dynamic_range": {
-          "allowed_clipping": [
-            "small window reflection",
-            "brightest pale-sky region"
-          ],
-          "allowed_shadow_loss": [
-            "deep porch interiors",
-            "open livery shelter",
-            "deepest foreground-green folds"
-          ],
-          "exposure_priority": "protect_actor_skin_hands_wardrobe_and_spatial_anchor",
-          "highlight_loss_or_rolloff": "the pale sky may lose detail and one small window reflection may clip before skin is flattened",
-          "local_tone_mapping_detected": false,
-          "lower_latitude_stops": 8.0,
-          "measurement_note": "Visual release QA estimate only; this generated image does not claim a physical camera, EXIF, or measured sensor response.",
-          "middle_tone_anchor": "the man's natural-dry face and hands, both wardrobes and green hand pump",
-          "multi_exposure_hdr_merge": false,
-          "policy": "finite_scene_referred",
-          "scene_contrast_stops_estimate": 12.0,
-          "shadow_loss_or_floor": "porch interiors, livery shelter and the deepest foreground-green folds lose fine information",
-          "upper_latitude_stops": 6.0,
-          "working_latitude_stops": 14.0
-        },
-        "geometry": "pass",
-        "live_action_quality": "pass",
-        "material_pairs": [
-          "natural-dry skin vs charcoal wool",
-          "lime plaster vs green cast iron"
-        ],
         "oil_film": "absent",
         "painterly_smear": "absent",
-        "positive_evidence": "The two unified Inspectors remain the first references and the observational street remains the world authority. Foreground focus falloff, the man's dry skin and hands, ordinary weight distribution, green anchor and real dark interiors produce a witnessed confrontation rather than two cut-out game characters.",
+        "positive_evidence": {
+          "exposure_tradeoff": "Bright harbor sky loses information while the unlit doorway and counter recess approach black.",
+          "photographic_event": "One task-led survey engineer writes on a chart in a reachable room camera.",
+          "skin_and_material": "Natural-dry skin has broad weak window response; hair, cotton, wool, paper, paint, glass and steel stay separate."
+        },
+        "repeating_cross_material_texture": "absent",
+        "reviewed_at": "2026-08-28T00:00:00Z",
         "reviewer": "codex-visual",
-        "same_repeating_texture": false,
         "scales_checked": [
           "thumbnail",
           "fit",
@@ -822,25 +197,37 @@
           "200_percent"
         ],
         "skin_surface_state": "natural_dry",
-        "source_light_causality": "pass",
-        "verdict": "pass"
+        "unmotivated_rim_or_beauty_light": "absent"
       },
       "reference_stack": [
-        "showcase/originals/identity-inspectors/identity-western-rider-female-v001.png",
-        "showcase/originals/identity-inspectors/identity-western-enforcer-male-v001.png",
-        "showcase/originals/scenes/scene-southwestern-frontier-street-v001.png"
+        "showcase/originals/identity-inspectors/identity-white-coastal-survey-engineer-v001.png",
+        "showcase/originals/scenes/scene-coastal-tide-station-overcast-v001.png"
       ],
-      "source_generation_id": "exec-47712b55-69a5-437d-8026-c0cffc1704c6"
+      "source_generation_id": "exec-98116d6f-fee0-4913-babb-a8f32bf7304b",
+      "subject_environment_integration_qa": {
+        "background_only_atmosphere_detected": false,
+        "contact_and_grounding": "both hands contact the chart/counter and both feet share the room floor",
+        "cutout_edges_detected": false,
+        "separate_person_tone_mapping_detected": false,
+        "shared_focus_and_occlusion": "face, hands, chart, counter edge and room share one optical stack",
+        "shared_light": "one broad overcast harbor-window source plus weak room bounce",
+        "shared_tone_mapping": true,
+        "verdict": "pass"
+      }
     }
   ],
-  "higgsfield_contract": {
-    "profile": "cinema-studio-4-seedance-2.5-official-2026-08-27",
-    "scope": "The Skill exporter and prompt adapter are validated against this dated official profile; gallery images are ImageGen quality evidence, not Higgsfield outputs."
+  "candidate_pool": {
+    "independent_generations": 3,
+    "mutual_editing": false,
+    "selected_count": 1,
+    "selected_generation_id": "exec-98116d6f-fee0-4913-babb-a8f32bf7304b",
+    "target": "live_action_probe",
+    "unselected_generations_retained_outside_public_tree": 2
   },
-  "identity_authority_policy": "one ImageGen call, one shared identity solve, validate whole Inspector first, stop on failure, then crop exactly without resampling or redraw",
+  "generator": "builtin-imagegen",
   "identity_crops": {
-    "authority": "showcase/originals/identity-inspectors/identity-white-arctic-survey-pilot-v003.png",
-    "authority_sha256": "8719a195f11116cf5d4c40df2bd8c46e6d23d081a1df14b96ea6cc37e894c826",
+    "authority": "showcase/originals/identity-inspectors/identity-white-coastal-survey-engineer-v001.png",
+    "authority_sha256": "1b41aa9ef3350566d5ab3798b3558d59ca80cc7fa1cea81dbd62bfb3ab68e217",
     "blank_cell": {
       "column": 3,
       "row": 1
@@ -851,12 +238,12 @@
           0,
           0,
           384,
-          550
+          600
         ],
-        "height_px": 550,
-        "path": "showcase/originals/identity-crops/identity-white-arctic-survey-pilot-v003/full_front.png",
+        "height_px": 600,
+        "path": "showcase/originals/identity-crops/identity-white-coastal-survey-engineer-v001/full_front.png",
         "role": "full_front",
-        "sha256": "f851bb8344664d8e6216132180c35493aa3cbc8727e874ed8fdb71db05a8f453",
+        "sha256": "3b3d7070bc5dc334e26586b5f2db6b667435b8d91f3f607f4290275bff37d210",
         "source_cell": {
           "column": 0,
           "row": 0
@@ -868,12 +255,12 @@
           384,
           0,
           384,
-          550
+          600
         ],
-        "height_px": 550,
-        "path": "showcase/originals/identity-crops/identity-white-arctic-survey-pilot-v003/full_left_profile.png",
+        "height_px": 600,
+        "path": "showcase/originals/identity-crops/identity-white-coastal-survey-engineer-v001/full_left_profile.png",
         "role": "full_left_profile",
-        "sha256": "914956cf3cf5a72b2ec99d89494d08a4e6f03342c99f7e84ec11302ecc03465f",
+        "sha256": "daeda0f162e5f4455ba20e304274c7b8f71a142cb9c3ab496fc30a7dd0096369",
         "source_cell": {
           "column": 1,
           "row": 0
@@ -885,12 +272,12 @@
           768,
           0,
           384,
-          550
+          600
         ],
-        "height_px": 550,
-        "path": "showcase/originals/identity-crops/identity-white-arctic-survey-pilot-v003/full_right_profile.png",
+        "height_px": 600,
+        "path": "showcase/originals/identity-crops/identity-white-coastal-survey-engineer-v001/full_right_profile.png",
         "role": "full_right_profile",
-        "sha256": "67cde120d2c9c5252ca52ed5422397aac51ddefda6d997056c3bf547e88c4a3c",
+        "sha256": "710630365b656a44a4024a7b82be4f12f5102b43125b6e4ba2fb3fcbfbc2f5a5",
         "source_cell": {
           "column": 2,
           "row": 0
@@ -902,12 +289,12 @@
           1152,
           0,
           384,
-          550
+          600
         ],
-        "height_px": 550,
-        "path": "showcase/originals/identity-crops/identity-white-arctic-survey-pilot-v003/full_back.png",
+        "height_px": 600,
+        "path": "showcase/originals/identity-crops/identity-white-coastal-survey-engineer-v001/full_back.png",
         "role": "full_back",
-        "sha256": "aee04d17c24d35e4a79a4db4dd8c85c95c06d4be179b180d103859189a418905",
+        "sha256": "b465ba42809d923512dfb50abbd9c314c2e3770bb897df7475847a964fb22999",
         "source_cell": {
           "column": 3,
           "row": 0
@@ -917,14 +304,14 @@
       {
         "crop_box_px": [
           0,
-          550,
+          600,
           384,
-          474
+          424
         ],
-        "height_px": 474,
-        "path": "showcase/originals/identity-crops/identity-white-arctic-survey-pilot-v003/portrait_front.png",
+        "height_px": 424,
+        "path": "showcase/originals/identity-crops/identity-white-coastal-survey-engineer-v001/portrait_front.png",
         "role": "portrait_front",
-        "sha256": "c3b0ce250ef99991de1fb0da76082559a96d5f537e56391f8dcf429eb6a58f83",
+        "sha256": "7506a116ce67827c2e36d6b12a3aec69b0b9bb7510f7d924b22e1b0bad3176a6",
         "source_cell": {
           "column": 0,
           "row": 1
@@ -934,14 +321,14 @@
       {
         "crop_box_px": [
           384,
-          550,
+          600,
           384,
-          474
+          424
         ],
-        "height_px": 474,
-        "path": "showcase/originals/identity-crops/identity-white-arctic-survey-pilot-v003/portrait_left_profile.png",
+        "height_px": 424,
+        "path": "showcase/originals/identity-crops/identity-white-coastal-survey-engineer-v001/portrait_left_profile.png",
         "role": "portrait_left_profile",
-        "sha256": "997714e75cf35481674b46c8c31bab097ff4280e5ac7be57818d1e555c6f9d32",
+        "sha256": "5ba602eb79c68154d71f465c838c4a65c6833e98e388817e34a33c2b11c112bf",
         "source_cell": {
           "column": 1,
           "row": 1
@@ -951,14 +338,14 @@
       {
         "crop_box_px": [
           768,
-          550,
+          600,
           384,
-          474
+          424
         ],
-        "height_px": 474,
-        "path": "showcase/originals/identity-crops/identity-white-arctic-survey-pilot-v003/portrait_right_profile.png",
+        "height_px": 424,
+        "path": "showcase/originals/identity-crops/identity-white-coastal-survey-engineer-v001/portrait_right_profile.png",
         "role": "portrait_right_profile",
-        "sha256": "46d11363b0d0047a2d7aab12ca236e7c43c8942b2a7df2e08145ac18e0f5cedc",
+        "sha256": "90cd78bb22a90ee55765c9c81bb1d7fde5b37051f1ec9651fa09e7308d029cf2",
         "source_cell": {
           "column": 2,
           "row": 1
@@ -973,8 +360,8 @@
     ],
     "gutter_detection": {
       "accepted_gutter_rows_px": [
-        528,
-        572
+        594,
+        606
       ],
       "maximum_nonwhite_pixels_per_row": 31,
       "method": "central-near-white-gutter-v1.6.1",
@@ -983,35 +370,34 @@
         409,
         634
       ],
-      "split_y_px": 550
+      "split_y_px": 600
     },
     "operation": "exact-cell-crop-no-resample-no-redraw",
     "profile": "higgsfield-character-reference-sheet-two-row-single-solve-v1.6",
-    "row_split_px": 550
+    "row_split_px": 600
+  },
+  "montages": {
+    "hero": {
+      "operation": "approved-original-layout-no-generative-repaint",
+      "path": "docs/assets/showcase/hero.webp",
+      "sha256": "591fdbc4607aba6c1467337c21c1e6455bf880dbb9eced4887f5266f4ed23072"
+    },
+    "social_preview": {
+      "operation": "approved-original-layout-no-generative-repaint",
+      "path": "docs/assets/showcase/social-preview.webp",
+      "sha256": "e1f2de573e39c871046fdb3931001affabf93aa65b24b245f88f06f4443f089a"
+    }
   },
   "pixel_reproducible": false,
-  "privacy": {
-    "failed_candidates_published": false,
-    "fictional_adult": true,
-    "third_party_project_media_published": false,
-    "user_calibration_reference_published": false
+  "publication_policy": {
+    "failed_or_rejected_candidates_public": false,
+    "old_arctic_and_western_material_removed": true,
+    "one_authoritative_identity_board": true,
+    "third_party_media_included": false,
+    "user_quality_reference_included": false
   },
-  "publication_montages": [
-    {
-      "operation": "deterministic-layout-only",
-      "path": "docs/assets/showcase/hero.webp",
-      "sha256": "2d2ba1d42514f7dda75d7d34cb2c20d5f6bbd0f6c3f10660ec7756192991f808"
-    },
-    {
-      "operation": "deterministic-layout-only",
-      "path": "docs/assets/showcase/social-preview.webp",
-      "sha256": "cc7983e82d288418d97cfe2911210decced1c9c26eec54c06e25595e2b39e268"
-    }
-  ],
+  "release_version": "1.6.4",
   "reproducibility_class": "workflow_only",
   "schema_version": "1.6",
-  "scope": "three unified identity Inspectors, two 2.39:1 empty locations, and two 2.39:1 live-action narrative frames including a two-character Western standoff",
-  "selection_claim": "Seven approved examples after four-scale visual QA; this compact gallery is not a statistical pass-rate claim.",
-  "showcase_profile": "compact-theatrical-widescreen-evidence-v1.6.2",
-  "theatrical_format_policy": "scene and narrative originals are native 2.39:1 deliverables with no baked black bars; the identity authority remains a 4x2 inspection board"
+  "showcase_profile": "single-chain-live-action-probe-v1.6.4"
 }

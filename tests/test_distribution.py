@@ -39,7 +39,6 @@ class DistributionTests(unittest.TestCase):
             "assets/style/.gitkeep",
             "assets/characters/identity-packs/.gitkeep",
             "assets/characters/pose-anchors/.gitkeep",
-            "assets/quality-evidence/.gitkeep",
             "assets/storyboards/.gitkeep",
             "assets/key-art/.gitkeep",
             "prompts/images/identity-packs/.gitkeep",
@@ -59,7 +58,7 @@ class DistributionTests(unittest.TestCase):
             verified = run(sys.executable, str(INSTALLER), "verify", "--codex-home", str(home))
             self.assertEqual(verified.returncode, 0, verified.stderr)
             payload = json.loads((home / "skills" / "cinematic-ai-director" / "runtime-manifest.json").read_text())
-            self.assertEqual(payload["version"], "1.6.2")
+            self.assertEqual(payload["version"], "1.6.4")
             self.assertTrue(all(not Path(item["path"]).is_absolute() for item in payload["files"]))
 
     def test_install_refuses_overwrite_and_replace_creates_backup(self) -> None:
@@ -100,7 +99,7 @@ class DistributionTests(unittest.TestCase):
                     str(manifest),
                 )
                 self.assertEqual(result.returncode, 0, result.stderr)
-                outputs.append(output / "cinematic-ai-director-v1.6.2.zip")
+                outputs.append(output / "cinematic-ai-director-v1.6.4.zip")
             self.assertEqual(digest(outputs[0]), digest(outputs[1]))
 
     def test_runtime_source_contains_no_private_machine_paths_or_caches(self) -> None:
@@ -114,25 +113,17 @@ class DistributionTests(unittest.TestCase):
                 text = path.read_text(encoding="utf-8", errors="ignore")
                 self.assertFalse(any(token in text for token in forbidden), path)
 
-    def test_compact_showcase_has_exactly_seven_hashed_originals(self) -> None:
+    def test_compact_showcase_has_one_clean_probe_chain_and_hashed_originals(self) -> None:
         evidence = json.loads((ROOT / "showcase" / "evidence.json").read_text(encoding="utf-8"))
-        self.assertEqual(evidence["showcase_profile"], "compact-theatrical-widescreen-evidence-v1.6.2")
+        self.assertEqual(evidence["showcase_profile"], "single-chain-live-action-probe-v1.6.4")
         self.assertFalse(evidence["pixel_reproducible"])
         self.assertEqual(
             [item["kind"] for item in evidence["assets"]],
-            [
-                "identity",
-                "empty_scene",
-                "narrative",
-                "western_female_identity",
-                "western_male_identity",
-                "western_scene",
-                "western_narrative",
-            ],
+            ["identity", "empty_scene", "live_action_probe"],
         )
         originals = sorted((ROOT / "showcase" / "originals").glob("**/*.png"))
         authority_originals = [path for path in originals if "identity-crops" not in path.parts]
-        self.assertEqual(len(authority_originals), 7)
+        self.assertEqual(len(authority_originals), 3)
         for item in evidence["assets"]:
             original = ROOT / item["original_path"]
             prompt = ROOT / item["prompt_path"]
@@ -151,32 +142,27 @@ class DistributionTests(unittest.TestCase):
         self.assertEqual(len(crop_map["crops"]), 7)
         for crop in crop_map["crops"]:
             self.assertEqual(digest(ROOT / crop["path"]), crop["sha256"])
-        self.assertEqual(len(evidence["additional_identity_crops"]), 2)
-        for additional_crop_map in evidence["additional_identity_crops"]:
-            self.assertEqual(
-                additional_crop_map["operation"],
-                "exact-cell-crop-no-resample-no-redraw",
-            )
-            self.assertEqual(len(additional_crop_map["crops"]), 7)
-            for crop in additional_crop_map["crops"]:
-                self.assertEqual(digest(ROOT / crop["path"]), crop["sha256"])
-
-        western = next(item for item in evidence["assets"] if item["kind"] == "western_narrative")
+        probe = next(item for item in evidence["assets"] if item["kind"] == "live_action_probe")
         self.assertEqual(
-            western["reference_stack"],
+            probe["reference_stack"],
             [
-                "showcase/originals/identity-inspectors/identity-western-rider-female-v001.png",
-                "showcase/originals/identity-inspectors/identity-western-enforcer-male-v001.png",
-                "showcase/originals/scenes/scene-southwestern-frontier-street-v001.png",
+                "showcase/originals/identity-inspectors/identity-white-coastal-survey-engineer-v001.png",
+                "showcase/originals/scenes/scene-coastal-tide-station-overcast-v001.png",
             ],
         )
-        self.assertEqual(western["qa"]["skin_surface_state"], "natural_dry")
-        self.assertEqual(western["qa"]["oil_film"], "absent")
-        self.assertEqual(western["multi_person_projection_qa"]["verdict"], "pass")
-        self.assertFalse(western["multi_person_projection_qa"]["per_person_scale_transform"])
-        width, height = western["actual_dimensions_px"]
-        self.assertGreater(width / height, 2.37)
-        self.assertLess(width / height, 2.40)
+        self.assertEqual(probe["qa"]["skin_surface_state"], "natural_dry")
+        self.assertEqual(probe["qa"]["oil_film"], "absent")
+        self.assertEqual(probe["live_action_integration_probe"]["status"], "approved")
+        self.assertTrue(probe["live_action_integration_probe"]["ordinary_light_only"])
+        self.assertTrue(probe["live_action_integration_probe"]["special_environment_disabled"])
+        self.assertEqual(probe["subject_environment_integration_qa"]["verdict"], "pass")
+        self.assertFalse(probe["subject_environment_integration_qa"]["cutout_edges_detected"])
+        self.assertFalse(
+            probe["subject_environment_integration_qa"]["separate_person_tone_mapping_detected"]
+        )
+        width, height = probe["actual_dimensions_px"]
+        self.assertGreater(width / height, 2.30)
+        self.assertLess(width / height, 2.45)
 
 
 if __name__ == "__main__":

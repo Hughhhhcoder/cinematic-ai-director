@@ -26,6 +26,11 @@
 - `set_causality_contract`
 - `performance_composition_contract`
 - `polish_ceiling`
+- `live_action_probe_id`：普通光人物—地点融合探针通过后，含人物的 Profile 才能批准。
+
+## 先证实人物能进入真实世界
+
+参数正确不等于像素真实。统一身份 Inspector、地点根、人体比例和摄影计划全部通过后，仍必须以一个普通光、单人、简单任务的 `live_action_probe` 检验人物是否与场景共享投影、光源、焦点、遮挡、接触、色彩污染和有限曝光。探针禁止风格、器材、导演/片名、颗粒、光晕和特殊天气词；两批仍有油光、塑料/游戏表面或 cut-out 感时记录 `backend_realism_blocked`。详见 [live-action-integration.md](live-action-integration.md)。
 
 ## 皮肤状态
 
@@ -57,10 +62,14 @@
 11. `set_and_object_causality`
 12. `performance_observation_not_promo_pose`
 13. `brief_polish_fit`
+14. `dramatic_coverage_not_spatial_diagram`（两人以上叙事帧）
+15. `subject_environment_integration`（所有含人物叙事帧）
 
 每项不仅填 pass/fail，还必须在 `positive_evidence` 记录画面中能看到什么。`material_pairs` 至少比较两种无关材质，并明确 `same_repeating_texture:false`。脸部或两种无关材质出现相同旋涡、鳞片、指纹、细胞纹或低频涂抹，直接 fail。
 
 `dynamic_range_evidence` 还必须记录曝光优先级、中间调锚点、可观察的亮部损失/roll-off、可观察的暗部底线/损失，并固定 `global_tone_mapping_detected:false`。若每个亮暗层都被局部提亮、锐化和“看清”，即使没有 clipping 也必须 fail。
+
+两人以上叙事帧还要记录 coverage role、观看者位置、裁切地标、前景/焦点人物、相交视线和动作节拍。空间正确但人物全身等距对称列队，或演员只是“站在那里证明位置”，直接 fail。含人物帧必须记录人物怎样共享场景光线、空气介质、焦点/遮挡、接触支撑、材质/色彩传播和边缘行为；任何 cut-out、单独美容灯、独立 HDR/锐化或游戏关卡感直接 fail。
 
 ## 提示编译
 

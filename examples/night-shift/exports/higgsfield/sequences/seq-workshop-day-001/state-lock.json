@@ -60,6 +60,7 @@
       "status": "approved"
     }
   ],
+  "dramatic_coverage_plans": {},
   "identity_packs": [
     {
       "approval_gate_id": "review-foundation-001",
@@ -351,6 +352,7 @@
     },
     "status": "approved"
   },
+  "multi_person_projections": {},
   "package_schema": "higgsfield-state-lock-1.6",
   "prop_states": [
     {
@@ -399,6 +401,27 @@
       "delivery_fps": 24,
       "playback_rate": 1.0,
       "shutter_angle": 180
+    }
+  },
+  "subject_environment_integrations": {
+    "sh-010-010": {
+      "atmosphere_depth_behavior": "clear workshop air preserves ordinary distance contrast without invented haze",
+      "background_only_atmosphere_detected": false,
+      "color_contamination_match": "window coolness and desk-lamp warmth affect the courier and adjacent set surfaces together",
+      "contact_and_grounding": "both shoes contact the concrete and the near hand is supported by the existing table edge",
+      "cutout_edges_detected": false,
+      "edge_integration": "hair, sleeves and body edges follow the same focus falloff as neighboring set geometry",
+      "focus_and_occlusion": "the courier, table edge and broken seal share the recorded optical depth order",
+      "hard_failures": [],
+      "material_response_match": "skin, cotton, painted steel, glass and concrete each retain source-shaped roughness",
+      "policy": "shared-light-air-focus-occlusion-v1.6.4",
+      "separate_person_tone_mapping_detected": false,
+      "shared_atmosphere_state_id": "env-workshop-clear",
+      "shared_light_sources": [
+        "north workshop window",
+        "existing desk lamp"
+      ],
+      "verdict": "pass"
     }
   }
 }

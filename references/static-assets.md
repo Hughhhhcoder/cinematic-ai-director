@@ -9,10 +9,11 @@
 3. 人物持续状态中性参考；需要时的局部状态近景。
 4. 无人物地点 master、物件根与主空间锚点。
 5. 地点状态多视角与 spatial map。
-6. 环境状态、特殊光事件、Treatment 与 format approval。
-7. 三张独立 Look Test 盲选。
-8. 地点 plate、pose/contact anchor、Photoboard、关键帧。
-9. 按需 key art/title card。
+6. 普通光单人 `live_action_probe`；通过前禁用特殊天气、电影风格和多人叙事。
+7. 环境状态、特殊光事件、Treatment 与 format approval。
+8. 三张独立 Look Test 盲选。
+9. 地点 plate、pose/contact anchor、Photoboard、关键帧。
+10. 按需 key art/title card。
 
 任何上游未 `qualified` 或不在同一审批门内，下游停止；跨门依赖必须已经批准。
 
@@ -35,7 +36,11 @@
 
 继承批准的七视角身份/人物状态、地点/道具状态、空间地图、environment、format、Treatment 与 Profile。Storyboard 默认是照片级、可在真实机位和布光下执行的 Photoboard，不是线稿、概念画或 3D previz。
 
+空间主图只证明地理，不能直接成为人物叙事帧。Photoboard、关键帧和 key art 若包含两人以上，必须先冻结 `dramatic_coverage_plan` 与 `subject_environment_integration`：观看者位置、coverage role、景别/裁切地标、前景与焦点人物、相交视线、正在发生的任务动作，以及所有人物共享的光线、空气介质、焦点、遮挡、接触和色调响应。除非有书面叙事理由，禁止把人物全身、等距、对称地摆进地点建立图；这种“空间说明式对峙”即使透视正确也按游戏关卡感硬失败。
+
 表面使用 `clean_narrative`；只有稳定的介质 A/B 记录允许 `calibrated_medium_signature`。
+
+所有含人物叙事资产还有一个更早的像素门：普通光 `live_action_probe`。身份板和地点根可分别合格，但只要人物入景后出现油膜、蜡/塑料皮肤、游戏/CG 模型感、贴图边缘、独立锐化/tone mapping，或不共享场景光线、焦点、遮挡与有限曝光，就停止该身份—地点组合。完整协议见 [live-action-integration.md](live-action-integration.md)。
 
 ## 人物
 
@@ -110,6 +115,8 @@ Decision required: approve gate, select one Look Profile, or request scoped chan
 - 动画、插画、CG/PBR、游戏过场、塑料/蜡质皮肤、无来源油亮皮肤、假眼、毛发粘块、织物熔化。
 - 绘画/补丁涂抹、低频糊块、旋涡/鳞片/细胞纹、跨材质复制。
 - 无来源彩色边光、HDR/clarity 雕刻、皮肤与墙/服装/金属共享同一亮脏响应、英雄海报式姿态。
+- 建立图式叙事：人物在宽景中对称列队、没有明确观看者位置、前景层次、焦点主体、相交视线或任务动作。
+- 人物与场景的光线、空气介质、焦点/模糊、边缘、接触阴影或色调映射不一致，产生贴图、合成或游戏模型感。
 - 把窗外、灯芯、人物肤色、深暗角落全部局部提亮并同等清晰；场景反差超出工作宽容度却不声明任何 clipping 或暗部损失。
 - 无来源光、接触/承重/反射错误、环境不影响材料。
 - 剧情缺陷超出声明区域。

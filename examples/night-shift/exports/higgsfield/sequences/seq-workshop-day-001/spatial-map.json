@@ -37,6 +37,7 @@
         "lm-service-door"
       ],
       "deterministic_prompt_block": "Spatial map spatial-workshop-day; scene state state-workshop-day.\nPrimary anchor prop-red-worktable--v001: origin at its ground-contact center (0.0, 0.0, 0.0) m; orientation long edge aligned with +X; drawer side faces -Y.\nSet-fixed axes: +X toward the north-window wall; +Y toward the workshop service doorway; +Z upward from the concrete floor.\nCamera cam-sh-010-010: (2.0, -2.0, 1.5) m; facing toward the anchor origin and slightly toward +Y; reachable near-side aisle at +X/-Y; 3.2 m from prop-red-worktable--v001.\nSubject char-hero-inspector--v001 at mark-hero-table-near: (0.8, -1.0, 0.0) m; facing toward +Y, then eyes rotate to the anchor; 0.8 m toward +X and 1.0 m toward -Y from the table center.\nAnchor projection: visible; screen region lower-center foreground and lower-right midground; camera-relative direction ahead and slightly camera-left; set-fixed direction origin; the anchor remains the fixed origin between camera and +Y service doorway; distance 3.2 m.\nDepth order, camera-near to far: char-hero-inspector--v001 -> prop-red-worktable--v001 -> lm-service-door.",
+      "dramatic_coverage_plan": null,
       "establishing_view_asset_id": "loc-workshop-state-day-est--v001",
       "landmarks": [
         {
@@ -52,6 +53,7 @@
       ],
       "location_master_asset_id": "loc-workshop--v001",
       "movement_paths": [],
+      "multi_person_projection": null,
       "package_schema": "higgsfield-spatial-map-1.6",
       "primary_anchor": {
         "asset_id": "prop-red-worktable--v001",
@@ -70,6 +72,25 @@
       "scene_state_id": "state-workshop-day",
       "side_three_quarter_view_asset_id": "loc-workshop-state-day-side3q--v001",
       "spatial_map_id": "spatial-workshop-day",
+      "subject_environment_integration": {
+        "atmosphere_depth_behavior": "clear workshop air preserves ordinary distance contrast without invented haze",
+        "background_only_atmosphere_detected": false,
+        "color_contamination_match": "window coolness and desk-lamp warmth affect the courier and adjacent set surfaces together",
+        "contact_and_grounding": "both shoes contact the concrete and the near hand is supported by the existing table edge",
+        "cutout_edges_detected": false,
+        "edge_integration": "hair, sleeves and body edges follow the same focus falloff as neighboring set geometry",
+        "focus_and_occlusion": "the courier, table edge and broken seal share the recorded optical depth order",
+        "hard_failures": [],
+        "material_response_match": "skin, cotton, painted steel, glass and concrete each retain source-shaped roughness",
+        "policy": "shared-light-air-focus-occlusion-v1.6.4",
+        "separate_person_tone_mapping_detected": false,
+        "shared_atmosphere_state_id": "env-workshop-clear",
+        "shared_light_sources": [
+          "north workshop window",
+          "existing desk lamp"
+        ],
+        "verdict": "pass"
+      },
       "subject_marks": [
         {
           "asset_id": "char-hero-inspector--v001",

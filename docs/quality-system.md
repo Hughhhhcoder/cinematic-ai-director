@@ -29,6 +29,12 @@ Uniform facial oil, repeated white glints, wax/plastic skin, local skin-tone dis
 
 Positive evidence is stored for every QA check. A face or authority asset failing at any scale cannot proceed.
 
+## Ordinary-light person/world probe
+
+A clean Inspector and a clean location do not prove that ImageGen will integrate them as one photograph. Before Looks, special atmosphere, multi-person frames, Photoboards, keyframes, Ready shots, or export, the project must pass one `live_action_probe`: one approved adult, one approved place, one simple task/contact, one reachable medium camera, ordinary broad source light, and finite exposure. It deliberately contains no cinematic styling, equipment brand, film reference, grain, halation, colored rim, or special weather.
+
+The probe passes only when person and world share projection, light, focus, occlusion, contact, color contamination, edge behavior, and tone mapping at all four scales. Oily/waxy/plastic skin, a game-rendered person, cut-out edges, separate subject HDR/sharpening, or copied artifact texture is a hard failure. After two independent failed batches the pair becomes `backend_realism_blocked`; the workflow requests lawful real-photo references or remains package-only rather than hiding the failure with style.
+
 ## Finite dynamic range
 
 Real capture does not reveal every highlight and shadow with equal local contrast. Every photographic asset stores its own `dynamic_range_plan`: finite working latitude, estimated scene contrast, stops above and below middle gray, exposure priority, middle-tone anchor, highlight behavior, shadow floor, allowed clipping, allowed shadow loss, and a narrative reason.

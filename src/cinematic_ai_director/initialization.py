@@ -179,6 +179,7 @@ def init_project(args: argparse.Namespace) -> int:
                     }
                 ],
                 "project_quality_profiles": [],
+                "live_action_integration_probes": [],
                 "calibration_families": [],
             },
         )
@@ -222,6 +223,13 @@ def init_project(args: argparse.Namespace) -> int:
         )
         (temp_path / "qa/quality-review.md").write_text(
             quality_review_template(args.title.strip()), encoding="utf-8"
+        )
+        (temp_path / "qa/live-action-integration-review.md").write_text(
+            "# Live-action Integration Review\n\n"
+            "No person-bearing narrative asset may proceed until one ordinary-light integration probe "
+            "passes at thumbnail, fit, 100%, and 200%. A second failed batch blocks the backend for this "
+            "identity/location pair and requires lawful real-photo references or package-only work.\n",
+            encoding="utf-8",
         )
         (temp_path / "qa/environment-review.md").write_text(
             environment_review_template(args.title.strip()), encoding="utf-8"

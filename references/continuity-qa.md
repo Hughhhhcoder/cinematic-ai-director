@@ -27,6 +27,12 @@
 
 地点视角、相邻平面、拓扑、锚点位置/比例/方向、机位可达性；天气来源/方向/积累、距离衰减、材质反应、曝光/焦点、声音与时间边界。
 
+### Dramatic coverage / subject-environment integration QA
+
+两人以上叙事镜头必须证明：空间证据没有替代镜头覆盖；coverage role、观看者位置、景别/裁切地标、前景与焦点人物、相交视线和动作节拍均已冻结。对称全身宽景只有在 `wide_two_shot_justification` 有明确叙事理由时可用。
+
+所有人物还必须共享同一摄影事件的光线、环境介质、焦点/模糊、遮挡、接触/支撑、材质与色彩传播、边缘锐度和色调映射。任何 cut-out 边、人物单独美容光、独立 HDR/锐化、空气只作用于背景、脚底/门槛支撑不成立或游戏关卡式站位均为硬失败。`spatial_qa=pass` 与 `multi_person_projection=pass` 不能覆盖这两项失败。
+
 此统一门还要求十二项 `positive_evidence`、无关材质配对与四尺度检查。任何相关 QA 缺失或失败，资产不得进入 `qualified`；用户决定只存在 Foundation/Sequence 审批门。
 
 ## 身份与状态连续性
@@ -92,6 +98,7 @@ lighting_state
 - `live_action_quality_qa`、几何、摄影、空间/环境与 cross-scene QA。
 - 含人物资产的完整 `material_response_contract`，包括光源大小/方向、皮肤干湿、高光范围、局部对比、色调映射、材质粗糙度与表演策略。
 - Foundation/Sequence 门批准、合法参考来源、quality Profile、联合视觉锚点、引用栈哈希、首尾关键帧和 sequence signature。
+- 两人以上镜头的 `dramatic_coverage_plan` 与所有含人物镜头的 `subject_environment_integration`；两项都必须 `verdict=pass` 且无 hard failures。
 - 目标 Higgsfield 适配器对参考量、画幅或运镜段的支持。
 
 ## Take temporal QA

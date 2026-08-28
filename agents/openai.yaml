@@ -4,6 +4,6 @@ interface:
   icon_small: "./assets/icon.svg"
   icon_large: "./assets/logo.svg"
   brand_color: "#101828"
-  default_prompt: "Use $cinematic-ai-director to turn my live-action script into a consistent v1.6 film project with one shared-solve identity Inspector per person, clean live-action assets, finite scene-referred exposure tradeoffs, sequence-level reviews, cinematic shot design, and a strict versioned Cinema Studio 4 + Seedance 2.5 package."
+  default_prompt: "Use $cinematic-ai-director to turn my live-action script into a consistent v1.6 film project with one shared-solve identity Inspector per person, an ordinary-light person/world integration probe that blocks oily or game-rendered results, clean live-action assets, finite scene-referred exposure tradeoffs, sequence-level reviews, cinematic shot design, and a strict versioned Cinema Studio 4 + Seedance 2.5 package."
 policy:
   allow_implicit_invocation: true

@@ -40,6 +40,7 @@ Many AI-film workflows optimize for an attractive first frame. Production needs 
 | System | Production behavior |
 |---|---|
 | Live-action quality | Positive photographic evidence, motivated skin highlights, independent material roughness, four-scale smear/CG/texture inspection |
+| Person–world proof | Mandatory ordinary-light integration probe with one exposure, light field, focus system, contact geometry and finite dynamic-range decision before any styled human frame |
 | Casting and physique | Role-conditioned body brief, measurable targets, wardrobe silhouette, rejection criteria, no generic short-legged or boxy fallback |
 | Identity geometry | One 4×2 white identity inspector per person, one shared identity solve, seven deterministic crops, person-specific proportions, skeleton lock, and multi-person projection QA |
 | World continuity | Location worlds and states, production-design DNA, prop manufacturing/state locks, return-to-location reuse |
@@ -59,17 +60,20 @@ flowchart LR
     A --> D[World DNA + location roots]
     D --> E[Multi-view state + spatial anchor]
     C --> F[Character states]
-    E --> G[Quality profile + format + three Looks]
+    E --> G[Ordinary-light person/world probe]
     F --> G
-    G --> H{Foundation gate}
-    H --> I[Sequence visual anchor]
-    I --> J[Photoboards + keyframes]
-    J --> K[Camera path + temporal + blur]
-    K --> L{Sequence gate}
-    L --> M[Compiled shot prompts]
-    M --> N[Portable Higgsfield package]
-    N --> O[Human platform execution]
-    O --> P[Returned-take temporal audit]
+    G --> H{Probe passes four-scale QA?}
+    H -->|yes| I[Quality profile + format + three Looks]
+    H -->|two batches fail| X[backend_realism_blocked]
+    I --> J{Foundation gate}
+    J --> K[Sequence visual anchor]
+    K --> L[Photoboards + keyframes]
+    L --> M[Camera path + temporal + blur]
+    M --> N{Sequence gate}
+    N --> O[Compiled shot prompts]
+    O --> P[Portable Higgsfield package]
+    P --> Q[Human platform execution]
+    Q --> R[Returned-take temporal audit]
 ```
 
 The authority chain is strict: a failed or unapproved root cannot silently become a storyboard reference, and a bridge frame cannot replace identity or location truth.
@@ -197,21 +201,13 @@ It does **not** install a plugin, authenticate, upload references, call a genera
 
 ## Showcase
 
-The compact public v1.6.2 gallery contains three one-call shared-solve identity Inspectors plus two original locations and two person-in-location frames generated with built-in ImageGen. It adds an observational Western evidence chain: two independently approved bodies, one ordinary practical street, and one two-person confrontation checked through a single physical camera projection. All scene and narrative frames are native 2.39:1 with no baked black bars. The gallery excludes the user's calibration photo, old benchmarks, failed candidates, and third-party project media.
+The compact public v1.6.4 gallery contains exactly one clean evidence chain generated with built-in ImageGen: one unified identity authority → one empty world authority → one ordinary-light person/world integration probe. The probe is deliberately free of dramatic weather, hero lighting, film emulation and stylized grading: the person must first share the location's exposure, source light, focus, occlusion, contact geometry and finite dynamic range without oily skin, pasted edges, game rendering or universal dirty texture. Three probe candidates were generated independently from the same two approved roots; only the passing selection is public. Every superseded Arctic and Western image was removed.
 
 | One shared-solve identity Inspector | One empty location | One person-in-location frame |
 |---|---|---|
-| ![One white identity Inspector with seven views from the same shared solve for a fictional Arctic survey pilot](docs/assets/showcase/identity-white-arctic-survey-pilot-v003.webp) | ![A native 2.39:1 empty Arctic search-and-rescue hangar during a snow squall, with a yellow deicing cabinet as spatial anchor](docs/assets/showcase/scene-arctic-rescue-hangar-v003.webp) | ![The same fictional white survey pilot seen from rear three-quarter inside the approved Arctic hangar in a native 2.39:1 live-action frame](docs/assets/showcase/narrative-white-survey-pilot-arctic-hangar-v003.webp) |
+| ![One 4×2 white identity Inspector containing seven consistent views from a single shared solve for a fictional white coastal survey engineer](docs/assets/showcase/identity-white-coastal-survey-engineer-v001.webp) | ![A native 2.39:1 empty municipal coastal tide-monitoring station under ordinary overcast afternoon light](docs/assets/showcase/scene-coastal-tide-station-overcast-v001.webp) | ![The approved fictional coastal survey engineer physically integrated into the same tide station under ordinary overcast light](docs/assets/showcase/live-action-probe-coastal-survey-engineer-v001.webp) |
 
-| Western woman identity authority | Western man identity authority |
-|---|---|
-| ![One white identity Inspector with seven consistent views of a fictional female frontier rider](docs/assets/showcase/identity-western-rider-female-v001.webp) | ![One white identity Inspector with seven consistent views of a fictional male rail-company enforcer](docs/assets/showcase/identity-western-enforcer-male-v001.webp) |
-
-| Empty observational Western location | Two-person projection and blocking proof |
-|---|---|
-| ![A native 2.39:1 observational location-scout photograph of a practical Southwestern frontier street with a green pump anchor](docs/assets/showcase/scene-southwestern-frontier-street-v001.webp) | ![A native 2.39:1 live-action frame of the approved woman and man facing each other across the approved street with physically plausible near-far scale](docs/assets/showcase/narrative-western-standoff-two-character-v001.webp) |
-
-This is intentionally a small release proof, not a fabricated statistical pass-rate claim. Exact retained prompts, source-generation IDs, original and derivative SHA-256 values, deterministic identity crops, four-scale QA, native 2.39:1 format evidence, and finite-dynamic-range review are in [`showcase/evidence.json`](showcase/evidence.json) and the [gallery documentation](https://hughhhhcoder.github.io/cinematic-ai-director/gallery/).
+This is intentionally a small release proof, not a fabricated statistical pass-rate claim. Exact retained prompts, source-generation IDs, original and derivative SHA-256 values, deterministic identity crops, reference order, three-candidate selection record, four-scale QA, native aspect evidence, finite-dynamic-range review and person–world integration QA are in [`showcase/evidence.json`](showcase/evidence.json) and the [gallery documentation](https://hughhhhcoder.github.io/cinematic-ai-director/gallery/). Failed candidates remain outside the public tree.
 
 ## Repository layout
 

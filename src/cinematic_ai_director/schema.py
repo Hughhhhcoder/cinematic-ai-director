@@ -45,6 +45,7 @@ REQUIRED_DIRS = (
     "assets/look-tests",
     "assets/candidates",
     "assets/quality-evidence",
+    "assets/quality-evidence/live-action-probes",
     "assets/review-boards",
     "assets/locations",
     "assets/locations/state-views",
@@ -88,6 +89,7 @@ REQUIRED_FILES = (
     "qa/cross-scene-review.md",
     "qa/proportion-review.md",
     "qa/quality-review.md",
+    "qa/live-action-integration-review.md",
     "qa/environment-review.md",
     "qa/temporal-review.md",
 )
@@ -110,6 +112,7 @@ ASSET_TYPES = {
     "vehicle",
     "animal",
     "pose_contact_anchor",
+    "live_action_probe",
     "reference_board",
     "storyboard",
     "keyframe",
@@ -180,7 +183,7 @@ IMAGE_PROMPT_STRATEGIES = {
     f"image2-live-action-{family}-v1.6": IMAGE_PROMPT_SECTIONS
     for family in (
         "identity-inspector", "character-face", "character-body", "identity-view", "character-state",
-        "location", "object", "pose-contact", "narrative",
+        "location", "object", "pose-contact", "integration-probe", "narrative",
     )
 }
 IMAGE_PROMPT_STRATEGY_BY_TYPE = {
@@ -198,6 +201,7 @@ IMAGE_PROMPT_STRATEGY_BY_TYPE = {
     "vehicle": "image2-live-action-object-v1.6",
     "animal": "image2-live-action-object-v1.6",
     "pose_contact_anchor": "image2-live-action-pose-contact-v1.6",
+    "live_action_probe": "image2-live-action-integration-probe-v1.6",
     "look_test": "image2-live-action-narrative-v1.6",
     "storyboard": "image2-live-action-narrative-v1.6",
     "keyframe": "image2-live-action-narrative-v1.6",
@@ -305,6 +309,33 @@ RISKY_RENDER_CUES = (
     "game-cinematic",
     "trailer still",
     "award-winning cinematography",
+)
+LIVE_ACTION_PROBE_STATUSES = {
+    "planned",
+    "qualified",
+    "approved",
+    "failed",
+    "backend_realism_blocked",
+}
+LIVE_ACTION_PROBE_FAILURE_CLASSES = {
+    "synthetic_person_rendering",
+    "oily_waxy_or_plastic_skin",
+    "person_world_cutout",
+    "separate_subject_tone_mapping",
+    "shared_light_failure",
+    "shared_focus_or_occlusion_failure",
+    "repeating_artifact_texture",
+    "body_geometry_or_contact_failure",
+    "finite_dynamic_range_failure",
+}
+LIVE_ACTION_PROBE_SCALES = ("thumbnail", "fit", "100_percent", "200_percent")
+LIVE_ACTION_PROBE_EVIDENCE_FIELDS = (
+    "face_and_skin_readable",
+    "task_contact_readable",
+    "shared_light",
+    "shared_focus_and_occlusion",
+    "finite_dynamic_range",
+    "skin_material_separation",
 )
 IDENTITY_PACK_STATUSES = {"planned", "qualified", "approved", "blocked", "model_blocked"}
 IDENTITY_KINDS = {"fictional", "real_person"}
@@ -631,6 +662,7 @@ HUMAN_RELEVANT_ASSET_TYPES = {
     "character_variant",
     "character_state",
     "pose_contact_anchor",
+    "live_action_probe",
 }
 PROFILED_ASSET_TYPES = {"look_test", "location_plate", "storyboard", "keyframe", "key_art"}
 NARRATIVE_ASSET_TYPES = {"location_plate", "storyboard", "keyframe", "key_art"}

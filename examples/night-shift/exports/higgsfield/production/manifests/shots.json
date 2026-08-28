@@ -195,6 +195,25 @@
       "start_keyframe_id": "kf-sh-010-010-start--v001",
       "status": "ready",
       "story_beat": "She notices the broken seal.",
+      "subject_environment_integration": {
+        "atmosphere_depth_behavior": "clear workshop air preserves ordinary distance contrast without invented haze",
+        "background_only_atmosphere_detected": false,
+        "color_contamination_match": "window coolness and desk-lamp warmth affect the courier and adjacent set surfaces together",
+        "contact_and_grounding": "both shoes contact the concrete and the near hand is supported by the existing table edge",
+        "cutout_edges_detected": false,
+        "edge_integration": "hair, sleeves and body edges follow the same focus falloff as neighboring set geometry",
+        "focus_and_occlusion": "the courier, table edge and broken seal share the recorded optical depth order",
+        "hard_failures": [],
+        "material_response_match": "skin, cotton, painted steel, glass and concrete each retain source-shaped roughness",
+        "policy": "shared-light-air-focus-occlusion-v1.6.4",
+        "separate_person_tone_mapping_detected": false,
+        "shared_atmosphere_state_id": "env-workshop-clear",
+        "shared_light_sources": [
+          "north workshop window",
+          "existing desk lamp"
+        ],
+        "verdict": "pass"
+      },
       "subject_mark_ids": {
         "char-hero-inspector--v001": "mark-hero-table-near"
       },

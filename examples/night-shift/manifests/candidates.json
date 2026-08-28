@@ -94,6 +94,221 @@
       "reviewed_at": "2026-08-25T12:00:00Z"
     },
     {
+      "id": "cset-live-action-probe-char-hero-workshop--v001",
+      "target_asset_id": "live-action-probe-char-hero-workshop--v001",
+      "tier": "critical",
+      "status": "selected",
+      "operation": "generate",
+      "approval_gate_id": "review-foundation-001",
+      "prompt_path": "prompts/images/live-action-probe-char-hero-workshop--v001.txt",
+      "reference_asset_ids": [
+        "char-hero-inspector--v001",
+        "loc-workshop--v001"
+      ],
+      "batches": [
+        {
+          "index": 1,
+          "reason": "initial independent candidate pool",
+          "changed_variable": "",
+          "candidates": [
+            {
+              "id": "cset-live-action-probe-char-hero-workshop--v001-candidate-01",
+              "status": "selected",
+              "path": "assets/candidates/cset-live-action-probe-char-hero-workshop--v001/cset-live-action-probe-char-hero-workshop--v001-candidate-01.png",
+              "sha256": "2182133d4a4fdfb13ac97b3821e240fdae856eda3609162d835f99129b4bf37e",
+              "operation": "generate",
+              "derived_from_candidate_id": "",
+              "prompt_sha256": "66805f3945e96a9fee5d6621964b0cdfe4b36f797daa287012f77b53dd64d042",
+              "reference_order": [
+                "char-hero-inspector--v001",
+                "loc-workshop--v001"
+              ],
+              "quality_verdict": "pass",
+              "hard_failures": [],
+              "diagnostic_regions": {
+                "face": [
+                  {
+                    "label": "visible face",
+                    "x": 0.25,
+                    "y": 0.1,
+                    "width": 0.5,
+                    "height": 0.45
+                  }
+                ],
+                "hands": [
+                  {
+                    "label": "visible hand/contact area",
+                    "x": 0.2,
+                    "y": 0.4,
+                    "width": 0.6,
+                    "height": 0.5
+                  }
+                ],
+                "materials": [
+                  {
+                    "label": "material separation",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 1.0,
+                    "height": 1.0
+                  }
+                ],
+                "highlights": [
+                  {
+                    "label": "source-shaped highlight",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ],
+                "shadows": [
+                  {
+                    "label": "shadow transition",
+                    "x": 0.5,
+                    "y": 0.5,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ]
+              },
+              "reviewed_at": "2026-08-25T12:00:00Z"
+            },
+            {
+              "id": "cset-live-action-probe-char-hero-workshop--v001-candidate-02",
+              "status": "passed",
+              "path": "assets/candidates/cset-live-action-probe-char-hero-workshop--v001/cset-live-action-probe-char-hero-workshop--v001-candidate-02.png",
+              "sha256": "8f202853dea8869d342d6f74a160c06b14351af40e32773ea39e39143ecf5d38",
+              "operation": "generate",
+              "derived_from_candidate_id": "",
+              "prompt_sha256": "66805f3945e96a9fee5d6621964b0cdfe4b36f797daa287012f77b53dd64d042",
+              "reference_order": [
+                "char-hero-inspector--v001",
+                "loc-workshop--v001"
+              ],
+              "quality_verdict": "pass",
+              "hard_failures": [],
+              "diagnostic_regions": {
+                "face": [
+                  {
+                    "label": "visible face",
+                    "x": 0.25,
+                    "y": 0.1,
+                    "width": 0.5,
+                    "height": 0.45
+                  }
+                ],
+                "hands": [
+                  {
+                    "label": "visible hand/contact area",
+                    "x": 0.2,
+                    "y": 0.4,
+                    "width": 0.6,
+                    "height": 0.5
+                  }
+                ],
+                "materials": [
+                  {
+                    "label": "material separation",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 1.0,
+                    "height": 1.0
+                  }
+                ],
+                "highlights": [
+                  {
+                    "label": "source-shaped highlight",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ],
+                "shadows": [
+                  {
+                    "label": "shadow transition",
+                    "x": 0.5,
+                    "y": 0.5,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ]
+              },
+              "reviewed_at": "2026-08-25T12:00:00Z"
+            },
+            {
+              "id": "cset-live-action-probe-char-hero-workshop--v001-candidate-03",
+              "status": "passed",
+              "path": "assets/candidates/cset-live-action-probe-char-hero-workshop--v001/cset-live-action-probe-char-hero-workshop--v001-candidate-03.png",
+              "sha256": "db824957c6d2d241da863d83708a8a983c7570ed63a5915041b2b2dfac43deb8",
+              "operation": "generate",
+              "derived_from_candidate_id": "",
+              "prompt_sha256": "66805f3945e96a9fee5d6621964b0cdfe4b36f797daa287012f77b53dd64d042",
+              "reference_order": [
+                "char-hero-inspector--v001",
+                "loc-workshop--v001"
+              ],
+              "quality_verdict": "pass",
+              "hard_failures": [],
+              "diagnostic_regions": {
+                "face": [
+                  {
+                    "label": "visible face",
+                    "x": 0.25,
+                    "y": 0.1,
+                    "width": 0.5,
+                    "height": 0.45
+                  }
+                ],
+                "hands": [
+                  {
+                    "label": "visible hand/contact area",
+                    "x": 0.2,
+                    "y": 0.4,
+                    "width": 0.6,
+                    "height": 0.5
+                  }
+                ],
+                "materials": [
+                  {
+                    "label": "material separation",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 1.0,
+                    "height": 1.0
+                  }
+                ],
+                "highlights": [
+                  {
+                    "label": "source-shaped highlight",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ],
+                "shadows": [
+                  {
+                    "label": "shadow transition",
+                    "x": 0.5,
+                    "y": 0.5,
+                    "width": 0.5,
+                    "height": 0.5
+                  }
+                ]
+              },
+              "reviewed_at": "2026-08-25T12:00:00Z"
+            }
+          ]
+        }
+      ],
+      "selected_candidate_id": "cset-live-action-probe-char-hero-workshop--v001-candidate-01",
+      "selection_reason": "Only this candidate passes the four-scale live-action, geometry and photographic gates.",
+      "reviewer": "codex-visual",
+      "reviewed_at": "2026-08-25T12:00:00Z"
+    },
+    {
       "id": "cset-loc-workshop-state-day-est--v001",
       "target_asset_id": "loc-workshop-state-day-est--v001",
       "tier": "derivative",

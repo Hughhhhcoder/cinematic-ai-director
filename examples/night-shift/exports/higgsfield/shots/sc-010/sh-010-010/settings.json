@@ -251,7 +251,28 @@
       "prop-red-worktable--v001",
       "lm-service-door"
     ],
+    "dramatic_coverage_plan": null,
+    "multi_person_projection": null,
     "spatial_map_id": "spatial-workshop-day",
+    "subject_environment_integration": {
+      "atmosphere_depth_behavior": "clear workshop air preserves ordinary distance contrast without invented haze",
+      "background_only_atmosphere_detected": false,
+      "color_contamination_match": "window coolness and desk-lamp warmth affect the courier and adjacent set surfaces together",
+      "contact_and_grounding": "both shoes contact the concrete and the near hand is supported by the existing table edge",
+      "cutout_edges_detected": false,
+      "edge_integration": "hair, sleeves and body edges follow the same focus falloff as neighboring set geometry",
+      "focus_and_occlusion": "the courier, table edge and broken seal share the recorded optical depth order",
+      "hard_failures": [],
+      "material_response_match": "skin, cotton, painted steel, glass and concrete each retain source-shaped roughness",
+      "policy": "shared-light-air-focus-occlusion-v1.6.4",
+      "separate_person_tone_mapping_detected": false,
+      "shared_atmosphere_state_id": "env-workshop-clear",
+      "shared_light_sources": [
+        "north workshop window",
+        "existing desk lamp"
+      ],
+      "verdict": "pass"
+    },
     "subject_mark_ids": {
       "char-hero-inspector--v001": "mark-hero-table-near"
     }
@@ -272,9 +293,11 @@
     "character_state_bindings": {
       "char-hero-inspector--v001": "state-char-hero-baseline"
     },
+    "dramatic_coverage_plan": null,
     "environmental_state_id": "env-workshop-clear",
     "format_plan_id": "format-plan-main-16x9",
     "location_state_id": "state-workshop-day",
+    "multi_person_projection": null,
     "pose_contact_anchor_ids": [],
     "prop_state_bindings": {
       "prop-red-worktable--v001": "prop-state-table-baseline"
@@ -282,7 +305,26 @@
     "quality_profile_id": "quality-main",
     "sequence_cluster_id": "seq-workshop-day-001",
     "sequence_visual_anchor_asset_id": "seq-workshop-visual-anchor--v001",
-    "special_lighting_event_ids": []
+    "special_lighting_event_ids": [],
+    "subject_environment_integration": {
+      "atmosphere_depth_behavior": "clear workshop air preserves ordinary distance contrast without invented haze",
+      "background_only_atmosphere_detected": false,
+      "color_contamination_match": "window coolness and desk-lamp warmth affect the courier and adjacent set surfaces together",
+      "contact_and_grounding": "both shoes contact the concrete and the near hand is supported by the existing table edge",
+      "cutout_edges_detected": false,
+      "edge_integration": "hair, sleeves and body edges follow the same focus falloff as neighboring set geometry",
+      "focus_and_occlusion": "the courier, table edge and broken seal share the recorded optical depth order",
+      "hard_failures": [],
+      "material_response_match": "skin, cotton, painted steel, glass and concrete each retain source-shaped roughness",
+      "policy": "shared-light-air-focus-occlusion-v1.6.4",
+      "separate_person_tone_mapping_detected": false,
+      "shared_atmosphere_state_id": "env-workshop-clear",
+      "shared_light_sources": [
+        "north workshop window",
+        "existing desk lamp"
+      ],
+      "verdict": "pass"
+    }
   },
   "temporal_lock_file": "shots/sc-010/sh-010-010/temporal-lock.json"
 }

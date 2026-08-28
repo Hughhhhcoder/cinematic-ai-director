@@ -33,6 +33,7 @@
     "focus_optics_contract": "Conversational perspective with motivated focus falloff and no universal shallow-depth template.",
     "id": "quality-main",
     "illumination_contract": "The north window and existing desk lamp are the only shape-producing sources; no invented beauty or rim light.",
+    "live_action_probe_id": "probe-char-hero-workshop-v001",
     "material_response_contract": "Skin, hair, cotton, concrete, painted steel, glass and wood preserve independent roughness, edge and reflection behavior.",
     "performance_composition_contract": "Task-led observed behavior with plausible unused space, mild occlusion and no publicity pose.",
     "polish_ceiling": "grounded observational drama",

@@ -2,7 +2,7 @@
 
 <p class="cad-kicker">Evidence-driven live-action AI filmmaking</p>
 
-![Selected v1.6 showcase frames arranged without generative repainting](assets/showcase/hero.webp){ .cad-hero }
+![One v1.6.4 live-action evidence chain showing a unified identity board, an empty coastal location and an ordinary-light person-world integration probe](assets/showcase/hero.webp){ .cad-hero }
 
 `cinematic-ai-director` is an English-first Codex Skill and dependency-free Python toolkit for live-action films, commercials, and music videos. It builds clean identity and world authorities, hides failed candidates, locks spatial and cross-scene state, derives cinematography from the script, and exports portable Higgsfield-ready work orders.
 
@@ -15,6 +15,7 @@ The system does not promise that every raw image generation succeeds. It promise
 
 <div class="cad-grid">
   <div class="cad-card"><strong>Clean photographed surfaces</strong><br>Source-shaped skin highlights, independent material roughness, no AI smear or universal dirty texture.</div>
+  <div class="cad-card"><strong>Person–world proof</strong><br>An ordinary-light integration probe must pass before any styled human frame, sequence or export can proceed.</div>
   <div class="cad-card"><strong>Role-correct bodies</strong><br>One shared-solve 4×2 identity Inspector, measurable physique targets, wardrobe silhouette, and state-safe soft-tissue changes.</div>
   <div class="cad-card"><strong>Real spatial continuity</strong><br>Independent multi-view locations, a fixed primary anchor, set coordinates, camera marks, and off-screen relations.</div>
   <div class="cad-card"><strong>Executable cinematography</strong><br>Approved format, motivated light, finite dynamic range, environment physics, reconstructable camera path, exposure, and motion blur.</div>

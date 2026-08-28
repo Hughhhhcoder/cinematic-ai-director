@@ -3568,6 +3568,315 @@
     },
     {
       "approval_gate_id": "review-foundation-001",
+      "approved_path": "assets/quality-evidence/live-action-probes/live-action-probe-char-hero-workshop--v001--approved.png",
+      "authenticity_qa": {
+        "ai_smell_verdict": "pass",
+        "attempt_index": 1,
+        "checked_at": "2026-08-25T12:00:00Z",
+        "checks": {
+          "artifact_absence": "pass",
+          "brief_fit": "pass",
+          "casting_specificity": "pass",
+          "composition_contingency": "pass",
+          "human_surface": "pass",
+          "lighting_causality": "pass",
+          "material_contact": "pass",
+          "set_causality": "pass"
+        },
+        "escalation": "none",
+        "hard_failures": [],
+        "mode": "narrative_frame",
+        "notes": [],
+        "user_decided_at": "2026-08-25T12:00:00Z",
+        "user_decision": "approved"
+      },
+      "calibration_family": "image2-live-action-evidence-v1.6",
+      "candidate_path": "",
+      "candidate_set_id": "cset-live-action-probe-char-hero-workshop--v001",
+      "capture_profile_id": "",
+      "character_state_id": "",
+      "comparison_set_id": "",
+      "constraints": [
+        "single authoritative production role"
+      ],
+      "created_at": "2026-08-25T12:00:00Z",
+      "derived_from": "",
+      "dynamic_range_plan": {
+        "allowed_clipping": [
+          "small desk-lamp filament core"
+        ],
+        "allowed_shadow_loss": [
+          "deepest unlit rear-shelf gap"
+        ],
+        "exposure_priority": "protect_skin_and_practicals",
+        "highlight_behavior": "the desk-lamp housing rolls gradually while its filament core may clip",
+        "local_tone_mapping": false,
+        "lower_latitude_stops": 8.0,
+        "middle_gray_anchor": "the courier's face and neutral gray work shirt",
+        "multi_exposure_hdr": false,
+        "narrative_reason": "Keep attention on the observed person rather than equalizing the entire set.",
+        "policy": "finite_scene_referred",
+        "scene_contrast_stops_estimate": 15.0,
+        "shadow_behavior": "unlit shelf gaps fall below the texture floor without gray HDR lift",
+        "upper_latitude_stops": 6.0,
+        "working_latitude_stops": 14.0
+      },
+      "generation_provenance": {
+        "backend": "builtin-imagegen",
+        "operation": "generate",
+        "output": {
+          "color_mode": "RGB",
+          "height_px": 1080,
+          "mime_type": "image/png",
+          "relative_path": "assets/quality-evidence/live-action-probes/live-action-probe-char-hero-workshop--v001--approved.png",
+          "sha256": "2182133d4a4fdfb13ac97b3821e240fdae856eda3609162d835f99129b4bf37e",
+          "width_px": 1920
+        },
+        "pixel_reproducible": false,
+        "prompt_sha256": "66805f3945e96a9fee5d6621964b0cdfe4b36f797daa287012f77b53dd64d042",
+        "reference_inputs": [
+          {
+            "asset_id": "char-hero-inspector--v001",
+            "relative_path": "assets/characters/identity-inspectors/char-hero-inspector--v001--approved.png",
+            "sha256": "d1b95e556289ad0e8d2415170772a508e37c01e785d980f723576209f3997e58"
+          },
+          {
+            "asset_id": "loc-workshop--v001",
+            "relative_path": "assets/locations/loc-workshop--v001--approved.png",
+            "sha256": "2182133d4a4fdfb13ac97b3821e240fdae856eda3609162d835f99129b4bf37e"
+          }
+        ],
+        "reference_order": [
+          "char-hero-inspector--v001",
+          "loc-workshop--v001"
+        ],
+        "reproducibility_class": "workflow_only",
+        "software_agent": "Codex built-in ImageGen fixture"
+      },
+      "generator": "builtin-imagegen",
+      "geometry_qa": {
+        "checked_at": "2026-08-25T12:00:00Z",
+        "checks": {
+          "foreshortening_and_projection": "pass",
+          "garment_body_separation": "pass",
+          "hands_feet_and_digits": "pass",
+          "joint_topology": "pass",
+          "multi_person_relative_scale": "pass",
+          "occlusion_logic": "pass",
+          "segment_lengths": "pass",
+          "shoulder_pelvis_alignment": "pass",
+          "silhouette_and_volume": "pass",
+          "weight_bearing_and_center_of_mass": "pass"
+        },
+        "hard_failures": [],
+        "measurements_compared": [
+          {
+            "expected": 0.137,
+            "field": "head_to_body",
+            "observed": 0.137,
+            "pass": true,
+            "tolerance": 0.02
+          }
+        ],
+        "mode": "narrative_frame",
+        "notes": [],
+        "projection_class": "perspective_narrative",
+        "reference_signature_id": "prop-char-hero-v1",
+        "verdict": "pass",
+        "views_checked": [
+          "portrait_front",
+          "full_front",
+          "full_back"
+        ]
+      },
+      "id": "live-action-probe-char-hero-workshop--v001",
+      "identity_background_policy": "",
+      "identity_pack_id": "identity-char-hero",
+      "identity_view_role": "",
+      "live_action_quality_qa": {
+        "checked_at": "2026-08-25T12:00:00Z",
+        "checks": {
+          "brief_polish_fit": "pass",
+          "detail_integrity_without_smear": "pass",
+          "eye_hair_and_edge_behavior": "pass",
+          "finite_dynamic_range_and_exposure_tradeoff": "pass",
+          "lighting_and_contact_causality": "pass",
+          "material_response_separation": "pass",
+          "material_roughness_independence": "pass",
+          "no_repeating_or_cross_material_artifact": "pass",
+          "performance_observation_not_promo_pose": "pass",
+          "photographic_event_plausibility": "pass",
+          "set_and_object_causality": "pass",
+          "skin_specular_topology": "pass",
+          "skin_tone_continuity": "pass"
+        },
+        "dynamic_range_evidence": {
+          "exposure_priority": "protect_skin_and_practicals",
+          "global_tone_mapping_detected": false,
+          "highlight_loss_or_rolloff": "The practical core approaches clipping while its housing retains a source-shaped transition.",
+          "middle_tone_anchor": "The face and neutral garment sit in a stable middle-tone band.",
+          "shadow_loss_or_floor": "The deepest unlit shelf gap loses texture instead of receiving global HDR lift."
+        },
+        "hard_failures": [],
+        "material_pairs": [
+          {
+            "material_a": "skin",
+            "material_b": "fabric",
+            "same_repeating_texture": false
+          }
+        ],
+        "mode": "narrative_frame",
+        "notes": [],
+        "positive_evidence": {
+          "brief_polish_fit": "Visible source-grounded evidence for brief polish fit.",
+          "detail_integrity_without_smear": "Visible source-grounded evidence for detail integrity without smear.",
+          "eye_hair_and_edge_behavior": "Visible source-grounded evidence for eye hair and edge behavior.",
+          "finite_dynamic_range_and_exposure_tradeoff": "Visible source-grounded evidence for finite dynamic range and exposure tradeoff.",
+          "lighting_and_contact_causality": "Visible source-grounded evidence for lighting and contact causality.",
+          "material_response_separation": "Visible source-grounded evidence for material response separation.",
+          "material_roughness_independence": "Visible source-grounded evidence for material roughness independence.",
+          "no_repeating_or_cross_material_artifact": "Visible source-grounded evidence for no repeating or cross material artifact.",
+          "performance_observation_not_promo_pose": "Visible source-grounded evidence for performance observation not promo pose.",
+          "photographic_event_plausibility": "Visible source-grounded evidence for photographic event plausibility.",
+          "set_and_object_causality": "Visible source-grounded evidence for set and object causality.",
+          "skin_specular_topology": "Visible source-grounded evidence for skin specular topology.",
+          "skin_tone_continuity": "Visible source-grounded evidence for skin tone continuity."
+        },
+        "reviewer": "codex-visual",
+        "scales_checked": {
+          "100_percent": true,
+          "200_percent": true,
+          "fit": true,
+          "thumbnail": true
+        },
+        "skin_state_cause": "ordinary clean indoor condition",
+        "skin_state_regions": [
+          "face and hands"
+        ],
+        "skin_surface_state": "natural_dry",
+        "verdict": "pass"
+      },
+      "localized_story_evidence": [],
+      "location_state_id": "",
+      "location_world_id": "",
+      "material_response_contract": {
+        "color_contamination_sources": [
+          "existing desk lamp at physically reached surfaces"
+        ],
+        "fabric": "weave scale remains distinct from skin and hard surfaces",
+        "hair": "separate strands and clumps governed by real light and gravity",
+        "hard_surfaces": "construction-specific roughness and reflections without copied noise",
+        "local_contrast_policy": "restrained source-driven local contrast; preserve ordinary facial tone transitions",
+        "material_roughness_separation": "skin, hair, fabric, glass, paint and metal retain independent roughness responses",
+        "performance_staging_policy": "task-led observational action with unforced posture",
+        "skin": "natural source-led tonal response without a synthetic surface film",
+        "skin_fill_sources": [
+          "low-intensity room bounce from documented pale surfaces"
+        ],
+        "skin_key_direction": "camera-left/front, consistent with the documented source",
+        "skin_key_source": "the documented broad north window or neutral reference panel",
+        "skin_key_source_size": "broad source larger than the visible face",
+        "skin_presence": "present",
+        "skin_specular_behavior": "broad low-intensity highlights whose extent follows the declared source",
+        "skin_wetness_state": "natural_dry",
+        "tone_mapping_policy": "scene-referred highlight rolloff without clarity or HDR shaping"
+      },
+      "medium_signature_id": "",
+      "mode": "generate",
+      "ordinary_light_source": "One broad north window and low room bounce",
+      "photographic_qa": {
+        "checked_at": "2026-08-25T12:00:00Z",
+        "checks": {
+          "capture_plausibility": "pass",
+          "exposure_lighting": "pass",
+          "material_skin": "pass",
+          "optical_coherence": "pass",
+          "profile_continuity": "pass",
+          "texture_locality": "pass"
+        },
+        "hard_failures": [],
+        "mode": "cinematic_frame",
+        "notes": [],
+        "reconstruction_pass": true
+      },
+      "pose_contact_anchor_ids": [],
+      "primary_anchor_asset_id": "",
+      "probe_blocking": "Medium frame includes face, torso, hand, seal, table edge, and adjacent wall",
+      "probe_camera_condition": "a reachable eye-level medium camera",
+      "probe_task": "checks one paper seal by hand",
+      "prompt_path": "prompts/images/live-action-probe-char-hero-workshop--v001.txt",
+      "prompt_strategy_id": "image2-live-action-integration-probe-v1.6",
+      "qa": {
+        "checked_at": "2026-08-25T12:00:00Z",
+        "hard_failures": [],
+        "soft_notes": []
+      },
+      "quality_profile_id": "quality-main",
+      "reference_asset_ids": [
+        "char-hero-inspector--v001",
+        "loc-workshop--v001"
+      ],
+      "reference_coverage": null,
+      "reference_provenance": {
+        "identity_consent_confirmed": true,
+        "kind": "generated_anchor",
+        "rights_confirmed": true,
+        "source_note": "User-controlled reference or an approved generated project anchor."
+      },
+      "replaces_asset_id": "",
+      "revision": 1,
+      "role": "ordinary-light-person-world-integration-proof",
+      "root_reference_ids": [
+        "char-hero-inspector--v001",
+        "loc-workshop--v001"
+      ],
+      "scene_ids": [
+        "sc-010"
+      ],
+      "scene_state_id": "",
+      "spatial_map_id": "",
+      "state_delta": {},
+      "status": "approved",
+      "surface_policy": "clean_narrative",
+      "texture_qa": {
+        "attempt_index": 1,
+        "checked_at": "2026-08-25T12:00:00Z",
+        "checks": {
+          "cross_material_texture_leakage": "pass",
+          "localized_defect_bounds": "pass",
+          "oversharpen_halos_specks_and_dirty_shadows": "pass",
+          "painterly_smear_or_low_frequency_blur": "pass",
+          "repeating_swirl_scale_fingerprint_or_cellular_pattern": "pass",
+          "resampling_compression_and_color_mode": "pass",
+          "skin_hair_and_fabric_scale": "pass"
+        },
+        "cross_material_pairs": [
+          {
+            "material_a": "skin",
+            "material_b": "fabric",
+            "same_repeating_texture": false
+          }
+        ],
+        "escalation": "none",
+        "hard_failures": [],
+        "mode": "clean_narrative",
+        "notes": [],
+        "scales_checked": {
+          "100_percent": true,
+          "200_percent": true,
+          "fit": true,
+          "thumbnail": true
+        },
+        "user_decided_at": "2026-08-25T12:00:00Z",
+        "user_decision": "approved",
+        "verdict": "pass"
+      },
+      "type": "live_action_probe",
+      "view_role": "",
+      "view_side": ""
+    },
+    {
+      "approval_gate_id": "review-foundation-001",
       "approved_path": "assets/locations/state-views/loc-workshop-state-day-est--v001--approved.png",
       "authenticity_qa": {
         "ai_smell_verdict": "pass",

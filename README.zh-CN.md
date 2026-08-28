@@ -33,6 +33,7 @@
 | 选角与身材 | 按角色推导体态、可测目标、服装轮廓与淘汰条件，不回退模型默认差比例 |
 | 身份几何 | 每人一张 4×2 白底统一身份检查板、一次共享身份解算、七张确定性裁图、人物专属比例/骨架锁和多人投影 QA |
 | 世界连续性 | 地点世界/状态、制作设计 DNA、道具制造结构与状态、返回旧地点复用 |
+| 人物入景证明 | 在任何风格化人物叙事帧之前，必须用普通光线实拍探针证明人物与场景共享曝光、光场、焦点、接触几何和有限动态范围 |
 | 空间执行 | 建立图、侧面四分之三图、唯一主锚点、固定坐标、机位/人物标记与画外距离 |
 | 自适应摄影 | 剧本推导 Treatment、摄影观察者、画幅门、合理光源、有限场景参照动态范围、曝光/焦点和精致上限 |
 | 环境物理 | 雨雪雾烟、尘风、火光、水下与热浪的材料、曝光、声音和时间后果 |
@@ -49,17 +50,20 @@ flowchart LR
     A --> D[世界 DNA 与地点根]
     D --> E[多视角状态与空间锚点]
     C --> F[人物状态]
-    E --> G[质量 Profile、画幅与三套 Look]
+    E --> G[普通光线人物入景探针]
     F --> G
-    G --> H{Foundation 审批}
-    H --> I[序列联合视觉锚点]
-    I --> J[Photoboard 与关键帧]
-    J --> K[运镜、时间与动态模糊]
-    K --> L{序列审批}
-    L --> M[逐镜模型提示]
-    M --> N[便携 Higgsfield 包]
-    N --> O[用户人工执行]
-    O --> P[回片时间 QA]
+    G --> H{四尺度实拍 QA 通过?}
+    H -->|通过| I[质量 Profile、画幅与三套 Look]
+    H -->|两批失败| X[backend_realism_blocked]
+    I --> J{Foundation 审批}
+    J --> K[序列联合视觉锚点]
+    K --> L[Photoboard 与关键帧]
+    L --> M[运镜、时间与动态模糊]
+    M --> N{序列审批}
+    N --> O[逐镜模型提示]
+    O --> P[便携 Higgsfield 包]
+    P --> Q[用户人工执行]
+    Q --> R[回片时间 QA]
 ```
 
 权威链是硬约束：失败或未批准根不能偷偷进入分镜，上一序列桥接帧也不能取代人物和地点根。
@@ -132,21 +136,13 @@ python3 scripts/film_project.py validate ./ai-film/night-shift
 
 ## 效果展示
 
-v1.6.2 公开画廊包含三张单次共享身份解算检查板、两个原创地点和两张人物入景图，只使用 Codex 内置 ImageGen。本次新增一条观察式西部证据链：两位分别批准身材的人物、一个普通可搭建街道，以及一张由同一真实机位投影检查的双人对峙画面。所有场景图和人物入景图均为原生 2.39:1，不烧入黑边。不会公开你的质量参考照片、旧 benchmark、失败图或第三方项目媒体。
+v1.6.4 公开画廊只保留一条全新的洁净证据链，全部使用 Codex 内置 ImageGen：单次统一身份检查板 → 无人物空间权威图 → 普通光线人物入景实拍探针。探针故意不使用特殊天气、英雄光、胶片模拟或戏剧化调色；它必须先证明人物和地点共享同一曝光、来源光、焦点、遮挡、接触几何与有限动态范围，并且没有油膜皮肤、粘贴边缘、游戏渲染或跨材质脏纹。三个探针候选均独立引用同一身份板和地点根生成，公开内容只保留通过硬门的一张。此前北极与西部物料已全部删除。
 
 | 单次共享身份解算检查板 | 无人物空场景 | 同人物进入同场景 |
 |---|---|---|
-| ![同一虚构白人女性北极勘测飞行员的一次共享身份解算白底检查板](docs/assets/showcase/identity-white-arctic-survey-pilot-v003.webp) | ![原生 2.39 比 1 的暴雪北极搜救机库空场景，以黄色除冰柜为固定空间锚点](docs/assets/showcase/scene-arctic-rescue-hangar-v003.webp) | ![同一虚构白人勘测飞行员以后侧四分之三视角进入批准北极机库的原生 2.39 比 1 真人实拍叙事帧](docs/assets/showcase/narrative-white-survey-pilot-arctic-hangar-v003.webp) |
+| ![同一虚构白人女性海岸测绘工程师的单次 4×2 共享身份解算白底检查板](docs/assets/showcase/identity-white-coastal-survey-engineer-v001.webp) | ![普通阴天下午的原生 2.39 比 1 市政海岸潮位监测站空场景](docs/assets/showcase/scene-coastal-tide-station-overcast-v001.webp) | ![批准的海岸测绘工程师在同一潮位监测站内通过普通光线人物入景实拍检查](docs/assets/showcase/live-action-probe-coastal-survey-engineer-v001.webp) |
 
-| 西部女性统一身份权威 | 西部男性统一身份权威 |
-|---|---|
-| ![虚构白人女性边疆骑手的七视角单次共享解算白底检查板](docs/assets/showcase/identity-western-rider-female-v001.webp) | ![虚构白人男性铁路公司执行人的七视角单次共享解算白底检查板](docs/assets/showcase/identity-western-enforcer-male-v001.webp) |
-
-| 观察式西部空场景 | 双人人体比例与透视证明 |
-|---|---|
-| ![原生 2.39 比 1 的西南边疆街道勘景照片，以绿色水泵为固定锚点](docs/assets/showcase/scene-southwestern-frontier-street-v001.webp) | ![两位批准人物在同一街道从真实近远距离对峙的原生 2.39 比 1 真人画面](docs/assets/showcase/narrative-western-standoff-two-character-v001.webp) |
-
-这是刻意精简的发布证明，不虚构统计通过率。保留提示、生成来源 ID、原图与 WebP 的 SHA-256、统一板七张确定性裁图、四尺度 QA、原生 2.39:1 画幅证据和有限动态范围审查均记录在 [`showcase/evidence.json`](showcase/evidence.json) 与[画廊文档](https://hughhhhcoder.github.io/cinematic-ai-director/gallery/)。
+这是刻意精简的发布证明，不虚构统计通过率。保留提示、生成来源 ID、原图与 WebP 的 SHA-256、统一板七张确定性裁图、参考顺序、三候选选片记录、四尺度 QA、原生宽幅证据、有限动态范围与人物—环境融合审查均记录在 [`showcase/evidence.json`](showcase/evidence.json) 与[画廊文档](https://hughhhhcoder.github.io/cinematic-ai-director/gallery/)。失败候选不进入公开文件树。
 
 ## 可复现性和限制
 

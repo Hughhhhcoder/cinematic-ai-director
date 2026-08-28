@@ -7,14 +7,15 @@ flowchart TD
     B --> D[4 Location worlds and prop roots]
     C --> E[5 Character states]
     D --> F[6 Location state views + spatial maps]
-    E --> G[7 Treatment, format, finite dynamic range, environment, three Looks]
-    F --> G
-    G --> H{8 Foundation gate}
-    H --> I[9 Sequence visual anchor]
+    E --> P[7 Ordinary-light live-action integration probe]
+    F --> P
+    P --> G[8 Treatment, format, finite dynamic range, environment, three Looks]
+    G --> H{9 Foundation gate}
+    H --> I[10 Sequence visual anchor]
     I --> J[Photoboards, contact anchors, keyframes]
-    J --> K[10 Camera path, temporal capture, blur, audio]
-    K --> L{11 Sequence gate}
-    L --> M[12 Deterministic prompts and Higgsfield export]
+    J --> K[11 Camera path, temporal capture, blur, audio]
+    K --> L{12 Sequence gate}
+    L --> M[13 Deterministic prompts and Higgsfield export]
 ```
 
 ## 1. Script breakdown
@@ -35,16 +36,20 @@ Generate one pure-white `4×2` Inspector in a single call so all angles share on
 
 States always derive directly from approved roots—never from the previous state. Each location state includes an establishing wide and a side-three-quarter wide with one shared, approved, stationary primary anchor. The spatial map binds that anchor to `(0,0,0)`, named set axes, approximate dimensions, doors/windows, camera and subject marks, and movement paths.
 
-## 7–8. Look and Foundation
+## 7. Live-action integration proof
+
+Before styling, generate a compact ordinary-light probe from only the unified identity Inspector and one approved location authority. It must show a readable face, a simple task/contact, surrounding set, shared light/focus/occlusion, and a finite exposure without oil film, synthetic game surfaces, cut-out edges, or separate subject tone mapping. Two failed batches block all downstream person-bearing generation.
+
+## 8–9. Look and Foundation
 
 Approve a format and finite project dynamic-range contract before Look generation. Three independent photography hypotheses keep story facts constant but differ materially in at least three areas such as witness position, optics, movement, light, atmosphere, temporal sampling, or reframing. Each asset and Look declares its own exposure priority, middle-tone anchor, highlight/shadow behavior, and allowed loss. Each Look first survives its own backstage candidate pool and hard QA; the user then sees a blind comparison alongside identity, locations, anchor, quality profile, and format.
 
-## 9–11. Sequence production
+## 10–12. Sequence production
 
 Adjacent shots share a sequence only when character, location, prop, environment, light, capture profile, format, and temporal signatures are identical. Every sequence has one joint visual anchor and a fixed reference-stack hash. Photoboards, keyframes, pose/contact anchors, camera paths, temporal capture, blur, physical interaction, and audio inherit that exact state.
 
 The user reviews one combined sequence board. A change request invalidates only the affected asset and direct dependents.
 
-## 12. Delivery
+## 13. Delivery
 
 The compiler converts structured facts into the official Seedance 2.5 prompt order. Dynamic-range facts are compressed into official `LIGHTING`, while full plans remain in `dynamic-range.json`; no non-official model heading is added. The strict v1.6 exporter binds Cinema Studio 4 + Seedance 2.5 under the dated `2026-08-27` profile and packages reference roles/order, state/quality/space/format/path/environment/time facts, settings, runbooks, official conformance evidence, and checksums. A Profile mismatch, unsupported control, more than 50 references, a shot over 30 seconds, or an aspect outside 9:16–21:9 blocks export instead of being silently approximated.

@@ -558,7 +558,7 @@ def validate_geometry_qa(asset: dict[str, Any], where: str, report: Report) -> N
     status = asset.get("status")
     human_relevant = asset.get("type") in {
         "character_identity_inspector", "character_face_anchor", "character_body_anchor", "character_identity_view", "character_variant",
-        "character_state", "pose_contact_anchor"
+        "character_state", "pose_contact_anchor", "live_action_probe"
     } or bool(asset.get("identity_pack_id"))
     if status == "planned":
         if mode != "pending" or geometry.get("verdict") != "pending":
@@ -706,7 +706,7 @@ def validate_live_action_quality_qa(asset: dict[str, Any], where: str, report: R
         if mode != "not_applicable" or verdict != "not_applicable":
             report.error("QUALITY_QA", f"Non-photographic asset {asset.get('id')} must use not_applicable quality QA.")
         return
-    expected_mode = "narrative_frame" if asset_type in PROFILED_ASSET_TYPES or asset_type == "look_test" else "authority_reference"
+    expected_mode = "narrative_frame" if asset_type in PROFILED_ASSET_TYPES or asset_type in {"look_test", "live_action_probe"} else "authority_reference"
     if mode != expected_mode:
         report.error("QUALITY_QA", f"Asset {asset.get('id')} requires live_action_quality_qa.mode={expected_mode}.")
     if asset_type in HUMAN_RELEVANT_ASSET_TYPES or asset.get("identity_pack_id"):
@@ -1299,6 +1299,23 @@ def validate_assets(
                 )
         if asset.get("surface_policy") not in SURFACE_POLICIES:
             report.error("ENUM", f"{where}.surface_policy is invalid: {asset.get('surface_policy')}")
+        if asset_type == "live_action_probe":
+            if generator != "builtin-imagegen" or mode != "generate":
+                report.error("LIVE_ACTION_PROBE_ASSET", f"Probe asset {asset_id} must be an independent built-in ImageGen generation.")
+            if asset.get("surface_policy") != "clean_narrative":
+                report.error("LIVE_ACTION_PROBE_ASSET", f"Probe asset {asset_id} must use surface_policy=clean_narrative.")
+            if asset.get("derived_from") or len(asset.get("reference_asset_ids", [])) != 2:
+                report.error(
+                    "LIVE_ACTION_PROBE_REFERENCE",
+                    f"Probe asset {asset_id} must directly reference exactly one unified identity Inspector and one location authority; no derived candidate chain.",
+                )
+            for field in (
+                "probe_task",
+                "probe_blocking",
+                "probe_camera_condition",
+                "ordinary_light_source",
+            ):
+                require_string(asset.get(field), f"{where}.{field}", report, allow_empty=status == "planned")
 
         identity_view_role = asset.get("identity_view_role")
         if identity_view_role not in {"", *IDENTITY_VIEW_ROLES}:
@@ -1395,7 +1412,7 @@ def validate_assets(
                     report.error("PHOTO_QA", f"Approved asset {asset_id} still has photographic hard failures.")
 
             expected_mode: str | None = None
-            if asset_type in NARRATIVE_ASSET_TYPES or asset_type == "look_test":
+            if asset_type in NARRATIVE_ASSET_TYPES or asset_type in {"look_test", "live_action_probe"}:
                 expected_mode = "cinematic_frame"
             elif asset_type == "title_card":
                 expected_mode = "optical_graphic"
@@ -3077,6 +3094,46 @@ def validate_image_prompt_sections(
         else:
             positive_lines.append(line)
     positive_text = "\n".join(positive_lines).casefold()
+    exclusions = " ".join(exclusion_lines).casefold()
+    if strategy == "image2-live-action-integration-probe-v1.6":
+        for concept in ("photorealistic", "candid", "on-location photograph", "exposure priority", "clip", "lose detail", "no local hdr"):
+            if concept not in positive_text:
+                report.error("LIVE_ACTION_PROBE_PROMPT", f"Asset {asset_id} integration probe prompt omits `{concept}`.")
+        forbidden_styling = (
+            "cinematic", "film look", "film stock", "film grain", "anamorphic", "arri", "venice 2",
+            "cooke", "kodak", "director", "hero light", "beauty light", "volumetric",
+        )
+        for cue in forbidden_styling:
+            if cue in positive_text:
+                report.error(
+                    "LIVE_ACTION_PROBE_STYLING",
+                    f"Asset {asset_id} integration probe may not use styling/equipment cue `{cue}` before realism is proven.",
+                )
+        for cue in (*RISKY_TEXTURE_CUES, *RISKY_RENDER_CUES):
+            if _positive_cue_occurs(positive_text, cue):
+                report.error("LIVE_ACTION_PROBE_STYLING", f"Asset {asset_id} positively uses disabled cue `{cue}`.")
+        probe_exclusions = {
+            "synthetic or game-like person": ("synthetic-rendered", "synthetic rendered", "game-like", "game like"),
+            "oily/waxy/plastic skin": ("oily", "waxy", "plastic skin"),
+            "cut-out or separately tone-mapped subject": ("cut-out", "cut out", "separate subject tone mapping"),
+            "repeated artifact texture": ("repeated artifact texture", "repeating artifact texture"),
+        }
+        for label, alternatives in probe_exclusions.items():
+            if not any(value in exclusions for value in alternatives):
+                report.error("LIVE_ACTION_PROBE_PROMPT", f"Asset {asset_id} EXCLUSIONS must reject {label}.")
+        total_words = len(re.findall(r"\b[A-Za-z][A-Za-z0-9'’-]*\b", text))
+        exclusion_words = len(re.findall(r"\b[A-Za-z][A-Za-z0-9'’-]*\b", " ".join(exclusion_lines)))
+        if not 120 <= total_words <= 260:
+            report.error(
+                "LIVE_ACTION_PROBE_LENGTH",
+                f"Asset {asset_id} integration probe has about {total_words} English words; hard range is 120-260.",
+            )
+        if exclusion_words > 40:
+            report.error(
+                "LIVE_ACTION_PROBE_LENGTH",
+                f"Asset {asset_id} integration-probe exclusions contain about {exclusion_words} words; maximum is 40.",
+            )
+        return
     for concept in (
         "finite scene-referred capture",
         "exposure priority",
@@ -3105,7 +3162,6 @@ def validate_image_prompt_sections(
                 "UNCALIBRATED_RENDER_CUE",
                 f"Asset {asset_id} positively uses the high-risk synthetic render cue `{cue}` outside EXCLUSIONS.",
             )
-    exclusions = " ".join(exclusion_lines).casefold()
     exclusion_concepts = {
         "painterly or patch smear": ("painterly smear", "paint smear", "patch smear"),
         "repeating or cross-material artifact": (
@@ -4424,10 +4480,14 @@ def validate_multi_person_projection(
     )
     if not require_keys(plan, fields, where, report):
         return
-    if production_ready and plan.get("policy") != "approved-body-geometry-plus-single-camera-projection-v1.6.2":
+    supported_policies = {
+        "approved-body-geometry-plus-single-camera-projection-v1.6.2",
+        "approved-body-geometry-plus-single-camera-projection-v1.6.4",
+    }
+    if production_ready and plan.get("policy") not in supported_policies:
         report.error(
             "MULTI_PERSON_PROJECTION",
-            f"Ready shot {shot_id} must use the v1.6.2 single-camera multi-person projection policy.",
+            f"Ready shot {shot_id} must use a supported single-camera multi-person projection policy.",
         )
     require_string(plan.get("projection"), f"{where}.projection", report)
     camera_height = plan.get("camera_height_m")
@@ -4582,6 +4642,178 @@ def validate_multi_person_projection(
     if plan.get("verdict") != "pass" or plan.get("hard_failures"):
         report.error("MULTI_PERSON_PROJECTION", f"Ready shot {shot_id} has not passed multi-person projection QA.")
     require_string_list(plan.get("hard_failures"), f"{where}.hard_failures", report)
+
+
+def validate_dramatic_coverage_plan(
+    plan: Any,
+    *,
+    shot_id: str,
+    cast_ids: list[str],
+    production_ready: bool,
+    where: str,
+    report: Report,
+) -> None:
+    """Reject spatial diagrams and game-level blocking masquerading as dramatic coverage."""
+    if len(cast_ids) < 2:
+        return
+    if not production_ready and plan in (None, {}):
+        return
+    fields = (
+        "policy",
+        "coverage_role",
+        "shot_size",
+        "observer_position",
+        "foreground_subject_ids",
+        "focus_subject_ids",
+        "crop_landmarks",
+        "eyeline_contract",
+        "motivated_action_beat",
+        "composition_asymmetry",
+        "wide_two_shot_justification",
+        "spatial_proof_only",
+        "game_level_blocking_detected",
+        "verdict",
+        "hard_failures",
+    )
+    if not require_keys(plan, fields, where, report):
+        return
+    if production_ready and plan.get("policy") != "narrative-coverage-not-spatial-diagram-v1.6.4":
+        report.error(
+            "DRAMATIC_COVERAGE",
+            f"Ready shot {shot_id} must use narrative-coverage-not-spatial-diagram-v1.6.4.",
+        )
+    roles = {
+        "master",
+        "over_shoulder",
+        "dirty_single",
+        "reverse",
+        "reaction",
+        "profile_two_shot",
+        "pov",
+        "insert",
+        "wide_exception",
+    }
+    shot_sizes = {
+        "extreme_wide",
+        "wide",
+        "medium_wide",
+        "medium",
+        "medium_close",
+        "close",
+        "over_shoulder",
+        "dirty_single",
+        "profile_two_shot",
+        "pov",
+        "insert",
+    }
+    if plan.get("coverage_role") not in roles:
+        report.error("DRAMATIC_COVERAGE", f"{where}.coverage_role is invalid: {plan.get('coverage_role')}")
+    if plan.get("shot_size") not in shot_sizes:
+        report.error("DRAMATIC_COVERAGE", f"{where}.shot_size is invalid: {plan.get('shot_size')}")
+    for field in (
+        "observer_position",
+        "eyeline_contract",
+        "motivated_action_beat",
+        "composition_asymmetry",
+    ):
+        require_string(plan.get(field), f"{where}.{field}", report)
+    for field in ("foreground_subject_ids", "focus_subject_ids", "crop_landmarks", "hard_failures"):
+        require_string_list(plan.get(field), f"{where}.{field}", report)
+    foreground_ids = plan.get("foreground_subject_ids") if isinstance(plan.get("foreground_subject_ids"), list) else []
+    focus_ids = plan.get("focus_subject_ids") if isinstance(plan.get("focus_subject_ids"), list) else []
+    for field, values in (("foreground_subject_ids", foreground_ids), ("focus_subject_ids", focus_ids)):
+        if len(values) != len(set(values)):
+            report.error("DRAMATIC_COVERAGE", f"{where}.{field} contains duplicate cast roots.")
+        unknown = sorted(set(values) - set(cast_ids))
+        if unknown:
+            report.error("DRAMATIC_COVERAGE", f"{where}.{field} contains non-cast roots: {', '.join(unknown)}.")
+    if production_ready and not focus_ids:
+        report.error("DRAMATIC_COVERAGE", f"Ready shot {shot_id} must name at least one focus subject.")
+    wide_exception = plan.get("shot_size") in {"wide", "extreme_wide"} or plan.get("coverage_role") == "wide_exception"
+    require_string(
+        plan.get("wide_two_shot_justification"),
+        f"{where}.wide_two_shot_justification",
+        report,
+        allow_empty=not wide_exception,
+    )
+    if plan.get("spatial_proof_only") is not False:
+        report.error("DRAMATIC_COVERAGE", f"Shot {shot_id} cannot use a spatial proof image as final coverage.")
+    if plan.get("game_level_blocking_detected") is not False:
+        report.error("DRAMATIC_COVERAGE", f"Shot {shot_id} contains game-level or diagrammatic blocking.")
+    if plan.get("verdict") != "pass" or plan.get("hard_failures"):
+        report.error("DRAMATIC_COVERAGE", f"Ready shot {shot_id} has not passed dramatic coverage QA.")
+
+
+def validate_subject_environment_integration(
+    plan: Any,
+    *,
+    shot_id: str,
+    has_human: bool,
+    production_ready: bool,
+    where: str,
+    report: Report,
+) -> None:
+    """Require people and the photographed world to share one physical image event."""
+    if not has_human:
+        return
+    if not production_ready and plan in (None, {}):
+        return
+    fields = (
+        "policy",
+        "shared_light_sources",
+        "shared_atmosphere_state_id",
+        "atmosphere_depth_behavior",
+        "focus_and_occlusion",
+        "contact_and_grounding",
+        "material_response_match",
+        "color_contamination_match",
+        "edge_integration",
+        "cutout_edges_detected",
+        "separate_person_tone_mapping_detected",
+        "background_only_atmosphere_detected",
+        "verdict",
+        "hard_failures",
+    )
+    if not require_keys(plan, fields, where, report):
+        return
+    if production_ready and plan.get("policy") != "shared-light-air-focus-occlusion-v1.6.4":
+        report.error(
+            "SUBJECT_ENVIRONMENT_INTEGRATION",
+            f"Ready shot {shot_id} must use shared-light-air-focus-occlusion-v1.6.4.",
+        )
+    light_sources = plan.get("shared_light_sources")
+    require_string_list(light_sources, f"{where}.shared_light_sources", report)
+    if production_ready and not light_sources:
+        report.error(
+            "SUBJECT_ENVIRONMENT_INTEGRATION",
+            f"Ready shot {shot_id} must identify at least one light source shared by subject and set.",
+        )
+    for field in (
+        "shared_atmosphere_state_id",
+        "atmosphere_depth_behavior",
+        "focus_and_occlusion",
+        "contact_and_grounding",
+        "material_response_match",
+        "color_contamination_match",
+        "edge_integration",
+    ):
+        require_string(plan.get(field), f"{where}.{field}", report)
+    for field in (
+        "cutout_edges_detected",
+        "separate_person_tone_mapping_detected",
+        "background_only_atmosphere_detected",
+    ):
+        if plan.get(field) is not False:
+            report.error(
+                "SUBJECT_ENVIRONMENT_INTEGRATION",
+                f"Shot {shot_id} must set {field}=false.",
+            )
+    require_string_list(plan.get("hard_failures"), f"{where}.hard_failures", report)
+    if plan.get("verdict") != "pass" or plan.get("hard_failures"):
+        report.error(
+            "SUBJECT_ENVIRONMENT_INTEGRATION",
+            f"Ready shot {shot_id} has not passed subject/environment integration QA.",
+        )
 
 
 def validate_shots(
@@ -5032,6 +5264,13 @@ def validate_shots(
             require_string_list(shot.get(field), f"{where}.{field}", report)
         cast_ids = shot.get("cast_asset_ids") if isinstance(shot.get("cast_asset_ids"), list) else []
         prop_ids = shot.get("prop_asset_ids") if isinstance(shot.get("prop_asset_ids"), list) else []
+        if production_ready and cast_ids and (
+            not isinstance(quality_profile, dict) or not quality_profile.get("live_action_probe_id")
+        ):
+            report.error(
+                "LIVE_ACTION_PROBE_GATE",
+                f"Ready person-bearing shot {shot_id} requires an approved ordinary-light live-action integration probe through its quality Profile.",
+            )
         if len(cast_ids) != len(set(cast_ids)) or len(prop_ids) != len(set(prop_ids)):
             report.error("DUPLICATE_REFERENCE", f"Shot {shot_id} repeats an asset reference.")
         if production_ready and set(subject_mark_ids) != set(cast_ids):
@@ -5113,6 +5352,22 @@ def validate_shots(
             geometry_locks=geometry_locks,
             production_ready=production_ready,
             where=f"{where}.multi_person_projection",
+            report=report,
+        )
+        validate_dramatic_coverage_plan(
+            shot.get("dramatic_coverage_plan"),
+            shot_id=str(shot_id),
+            cast_ids=[str(value) for value in cast_ids],
+            production_ready=production_ready,
+            where=f"{where}.dramatic_coverage_plan",
+            report=report,
+        )
+        validate_subject_environment_integration(
+            shot.get("subject_environment_integration"),
+            shot_id=str(shot_id),
+            has_human=bool(cast_ids),
+            production_ready=production_ready,
+            where=f"{where}.subject_environment_integration",
             report=report,
         )
 
@@ -6012,7 +6267,14 @@ def validate_quality_manifest(
     profiles: dict[str, dict[str, Any]] = {}
     if data is None:
         return profiles
-    required = ("schema_version", "quality_floor_id", "quality_floors", "project_quality_profiles", "calibration_families")
+    required = (
+        "schema_version",
+        "quality_floor_id",
+        "quality_floors",
+        "project_quality_profiles",
+        "live_action_integration_probes",
+        "calibration_families",
+    )
     if not require_keys(data, required, "manifests/quality.json", report):
         return profiles
     if data.get("schema_version") != SCHEMA_VERSION:
@@ -6055,6 +6317,123 @@ def validate_quality_manifest(
     if QUALITY_FLOOR_ID not in floor_by_id:
         report.error("QUALITY_FLOOR", f"Missing quality floor {QUALITY_FLOOR_ID}.")
 
+    probe_rows = data.get("live_action_integration_probes")
+    if not isinstance(probe_rows, list):
+        report.error("TYPE", "manifests/quality.json.live_action_integration_probes must be an array.")
+        probe_rows = []
+    probes: dict[str, dict[str, Any]] = {}
+    probe_fields = (
+        "id", "status", "approval_gate_id", "quality_profile_id", "identity_inspector_asset_id",
+        "location_asset_id", "probe_asset_id", "prompt_strategy_id", "reference_asset_ids",
+        "attempt_batch_count", "max_attempt_batches", "retry_changed_variable", "ordinary_light_only",
+        "special_environment_disabled", "scales_checked", "ai_visual_verdict", "failure_classes",
+        "evidence", "reviewer", "checked_at",
+    )
+    for index, probe in enumerate(probe_rows):
+        where = f"manifests/quality.json.live_action_integration_probes[{index}]"
+        if not require_keys(probe, probe_fields, where, report):
+            continue
+        probe_id = probe.get("id")
+        if not require_string(probe_id, f"{where}.id", report):
+            continue
+        if probe_id in probes:
+            report.error("DUPLICATE_ID", f"Duplicate live-action integration probe id: {probe_id}")
+        probes[probe_id] = probe
+        status = probe.get("status")
+        if status not in LIVE_ACTION_PROBE_STATUSES:
+            report.error("ENUM", f"{where}.status is invalid: {status}")
+        require_string(probe.get("approval_gate_id"), f"{where}.approval_gate_id", report)
+        require_string(probe.get("quality_profile_id"), f"{where}.quality_profile_id", report)
+        for field in ("identity_inspector_asset_id", "location_asset_id", "probe_asset_id"):
+            require_string(probe.get(field), f"{where}.{field}", report, allow_empty=status == "planned")
+        if probe.get("prompt_strategy_id") != "image2-live-action-integration-probe-v1.6":
+            report.error("LIVE_ACTION_PROBE", f"Probe {probe_id} must use image2-live-action-integration-probe-v1.6.")
+        references = probe.get("reference_asset_ids")
+        require_string_list(references, f"{where}.reference_asset_ids", report)
+        expected_references = [probe.get("identity_inspector_asset_id"), probe.get("location_asset_id")]
+        if status != "planned" and references != expected_references:
+            report.error(
+                "LIVE_ACTION_PROBE_REFERENCE",
+                f"Probe {probe_id} must reference the unified identity Inspector first and approved location root second, with no inherited failed image.",
+            )
+        attempts = probe.get("attempt_batch_count")
+        if not is_integer(attempts) or attempts < 0 or attempts > 2:
+            report.error("LIVE_ACTION_PROBE_ATTEMPTS", f"{where}.attempt_batch_count must be 0, 1, or 2.")
+        if probe.get("max_attempt_batches") != 2:
+            report.error("LIVE_ACTION_PROBE_ATTEMPTS", f"Probe {probe_id} must allow at most two independent batches.")
+        require_string(
+            probe.get("retry_changed_variable"),
+            f"{where}.retry_changed_variable",
+            report,
+            allow_empty=attempts in {0, 1},
+        )
+        if attempts == 2 and not str(probe.get("retry_changed_variable") or "").strip():
+            report.error("LIVE_ACTION_PROBE_ATTEMPTS", f"Probe {probe_id} second batch must name its one changed variable.")
+        if probe.get("ordinary_light_only") is not True or probe.get("special_environment_disabled") is not True:
+            report.error(
+                "LIVE_ACTION_PROBE_STYLING",
+                f"Probe {probe_id} must use ordinary broad source light with special weather, effects, grade, and lens signatures disabled.",
+            )
+        scales = probe.get("scales_checked")
+        require_string_list(scales, f"{where}.scales_checked", report)
+        if status in {"approved", "failed", "backend_realism_blocked"} and scales != list(LIVE_ACTION_PROBE_SCALES):
+            report.error("LIVE_ACTION_PROBE_SCALE", f"Probe {probe_id} must be reviewed at all four fixed scales in order.")
+        verdict = probe.get("ai_visual_verdict")
+        if verdict not in {"pending", "pass", "fail"}:
+            report.error("ENUM", f"{where}.ai_visual_verdict is invalid: {verdict}")
+        failures = probe.get("failure_classes")
+        require_string_list(failures, f"{where}.failure_classes", report)
+        if isinstance(failures, list):
+            unknown = [value for value in failures if value not in LIVE_ACTION_PROBE_FAILURE_CLASSES]
+            if unknown:
+                report.error("LIVE_ACTION_PROBE_FAILURE", f"Probe {probe_id} contains unknown failure classes: {unknown}")
+        evidence = probe.get("evidence")
+        if require_keys(evidence, LIVE_ACTION_PROBE_EVIDENCE_FIELDS, f"{where}.evidence", report):
+            for field in LIVE_ACTION_PROBE_EVIDENCE_FIELDS:
+                require_string(
+                    evidence.get(field),
+                    f"{where}.evidence.{field}",
+                    report,
+                    allow_empty=status in {"planned", "qualified"},
+                )
+        require_string(probe.get("reviewer"), f"{where}.reviewer", report, allow_empty=status in {"planned", "qualified"})
+        require_string(probe.get("checked_at"), f"{where}.checked_at", report, allow_empty=status in {"planned", "qualified"})
+        if status in {"approved", "failed", "backend_realism_blocked"} and not valid_timestamp(probe.get("checked_at")):
+            report.error("TIMESTAMP", f"Probe {probe_id} requires a review timestamp.")
+
+        identity_asset = assets.get(probe.get("identity_inspector_asset_id"))
+        location_asset = assets.get(probe.get("location_asset_id"))
+        probe_asset = assets.get(probe.get("probe_asset_id"))
+        if status != "planned":
+            if not identity_asset or identity_asset.get("type") != "character_identity_inspector" or identity_asset.get("status") != "approved":
+                report.error("LIVE_ACTION_PROBE_REFERENCE", f"Probe {probe_id} requires an approved unified identity Inspector.")
+            if not location_asset or location_asset.get("type") not in {"location_master", "location_variant"} or location_asset.get("status") != "approved":
+                report.error("LIVE_ACTION_PROBE_REFERENCE", f"Probe {probe_id} requires an approved location authority.")
+            if not probe_asset or probe_asset.get("type") != "live_action_probe":
+                report.error("LIVE_ACTION_PROBE_ASSET", f"Probe {probe_id} references no live_action_probe asset.")
+            elif (
+                probe_asset.get("prompt_strategy_id") != probe.get("prompt_strategy_id")
+                or probe_asset.get("reference_asset_ids") != references
+                or probe_asset.get("surface_policy") != "clean_narrative"
+            ):
+                report.error("LIVE_ACTION_PROBE_ASSET", f"Probe asset {probe.get('probe_asset_id')} does not preserve the clean two-root diagnostic contract.")
+        if status == "approved":
+            if attempts not in {1, 2} or verdict != "pass" or failures:
+                report.error("LIVE_ACTION_PROBE_GATE", f"Approved probe {probe_id} must pass with no hard failure class within two batches.")
+            if not probe_asset or probe_asset.get("status") != "approved":
+                report.error("LIVE_ACTION_PROBE_GATE", f"Approved probe {probe_id} requires an approved probe image asset.")
+            elif not (
+                live_action_quality_passed(probe_asset)
+                and texture_qa_passed(probe_asset, require_user_approval=False)
+                and photographic_qa_passed(probe_asset)
+            ):
+                report.error("LIVE_ACTION_PROBE_GATE", f"Approved probe asset {probe.get('probe_asset_id')} has not passed all visual evidence gates.")
+        if status == "backend_realism_blocked":
+            if attempts != 2 or verdict != "fail" or not failures:
+                report.error("LIVE_ACTION_PROBE_BLOCK", f"Blocked probe {probe_id} requires two failed batches and explicit failure classes.")
+            if probe_asset and probe_asset.get("status") != "model_blocked":
+                report.error("LIVE_ACTION_PROBE_BLOCK", f"Blocked probe asset {probe.get('probe_asset_id')} must be model_blocked.")
+
     rows = data.get("project_quality_profiles")
     if not isinstance(rows, list):
         report.error("TYPE", "manifests/quality.json.project_quality_profiles must be an array.")
@@ -6065,7 +6444,7 @@ def validate_quality_manifest(
         "illumination_contract", "skin_response_contract", "material_response_contract",
         "tone_contrast_contract", "dynamic_range_contract", "focus_optics_contract", "set_causality_contract",
         "performance_composition_contract", "polish_ceiling", "anchor_asset_ids",
-        "calibration_family_ids",
+        "calibration_family_ids", "live_action_probe_id",
     )
     for index, profile in enumerate(rows):
         where = f"manifests/quality.json.project_quality_profiles[{index}]"
@@ -6098,6 +6477,14 @@ def validate_quality_manifest(
         for asset_id in profile.get("anchor_asset_ids", []) if isinstance(profile.get("anchor_asset_ids"), list) else []:
             if asset_id not in assets:
                 report.error("MISSING_REFERENCE", f"Quality profile {profile_id} references missing anchor {asset_id}.")
+        probe_id = profile.get("live_action_probe_id")
+        require_string(probe_id, f"{where}.live_action_probe_id", report, allow_empty=True)
+        if probe_id:
+            probe = probes.get(probe_id)
+            if probe is None:
+                report.error("LIVE_ACTION_PROBE", f"Quality profile {profile_id} references missing probe {probe_id}.")
+            elif probe.get("quality_profile_id") != profile_id:
+                report.error("LIVE_ACTION_PROBE", f"Probe {probe_id} and quality profile {profile_id} must point to each other.")
 
     calibrations = data.get("calibration_families")
     if not isinstance(calibrations, list):
@@ -6157,6 +6544,23 @@ def validate_quality_manifest(
             report.error("QUALITY_PROFILE", f"Asset {asset_id} references missing quality profile {profile_id}.")
         elif asset.get("status") == "approved" and profile.get("status") != "approved":
             report.error("QUALITY_PROFILE", f"Approved asset {asset_id} requires an approved quality profile.")
+        if (
+            asset.get("status") == "approved"
+            and (
+                asset.get("type") == "live_action_probe"
+                or (
+                    asset.get("type") in {"look_test", "storyboard", "keyframe", "key_art"}
+                    and (asset.get("identity_pack_id") or asset.get("character_state_id"))
+                )
+            )
+        ):
+            probe_id = profile.get("live_action_probe_id") if isinstance(profile, dict) else ""
+            probe = probes.get(probe_id) if isinstance(probe_id, str) else None
+            if not probe or probe.get("status") != "approved":
+                report.error(
+                    "LIVE_ACTION_PROBE_GATE",
+                    f"Approved person-bearing narrative asset {asset_id} requires an approved ordinary-light live-action integration probe.",
+                )
     return profiles
 
 

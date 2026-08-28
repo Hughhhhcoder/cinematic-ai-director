@@ -164,6 +164,10 @@ def record_review(args: argparse.Namespace) -> int:
             if isinstance(profile, dict) and profile.get("id") in gate.get("quality_profile_ids", []):
                 if profile.get("status") == "qualified":
                     profile["status"] = "approved"
+        for probe in manifests["quality"].get("live_action_integration_probes", []):
+            if isinstance(probe, dict) and probe.get("approval_gate_id") == args.gate:
+                if probe.get("status") == "qualified":
+                    probe["status"] = "approved"
 
         # Derived records inherit the one gate decision; no duplicate user
         # decisions are written into QA objects.
@@ -212,4 +216,3 @@ def record_review(args: argparse.Namespace) -> int:
 
 
 __all__ = [name for name in globals() if not name.startswith("__")]
-

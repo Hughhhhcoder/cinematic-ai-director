@@ -2,6 +2,21 @@
 
 All notable public changes are documented here. The project follows [Semantic Versioning](https://semver.org/).
 
+## [1.6.4] — 2026-08-28
+
+### Added
+
+- Added a mandatory ordinary-light `live_action_probe` between approved identity/location roots and every person-bearing narrative asset. Passing roots separately is no longer accepted as proof that a person can inhabit the world photographically.
+- Added `image2-live-action-integration-probe-v1.6`, a concise 120–260-word prompt strategy with exactly two authority references, finite-exposure trade-offs, natural-dry skin response, and no style/equipment vocabulary before realism is proven.
+- Added project-level probe records, profile binding, candidate-pool isolation, four-scale integration QA, and the terminal `backend_realism_blocked` state after two failed batches.
+- Added a dedicated person–world integration review covering one exposure system, source-light direction, focus/occlusion, ground/contact geometry, edge behavior, material response, dynamic-range sacrifice, oily/waxy skin, synthetic rendering, and repeated texture.
+
+### Changed
+
+- Removed every superseded Arctic and Western public image, crop, prompt, derivative, and documentation reference from the release tree.
+- Rebuilt the public proof as one auditable chain: a single-call 4×2 identity Inspector, one empty 2.39:1 overcast tide-station authority, and one ordinary-light person/world probe selected from three independent generations.
+- Tightened Ready-shot and Higgsfield-export validation so no human narrative asset can bypass the approved integration probe through metadata, style treatment, special weather, or downstream approval.
+
 ## [1.6.2] — 2026-08-28
 
 ### Added

@@ -60,6 +60,7 @@ python3 scripts/film_project.py export-higgsfield /parent/film --output /portabl
 │   ├── cross-scene-review.md
 │   ├── proportion-review.md
 │   ├── quality-review.md
+│   ├── live-action-integration-review.md
 │   ├── environment-review.md
 │   └── temporal-review.md
 └── exports/higgsfield/
@@ -117,6 +118,7 @@ Scene 保存 `capture_profile_id / cinematic_treatment_id / format_plan_id / sce
 - `quality_floor_id:clean-observational-live-action-v001`。
 - `quality_floors` 只能作 `calibration_only`，且 `direct_generation_reference:false`。
 - `project_quality_profiles` 保存 scope、scene/sequence、审批门、Treatment/环境、摄影发生条件、光源、皮肤、材料、中间调/对比、有限 `dynamic_range_contract`、焦点、布景因果、表演/构图和 polish ceiling。
+- `live_action_integration_probes` 保存统一身份 Inspector、地点根、探针图、精确引用顺序、两个批次上限、单变量重试、四尺度、失败类型与人物—地点共享摄影证据；批准 Profile 通过 `live_action_probe_id` 指向唯一合格探针。
 - `calibration_families` 保存两轮三候选的证据；未达发布阈值不得 `stable`，回退 `clean_digital_capture`。
 
 ## `assets.json`
@@ -125,6 +127,7 @@ Scene 保存 `capture_profile_id / cinematic_treatment_id / format_plan_id / sce
 
 - `character_identity_inspector / character_face_anchor / character_body_anchor / character_identity_view / character_state`
 - `pose_contact_anchor`
+- `live_action_probe`
 - `location_master / location_variant / location_plate`
 - `prop / prop_state / look_test / storyboard / keyframe / key_art`
 
@@ -148,6 +151,7 @@ Scene 保存 `capture_profile_id / cinematic_treatment_id / format_plan_id / sce
 - `image2-live-action-identity-inspector-v1.6`：唯一实际生成的身份策略。
 - face/body/identity-view 是 `deterministic-crop`，不能编译为 ImageGen 提示。
 - `image2-live-action-character-state-v1.6`
+- `image2-live-action-integration-probe-v1.6`：只用于普通光人物—地点像素门；120–260 英文词、两根引用、无电影风格/器材/特殊环境词，不作为 Higgsfield 上传参考。
 - `image2-live-action-location-v1.6`
 - `image2-live-action-object-v1.6`
 - `image2-live-action-pose-contact-v1.6`
@@ -249,6 +253,8 @@ Ready 镜头必须包含：
 - 准确人物/地点/道具/环境/format/capture Profile 状态绑定。
 - `body_geometry_locks`：每人同时绑定 `proportion_signature_id / role_physique_brief_id / character_state_id / pose_projection`。
 - 两人及以上镜头必须增加 `multi_person_projection`：记录统一机位/整流投影、摄影机高度与俯仰、每人批准身高/场地标记/镜头距离、预期与观察投影比及容差、裁切时采用的身体地标、地平线/消失线、遮挡顺序、共同地面或明确高差，以及 `per_person_scale_transform:false`。
+- 两人及以上镜头必须增加 `dramatic_coverage_plan`：记录 coverage role、观看者位置、景别、裁切地标、前景/焦点人物、相交视线、动作节拍、构图不对称与宽景例外理由；固定 `spatial_proof_only:false` 和 `game_level_blocking_detected:false`。地点建立图与空间证明图不能直接充当最终叙事镜头。
+- 所有含人物镜头必须增加 `subject_environment_integration`：记录共同光源、环境状态与随距离变化的介质响应、焦点/遮挡、接触/支撑、材质与色彩传播、边缘一致性；固定 `cutout_edges_detected:false / separate_person_tone_mapping_detected:false / background_only_atmosphere_detected:false`。
 - `spatial_map_id / camera_mark_id / subject_mark_ids / anchor_projection / depth_order`。
 - focal/FOV/T-stop/focus/exposure、`camera_move_plan`。
 - `dynamic_range_plan`：与当前光线/环境/镜头匹配的有限 scene-referred 曝光取舍；若场景反差大于工作宽容度却未声明亮暗损失，Ready 失败。
@@ -256,7 +262,7 @@ Ready 镜头必须包含：
 - `motion_blur_plan`、动作/表演/物理/材料交互、音频、首尾帧和 sequence。
 - `model_prompt_strategy_id:shot-model-v1.6` 与视频提示路径。
 
-完整制作事实必须保存 quality Profile、sequence anchor、角色身材/比例、空间、环境、光材、有限动态范围、相机路径、时间与物理模糊。模型提示只包含会影响画面的事实，并严格使用官方顺序：`GLOBAL STYLE / SCENE / CHARACTERS / LOCATION / FIRST FRAME AND BLOCKING / Shot n / OPTICS / CAMERA / PHYSICS / LIGHTING / AUDIO`。动态范围只写入官方 `LIGHTING`，不得新增非官方标题。
+完整制作事实必须保存 quality Profile、sequence anchor、角色身材/比例、空间、叙事 coverage、人物—环境融合、环境、光材、有限动态范围、相机路径、时间与物理模糊。模型提示只包含会影响画面的事实，并严格使用官方顺序：`GLOBAL STYLE / SCENE / CHARACTERS / LOCATION / FIRST FRAME AND BLOCKING / Shot n / OPTICS / CAMERA / PHYSICS / LIGHTING / AUDIO`。coverage 写入 `SCENE` 与 `FIRST FRAME AND BLOCKING`，融合事实写入 `LIGHTING`；不得新增非官方标题。
 
 ## `sequences.json`
 

@@ -5,7 +5,7 @@
 ## 候选预算
 
 - `identity_single_solve`：每个人物只有一张完整 4×2 白底身份检查板、一次 ImageGen 调用、一个 batch。整板失败即停止该人物；不得对同一身份补生成第二张板，也不得挑选不同板的局部拼成身份。
-- `critical`：关键地点/物件根、每套 Look、序列联合锚点、英雄关键帧；首批 3 张独立生成。
+- `critical`：普通光 `live_action_probe`、关键地点/物件根、每套 Look、序列联合锚点、英雄关键帧；首批 3 张独立生成。
 - `derivative`：人物状态、地点角度、普通 Photoboard/关键帧；首批 2 张独立生成。七个身份角度不是候选，而是合格统一板的确定性裁图。
 - 全部候选直接引用批准根或同一未决门内的合格根；`operation:generate`，`derived_from_candidate_id:""`。
 - 候选 ID 与图片只存在 `candidates.json` 和 `assets/candidates/`，不得占用 `assets.json` 权威职责。
@@ -32,6 +32,8 @@ Codex 对每张候选执行：
 - 修正角色身材 Brief 中一个遗漏的可测轮廓目标。
 
 第二批仍全 fail 时，候选集与目标资产都标记 `model_blocked`。统一身份检查板在第一张整板失败时直接 `model_blocked`，因为继续抽取或修补同一人物会把不稳定身份传播到所有场景。人物/地点权威根请求用户提供有权使用的照片或平面资料；不靠后期清理掩盖。
+
+`live_action_probe` 的两批失败升级为 `backend_realism_blocked`：即使身份和地点分别通过，也不再尝试 Look、特殊天气、多人画面或英雄帧。第二批只能修改一个共同失败变量；不能靠增加 `cinematic`、器材名、颗粒、雾、调色或更强灯光掩盖油光、塑料皮肤、贴图边缘或游戏渲染感。
 
 ## Foundation 门
 

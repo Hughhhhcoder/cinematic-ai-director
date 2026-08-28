@@ -167,6 +167,25 @@
           "relative_height_m": 1.68
         }
       },
+      "subject_environment_integration": {
+        "policy": "shared-light-air-focus-occlusion-v1.6.4",
+        "shared_light_sources": [
+          "north workshop window",
+          "existing desk lamp"
+        ],
+        "shared_atmosphere_state_id": "env-workshop-clear",
+        "atmosphere_depth_behavior": "clear workshop air preserves ordinary distance contrast without invented haze",
+        "focus_and_occlusion": "the courier, table edge and broken seal share the recorded optical depth order",
+        "contact_and_grounding": "both shoes contact the concrete and the near hand is supported by the existing table edge",
+        "material_response_match": "skin, cotton, painted steel, glass and concrete each retain source-shaped roughness",
+        "color_contamination_match": "window coolness and desk-lamp warmth affect the courier and adjacent set surfaces together",
+        "edge_integration": "hair, sleeves and body edges follow the same focus falloff as neighboring set geometry",
+        "cutout_edges_detected": false,
+        "separate_person_tone_mapping_detected": false,
+        "background_only_atmosphere_detected": false,
+        "verdict": "pass",
+        "hard_failures": []
+      },
       "pose_contact_anchor_ids": [],
       "material_interaction_plan": {
         "required": false,

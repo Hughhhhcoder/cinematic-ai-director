@@ -19,6 +19,7 @@
         "loc-workshop--v001",
         "prop-red-worktable--v001",
         "prop-red-worktable-state-baseline--v001",
+        "live-action-probe-char-hero-workshop--v001",
         "loc-workshop-state-day-est--v001",
         "loc-workshop-state-day-side3q--v001",
         "look-base-a--v001",
@@ -46,6 +47,7 @@
       ],
       "candidate_set_ids": [
         "cset-char-hero-inspector--v001",
+        "cset-live-action-probe-char-hero-workshop--v001",
         "cset-loc-workshop-state-day-est--v001",
         "cset-loc-workshop-state-day-side3q--v001",
         "cset-look-base-a--v001",

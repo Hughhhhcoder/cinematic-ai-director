@@ -251,6 +251,8 @@ def _resolved_shot_spatial_payload(
         "movement_paths": movement_paths,
         "anchor_projection": shot.get("anchor_projection"),
         "multi_person_projection": shot.get("multi_person_projection"),
+        "dramatic_coverage_plan": shot.get("dramatic_coverage_plan"),
+        "subject_environment_integration": shot.get("subject_environment_integration"),
         "depth_order": shot.get("depth_order"),
         "deterministic_prompt_block": render_spatial_prompt_block(shot, spatial_map),
     }
@@ -334,6 +336,8 @@ def _higgsfield_settings(
             "subject_mark_ids": shot.get("subject_mark_ids"),
             "anchor_projection": shot.get("anchor_projection"),
             "multi_person_projection": shot.get("multi_person_projection"),
+            "dramatic_coverage_plan": shot.get("dramatic_coverage_plan"),
+            "subject_environment_integration": shot.get("subject_environment_integration"),
             "depth_order": shot.get("depth_order"),
             "coordinate_system": spatial_payload.get("coordinate_system"),
         },
@@ -349,6 +353,8 @@ def _higgsfield_settings(
             "format_plan_id": shot.get("format_plan_id"),
             "body_geometry_locks": shot.get("body_geometry_locks"),
             "multi_person_projection": shot.get("multi_person_projection"),
+            "dramatic_coverage_plan": shot.get("dramatic_coverage_plan"),
+            "subject_environment_integration": shot.get("subject_environment_integration"),
             "pose_contact_anchor_ids": shot.get("pose_contact_anchor_ids"),
         },
         "reference_bindings": bindings,
@@ -679,7 +685,15 @@ def export_higgsfield(args: argparse.Namespace) -> int:
         print("ERROR: no ready/generated/selected shots are available for Higgsfield export.", file=sys.stderr)
         return 1
 
-    approved_assets = [asset for asset in assets.values() if asset.get("status") == "approved"]
+    # The ordinary-light integration probe is an internal release gate, not a
+    # production reference.  It proves that the backend can integrate the
+    # approved identity and location roots, but uploading it would turn a QA
+    # diagnostic into a third, competing person/world authority.
+    approved_assets = [
+        asset
+        for asset in assets.values()
+        if asset.get("status") == "approved" and asset.get("type") != "live_action_probe"
+    ]
     approved_assets.sort(key=lambda asset: (higgsfield_reference_category(str(asset.get("type"))), asset.get("id", "")))
     if not approved_assets:
         print("ERROR: no approved assets are available for Higgsfield export.", file=sys.stderr)
@@ -1040,6 +1054,16 @@ def export_higgsfield(args: argparse.Namespace) -> int:
                     str(cluster_shot.get("id")): cluster_shot.get("multi_person_projection")
                     for cluster_shot in cluster_shots
                     if cluster_shot.get("multi_person_projection")
+                },
+                "dramatic_coverage_plans": {
+                    str(cluster_shot.get("id")): cluster_shot.get("dramatic_coverage_plan")
+                    for cluster_shot in cluster_shots
+                    if cluster_shot.get("dramatic_coverage_plan")
+                },
+                "subject_environment_integrations": {
+                    str(cluster_shot.get("id")): cluster_shot.get("subject_environment_integration")
+                    for cluster_shot in cluster_shots
+                    if cluster_shot.get("subject_environment_integration")
                 },
                 "bridge": {
                     "from_sequence_id": cluster.get("bridge_from_sequence_id"),
