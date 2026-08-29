@@ -6,7 +6,7 @@
 |---|---:|---|
 | `init` | Yes, new target only | Create schema v1.6 and refuse overwrite |
 | `validate` | No | Audit layout, files, references, states, QA, prompts, continuity, and gates |
-| `build-reference-board` | Yes, new output only | Deterministically crop seven PNG views from one approved 4×2 Inspector |
+| `build-reference-board` | Yes, new output only | Deterministically crop six default (or seven legacy) PNG views from one approved single-solve Inspector |
 | `compile-prompts` | Yes, versioned output | Compile image and shot prompts from facts; refuse overwrite |
 | `build-review-board` | Yes, new output only | Arrange selected originals and diagnostic crops without repainting |
 | `record-review` | Yes, atomically | Approve a gate or record scoped changes and roll back on failure |

@@ -135,7 +135,8 @@ def _compile_image_prompt(
         )
         exclusions = (
             "Reject painterly smear/patch smear; wax skin/plastic skin, CG render/animation look/game-cinematic rendering or synthetic glossy skin; "
-            "repeating swirl/cross-material texture; rendered outline/oversharpen halo/HDR halo; no oil film."
+            "repeating swirl, topographic contour, maze, fingerprint or cellular face texture/cross-material texture; "
+            "rendered outline/oversharpen halo/HDR halo; no oil film."
         )
     elif asset_type == "animal":
         authority_scope = "No human; preserve only approved animal anatomy/state."
@@ -167,20 +168,35 @@ def _compile_image_prompt(
     controlled_story = str(comparison.get("story_moment")) if isinstance(comparison, dict) else ""
     controlled_blocking = str(comparison.get("locked_blocking")) if isinstance(comparison, dict) else ""
     if asset_type in identity_inspector_types:
+        inspector_layout = asset.get("identity_inspector_layout") if isinstance(asset.get("identity_inspector_layout"), dict) else {}
+        layout_profile = inspector_layout.get("profile")
+        primary_profile_side = str(inspector_layout.get("primary_profile_side") or "left")
         authority_references = (
             "Resolve one fictional adult identity once across the entire sheet. Every panel is simultaneous evidence of that same face, "
             "hairline, ears, skin tone, body, height impression, garment and shoes; no panel may reinterpret the person."
         )
         authority_scope = "This unified sheet is the first identity authority; later crops are inspection/upload derivatives only."
-        event_body = (
-            f"One neutral casting session records {role} as a single four-column, two-row pure-white technical reference sheet. "
-            "Top row, left to right: full-body front, full-body left profile, full-body right profile, full-body back. "
-            "Bottom row, left to right: face close-up front, face close-up left profile, face close-up right profile, one empty white cell. "
-            "Use four equal-width columns and one continuous unambiguous pure-white horizontal gutter near canvas center; allow the full-body row enough height to preserve complete hair and footwear, and let no person, garment or shadow cross any cell boundary. "
-            "No captions, labels, drawn borders, props or environment."
-        )
+        if layout_profile == LEGACY_IDENTITY_LAYOUT_PROFILE:
+            panel_count = 7
+            event_body = (
+                f"One neutral casting session records {role} as a single four-column, two-row pure-white technical reference sheet. "
+                "Top row, left to right: full-body front, full-body left profile, full-body right profile, full-body back. "
+                "Bottom row, left to right: face close-up front, face close-up left profile, face close-up right profile, one empty white cell. "
+                "Use four equal-width columns and one continuous unambiguous pure-white horizontal gutter near canvas center; allow the full-body row enough height to preserve complete hair and footwear, and let no person, garment or shadow cross any cell boundary. "
+                "No captions, labels, drawn borders, props or environment."
+            )
+        else:
+            panel_count = 6
+            event_body = (
+                f"One neutral casting session records {role} as one large high-resolution three-column, two-row pure-white technical reference sheet. "
+                f"Top row, left to right: complete full-body front, complete full-body {primary_profile_side} profile, complete full-body back. "
+                "Bottom row, left to right: large face close-up front, large face close-up left profile, large face close-up right profile. "
+                "The upper row occupies roughly sixty-two percent of the usable height so hair and footwear remain complete; the lower row gives each face enough scale to inspect eyes, hairline, ears, skin transitions and jaw geometry. "
+                "Use three equal-width columns and one continuous unambiguous pure-white horizontal gutter; no person, garment or shadow crosses a cell boundary. "
+                "No captions, labels, borders, props, scenery or empty cell. Native detail must be present at generation, not simulated by enlargement."
+            )
         light_body = (
-            "One broad neutral soft source and restrained fill are identical across all seven panels, with normal white balance and no rim light. "
+            f"One broad neutral soft source and restrained fill are identical across all {panel_count} panels, with normal white balance and no rim light. "
             "Natural-dry skin is matte-diffuse with only weak continuous source-shaped reflection; skin, hair, eyes, teeth, garment and shoes remain materially distinct. "
             "No beauty retouching, cosmetic sheen, story color or mood treatment."
         )
@@ -248,8 +264,9 @@ def _compile_image_prompt(
         else "Keep grounded contact, topology and scale."
     )
     if asset_type == "character_identity_inspector":
+        grid_text = "4-by-2" if layout_profile == LEGACY_IDENTITY_LAYOUT_PROFILE else "3-by-2"
         physical_camera_body = (
-            "One locked technical capture geometry for the entire 4-by-2 sheet. Full-body panels use the same level height, long distance, neutral A-pose, scale and foot line; "
+            f"One locked technical capture geometry for the entire {grid_text} sheet. Full-body panels use the same level height, long distance, neutral A-pose, scale and foot line; "
             "portrait panels use the same level face camera and crop. The role order is fixed, but do not sacrifice full-body anatomy merely to force mathematically equal row heights; preserve a clean detectable white row gutter. "
             "No panel-specific beauty angle, expression, focal-length shift or body redesign."
         )
@@ -388,6 +405,7 @@ def _compile_video_prompt(
     quality_profile: dict[str, Any],
     environmental_state: dict[str, Any],
     special_events: list[dict[str, Any]],
+    commercial_direction: dict[str, Any] | None = None,
 ) -> str:
     references = list(shot.get("cast_asset_ids", [])) + list(shot.get("character_state_bindings", {}).values())
     references += [shot.get("location_asset_id"), shot.get("location_state_id")]
@@ -447,6 +465,35 @@ def _compile_video_prompt(
             "Preserve ordinary gravity, weight bearing, cloth and hair inertia, grounded contacts, and the declared environmental response; "
             "do not invent extra people, props, smoke, liquid or effects."
         )
+    commercial_direction = commercial_direction if isinstance(commercial_direction, dict) else {}
+    route = commercial_direction.get("route") if isinstance(commercial_direction.get("route"), dict) else {}
+    rhythm = commercial_direction.get("shot_rhythm") if isinstance(commercial_direction.get("shot_rhythm"), dict) else {}
+    speed = commercial_direction.get("speed") if isinstance(commercial_direction.get("speed"), dict) else {}
+    music = commercial_direction.get("music") if isinstance(commercial_direction.get("music"), dict) else {}
+    commercial_style = ""
+    commercial_scene = ""
+    commercial_action = ""
+    commercial_camera = ""
+    commercial_audio = ""
+    if commercial_direction:
+        commercial_style = (
+            f" Commercial route: {route.get('visual_logic', '')}. Product/wardrobe proof: {route.get('product_or_wardrobe_proof', '')}."
+        )
+        commercial_scene = (
+            f" Commercial shot function: {rhythm.get('function', '')}; energy {rhythm.get('energy', '')}; "
+            f"cut relation {rhythm.get('cut_relation', '')}."
+        )
+        commercial_action = (
+            f" The primary action peak occurs at {rhythm.get('action_peak_s')} seconds; internal rhythmic events: "
+            f"{'; '.join(str(value) for value in rhythm.get('internal_rhythmic_events', [])) or 'none'}."
+        )
+        commercial_camera = (
+            f" Commercial speed regime {speed.get('regime', '')}: {speed.get('intended_motion', '')}; blur logic {speed.get('blur_logic', '')}."
+        )
+        commercial_audio = (
+            f" Music {music.get('bpm')} BPM in {music.get('meter')}, using the declared tempo-motion relationship; "
+            f"preserve shot-specific Foley, ambience and transition accents from the production audio plan."
+        )
     blocks: list[str] = []
     bodies = {
         "GLOBAL STYLE": (
@@ -454,10 +501,12 @@ def _compile_video_prompt(
             f"Capture {temporal.get('capture_fps')} fps at {temporal.get('shutter_angle')} degree shutter, exposure time {temporal.get('exposure_time_s')} seconds, "
             f"playback {temporal.get('playback_rate')}, and deliver {temporal.get('delivery_fps')} fps. "
             "Real photographed people and physical sets; restrained source-shaped contrast and clean digital surfaces. "
-            "No animation, illustration, CG/PBR or game-render finish; no synthetic glossy skin, uniform oil film, painterly smear, repeating cross-material texture, "
+            "No animation, illustration, CG/PBR or game-render finish; no synthetic glossy skin, uniform oil film, painterly smear, "
+            "topographic contour, maze, fingerprint, cellular or repeating cross-material texture, "
             "unmotivated rim light, sharpening halo, frame blending, ghost limbs, texture crawl or jelly warping."
+            f"{commercial_style}"
         ),
-        "SCENE": f"{shot.get('story_beat')} {environment_text} {dramatic_coverage_text}",
+        "SCENE": f"{shot.get('story_beat')} {environment_text} {dramatic_coverage_text}{commercial_scene}",
         "CHARACTERS": (
             f"Bind these exact approved references by handle: {reference_text}. {geometry_text or 'No person is present; do not invent one.'}. "
             f"{multi_person_projection_text} {temporal_surface_locks}"
@@ -471,7 +520,7 @@ def _compile_video_prompt(
         "Shot 1": (
             f"One continuous {shot.get('duration_s')}-second shot. Execute in order: "
             + "; ".join(str(value) for value in shot.get("action_beats", []))
-            + ". Performance is task-led and physically continuous, never a publicity pose. End at the recorded final pose and camera mark; no unplanned cut."
+            + f". Performance is task-led and physically continuous, never a publicity pose. End at the recorded final pose and camera mark; no unplanned cut.{commercial_action}"
         ),
         "OPTICS": (
             f"{shot.get('focal_length_mm')} mm at T{shot.get('t_stop')}; {shot.get('focus_plan')}; {shot.get('exposure_notes')}. "
@@ -479,18 +528,47 @@ def _compile_video_prompt(
         ),
         "CAMERA": (
             f"{_format_camera_path(shot.get('camera_move_plan'))} Motion blur is caused by {blur.get('source')}, direction {blur.get('direction')}, "
-            f"amount {blur.get('amount')}; keep {', '.join(blur.get('static_reference_regions', []))} stable where physically expected."
+            f"amount {blur.get('amount')}; keep {', '.join(blur.get('static_reference_regions', []))} stable where physically expected.{commercial_camera}"
         ),
         "PHYSICS": physics_text,
         "LIGHTING": (
             f"{light_material_response} {subject_environment_text} "
             f"{quality_profile.get('tone_contrast_contract', '')} {dynamic_range}"
         ),
-        "AUDIO": str(shot.get("audio")),
+        "AUDIO": f"{shot.get('audio')} {commercial_audio}".strip(),
     }
     for heading in VIDEO_PROMPT_HEADERS:
         blocks.append(_prompt_block(heading, bodies[heading]))
     return "\n".join(blocks).strip() + "\n"
+
+
+def _commercial_direction_for_shot(data: Any, shot_id: Any) -> dict[str, Any]:
+    if not isinstance(data, dict) or data.get("mode") == "not_applicable":
+        return {}
+    routes = {
+        item.get("id"): item for item in data.get("creative_routes", [])
+        if isinstance(item, dict) and isinstance(item.get("id"), str)
+    }
+    rhythm_plan = data.get("rhythm_plan") if isinstance(data.get("rhythm_plan"), dict) else {}
+    rhythm_rows = {
+        item.get("shot_id"): item for item in rhythm_plan.get("shot_rhythm", [])
+        if isinstance(item, dict) and isinstance(item.get("shot_id"), str)
+    }
+    speed_rows = {
+        item.get("id"): item for item in rhythm_plan.get("speed_palette", [])
+        if isinstance(item, dict) and isinstance(item.get("id"), str)
+    }
+    row = rhythm_rows.get(shot_id)
+    if not isinstance(row, dict):
+        return {}
+    return {
+        "mode": data.get("mode"),
+        "route": routes.get(data.get("selected_route_id"), {}),
+        "shot_rhythm": row,
+        "speed": speed_rows.get(row.get("speed_palette_id"), {}),
+        "music": rhythm_plan.get("music", {}),
+        "audio_plan": data.get("audio_plan", {}),
+    }
 
 
 def compile_prompts(args: argparse.Namespace) -> int:
@@ -509,6 +587,8 @@ def compile_prompts(args: argparse.Namespace) -> int:
         shots_manifest = _read_json_strict(project_dir / "manifests/shots.json")
         spatial_manifest = _read_json_strict(project_dir / "manifests/spatial.json")
         world_manifest = _read_json_strict(project_dir / "manifests/world-state.json")
+        commercial_path = project_dir / "manifests/commercial.json"
+        commercial_manifest = _read_json_strict(commercial_path) if commercial_path.is_file() else None
         gate = _find_record(reviews_manifest.get("review_gates"), args.gate, "review gate")
         output_root = Path("prompts/compiled") / f"{args.gate}--v001"
         if (project_dir / output_root).exists():
@@ -559,7 +639,10 @@ def compile_prompts(args: argparse.Namespace) -> int:
             events = [special_events[event_id] for event_id in shot.get("special_lighting_event_ids", []) if event_id in special_events]
             if not isinstance(spatial_map, dict) or not isinstance(format_plan, dict) or not isinstance(quality_profile, dict):
                 raise ValueError(f"shot {shot.get('id')} lacks spatial map, format plan or quality Profile")
-            content = _compile_video_prompt(shot, spatial_map, format_plan, quality_profile, environment, events)
+            commercial_direction = _commercial_direction_for_shot(commercial_manifest, shot.get("id"))
+            content = _compile_video_prompt(
+                shot, spatial_map, format_plan, quality_profile, environment, events, commercial_direction
+            )
             relative = output_root / "video" / f"{shot.get('id')}.txt"
             pending_writes.append((relative, content))
             shot["video_prompt_path"] = relative.as_posix()

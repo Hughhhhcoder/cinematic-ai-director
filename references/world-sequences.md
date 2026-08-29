@@ -52,7 +52,7 @@ lighting_state
 
 序列级顺序：
 
-1. 每个角色的统一 4×2 身份 Inspector（第一权威）。
+1. 每个角色的统一高分辨率 3×2 身份 Inspector（第一权威）。
 2. 当前人物状态。
 3. 当前镜头需要的 pose/contact anchor。
 4. 当前地点状态视图、plate、侧面三分之四图和主空间锚点。
@@ -61,7 +61,7 @@ lighting_state
 7. 当前 sequence 联合视觉锚点。
 8. supplementary bridge。
 9. 首/尾关键帧。
-10. 七张 Inspector 确定性裁图和通过依赖闭包发现的其他干净根；裁图仅作检查/UI 辅助。
+10. 六张 Inspector 确定性裁图和通过依赖闭包发现的其他干净根；裁图仅作检查/UI 辅助。
 
 去重后保留第一次出现的职责。统一 Inspector 始终排在当前人物状态之前；裁图不能替代、重组或重新解释 Inspector。
 
@@ -73,7 +73,7 @@ lighting_state
 
 逐组首尾和再次登场帧比较：
 
-- 统一 Inspector、七张确定性裁图、role physique、proportion signature、骨架与软组织增量。
+- 统一 Inspector、全部声明的确定性裁图、role physique、proportion signature、骨架与软组织增量。
 - 人物/物件状态和关键解剖侧。
 - 地点 topology、设施、尺度、锚点和材料。
 - environment 的方向、积累、能见度和时间连续。

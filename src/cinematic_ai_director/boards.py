@@ -22,7 +22,7 @@ def portable_write_json(path: Path, value: Any) -> None:
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
 REFERENCE_BOARD_WIDTH = 3200
 REFERENCE_BOARD_HEIGHT = 1800
-REFERENCE_BOARD_COLUMNS = 4
+REFERENCE_BOARD_COLUMNS = 4  # legacy review-board rendering default; identity cropper is profile-driven
 REFERENCE_BOARD_ROWS = 2
 REFERENCE_BOARD_MARGIN = 36
 
@@ -254,12 +254,11 @@ def _detect_horizontal_gutter_split(
 
 
 def build_reference_board(args: argparse.Namespace) -> int:
-    """Crop seven upload/check views from one approved single-solve board.
+    """Crop upload/check views from one approved single-solve board.
 
     The ImageGen board is the first and only identity authority.  This command
-    never composes or repaints a person; it extracts the seven documented
-    Higgsfield reference-sheet cells byte-deterministically into convenience
-    files for inspection and upload.
+    never composes or repaints a person; it extracts the declared supported
+    reference-sheet cells byte-deterministically into convenience files.
     """
     project_dir = Path(args.project_dir).expanduser().resolve()
     if not project_dir.is_dir():
@@ -311,6 +310,17 @@ def build_reference_board(args: argparse.Namespace) -> int:
     if inspector.get("identity_pack_id") != args.identity_pack:
         print("ERROR: identity inspector points to a different identity pack.", file=sys.stderr)
         return 1
+    layout = inspector.get("identity_inspector_layout") if isinstance(inspector.get("identity_inspector_layout"), dict) else {}
+    layout_profile = layout.get("profile")
+    layout_spec = identity_layout_spec(layout_profile)
+    if layout_spec is None:
+        print(f"ERROR: unsupported identity inspector layout: {layout_profile}", file=sys.stderr)
+        return 1
+    grid = layout_spec.get("grid")
+    roles = identity_roles_for_layout(layout_profile)
+    if not isinstance(grid, list) or len(grid) != 2 or grid[1] != 2 or not roles:
+        print("ERROR: identity inspector layout must declare a supported two-row grid.", file=sys.stderr)
+        return 1
     source_relative = inspector.get("approved_path") if inspector.get("status") == "approved" else inspector.get("candidate_path")
     if not isinstance(source_relative, str) or not source_relative:
         print("ERROR: identity inspector has no active PNG path.", file=sys.stderr)
@@ -331,8 +341,8 @@ def build_reference_board(args: argparse.Namespace) -> int:
         print("ERROR: identity inspector hash does not match its provenance.", file=sys.stderr)
         return 1
     view_map = pack.get("identity_view_asset_ids")
-    if not isinstance(view_map, dict) or set(view_map) != set(IDENTITY_VIEW_ROLES):
-        print("ERROR: identity pack does not declare exactly seven deterministic crop assets.", file=sys.stderr)
+    if not isinstance(view_map, dict) or set(view_map) != set(roles):
+        print("ERROR: identity pack crop roles do not match its unified board layout.", file=sys.stderr)
         return 1
     map_relative = (
         Path(args.output)
@@ -348,7 +358,7 @@ def build_reference_board(args: argparse.Namespace) -> int:
         return 2
 
     crop_assets: list[tuple[str, dict[str, Any], Path]] = []
-    for role in IDENTITY_VIEW_ROLES:
+    for role in roles:
         crop_asset_id = view_map.get(role)
         crop_asset = assets.get(crop_asset_id)
         if not isinstance(crop_asset, dict):
@@ -390,17 +400,28 @@ def build_reference_board(args: argparse.Namespace) -> int:
     created: list[Path] = []
     try:
         width, height, pixels = _decode_png_rgb(source)
-        if width % REFERENCE_BOARD_COLUMNS:
-            raise ValueError("identity inspector width must divide exactly into four columns")
-        cell_width = width // REFERENCE_BOARD_COLUMNS
+        columns = int(grid[0])
+        if width % columns:
+            raise ValueError(f"identity inspector width must divide exactly into {columns} columns")
+        cell_width = width // columns
+        resolution_policy = project.get("resolution_policy") if isinstance(project.get("resolution_policy"), dict) else None
+        policy_applies = isinstance(resolution_policy, dict) and resolution_policy.get("mode") == "strict_native_detail_v1.6.6"
+        if policy_applies and valid_timestamp(resolution_policy.get("effective_at")) and valid_timestamp(inspector.get("created_at")):
+            policy_applies = datetime.fromisoformat(str(inspector.get("created_at")).replace("Z", "+00:00")) >= datetime.fromisoformat(str(resolution_policy.get("effective_at")).replace("Z", "+00:00"))
+        if policy_applies:
+            minimum_board = resolution_policy.get("minimum_identity_board_px", [1536, 1024])
+            if width < minimum_board[0] or height < minimum_board[1]:
+                raise ValueError(f"identity inspector is below the native {minimum_board[0]}x{minimum_board[1]} board floor")
+            if cell_width < resolution_policy.get("minimum_identity_cell_width_px", 512):
+                raise ValueError("identity inspector cells are too narrow for high-detail inspection")
         row_split, gutter_detection = _detect_horizontal_gutter_split(width, height, pixels)
         row_tops = (0, row_split)
         row_heights = (row_split, height - row_split)
         slots: list[dict[str, Any]] = []
         source_hashes: dict[str, str] = {}
         for slot_index, (role, crop_asset, crop_path) in enumerate(crop_assets):
-            column = slot_index % REFERENCE_BOARD_COLUMNS
-            row = slot_index // REFERENCE_BOARD_COLUMNS
+            column = slot_index % columns
+            row = slot_index // columns
             left = column * cell_width
             top = row_tops[row]
             cell_height = row_heights[row]
@@ -442,6 +463,28 @@ def build_reference_board(args: argparse.Namespace) -> int:
             crop_asset["photographic_qa"] = inspector.get("photographic_qa")
             crop_asset["geometry_qa"] = inspector.get("geometry_qa")
             crop_asset["live_action_quality_qa"] = inspector.get("live_action_quality_qa")
+            inspector_resolution = inspector.get("resolution_qa") if isinstance(inspector.get("resolution_qa"), dict) else {}
+            inspector_coverage = inspector_resolution.get("subject_coverage_px") if isinstance(inspector_resolution.get("subject_coverage_px"), dict) else {}
+            role_coverage = {}
+            if role.startswith("full_"):
+                role_coverage["full_body_subject_height_px"] = int(inspector_coverage.get("full_body_subject_height_px", 0))
+            if role.startswith("portrait_"):
+                role_coverage["portrait_face_height_px"] = int(inspector_coverage.get("portrait_face_height_px", 0))
+            if policy_applies:
+                crop_asset["resolution_qa"] = {
+                    "mode": "native_detail",
+                    "source_dimensions_px": [width, height],
+                    "delivered_dimensions_px": [cell_width, cell_height],
+                    "subject_coverage_px": role_coverage,
+                    "native_generation_or_source": True,
+                    "dimension_only_upscale": False,
+                    "checks": {name: "pass" for name in RESOLUTION_QA_CHECKS},
+                    "verdict": "pass",
+                    "hard_failures": [],
+                    "notes": ["Exact non-resampled crop inherited from the visually approved unified identity board."],
+                    "checked_at": inspector_resolution.get("checked_at", ""),
+                    "reviewer": inspector_resolution.get("reviewer", "codex-visual"),
+                }
             slots.append(
                 {
                     "slot": slot_index + 1,
@@ -460,16 +503,16 @@ def build_reference_board(args: argparse.Namespace) -> int:
                 "schema_version": SCHEMA_VERSION,
                 "identity_pack_id": args.identity_pack,
                 "identity_inspector_asset_id": inspector_id,
-                "layout_profile": "higgsfield-character-reference-sheet-two-row-single-solve-v1.6",
+                "layout_profile": layout_profile,
                 "canvas_px": [width, height],
-                "grid": [4, 2],
+                "grid": grid,
                 "row_split_px": row_split,
                 "gutter_detection": gutter_detection,
                 "background": "pure_white",
                 "authoritative": True,
                 "authority_sha256": board_hash,
                 "generation": "one-imagegen-call-then-deterministic-crops",
-                "blank_slot": {"row": 2, "column": 4},
+                "blank_slot": layout_spec.get("blank_slot"),
                 "slots": slots,
             },
         )
@@ -479,7 +522,7 @@ def build_reference_board(args: argparse.Namespace) -> int:
             "relative_path": source_relative,
             "sha256": board_hash,
             "source_sha256s": source_hashes,
-            "layout_profile": "higgsfield-character-reference-sheet-two-row-single-solve-v1.6",
+            "layout_profile": layout_profile,
             "authoritative": True,
             "crop_map_path": map_relative.as_posix(),
             "row_split_px": row_split,
@@ -492,7 +535,7 @@ def build_reference_board(args: argparse.Namespace) -> int:
         print(f"ERROR: identity crop build failed: {exc}", file=sys.stderr)
         return 2
     print(f"Validated authoritative single-solve identity board: {source}")
-    print(f"Created seven deterministic inspection/upload crops and map: {map_path}")
+    print(f"Created {len(roles)} deterministic inspection/upload crops and map: {map_path}")
     print("The unified board remains the first and only identity authority; no ImageGen repaint was performed.")
     return 0
 

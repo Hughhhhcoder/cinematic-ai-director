@@ -15,7 +15,7 @@
 |---|---|---|
 | 1 剧本拆解 | 场景、人物、物件、环境、动作与状态时间线 | 因果、开始/结束镜头明确 |
 | 2 现实、选角与质量 | reality/casting/physique brief + quality Profile + finite dynamic-range contract + world DNA | 角色身材、光材响应、曝光取舍、精致上限、世界规则明确 |
-| 3 单次身份解算 | 一张合格 4×2 白底身份板 + 七张确定性裁图 | 整板身份、角色身材、比例、几何、实拍质量通过；任一格失败即停止人物 |
+| 3 单次身份解算 | 一张合格高分辨率 3×2 白底身份板 + 六张确定性裁图 | 整板身份、角色身材、比例、几何、原生清晰度、实拍质量通过；任一格失败即停止人物 |
 | 4 人物状态 | state authority + delta/soft-tissue delta | 直接追溯统一身份板，骨架/比例保留 |
 | 5 地点世界与物件 | location master + prop roots | 拓扑、设施、制造结构、材质基线批准 |
 | 6 地点状态与空间 | 多视角、主锚点、spatial map | 空间/表面 QA，环境状态因果成立 |
@@ -38,7 +38,7 @@ World DNA 必答：年代、经济条件、建筑/公共设施、颜色的真实
 
 ## 3. 角色身材、人体几何与洁净根
 
-先按 [role-physique.md](role-physique.md) 建立 `role_physique_brief`，把角色需要的普通、修长、健美、模特、舞者或力量型体态翻译为可观察轮廓、可测范围和淘汰条件。再按 [human-geometry.md](human-geometry.md) 用一次 ImageGen 调用制作完整 4×2 白底身份检查板：上排全身正、左、右、背，下排脸部正、左、右和空白格。整板是唯一身份权威；通过后才确定性裁出七个检查/上传视图，并从全身正背建立 `proportion_signature` 与 `skeletal_lock`。地点与物件根同时使用 `clean_authority`。所有根必须通过 photographic、geometry 与统一 `live_action_quality_qa`。
+先按 [role-physique.md](role-physique.md) 建立 `role_physique_brief`，把角色需要的普通、修长、健美、模特、舞者或力量型体态翻译为可观察轮廓、可测范围和淘汰条件。再按 [human-geometry.md](human-geometry.md) 用一次 ImageGen 调用制作完整高分辨率 3×2 白底身份检查板：上排全身正、主侧、背，下排大尺寸脸部正、左、右。整板是唯一身份权威；通过后才确定性裁出六个检查/上传视图，并从全身正背建立 `proportion_signature` 与 `skeletal_lock`。地点与物件根同时使用 `clean_authority`。所有根必须通过 photographic、geometry、`resolution_qa` 与统一 `live_action_quality_qa`。
 
 整板通过后运行：
 
@@ -46,7 +46,7 @@ World DNA 必答：年代、经济条件、建筑/公共设施、颜色的真实
 python3 scripts/film_project.py build-reference-board <project> --identity-pack <identity-id>
 ```
 
-命令不再重新排版身份，而是验证统一板，记录中心白色横向 gutter 的实际排界，并无重采样裁出七个角色视图。它不会用数学中线切断偏高的全身排；分隔歧义、内容跨界或裁掉头发/鞋履会阻断。统一板保持权威，裁图只是检查/上传文件。
+命令不再重新排版身份，而是验证统一板，记录中心白色横向 gutter 的实际排界，并无重采样裁出六个角色视图。它不会用数学中线切断偏高的全身排；分隔歧义、内容跨界、裁掉头发/鞋履或原生细节不足会阻断。统一板保持权威，裁图只是检查/上传文件。
 
 ## 4. 状态系统
 

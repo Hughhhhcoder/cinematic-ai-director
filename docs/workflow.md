@@ -3,7 +3,7 @@
 ```mermaid
 flowchart TD
     A[1 Script breakdown] --> B[2 Reality, casting, physique, quality]
-    B --> C[3 One 4×2 identity Inspector]
+    B --> C[3 One high-resolution 3×2 identity Inspector]
     B --> D[4 Location worlds and prop roots]
     C --> E[5 Character states]
     D --> F[6 Location state views + spatial maps]
@@ -30,7 +30,7 @@ The role-physique brief converts casting intent into silhouette, measurable norm
 
 ## 3. Identity authorities
 
-Generate one pure-white `4×2` Inspector in a single call so all angles share one identity solve. Validate the entire sheet before any crop or state exists. If any cell fails identity, geometry, role physique, skin/material, lighting, or clean live-action QA, stop that person. After approval, crop seven exact views deterministically without resampling; these are inspection/UI aids, while the Inspector remains ground truth.
+Generate one large pure-white `3×2` Inspector in a single call so all six angles share one identity and body solve. The top row is full-body front, one role-relevant true side profile, and full-body back; the bottom row is large face front, left profile, and right profile. Validate the entire sheet—including native subject pixel coverage—before any crop or state exists. If any cell fails identity, geometry, role physique, skin/material, lighting, focus, topographic/maze texture, or clean live-action QA, stop that person. After approval, crop six exact views deterministically without resampling; these are inspection/UI aids, while the Inspector remains ground truth. The former `4×2` seven-view form is a compatibility adapter for existing v1.6 projects only.
 
 ## 4–6. State, world, and space
 

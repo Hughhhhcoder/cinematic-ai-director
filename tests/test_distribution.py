@@ -58,7 +58,7 @@ class DistributionTests(unittest.TestCase):
             verified = run(sys.executable, str(INSTALLER), "verify", "--codex-home", str(home))
             self.assertEqual(verified.returncode, 0, verified.stderr)
             payload = json.loads((home / "skills" / "cinematic-ai-director" / "runtime-manifest.json").read_text())
-            self.assertEqual(payload["version"], "1.6.5")
+            self.assertEqual(payload["version"], "1.6.6")
             self.assertTrue(all(not Path(item["path"]).is_absolute() for item in payload["files"]))
 
     def test_install_refuses_overwrite_and_replace_creates_backup(self) -> None:
@@ -99,7 +99,7 @@ class DistributionTests(unittest.TestCase):
                     str(manifest),
                 )
                 self.assertEqual(result.returncode, 0, result.stderr)
-                outputs.append(output / "cinematic-ai-director-v1.6.5.zip")
+                outputs.append(output / "cinematic-ai-director-v1.6.6.zip")
             self.assertEqual(digest(outputs[0]), digest(outputs[1]))
 
     def test_runtime_source_contains_no_private_machine_paths_or_caches(self) -> None:
@@ -113,66 +113,29 @@ class DistributionTests(unittest.TestCase):
                 text = path.read_text(encoding="utf-8", errors="ignore")
                 self.assertFalse(any(token in text for token in forbidden), path)
 
-    def test_compact_showcase_has_one_clean_probe_chain_and_hashed_originals(self) -> None:
+    def test_failed_release_visuals_are_withheld_instead_of_published(self) -> None:
         evidence = json.loads((ROOT / "showcase" / "evidence.json").read_text(encoding="utf-8"))
-        self.assertEqual(evidence["showcase_profile"], "locked-location-live-action-probe-v1.6.5")
+        self.assertEqual(evidence["release"], "1.6.6")
+        self.assertEqual(evidence["status"], "withheld_by_quality_gate")
+        self.assertEqual(evidence["backend"], "builtin-imagegen")
         self.assertFalse(evidence["pixel_reproducible"])
+        self.assertEqual(evidence["published_assets"], [])
+        self.assertFalse(evidence["failed_files_published"])
+        self.assertFalse(evidence["downstream_generation_performed"])
+        self.assertEqual(evidence["summary"], {"attempts": 3, "passed": 0, "rejected": 3})
         self.assertEqual(
-            [item["kind"] for item in evidence["assets"]],
-            ["identity", "empty_scene", "live_action_probe"],
+            {item["id"]: item["count"] for item in evidence["failure_classes"]},
+            {
+                "insufficient_native_full_body_pixel_coverage": 1,
+                "topographic_contour_or_maze_skin_texture": 2,
+            },
         )
-        originals = sorted((ROOT / "showcase" / "originals").glob("**/*.png"))
-        authority_originals = [path for path in originals if "identity-crops" not in path.parts]
-        self.assertEqual(len(authority_originals), 3)
-        for item in evidence["assets"]:
-            original = ROOT / item["original_path"]
-            prompt = ROOT / item["prompt_path"]
-            derivative = ROOT / item["publication_derivative_path"]
-            self.assertEqual(digest(original), item["original_sha256"])
-            self.assertEqual(digest(prompt), item["prompt_sha256"])
-            self.assertEqual(digest(derivative), item["publication_derivative_sha256"])
-            dynamic_range = item["qa"]["finite_dynamic_range"]
-            self.assertEqual(dynamic_range["policy"], "finite_scene_referred")
-            self.assertFalse(dynamic_range["local_tone_mapping_detected"])
-            self.assertFalse(dynamic_range["multi_exposure_hdr_merge"])
-        crop_map = evidence["identity_crops"]
-        self.assertEqual(crop_map["operation"], "exact-cell-crop-no-resample-no-redraw")
-        self.assertEqual(crop_map["row_split_px"], crop_map["gutter_detection"]["split_y_px"])
-        self.assertEqual(crop_map["gutter_detection"]["method"], "central-near-white-gutter-v1.6.1")
-        self.assertEqual(len(crop_map["crops"]), 7)
-        for crop in crop_map["crops"]:
-            self.assertEqual(digest(ROOT / crop["path"]), crop["sha256"])
-        probe = next(item for item in evidence["assets"] if item["kind"] == "live_action_probe")
-        self.assertEqual(
-            probe["reference_stack"],
-            [
-                "showcase/originals/scenes/scene-coastal-survey-room-overcast-v002.png",
-                "showcase/originals/identity-inspectors/identity-white-coastal-survey-engineer-v001.png",
-            ],
-        )
-        self.assertEqual(probe["operation"], "edit")
-        locked = probe["locked_scene_qa"]
-        self.assertEqual(locked["verdict"], "pass")
-        self.assertFalse(locked["non_subject_change_detected"])
-        self.assertGreaterEqual(len(locked["landmarks"]), 6)
-        self.assertEqual(locked["pixel_correspondence"]["verdict"], "pass")
-        self.assertLessEqual(
-            locked["pixel_correspondence"]["outside_edit_region_mae"],
-            locked["pixel_correspondence"]["thresholds"]["max_mae"],
-        )
-        self.assertEqual(probe["qa"]["skin_surface_state"], "natural_dry")
-        self.assertEqual(probe["qa"]["oil_film"], "absent")
-        self.assertEqual(probe["live_action_integration_probe"]["status"], "approved")
-        self.assertTrue(probe["live_action_integration_probe"]["ordinary_light_only"])
-        self.assertTrue(probe["live_action_integration_probe"]["special_environment_disabled"])
-        self.assertEqual(probe["subject_environment_integration_qa"]["verdict"], "pass")
-        self.assertFalse(probe["subject_environment_integration_qa"]["cutout_edges_detected"])
-        self.assertFalse(
-            probe["subject_environment_integration_qa"]["separate_person_tone_mapping_detected"]
-        )
-        width, height = probe["actual_dimensions_px"]
-        self.assertGreater(width / height, 2.30)
-        self.assertLess(width / height, 2.45)
+        public_rasters = [
+            path
+            for path in (ROOT / "showcase").rglob("*")
+            if path.is_file() and path.suffix.lower() in {".png", ".jpg", ".jpeg", ".webp"}
+        ]
+        self.assertEqual(public_rasters, [])
 
 
 if __name__ == "__main__":

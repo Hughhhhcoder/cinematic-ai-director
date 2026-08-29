@@ -39,7 +39,7 @@
 
 逐 sequence 首帧、尾帧和再次登场帧比较：
 
-- 统一 4×2 身份 Inspector、七张确定性裁图与 `proportion_signature`。
+- 统一高分辨率 3×2 身份 Inspector、六张确定性裁图与 `proportion_signature`（旧 4×2 项目保持兼容）。
 - `role_physique_brief`、量化目标、姿态/步态和衣着轮廓。
 - 头身、肩胯、躯干/肢段、手足、骨性不对称、相对身高。
 - 面部骨骼、五官间距、发际线、固定标记和惯用手。
@@ -90,7 +90,7 @@ lighting_state
 
 以下任一项缺失都阻断：
 
-- 批准统一 Inspector、七张确定性裁图、比例签名、精确人物/地点/道具状态。
+- 批准统一 Inspector、全部声明的确定性裁图、比例签名、精确人物/地点/道具状态。
 - 批准角色身材 Brief 与 `physique_fit_qa`；镜头 body lock 同时引用比例和身材 ID。
 - 批准 environment、format、Profile/Treatment 与 spatial map。
 - 高风险动作所需 pose/contact anchor。

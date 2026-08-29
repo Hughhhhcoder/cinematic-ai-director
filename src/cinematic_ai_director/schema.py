@@ -186,8 +186,9 @@ IMAGE_PROMPT_STRATEGIES = {
         "location", "object", "pose-contact", "integration-probe", "locked-insertion-probe", "narrative",
     )
 }
+IMAGE_PROMPT_STRATEGIES["image2-live-action-identity-inspector-v1.6.6"] = IMAGE_PROMPT_SECTIONS
 IMAGE_PROMPT_STRATEGY_BY_TYPE = {
-    "character_identity_inspector": "image2-live-action-identity-inspector-v1.6",
+    "character_identity_inspector": "image2-live-action-identity-inspector-v1.6.6",
     "character_face_anchor": "image2-live-action-character-face-v1.6",
     "character_body_anchor": "image2-live-action-character-body-v1.6",
     "character_identity_view": "image2-live-action-identity-view-v1.6",
@@ -325,6 +326,7 @@ LIVE_ACTION_PROBE_FAILURE_CLASSES = {
     "shared_light_failure",
     "shared_focus_or_occlusion_failure",
     "repeating_artifact_texture",
+    "topographic_contour_or_maze_skin_texture",
     "body_geometry_or_contact_failure",
     "finite_dynamic_range_failure",
     "scene_geometry_or_fixture_drift",
@@ -352,7 +354,9 @@ LOCKED_SCENE_QA_CHECKS = (
 )
 IDENTITY_PACK_STATUSES = {"planned", "qualified", "approved", "blocked", "model_blocked"}
 IDENTITY_KINDS = {"fictional", "real_person"}
-IDENTITY_VIEW_ROLES = (
+LEGACY_IDENTITY_LAYOUT_PROFILE = "higgsfield-character-reference-sheet-two-row-single-solve-v1.6"
+IDENTITY_LAYOUT_PROFILE = "high-resolution-six-view-single-solve-3x2-v1.6.6"
+LEGACY_IDENTITY_VIEW_ROLES = (
     "full_front",
     "full_left_profile",
     "full_right_profile",
@@ -361,6 +365,52 @@ IDENTITY_VIEW_ROLES = (
     "portrait_left_profile",
     "portrait_right_profile",
 )
+IDENTITY_VIEW_ROLES = (
+    "full_front",
+    "full_primary_profile",
+    "full_back",
+    "portrait_front",
+    "portrait_left_profile",
+    "portrait_right_profile",
+)
+IDENTITY_LAYOUTS = {
+    IDENTITY_LAYOUT_PROFILE: {
+        "grid": [3, 2],
+        "roles": IDENTITY_VIEW_ROLES,
+        "slot_roles": [*IDENTITY_VIEW_ROLES],
+        "blank_slot": None,
+        "minimum_canvas_px": [1536, 1024],
+        "minimum_cell_width_px": 512,
+    },
+    LEGACY_IDENTITY_LAYOUT_PROFILE: {
+        "grid": [4, 2],
+        "roles": LEGACY_IDENTITY_VIEW_ROLES,
+        "slot_roles": [*LEGACY_IDENTITY_VIEW_ROLES, "blank"],
+        "blank_slot": {"row": 2, "column": 4},
+        "minimum_canvas_px": [1536, 1024],
+        "minimum_cell_width_px": 384,
+    },
+}
+ALL_IDENTITY_VIEW_ROLES = set(IDENTITY_VIEW_ROLES) | set(LEGACY_IDENTITY_VIEW_ROLES)
+
+
+def identity_layout_spec(profile: Any) -> dict[str, Any] | None:
+    """Return the immutable layout contract for a supported identity board.
+
+    v1.6.6 changes the default authoring layout to a larger 3x2 six-view board,
+    while retaining the earlier 4x2 seven-view layout as a read/validate/export
+    adapter.  Existing v1.6 projects therefore stay valid without migration.
+    """
+    if not isinstance(profile, str):
+        return None
+    value = IDENTITY_LAYOUTS.get(profile)
+    return dict(value) if isinstance(value, dict) else None
+
+
+def identity_roles_for_layout(profile: Any) -> tuple[str, ...]:
+    spec = identity_layout_spec(profile)
+    roles = spec.get("roles") if isinstance(spec, dict) else None
+    return tuple(str(role) for role in roles) if isinstance(roles, list | tuple) else ()
 PROPORTION_RATIO_FIELDS = (
     "head_to_body",
     "shoulder_width",
@@ -544,6 +594,47 @@ TEMPORAL_QA_CHECKS = (
     "focus_and_motion_blur",
     "rolling_shutter_and_frame_blending",
     "start_end_frame_match",
+)
+PRODUCTION_KINDS = {"narrative_film", "commercial_tvc", "music_video"}
+COMMERCIAL_MANIFEST_MODES = {"not_applicable", "commercial_tvc", "commercial_mv_hybrid"}
+COMMERCIAL_STATUSES = {"planned", "qualified", "approved", "blocked"}
+COMMERCIAL_ROUTE_STATUSES = {"proposed", "selected", "approved", "rejected"}
+COMMERCIAL_RHYTHM_STRATEGIES = {"synchronous", "half_time", "counterpoint", "dialogue_led", "free"}
+COMMERCIAL_SPEED_REGIMES = {"real_time", "overcranked_slow", "undercranked_fast", "variable_speed", "locked_stillness"}
+COMMERCIAL_ENERGY_LEVELS = {"restrained", "low", "medium", "high", "burst"}
+COMMERCIAL_CATEGORIES = {"fashion", "product", "service", "brand", "performance", "retail", "other"}
+COMMERCIAL_MUSIC_USAGE = {"score", "source", "none"}
+COMMERCIAL_DELIVERABLE_KINDS = {"master", "proxy", "cutdown", "social", "endboard", "other"}
+COMMERCIAL_SHOT_FUNCTIONS = {
+    "hook", "brand_world", "product_reveal", "wardrobe_reveal", "feature_proof", "material_detail",
+    "comparison", "performance", "transition", "escalation", "payoff", "endboard", "cta", "other",
+}
+COMMERCIAL_QA_CHECKS = (
+    "brief_specificity",
+    "brand_specific_concept",
+    "product_or_wardrobe_proof",
+    "shot_function_and_removal_test",
+    "music_action_edit_coherence",
+    "speed_sampling_and_motion_blur",
+    "performance_energy_and_variety",
+    "sound_design_and_mix_hierarchy",
+    "endboard_copy_and_cta",
+    "delivery_matrix_conformance",
+)
+TAKE_COMMERCIAL_QA_CHECKS = (
+    "beat_action_alignment",
+    "speed_and_motion_blur",
+    "product_or_wardrobe_readability",
+    "performance_energy",
+    "identity_state_and_material_continuity",
+    "audio_sync_and_transition_accents",
+)
+RESOLUTION_QA_CHECKS = (
+    "native_pixel_dimensions",
+    "subject_or_detail_pixel_coverage",
+    "focus_and_edge_resolution",
+    "compression_and_resampling",
+    "no_dimension_only_upscale",
 )
 IMMUTABLE_IDENTITY_FIELDS = (
     "facial_bone_proportions",
@@ -752,8 +843,10 @@ Status: draft
 
 ## Identity geometry and state contract
 
-- Identity-pack authority: one complete white-background 4×2 identity inspector generated in one ImageGen call and validated as a whole before any downstream work
-- Inspection/upload views: seven deterministic, non-resampled crops from that authority board; record the one unambiguous central white row gutter and its actual split instead of blindly assuming equal row heights; crops never become separate identity solves
+- Identity-pack authority: one high-resolution white-background 3×2 identity inspector generated in one ImageGen call and validated as a whole before any downstream work
+- Board roles: top row full-body front / one story-relevant full-body profile / full-body back; bottom row face close-up front / face close-up left profile / face close-up right profile
+- Inspection/upload views: six deterministic, non-resampled crops from that authority board; record the one unambiguous central white row gutter and its actual split instead of blindly assuming equal row heights; crops never become separate identity solves
+- Native-detail floor: board at least 1536×1024, each column at least 512 px, full-body figures and portrait faces large enough for geometry and surface inspection; resizing dimensions never counts as recovered detail
 - Proportion signature: identity-specific head/body, shoulder/hip, torso/limb, arm-span, hand/foot and intentional-asymmetry ratios
 - Immutable identity fields: skeletal proportions, feature spacing, skin range, hairline, fixed marks, handedness and expected digit topology
 - Persistent state fields: wardrobe, hair state, age stage, injury, wetness, dirt, makeup, story props
@@ -823,6 +916,17 @@ Status: draft
 - Dialogue: 未设定
 - Ambience and foley: 未设定
 - Music and silence: 未设定
+
+## Commercial / TVC creative system (when applicable)
+
+- Business objective, audience, placement and single proposition: 未设定
+- Product/wardrobe reasons to believe and non-negotiable brand codes: 未设定
+- At least two materially distinct creative routes and competitor-swap test: 未设定
+- Shot-function and removal test: 未设定
+- Music BPM/meter/downbeat, motion-energy relationship and edit grammar: 未设定
+- Capture-speed palette, playback rate, action peaks and motion-blur logic: 未设定
+- Dialogue/VO, music, ambience, Foley, transition accents and mnemonic hierarchy: 未设定
+- Exact duration/frame count, master/proxy distinction, aspect/crop and audio delivery matrix: 未设定
 
 ## Motifs, payoffs, and hard locks
 
@@ -909,7 +1013,7 @@ Compare every recurring identity, persistent character state, prop state, locati
 def proportion_review_template(title: str) -> str:
     return f"""# {title} — Human Geometry Review
 
-For each recurring identity, record one authoritative single-solve white-background 4×2 inspector, its seven deterministic inspection/upload crops, identity-specific normalized proportion signature, source and projection class, confidence/tolerances, skeletal locks, intentional asymmetries, expected digit topology, and Foundation-gate approval. Reject the whole board if any panel changes identity, anatomy, wardrobe, scale, lighting, or surface quality; do not generate downstream crops or states. For every state or narrative frame, check silhouette/volume, joints, segment lengths, hands/feet/digits, shoulder-pelvis alignment, weight bearing, foreshortening, occlusion, garment separation, and multi-person relative scale. Do not treat perspective shortening as anatomical drift.
+For each recurring identity, record one authoritative high-resolution single-solve white-background 3×2 inspector, its six deterministic inspection/upload crops, identity-specific normalized proportion signature, source and projection class, confidence/tolerances, skeletal locks, intentional asymmetries, expected digit topology, native-detail QA, and Foundation-gate approval. Reject the whole board if any panel changes identity, anatomy, wardrobe, scale, lighting, surface quality, or useful resolution; do not generate downstream crops or states. Existing v1.6 4×2 boards remain readable through the legacy adapter. For every state or narrative frame, check silhouette/volume, joints, segment lengths, hands/feet/digits, shoulder-pelvis alignment, weight bearing, foreshortening, occlusion, garment separation, and multi-person relative scale. Do not treat perspective shortening as anatomical drift.
 """
 
 

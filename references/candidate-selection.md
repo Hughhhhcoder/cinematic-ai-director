@@ -4,9 +4,9 @@
 
 ## 候选预算
 
-- `identity_single_solve`：每个人物只有一张完整 4×2 白底身份检查板、一次 ImageGen 调用、一个 batch。整板失败即停止该人物；不得对同一身份补生成第二张板，也不得挑选不同板的局部拼成身份。
+- `identity_single_solve`：每个人物只有一张完整高分辨率 3×2 白底身份检查板、一次 ImageGen 调用、一个 batch。整板失败即停止该人物；不得对同一身份补生成第二张板，也不得挑选不同板的局部拼成身份。
 - `critical`：普通光 `live_action_probe`、关键地点/物件根、每套 Look、序列联合锚点、英雄关键帧；首批 3 张独立生成。
-- `derivative`：人物状态、地点角度、普通 Photoboard/关键帧；首批 2 张独立生成。七个身份角度不是候选，而是合格统一板的确定性裁图。
+- `derivative`：人物状态、地点角度、普通 Photoboard/关键帧；首批 2 张独立生成。六个身份角度不是候选，而是合格统一板的确定性裁图。
 - 全部候选直接引用批准根或同一未决门内的合格根，且 `derived_from_candidate_id:""`。除 `live_action_probe` 外使用 `operation:generate`；探针的三个候选必须分别 `operation:edit` 同一张批准空场景，绝不编辑另一候选。
 - 候选 ID 与图片只存在 `candidates.json` 和 `assets/candidates/`，不得占用 `assets.json` 权威职责。
 
@@ -40,7 +40,7 @@ Codex 对每张候选执行：
 一次呈现：
 
 - reality/casting/role-physique brief；
-- 已通过整板 QA 的统一身份检查板、七张确定性裁图及比例/身材检查；
+- 已通过整板与原生清晰度 QA 的统一身份检查板、全部确定性裁图及比例/身材检查；
 - 地点多视角与主空间锚点；
 - format plan；
 - 三套分别通过内部硬门、隐藏 Profile 的 Look；

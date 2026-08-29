@@ -25,6 +25,10 @@ def init_project(args: argparse.Namespace) -> int:
     root.mkdir(parents=True, exist_ok=True)
     temp_path = Path(tempfile.mkdtemp(prefix=f".{args.slug}-", dir=root))
     now = utc_now()
+    production_kind = str(getattr(args, "project_kind", "narrative-film")).replace("-", "_")
+    if production_kind not in PRODUCTION_KINDS:
+        print(f"ERROR: unsupported --project-kind: {production_kind}", file=sys.stderr)
+        return 2
 
     try:
         for relative in REQUIRED_DIRS:
@@ -39,6 +43,7 @@ def init_project(args: argparse.Namespace) -> int:
             "interaction_language": args.language,
             "prompt_language": args.prompt_language,
             "production_mode": "live-action",
+            "production_kind": production_kind,
             "capture_policy": "adaptive-live-action-v1.6",
             "dynamic_range_policy": {
                 "mode": "finite_scene_referred",
@@ -69,6 +74,26 @@ def init_project(args: argparse.Namespace) -> int:
                 "max_batches": 2,
                 "reviewer": "codex-visual",
                 "expose_failed_candidates": False,
+            },
+            "identity_layout_policy": {
+                "default_profile": IDENTITY_LAYOUT_PROFILE,
+                "legacy_profiles_readable": [LEGACY_IDENTITY_LAYOUT_PROFILE],
+                "single_identity_solve": True,
+                "deterministic_crops_only": True,
+            },
+            "resolution_policy": {
+                "mode": "strict_native_detail_v1.6.6",
+                "effective_at": now,
+                "minimum_identity_board_px": [1536, 1024],
+                "minimum_identity_cell_width_px": 512,
+                "minimum_full_body_subject_height_px": 560,
+                "minimum_portrait_face_height_px": 300,
+                "minimum_authority_long_edge_px": 1536,
+                "minimum_narrative_long_edge_px": 1920,
+                "minimum_narrative_short_edge_px": 1080,
+                "no_dimension_only_upscale": True,
+                "native_generation_or_source_required": True,
+                "inspection_scales": ["thumbnail", "fit", "100_percent", "200_percent"],
             },
             "motion_baseline": {
                 "capture_fps": 24,
@@ -203,6 +228,67 @@ def init_project(args: argparse.Namespace) -> int:
             temp_path / "manifests/reviews.json",
             {"schema_version": SCHEMA_VERSION, "review_gates": []},
         )
+        commercial_mode = (
+            "commercial_tvc" if production_kind == "commercial_tvc"
+            else "commercial_mv_hybrid" if production_kind == "music_video"
+            else "not_applicable"
+        )
+        write_json(
+            temp_path / "manifests/commercial.json",
+            {
+                "schema_version": SCHEMA_VERSION,
+                "mode": commercial_mode,
+                "status": "planned",
+                "commercial_brief": {
+                    "category": "other",
+                    "objective": "",
+                    "audience": "",
+                    "placement": "",
+                    "runtime_s": 0,
+                    "single_proposition": "",
+                    "reasons_to_believe": [],
+                    "mandatory_elements": [],
+                    "brand_codes": [],
+                    "prohibited_generic_codes": [],
+                    "success_measure": "",
+                },
+                "creative_routes": [],
+                "selected_route_id": "",
+                "brand_assets": [],
+                "wardrobe_looks": [],
+                "rhythm_plan": {
+                    "music": {
+                        "usage": "score",
+                        "bpm": 0,
+                        "meter": "",
+                        "downbeat_s": 0,
+                        "energy_curve": [],
+                    },
+                    "tempo_motion_relationship": "free",
+                    "relationship_reason": "",
+                    "edit_strategy": "",
+                    "speed_palette": [],
+                    "shot_rhythm": [],
+                },
+                "audio_plan": {
+                    "dialogue_vo": [],
+                    "music": [],
+                    "ambience": [],
+                    "foley": [],
+                    "transition_accents": [],
+                    "brand_mnemonic": [],
+                    "mix_hierarchy": [],
+                },
+                "deliverables": [],
+                "qa": {
+                    "checks": {name: False for name in COMMERCIAL_QA_CHECKS},
+                    "hard_failures": [],
+                    "notes": [],
+                    "checked_at": "",
+                    "reviewer": "codex-structural",
+                },
+            },
+        )
         (temp_path / "creative-bible.md").write_text(
             creative_bible_template(args.title.strip(), args.aspect), encoding="utf-8"
         )
@@ -236,6 +322,13 @@ def init_project(args: argparse.Namespace) -> int:
         )
         (temp_path / "qa/temporal-review.md").write_text(
             temporal_review_template(args.title.strip()), encoding="utf-8"
+        )
+        (temp_path / "qa/commercial-review.md").write_text(
+            f"# {args.title.strip()} — Commercial / TVC Review\n\n"
+            "Use only when manifests/commercial.json mode is commercial_tvc or commercial_mv_hybrid. "
+            "Review business specificity, creative alternatives, product/wardrobe proof, beat-to-action timing, "
+            "capture-speed logic, complete sound design, exact runtime and destination-specific delivery.\n",
+            encoding="utf-8",
         )
         temp_path.replace(target)
     except Exception as exc:  # pragma: no cover - defensive cleanup

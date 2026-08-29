@@ -66,6 +66,8 @@ No repeating or copied artifact across unrelated materials.
 No rendered outline, oversharpening, clarity/HDR or local-contrast halo.
 ```
 
+低对比度的地形等高线、迷宫线、指纹线或细胞状人脸纹理同样是硬失败，即使缩略图看似洁净。排除词只能减少风险，不能证明修复。
+
 不要把完整 QA 清单发给模型。
 
 ## v1.6 提示策略
@@ -79,7 +81,7 @@ No rendered outline, oversharpening, clarity/HDR or local-contrast halo.
 5. `FOCUS EXPOSURE AND CONTINGENCY`：焦点/曝光优先级、角色精致上限及真实拍摄允许的妥协。
 6. `EXCLUSIONS`：四组紧凑硬排除。
 
-资产差异来自结构化事实，不靠标题变化：identity-inspector 在一次生成中读取固定 4×2 职责和角色体态；七张 identity-view 只能由 Inspector 确定性裁出，不能再次生图；state 只读取允许增量；location 读取拓扑、状态视角和主锚点；object 读取制造结构/尺寸；pose-contact 读取起点/接触/终点；narrative 读取已批准格式、空间、环境、Profile 和序列锚点。
+资产差异来自结构化事实，不靠标题变化：identity-inspector 在一次生成中读取固定高分辨率 3×2 职责和角色体态；六张 identity-view 只能由 Inspector 确定性裁出，不能再次生图；state 只读取允许增量；location 读取拓扑、状态视角和主锚点；object 读取制造结构/尺寸；pose-contact 读取起点/接触/终点；narrative 读取已批准格式、空间、环境、Profile 和序列锚点。
 
 编译后的模型提示仍遵守注意力预算：中性人物/地点/物件目标 80–180 个英文词，叙事图 140–260 个英文词。精确引用顺序和完整合同保存在清单，模型提示用职责摘要而不重复十几个文件名；白底身份根不会继承项目场景灯光，空地点不会出现 skin/hair，纯物件不会继承人物质量合同。
 
@@ -101,7 +103,7 @@ No rendered outline, oversharpening, clarity/HDR or local-contrast halo.
 
 ## 确定性参考顺序
 
-1. 每个角色一张批准的统一 4×2 Inspector；七张裁图仅为次要检查/UI 文件。
+1. 每个角色一张批准的统一高分辨率 3×2 Inspector；六张裁图仅为次要检查/UI 文件。
 2. 当前人物状态。
 3. 需要时的 pose/contact anchor。
 4. 地点根与当前状态视图。
@@ -133,6 +135,12 @@ v1.6 用 `live_action_quality_qa` 合并旧真实性、纹理与实拍表面检�
 每项必须记录可见的 `positive_evidence`；另比较至少一对无关材质，确认没有相同重复纹。QA 在缩略图、适配窗口、100% 和 200% 都通过，reviewer 必须是 `codex-visual`。用户决定只存在审批门。
 
 任一权威图或脸部在任一尺度失败即硬失败。
+
+## v1.6.6 身份板实测结论
+
+2026-08-29 对同一 3×2 单次身份解算策略做了三次独立内置 ImageGen 实测：一张因全身主体原生像素覆盖不足失败；两张在 100% 与 200% 出现低对比度地形线/迷宫式人脸底纹。即使提示已经明确排除该类纹理，结果仍不稳定，因此“增加更多 negative words”不属于修复。
+
+处理规则固定为：整板在缩略图、适配窗口、100% 与 200% 同时检查；分辨率门与纹理门必须同时通过；任何脸部重复拓扑纹理立即淘汰整板；达到尝试上限后标记 `model_blocked` 并请求合法真人参考，不裁图、不下采样掩盖、不修图、不生成下游，也不把失败文件放进公开仓库。
 
 ## 单变量重试
 

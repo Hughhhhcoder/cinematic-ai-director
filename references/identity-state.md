@@ -1,15 +1,15 @@
 # 人物身份包与状态系统 v1.6
 
-人体比例、统一 Inspector/七张确定性裁图和姿态接触的详细门槛见 [human-geometry.md](human-geometry.md)，角色匹配体态见 [role-physique.md](role-physique.md)。本页只定义身份、持续状态与逐镜表演之间的边界。
+人体比例、统一 Inspector/确定性裁图和姿态接触的详细门槛见 [human-geometry.md](human-geometry.md)，角色匹配体态见 [role-physique.md](role-physique.md)。本页只定义身份、持续状态与逐镜表演之间的边界。
 
 ## 单张身份权威
 
-每个持续人物恰好一个 `identity_pack` 和一个 `character_identity_inspector`。Inspector 是一次 ImageGen 调用生成的 4×2 纯白底板：上排 `full_front / full_left_profile / full_right_profile / full_back`，下排 `portrait_front / portrait_left_profile / portrait_right_profile / blank`。
+每个持续人物恰好一个 `identity_pack` 和一个 `character_identity_inspector`。新 Inspector 是一次 ImageGen 调用生成的大尺寸 3×2 纯白底板：上排 `full_front / full_primary_profile / full_back`，下排 `portrait_front / portrait_left_profile / portrait_right_profile`。旧 4×2 七视图只作为已有 v1.6 项目的兼容适配器。
 
-- Inspector 整板是第一且唯一的身份权威；全部七个有效格必须共享同一人物、体态、服装、尺度、皮肤状态和中性光。
+- Inspector 整板是第一且唯一的身份权威；全部六个有效格必须共享同一人物、体态、服装、尺度、皮肤状态和中性光。
 - `face_anchor_asset_id` 等于从 `portrait_front` 格确定性裁出的检查文件；`body_anchor_asset_id` 等于从 `full_front` 格确定性裁出的检查文件。两者是 alias/上传便利，不是新身份根。
 - 整板只生成一次。任何格出现身份、角色体态、解剖或洁净实拍质量漂移，立即停止该人物并 `model_blocked`；不从坏板裁图，不重试同一身份。
-- 通过后由 `build-reference-board` 检测并记录中心白色横向 gutter 的实际 row split，再无重采样裁出七张检查/上传 PNG；分隔歧义、内容跨界或裁掉头发/鞋履直接失败。裁图只能直接派生自 Inspector，不能再次生成或递归编辑。
+- 通过后由 `build-reference-board` 检测并记录中心白色横向 gutter 的实际 row split，再无重采样裁出六张检查/上传 PNG；分隔歧义、内容跨界或裁掉头发/鞋履直接失败。裁图只能直接派生自 Inspector，不能再次生成或递归编辑。
 
 ## Immutable identity
 
@@ -89,4 +89,4 @@
 
 - `identity_kind:real_person`：输出 Soul ID 准备清单；上传前再次确认权利与同意。
 - `identity_kind:fictional`：输出 Elements/Soul Cast 准备包。
-- 两者都以单张统一身份 Inspector 为 ground truth；七张裁图仅为检查/UI 上传便利，当前状态单独绑定。
+- 两者都以单张统一身份 Inspector 为 ground truth；确定性裁图仅为检查/UI 上传便利，当前状态单独绑定。

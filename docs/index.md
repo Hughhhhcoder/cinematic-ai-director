@@ -2,12 +2,13 @@
 
 <p class="cad-kicker">Evidence-driven live-action AI filmmaking</p>
 
-![One v1.6.5 live-action evidence chain showing a unified identity board, a clean locked coastal room and an ordinary-light bounded person insertion](assets/showcase/hero.webp){ .cad-hero }
+!!! warning "v1.6.6 visual evidence is withheld"
+    Three new release identity boards failed native-detail or native-scale skin-texture QA. No hero image or dependent scene was published. The [evidence page](gallery.md) records the gate without exposing failed pixels.
 
 `cinematic-ai-director` is an English-first Codex Skill and dependency-free Python toolkit for live-action films, commercials, and music videos. It builds clean identity and world authorities, hides failed candidates, locks spatial and cross-scene state, derives cinematography from the script, and exports portable Higgsfield-ready work orders.
 
 [Get started](getting-started.md){ .md-button .md-button--primary }
-[See the evidence gallery](gallery.md){ .md-button }
+[Read the quality-gate record](gallery.md){ .md-button }
 
 ## Production promise
 
@@ -16,7 +17,7 @@ The system does not promise that every raw image generation succeeds. It promise
 <div class="cad-grid">
   <div class="cad-card"><strong>Clean photographed surfaces</strong><br>Source-shaped skin highlights, independent material roughness, no AI smear or universal dirty texture.</div>
   <div class="cad-card"><strong>Person–world proof</strong><br>An ordinary-light locked-location insertion must pass both human integration and set-correspondence gates before any styled human frame, sequence or export can proceed.</div>
-  <div class="cad-card"><strong>Role-correct bodies</strong><br>One shared-solve 4×2 identity Inspector, measurable physique targets, wardrobe silhouette, and state-safe soft-tissue changes.</div>
+  <div class="cad-card"><strong>Role-correct bodies</strong><br>One high-resolution shared-solve 3×2 identity Inspector, three full-body plus three large face angles, measurable physique targets, native-detail QA, wardrobe silhouette, and state-safe soft-tissue changes.</div>
   <div class="cad-card"><strong>Real spatial continuity</strong><br>Independent multi-view locations, a fixed primary anchor, set coordinates, camera marks, and off-screen relations.</div>
   <div class="cad-card"><strong>Executable cinematography</strong><br>Approved format, motivated light, finite dynamic range, environment physics, reconstructable camera path, exposure, and motion blur.</div>
   <div class="cad-card"><strong>Low-interruption review</strong><br>Backstage candidate selection with one Foundation decision and one decision per sequence.</div>

@@ -55,7 +55,7 @@ def manifest(root: Path) -> dict[str, object]:
         rows.append({"path": relative, "sha256": sha256(path), "size": path.stat().st_size})
     return {
         "skill": SKILL_NAME,
-        "version": "1.6.5",
+        "version": "1.6.6",
         "schema_version": "1.6",
         "files": rows,
     }
@@ -150,7 +150,7 @@ def install(codex_home: Path, replace: bool) -> int:
         print(f"ERROR: installation failed: {exc}", file=sys.stderr)
         return 2
 
-    print(f"Installed {SKILL_NAME} v1.6.5: {target}")
+    print(f"Installed {SKILL_NAME} v1.6.6: {target}")
     if backup is not None:
         print(f"Previous installation backup: {backup}")
     return 0

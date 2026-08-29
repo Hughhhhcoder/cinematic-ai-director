@@ -20,6 +20,12 @@ def build_parser() -> argparse.ArgumentParser:
     init_parser.add_argument("--aspect", default="16:9", help="Aspect ratio, default: 16:9.")
     init_parser.add_argument("--language", default="en", help="Interaction language, default: en.")
     init_parser.add_argument("--prompt-language", default="en", help="Generation prompt language, default: en.")
+    init_parser.add_argument(
+        "--project-kind",
+        default="narrative-film",
+        choices=("narrative-film", "commercial-tvc", "music-video"),
+        help="Adaptive production contract to initialize; default: narrative-film.",
+    )
 
     validate_parser = subparsers.add_parser("validate", help="Validate manifests, dependencies, prompts, and continuity.")
     validate_parser.add_argument("project_dir", help="Project directory created by init.")
@@ -27,7 +33,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     board_parser = subparsers.add_parser(
         "build-reference-board",
-        help="Validate one authoritative single-solve identity board and deterministically crop its seven official Higgsfield views.",
+        help="Validate one authoritative single-solve identity board and deterministically crop its six-view default or legacy seven-view layout.",
     )
     board_parser.add_argument("project_dir", help="Schema v1.6 project directory.")
     board_parser.add_argument("--identity-pack", required=True, help="Qualified or approved identity-pack id.")

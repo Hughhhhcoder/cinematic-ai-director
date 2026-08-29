@@ -1,15 +1,15 @@
 # Identity geometry and role-conditioned physique
 
-## One identity solve, seven deterministic inspection views
+## One identity solve, six deterministic inspection views
 
-One recurring person owns exactly one pure-white `4×2` identity Inspector generated in one built-in ImageGen call. The fixed cells are:
+One recurring person owns exactly one large pure-white `3×2` identity Inspector generated in one built-in ImageGen call. The fixed cells are:
 
-1. top row: full front, full left profile, full right profile, full back;
-2. bottom row: portrait front, portrait left profile, portrait right profile, blank.
+1. top row: full-body front, one role/script-relevant true side profile, full-body back;
+2. bottom row: large portrait front, portrait left profile, portrait right profile.
 
-All angles therefore share one identity solve. Validate the whole Inspector first; any drift, anatomy/proportion error, oily or plastic skin, smear, CG finish, copied texture, lighting mismatch, garment change, or panel defect blocks this person immediately. A failed Inspector is never retried as the same identity and never becomes a downstream reference.
+All angles therefore share one identity and body solve. Validate the whole Inspector first; any drift, anatomy/proportion error, oily or plastic skin, smear, CG finish, copied/topographic/maze skin texture, lighting mismatch, garment change, insufficient native subject pixels, softness, or panel defect blocks this person immediately. A failed Inspector never becomes a crop or downstream reference.
 
-After approval, `build-reference-board` preserves the fixed four-column/two-row role order, detects and records the one unambiguous near-white horizontal gutter near canvas center, then crops seven PNG views without resampling or repainting. It does not blindly cut the mathematical midpoint if ImageGen made the full-body row slightly taller. A missing/ambiguous gutter, content crossing it, or cropped hair/footwear fails loudly. The crops are inspection and UI-upload aids only; the Inspector remains the first and only identity authority. Full-body cells use normal perspective, natural camera height, complete feet, neutral posture, and no story light, graphics, labels, props, or scenery.
+After approval, `build-reference-board` preserves the fixed three-column/two-row role order, detects and records one unambiguous near-white horizontal gutter near canvas center, then crops six PNG views without resampling or repainting. It does not blindly cut the mathematical midpoint if ImageGen made the full-body row slightly taller. A missing/ambiguous gutter, content crossing it, or cropped hair/footwear fails loudly. The crops are inspection and UI-upload aids only; the Inspector remains the first and only identity authority. Full-body cells use normal perspective, natural camera height, complete feet, neutral posture, and no story light, graphics, labels, props, or scenery. New boards require at least 1536×1024 native pixels, 512 pixels per column, a 560-pixel full-body subject, and a 300-pixel portrait face; dimension-only enlargement does not count. The legacy four-column form remains readable for existing v1.6 projects.
 
 ## Proportion signature
 

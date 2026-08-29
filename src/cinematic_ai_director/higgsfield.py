@@ -270,6 +270,7 @@ def _higgsfield_settings(
     environment_file: str,
     temporal_file: str,
     dynamic_range_file: str,
+    commercial_direction_file: str = "",
 ) -> dict[str, Any]:
     adapter_notes = shot.get("adapter_notes") if isinstance(shot.get("adapter_notes"), dict) else {}
     overrides = adapter_notes.get("higgsfield") if isinstance(adapter_notes.get("higgsfield"), dict) else {}
@@ -307,6 +308,7 @@ def _higgsfield_settings(
         "environment_state_file": environment_file,
         "temporal_lock_file": temporal_file,
         "dynamic_range_file": dynamic_range_file,
+        "commercial_direction_file": commercial_direction_file,
         "format": {
             "project_default_aspect_ratio": project.get("aspect_ratio"),
             "format_plan_id": shot.get("format_plan_id"),
@@ -613,6 +615,8 @@ def export_higgsfield(args: argparse.Namespace) -> int:
     world_manifest = json.loads((project_dir / "manifests/world-state.json").read_text(encoding="utf-8"))
     sequence_manifest = json.loads((project_dir / "manifests/sequences.json").read_text(encoding="utf-8"))
     quality_manifest = json.loads((project_dir / "manifests/quality.json").read_text(encoding="utf-8"))
+    commercial_source_path = project_dir / "manifests/commercial.json"
+    commercial_manifest = json.loads(commercial_source_path.read_text(encoding="utf-8")) if commercial_source_path.is_file() else None
     assets = {
         asset["id"]: asset
         for asset in asset_manifest.get("assets", [])
@@ -800,7 +804,12 @@ def export_higgsfield(args: argparse.Namespace) -> int:
             "qa/environment-review.md",
             "qa/temporal-review.md",
         )
-        for source_relative in production_files:
+        optional_production_files = []
+        if commercial_source_path.is_file():
+            optional_production_files.append("manifests/commercial.json")
+        if (project_dir / "qa/commercial-review.md").is_file():
+            optional_production_files.append("qa/commercial-review.md")
+        for source_relative in (*production_files, *optional_production_files):
             source = project_dir / source_relative
             destination = temp_path / "production" / source_relative
             destination.parent.mkdir(parents=True, exist_ok=True)
@@ -825,6 +834,7 @@ def export_higgsfield(args: argparse.Namespace) -> int:
             environment_relative = (shot_root / "environment-state.json").as_posix()
             temporal_relative = (shot_root / "temporal-lock.json").as_posix()
             dynamic_range_relative = (shot_root / "dynamic-range.json").as_posix()
+            commercial_direction_relative = (shot_root / "commercial-direction.json").as_posix() if commercial_manifest and commercial_manifest.get("mode") != "not_applicable" else ""
             references_relative = (shot_root / "references.csv").as_posix()
             runbook_relative = (shot_root / "RUN.md").as_posix()
             (temp_path / shot_root).mkdir(parents=True, exist_ok=True)
@@ -893,6 +903,17 @@ def export_higgsfield(args: argparse.Namespace) -> int:
                 "hard_rule": "one finite scene-referred exposure; do not recover every highlight and shadow with local tone mapping or exposure fusion",
             }
             portable_write_json(temp_path / dynamic_range_relative, dynamic_range_payload)
+            commercial_direction = _commercial_direction_for_shot(commercial_manifest, shot_id)
+            if commercial_direction_relative:
+                portable_write_json(
+                    temp_path / commercial_direction_relative,
+                    {
+                        "package_schema": f"higgsfield-commercial-direction-{HIGGSFIELD_PACKAGE_VERSION}",
+                        "shot_id": shot_id,
+                        **commercial_direction,
+                        "translation_rule": "Use only picture-, action-, speed-, sound- and wardrobe/product-relevant facts in prompt.txt; business and QA facts remain in this work order.",
+                    },
+                )
             settings = _higgsfield_settings(
                 project,
                 shot,
@@ -905,6 +926,7 @@ def export_higgsfield(args: argparse.Namespace) -> int:
                 environment_relative,
                 temporal_relative,
                 dynamic_range_relative,
+                commercial_direction_relative,
             )
             portable_write_json(temp_path / settings_relative, settings)
             portable_write_csv(
@@ -930,6 +952,7 @@ def export_higgsfield(args: argparse.Namespace) -> int:
                 "environment_state_file": environment_relative,
                 "temporal_lock_file": temporal_relative,
                 "dynamic_range_file": dynamic_range_relative,
+                "commercial_direction_file": commercial_direction_relative,
                 "references_file": references_relative,
                 "runbook_file": runbook_relative,
             }
@@ -944,6 +967,7 @@ def export_higgsfield(args: argparse.Namespace) -> int:
                 "environment_payload": environment_payload,
                 "temporal_payload": temporal_payload,
                 "dynamic_range_payload": dynamic_range_payload,
+                "commercial_direction": commercial_direction,
                 "prompt_file": prompt_relative,
                 "settings": settings,
             }
@@ -1138,6 +1162,24 @@ def export_higgsfield(args: argparse.Namespace) -> int:
                     "continuity_rule": "Exposure priority may change only when the recorded light or narrative point of view changes; clipping and shadow floors remain temporally stable within a shot.",
                 },
             )
+            commercial_direction_file = ""
+            if commercial_manifest and commercial_manifest.get("mode") != "not_applicable":
+                commercial_direction_file = "commercial-direction.json"
+                portable_write_json(
+                    temp_path / cluster_root / commercial_direction_file,
+                    {
+                        "package_schema": f"higgsfield-sequence-commercial-direction-{HIGGSFIELD_PACKAGE_VERSION}",
+                        "sequence_cluster_id": cluster_id,
+                        "selected_route_id": commercial_manifest.get("selected_route_id"),
+                        "commercial_brief": commercial_manifest.get("commercial_brief"),
+                        "shot_directions": {
+                            str(cluster_shot.get("id")): shot_artifacts[str(cluster_shot.get("id"))]["commercial_direction"]
+                            for cluster_shot in cluster_shots
+                        },
+                        "audio_plan": commercial_manifest.get("audio_plan"),
+                        "deliverables": commercial_manifest.get("deliverables"),
+                    },
+                )
             quality_profile_id = str(cluster.get("quality_profile_id") or "")
             quality_profile = quality_profiles.get(quality_profile_id)
             if not isinstance(quality_profile, dict) or quality_profile.get("status") != "approved":
@@ -1201,6 +1243,7 @@ def export_higgsfield(args: argparse.Namespace) -> int:
                 "environment_state_file": "environment-state.json",
                 "temporal_lock_file": "temporal-lock.json",
                 "dynamic_range_file": "dynamic-range.json",
+                "commercial_direction_file": commercial_direction_file,
                 "quality_profile_file": "quality-profile.json",
                 "sequence_anchor_file": "sequence-anchor.json",
                 "reference_bindings": bindings,
@@ -1262,7 +1305,8 @@ def export_higgsfield(args: argparse.Namespace) -> int:
             [
                 "scene_id", "scene_order", "shot_id", "shot_order", "status", "duration_s",
                 "prompt_file", "settings_file", "spatial_map_file", "format_plan_file", "camera_path_file",
-                "environment_state_file", "temporal_lock_file", "references_file", "runbook_file",
+                "environment_state_file", "temporal_lock_file", "dynamic_range_file", "commercial_direction_file",
+                "references_file", "runbook_file",
             ],
             shot_rows,
         )
@@ -1284,7 +1328,7 @@ def export_higgsfield(args: argparse.Namespace) -> int:
                 "operator_checklist": [
                     "Confirm likeness consent and reference usage rights before upload.",
                     "Use the one approved two-row white identity inspector as the first and primary identity input.",
-                    "The seven deterministic crops are inspection/upload conveniences and may never replace or outrank the unified board.",
+                    "The declared deterministic crops are inspection/upload conveniences and may never replace or outrank the unified board.",
                     "Do not use a bridge frame or character state image as the sole Soul ID source.",
                 ],
                 "automatic_upload": False,
@@ -1300,7 +1344,7 @@ def export_higgsfield(args: argparse.Namespace) -> int:
                 ],
                 "operator_checklist": [
                     "Create the reusable identity from the one approved two-row single-solve inspector board.",
-                    "Use its seven deterministic crops only for inspection or a UI that requests separate views; the unified board remains ground truth.",
+                    "Use its deterministic crops only for inspection or a UI that requests separate views; the unified board remains ground truth.",
                     "Bind the exact persistent character-state reference separately for each sequence.",
                     "Keep emotion, gaze, and action in the shot prompt instead of creating a new identity.",
                 ],

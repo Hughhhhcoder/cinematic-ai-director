@@ -36,7 +36,8 @@ cinematic-ai-director --help
 python3 scripts/film_project.py init \
   --title "Night Shift" \
   --slug night-shift \
-  --root ./ai-film
+  --root ./ai-film \
+  --project-kind narrative-film
 
 python3 scripts/film_project.py validate ./ai-film/night-shift
 ```
@@ -47,7 +48,7 @@ python3 scripts/film_project.py validate ./ai-film/night-shift
 
 正常流程只要求：
 
-1. 一次 Foundation 审批：现实简报、角色与身材、单张 4×2 统一身份检查板及确定性裁图、地点包、空间锚点、画幅和盲选 Look。
+1. 一次 Foundation 审批：现实简报、角色与身材、单张高分辨率 3×2 统一身份检查板及六张确定性裁图、地点包、空间锚点、画幅和盲选 Look。
 2. 每个 `sequence_cluster` 一次审批：联合锚点、状态、Photoboard、关键帧、空间图和提示摘要。
 
 某一张需要修改时，只返工该资产及其直接依赖，不推翻已经批准的无关内容。
@@ -57,7 +58,7 @@ python3 scripts/film_project.py validate ./ai-film/night-shift
 ```text
 init                    初始化 Schema 1.6 项目且不覆盖旧目录
 validate                审计文件、依赖、状态、QA、提示与连续性
-build-reference-board   从一张批准 Inspector 无重绘、无缩放裁出七张 PNG
+build-reference-board   从一张批准 Inspector 无重绘、无缩放裁出六张默认（或七张旧版）PNG
 compile-prompts         从结构化事实确定性编译版本化提示
 build-review-board      生成总览及脸、手、材质、高光、暗部诊断页
 record-review           原子记录门级批准或修改请求

@@ -10,7 +10,7 @@ python3 scripts/film_project.py export-higgsfield <project>
 python3 <project>/exports/higgsfield/verify_package.py
 ```
 
-至少一条 ready/generated/selected 镜头；Foundation 与所属 Sequence 门已批准；统一身份检查板及七张确定性裁图、角色身材/比例、人物/地点/道具/环境状态、quality/capture Profile、格式/Treatment、序列联合锚点、空间、有限动态范围、路径、时间、模糊、首尾帧和全部 QA 齐全；参考数量与运镜映射不超过目标适配器。
+至少一条 ready/generated/selected 镜头；Foundation 与所属 Sequence 门已批准；统一身份检查板及全部声明的确定性裁图、角色身材/比例、人物/地点/道具/环境状态、quality/capture Profile、格式/Treatment、序列联合锚点、空间、有限动态范围、路径、时间、模糊、首尾帧和全部 QA 齐全；参考数量与运镜映射不超过目标适配器。
 
 v1.6 严格导出固定绑定 `cinema-studio-4-seedance-2.5-official-2026-08-27`。这是对 2026-08-27 官方公开资料快照的 100% 结构符合：目标工作流/模型、提示段落顺序、身份/地点参考职责、参考上限、30 秒、1080p 上限、9:16–21:9 与原生音频能力均写入 `official-conformance.json` 和验证器。它不承诺随机生成像素必然成功。实际 UI 任一项与快照不一致时必须停止并更新 Skill，禁止静默降级。
 
@@ -64,7 +64,7 @@ exports/higgsfield/
 句柄明确区分：
 
 - `identity_inspector_primary`：单张统一身份板，必须排在当前人物状态之前。
-- 七张确定性身份裁图只在 UI 明确需要分视图时作为次要检查/上传文件，不能替代或排在 Inspector 之前。
+- 确定性身份裁图只在 UI 明确需要分视图时作为次要检查/上传文件，不能替代或排在 Inspector 之前。
 - `current_character_state`。
 - `pose_contact_anchor`。
 - `location_shot_view / location_three_quarter / location_state_view`。
@@ -104,7 +104,7 @@ Popcorn/Studio 3 只保留历史适配信息，不是 v1.6 严格导出目标。
 - `identity_kind:real_person` 输出 Soul ID 准备记录，上传前确认肖像同意和使用权。
 - `identity_kind:fictional` 输出 Elements/Soul Cast 准备记录。
 - 两者都要求一张通过整板 QA 的两排白底 Inspector 作为第一身份输入；当前状态单独绑定。
-- 七张确定性裁图只在当前界面要求分视图时上传；统一板始终是 ground truth。
+- 确定性裁图只在当前界面要求分视图时上传；统一板始终是 ground truth。
 - 文件是准备清单，不代表平台实体已创建。
 
 ## 人工执行

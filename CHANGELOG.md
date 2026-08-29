@@ -2,6 +2,24 @@
 
 All notable public changes are documented here. The project follows [Semantic Versioning](https://semver.org/).
 
+## [1.6.6] — 2026-08-29
+
+### Added
+
+- Added an adaptive commercial/TVC reasoning contract covering the business brief, two materially different creative routes, competitor-swap rejection, per-shot function/removal tests, fashion look and material proof, full sound direction, and destination-specific delivery matrices.
+- Added a mathematical editorial-rhythm contract: BPM/beat intervals, exact shot frames, commissioned runtime, action peaks, speed palettes, shutter/exposure, internal rhythmic events, and explicit fast-music/uniform-slow-motion mismatch blocking.
+- Added strict native-detail QA that verifies real file dimensions, subject pixel coverage, focus/edge resolution, resampling/compression, and dimension-only enlargement before an asset can proceed.
+- Added an explicit `topographic_contour_or_maze_skin_texture` failure class after native 100%/200% v1.6.6 Inspector tests showed that negative prompt wording alone does not reliably remove low-contrast repeated face texture.
+- Added focused regression tests for the 3×2 identity layout, identity prompt contract, commercial initialization, route/rhythm/speed/delivery gates, fashion proof, and native-resolution failures.
+
+### Changed
+
+- New identities now use one large high-resolution 3×2 white Inspector generated in one call: full-body front/primary-profile/back above large face front/left-profile/right-profile. Six upload/inspection images are exact crops; the unified board remains the first authority. The earlier 4×2 form remains a read/export compatibility adapter for existing v1.6 projects.
+- Commercial and MV projects are no longer treated as narrative films with a logo appended. Picture prompts receive only supported, visible creative/rhythm facts while complete business, edit, sound, and delivery evidence remains in deterministic sidecars.
+- Kept all failed v1.6.6 identity-board generations out of the repository and public gallery; a clean thumbnail cannot overrule native-scale skin artifacts or insufficient full-body pixel coverage.
+- Removed the superseded v1.6.5 public images, prompts, and board-builder from the current release tree after renewed geometry, material, and person–world review. Git history remains the audit trail; v1.6.6 publishes only an anonymized withheld-by-quality-gate record until a complete new chain passes.
+- Schema remains `1.6`; the new policies are additive and timestamped so existing v1.6 projects remain readable without rewriting previously approved assets.
+
 ## [1.6.5] — 2026-08-28
 
 ### Added

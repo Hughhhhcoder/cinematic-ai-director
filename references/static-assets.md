@@ -5,7 +5,7 @@
 ## 固定依赖顺序
 
 1. Reality/casting brief、角色身材 brief、quality Profile、有限动态范围合同、world DNA、状态时间线。
-2. 一张单次身份解算的 4×2 纯白底人物检查板；整板通过后确定性裁出七张检查/上传视图，再建立角色体态门与比例签名。
+2. 一张单次身份解算的大尺寸 3×2 纯白底人物检查板；整板通过后确定性裁出六张检查/上传视图，再建立角色体态门与比例签名。
 3. 人物持续状态中性参考；需要时的局部状态近景。
 4. 无人物地点 master、物件根与主空间锚点。
 5. 地点状态多视角与 spatial map。
@@ -19,13 +19,13 @@
 
 ## 中性权威
 
-- 单张人物身份检查板及其七张确定性裁图。
+- 单张人物身份检查板及其六张确定性裁图。
 - 人物状态中性参考。
 - Location master 与状态地理视图。
 - Object root 与中性物件状态。
 - Pose/contact anchor。
 
-全部使用 `clean_authority`：自然透视、材料可分、正常白平衡、足够景深，无剧情颗粒、光晕、色差、统一调色、装饰雾或夸张浅景深。每张图仍要有自己的有限 `dynamic_range_plan`；中性白底或勘景图通常降低现场反差，但不能使用局部 HDR 把每个暗缝和亮面都做成同样清晰。人物必须以一次 ImageGen 调用生成完整 4×2 白底检查板，让七个有效格共享同一次身份解算；该板是唯一人物身份权威。七个 PNG 只是从板上无重采样裁出的检查/上传文件。全身格还必须符合 `role_physique_brief`，不能被默认短腿、箱型躯干或错误衣着轮廓替换。
+全部使用 `clean_authority`：自然透视、材料可分、正常白平衡、足够景深，无剧情颗粒、光晕、色差、统一调色、装饰雾或夸张浅景深。每张图仍要有自己的有限 `dynamic_range_plan`；中性白底或勘景图通常降低现场反差，但不能使用局部 HDR 把每个暗缝和亮面都做成同样清晰。人物必须以一次 ImageGen 调用生成完整 3×2 白底检查板，让六个有效格共享同一次身份解算；该板是唯一人物身份权威。六个 PNG 只是从板上无重采样裁出的检查/上传文件。全身格还必须符合 `role_physique_brief`，不能被默认短腿、箱型躯干或错误衣着轮廓替换。
 
 ## 摄影化叙事资产
 
@@ -34,7 +34,7 @@
 - Photoboard/storyboard
 - Keyframe/key art
 
-继承批准的七视角身份/人物状态、地点/道具状态、空间地图、environment、format、Treatment 与 Profile。Storyboard 默认是照片级、可在真实机位和布光下执行的 Photoboard，不是线稿、概念画或 3D previz。
+继承批准的统一身份板/人物状态、地点/道具状态、空间地图、environment、format、Treatment 与 Profile。Storyboard 默认是照片级、可在真实机位和布光下执行的 Photoboard，不是线稿、概念画或 3D previz。
 
 空间主图只证明地理，不能直接成为人物叙事帧。Photoboard、关键帧和 key art 若包含两人以上，必须先冻结 `dramatic_coverage_plan` 与 `subject_environment_integration`：观看者位置、coverage role、景别/裁切地标、前景与焦点人物、相交视线、正在发生的任务动作，以及所有人物共享的光线、空气介质、焦点、遮挡、接触和色调响应。除非有书面叙事理由，禁止把人物全身、等距、对称地摆进地点建立图；这种“空间说明式对峙”即使透视正确也按游戏关卡感硬失败。
 
@@ -44,10 +44,10 @@
 
 ## 人物
 
-人物身份只调用一次 ImageGen，使用 `image2-live-action-identity-inspector-v1.6` 生成一张 4×2 纯白底板：
+人物身份只调用一次 ImageGen，使用 `image2-live-action-identity-inspector-v1.6.6` 生成一张大尺寸 3×2 纯白底板：
 
-- 上排：`full_front / full_left_profile / full_right_profile / full_back`。
-- 下排：`portrait_front / portrait_left_profile / portrait_right_profile / blank`。
+- 上排：`full_front / full_primary_profile / full_back`。
+- 下排：`portrait_front / portrait_left_profile / portrait_right_profile`。
 
 全部有效格必须是同一张脸、同一身体、同一身高印象、同一服装鞋履、同一自然干燥皮肤状态和同一中性软光；全身格保持一致比例、完整脚部、水平机位和正常透视。禁止标签、分隔装饰、道具、环境、剧情调色、油光、妆面高光和每格各自变化的光线。
 
@@ -57,7 +57,9 @@
 python3 scripts/film_project.py build-reference-board <project> --identity-pack <id>
 ```
 
-命令只接受 8-bit RGB/RGBA PNG，拒绝覆盖；保持固定四列和两排角色顺序，从中心附近唯一明确的白色横向 gutter 记录实际 row split，再确定性裁出七张 PNG，不重绘、不重采样。它记录 gutter 证据、来源 SHA-256、裁框和输出哈希；缺失/歧义分隔、内容跨界或裁掉头发/鞋履直接失败。统一板保持第一身份输入；裁图只用于检查和当前 UI 若要求的分视图上传。人物状态和叙事图仍直接引用统一板，不以裁图或前一状态为根。
+命令只接受 8-bit RGB/RGBA PNG，拒绝覆盖；保持声明的三列两排角色顺序，从中心附近唯一明确的白色横向 gutter 记录实际 row split，再确定性裁出六张 PNG，不重绘、不重采样。它记录 gutter 证据、来源 SHA-256、裁框和输出哈希；缺失/歧义分隔、内容跨界或裁掉头发/鞋履直接失败。统一板保持第一身份输入；裁图只用于检查和当前 UI 若要求的分视图上传。人物状态和叙事图仍直接引用统一板，不以裁图或前一状态为根。
+
+板与裁图同时通过 `resolution_qa`：新板原生至少 1536×1024、每列至少 512 px、全身主体至少 560 px 高、脸部至少 300 px 高；不得用插值放大、过锐或压缩伪装清晰度。其他根资产原生长边至少 1536 px，叙事帧至少达到 1920×1080 等效像素覆盖。
 
 ## 地点
 

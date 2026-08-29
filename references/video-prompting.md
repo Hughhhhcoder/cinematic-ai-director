@@ -10,7 +10,7 @@
 - 景别、成像宽度、焦段/FOV、T-stop、焦点与曝光。
 - 有限 `dynamic_range_plan`：工作纬度、场景反差估计、中灰锚点、曝光优先级、允许的高光 clipping 和暗部信息损失。
 - 空间地图、机位/人物 mark、主锚点投影、depth order 与动作路径。
-- 统一 4×2 人物 Inspector、七张确定性裁图、准确人物状态、`role_physique_brief`、`proportion_signature`/skeletal lock、需要时的 pose/contact anchor。
+- 统一高分辨率 3×2 人物 Inspector、六张确定性裁图、准确人物状态、`role_physique_brief`、`proportion_signature`/skeletal lock、需要时的 pose/contact anchor。
 - 两人及以上镜头增加 `multi_person_projection`：同一整流投影、摄影机高度/俯仰、每人批准身高与镜头距离、预期/观察投影比、裁切地标、地平线/消失线、遮挡和接地/高差；固定 `per_person_scale_transform:false`。
 - 两人及以上叙事镜头增加 `dramatic_coverage_plan`：coverage role、观看者位置、景别、裁切地标、前景/焦点人物、相交视线、动作节拍、构图不对称和宽景例外理由。`spatial_proof_only:false`，不能把地点建立图加人物后直接当成最终镜头。
 - 含人物镜头增加 `subject_environment_integration`：共享光源、环境介质深度、焦点/遮挡、接触支撑、材质/色彩传播、边缘一致性与 cut-out/game-level 检查。
@@ -34,7 +34,7 @@ SCENE
 The single narrative event, current environment and temporal phase. State whose viewpoint governs the coverage, what physical task is already in progress, and why this shot size is used instead of a diagrammatic wide.
 
 CHARACTERS
-Portable @handles in the approved reference order: the 4×2 identity Inspector first, then current state, deterministic crops only when the interface needs them, pose/contact evidence and supplementary bridge last. Preserve identity, role physique, body proportions and current state.
+Portable @handles in the approved reference order: the unified identity Inspector first, then current state, deterministic crops only when the interface needs them, pose/contact evidence and supplementary bridge last. Preserve identity, role physique, body proportions and current state.
 
 For two or more people, declare one shared camera projection and each approved standing height/camera distance. Preserve the pairwise projected-height relationship; never independently scale, stretch, shrink or reproject a person.
 

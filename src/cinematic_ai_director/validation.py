@@ -160,8 +160,63 @@ def validate_project_metadata(
         report.error("BOUNDARY", "static_generator must be builtin-imagegen.")
     if project.get("production_mode") != "live-action":
         report.error("BOUNDARY", "production_mode must be live-action.")
+    production_kind = project.get("production_kind")
+    if production_kind is not None and production_kind not in PRODUCTION_KINDS:
+        report.error("ENUM", f"project.json.production_kind is invalid: {production_kind}")
     if project.get("capture_policy") != "adaptive-live-action-v1.6":
         report.error("BOUNDARY", "capture_policy must be adaptive-live-action-v1.6.")
+    identity_layout_policy = project.get("identity_layout_policy")
+    if identity_layout_policy is not None:
+        if require_keys(
+            identity_layout_policy,
+            ("default_profile", "legacy_profiles_readable", "single_identity_solve", "deterministic_crops_only"),
+            "project.json.identity_layout_policy",
+            report,
+        ):
+            if identity_layout_policy.get("default_profile") not in IDENTITY_LAYOUTS:
+                report.error("IDENTITY_INSPECTOR", "project identity default layout is unsupported.")
+            require_string_list(
+                identity_layout_policy.get("legacy_profiles_readable"),
+                "project.json.identity_layout_policy.legacy_profiles_readable",
+                report,
+            )
+            if identity_layout_policy.get("single_identity_solve") is not True:
+                report.error("IDENTITY_INSPECTOR", "Every identity board must share one ImageGen identity solve.")
+            if identity_layout_policy.get("deterministic_crops_only") is not True:
+                report.error("IDENTITY_CROP", "Identity views must be deterministic crops, never independent generations.")
+    resolution_policy = project.get("resolution_policy")
+    if resolution_policy is not None:
+        fields = (
+            "mode", "effective_at", "minimum_identity_board_px", "minimum_identity_cell_width_px",
+            "minimum_full_body_subject_height_px", "minimum_portrait_face_height_px",
+            "minimum_authority_long_edge_px", "minimum_narrative_long_edge_px",
+            "minimum_narrative_short_edge_px", "no_dimension_only_upscale",
+            "native_generation_or_source_required", "inspection_scales",
+        )
+        if require_keys(resolution_policy, fields, "project.json.resolution_policy", report):
+            if resolution_policy.get("mode") != "strict_native_detail_v1.6.6":
+                report.error("RESOLUTION_POLICY", "resolution_policy.mode must be strict_native_detail_v1.6.6.")
+            if not valid_timestamp(resolution_policy.get("effective_at")):
+                report.error("RESOLUTION_POLICY", "resolution_policy.effective_at must be an ISO-8601 timestamp.")
+            board_px = resolution_policy.get("minimum_identity_board_px")
+            if (
+                not isinstance(board_px, list) or len(board_px) != 2
+                or any(not is_integer(value) or value <= 0 for value in board_px)
+            ):
+                report.error("RESOLUTION_POLICY", "minimum_identity_board_px must be two positive integers.")
+            for field in (
+                "minimum_identity_cell_width_px", "minimum_full_body_subject_height_px",
+                "minimum_portrait_face_height_px", "minimum_authority_long_edge_px",
+                "minimum_narrative_long_edge_px", "minimum_narrative_short_edge_px",
+            ):
+                if not is_integer(resolution_policy.get(field)) or resolution_policy.get(field) <= 0:
+                    report.error("RESOLUTION_POLICY", f"project.json.resolution_policy.{field} must be a positive integer.")
+            if resolution_policy.get("no_dimension_only_upscale") is not True:
+                report.error("RESOLUTION_POLICY", "Dimension-only upscaling must remain forbidden.")
+            if resolution_policy.get("native_generation_or_source_required") is not True:
+                report.error("RESOLUTION_POLICY", "A native generation or lawful source is required for high-detail assets.")
+            if resolution_policy.get("inspection_scales") != ["thumbnail", "fit", "100_percent", "200_percent"]:
+                report.error("RESOLUTION_POLICY", "Strict resolution inspection requires thumbnail, fit, 100_percent and 200_percent.")
     dynamic_range_policy = project.get("dynamic_range_policy")
     if require_keys(
         dynamic_range_policy,
@@ -1177,10 +1232,12 @@ def validate_reference_coverage(asset: dict[str, Any], where: str, report: Repor
     if status not in {"qualified", "approved", "superseded"}:
         return
     if asset_type == "character_identity_inspector":
+        layout = asset.get("identity_inspector_layout") if isinstance(asset.get("identity_inspector_layout"), dict) else {}
+        expected_roles = identity_roles_for_layout(layout.get("profile"))
         if policy != "identity_single_solve_inspector":
             report.error("IDENTITY_INSPECTOR", f"Identity inspector {asset.get('id')} must use identity_single_solve_inspector coverage.")
-        if set(required_views) != set(IDENTITY_VIEW_ROLES) or set(present_views) != set(IDENTITY_VIEW_ROLES):
-            report.error("IDENTITY_INSPECTOR", f"Identity inspector {asset.get('id')} must contain the seven official Higgsfield sheet roles once each.")
+        if not expected_roles or set(required_views) != set(expected_roles) or set(present_views) != set(expected_roles):
+            report.error("IDENTITY_INSPECTOR", f"Identity inspector {asset.get('id')} must contain every role in its declared supported layout once each.")
         if background_policy != "pure_white" or consistency_pass is not True:
             report.error("IDENTITY_INSPECTOR", f"Identity inspector {asset.get('id')} requires pure white and one-identity consistency across the full sheet.")
     elif asset_type == "character_master":
@@ -1310,11 +1367,163 @@ def asset_dependency_is_usable(source: dict[str, Any], target: dict[str, Any]) -
     )
 
 
+def _native_image_dimensions(path: Path) -> tuple[int, int] | None:
+    """Read common raster dimensions without decoding or dependencies."""
+    try:
+        data = path.read_bytes()
+    except OSError:
+        return None
+    if len(data) >= 24 and data.startswith(b"\x89PNG\r\n\x1a\n"):
+        return struct.unpack(">II", data[16:24])
+    if len(data) >= 10 and data[:2] == b"\xff\xd8":
+        offset = 2
+        while offset + 4 <= len(data):
+            if data[offset] != 0xFF:
+                offset += 1
+                continue
+            marker = data[offset + 1]
+            offset += 2
+            if marker in {0xD8, 0xD9}:
+                continue
+            if offset + 2 > len(data):
+                return None
+            length = struct.unpack(">H", data[offset:offset + 2])[0]
+            if length < 2 or offset + length > len(data):
+                return None
+            if marker in {0xC0, 0xC1, 0xC2, 0xC3, 0xC5, 0xC6, 0xC7, 0xC9, 0xCA, 0xCB, 0xCD, 0xCE, 0xCF}:
+                if length < 7:
+                    return None
+                height, width = struct.unpack(">HH", data[offset + 3:offset + 7])
+                return width, height
+            offset += length
+    if len(data) >= 30 and data[:4] == b"RIFF" and data[8:12] == b"WEBP" and data[12:16] == b"VP8X":
+        return 1 + int.from_bytes(data[24:27], "little"), 1 + int.from_bytes(data[27:30], "little")
+    return None
+
+
+def validate_resolution_qa(
+    project_dir: Path,
+    asset: dict[str, Any],
+    where: str,
+    policy: Any,
+    report: Report,
+) -> None:
+    """Enforce useful native detail instead of trusting enlarged dimensions."""
+    if not isinstance(policy, dict) or policy.get("mode") != "strict_native_detail_v1.6.6":
+        return
+    if asset.get("type") not in AUTHENTIC_ASSET_TYPES:
+        return
+    effective_at = policy.get("effective_at")
+    created_at = asset.get("created_at")
+    if valid_timestamp(effective_at) and valid_timestamp(created_at):
+        effective_dt = datetime.fromisoformat(str(effective_at).replace("Z", "+00:00"))
+        created_dt = datetime.fromisoformat(str(created_at).replace("Z", "+00:00"))
+        if created_dt < effective_dt:
+            return
+    qa = asset.get("resolution_qa")
+    qa_where = f"{where}.resolution_qa"
+    fields = (
+        "mode", "source_dimensions_px", "delivered_dimensions_px", "subject_coverage_px",
+        "native_generation_or_source", "dimension_only_upscale", "checks", "verdict",
+        "hard_failures", "notes", "checked_at", "reviewer",
+    )
+    if not require_keys(qa, fields, qa_where, report):
+        return
+    status = asset.get("status")
+    if qa.get("mode") not in {"pending", "native_detail", "not_applicable"}:
+        report.error("RESOLUTION_QA", f"{qa_where}.mode is invalid: {qa.get('mode')}")
+    if qa.get("verdict") not in {"pending", "pass", "fail", "not_applicable"}:
+        report.error("RESOLUTION_QA", f"{qa_where}.verdict is invalid: {qa.get('verdict')}")
+    for field in ("source_dimensions_px", "delivered_dimensions_px"):
+        value = qa.get(field)
+        if not isinstance(value, list) or len(value) != 2 or any(not is_integer(item) or item < 0 for item in value):
+            report.error("RESOLUTION_QA", f"{qa_where}.{field} must contain two non-negative integers.")
+    coverage = qa.get("subject_coverage_px")
+    if not isinstance(coverage, dict):
+        report.error("RESOLUTION_QA", f"{qa_where}.subject_coverage_px must be an object.")
+        coverage = {}
+    elif any(not isinstance(key, str) or not is_integer(value) or value < 0 for key, value in coverage.items()):
+        report.error("RESOLUTION_QA", f"{qa_where}.subject_coverage_px values must be non-negative integers.")
+    checks = qa.get("checks")
+    if require_keys(checks, RESOLUTION_QA_CHECKS, f"{qa_where}.checks", report):
+        for name in RESOLUTION_QA_CHECKS:
+            if checks.get(name) not in {"pending", "pass", "fail", "not_applicable"}:
+                report.error("RESOLUTION_QA", f"{qa_where}.checks.{name} is invalid.")
+    require_string_list(qa.get("hard_failures"), f"{qa_where}.hard_failures", report)
+    require_string_list(qa.get("notes"), f"{qa_where}.notes", report)
+    require_string(qa.get("checked_at"), f"{qa_where}.checked_at", report, allow_empty=True)
+    require_string(qa.get("reviewer"), f"{qa_where}.reviewer", report, allow_empty=True)
+    if status == "planned":
+        if qa.get("mode") != "pending" or qa.get("verdict") != "pending":
+            report.error("RESOLUTION_QA", f"Planned asset {asset.get('id')} must keep resolution QA pending.")
+        return
+    if status == "model_blocked":
+        return
+    if qa.get("native_generation_or_source") is not True:
+        report.error("RESOLUTION_GATE", f"Asset {asset.get('id')} has no native high-detail generation or source.")
+    if qa.get("dimension_only_upscale") is not False:
+        report.error("RESOLUTION_GATE", f"Asset {asset.get('id')} is only dimension-upscaled; no real detail was recovered.")
+    if qa.get("mode") != "native_detail" or qa.get("verdict") != "pass" or qa.get("hard_failures"):
+        report.error("RESOLUTION_GATE", f"Asset {asset.get('id')} has not passed native-detail QA.")
+    if not isinstance(checks, dict) or any(checks.get(name) != "pass" for name in RESOLUTION_QA_CHECKS):
+        report.error("RESOLUTION_GATE", f"Asset {asset.get('id')} must pass every resolution QA check.")
+    if qa.get("reviewer") != "codex-visual" or not valid_timestamp(qa.get("checked_at")):
+        report.error("RESOLUTION_GATE", f"Asset {asset.get('id')} requires timestamped Codex visual resolution review.")
+
+    source_dims = qa.get("source_dimensions_px") if isinstance(qa.get("source_dimensions_px"), list) and len(qa.get("source_dimensions_px")) == 2 else [0, 0]
+    delivered_dims = qa.get("delivered_dimensions_px") if isinstance(qa.get("delivered_dimensions_px"), list) and len(qa.get("delivered_dimensions_px")) == 2 else [0, 0]
+    output = asset.get("generation_provenance", {}).get("output", {})
+    if isinstance(output, dict) and [output.get("width_px"), output.get("height_px")] != delivered_dims:
+        report.error("RESOLUTION_METADATA", f"Asset {asset.get('id')} dimensions disagree with generation provenance.")
+    active_path = asset.get("approved_path") if status in {"approved", "superseded"} else asset.get("candidate_path")
+    if isinstance(active_path, str) and active_path:
+        path = project_dir / active_path
+        actual = _native_image_dimensions(path) if path.is_file() else None
+        if actual is None:
+            report.error("RESOLUTION_METADATA", f"Asset {asset.get('id')} file dimensions cannot be verified.")
+        elif list(actual) != delivered_dims:
+            report.error("RESOLUTION_METADATA", f"Asset {asset.get('id')} records {delivered_dims} but file is {list(actual)}.")
+    if asset.get("mode") != "crop" and source_dims != delivered_dims:
+        report.error("RESOLUTION_UPSCALE", f"Asset {asset.get('id')} must record equal native source and delivery dimensions.")
+    if asset.get("mode") == "crop" and (source_dims[0] < delivered_dims[0] or source_dims[1] < delivered_dims[1]):
+        report.error("RESOLUTION_UPSCALE", f"Identity crop {asset.get('id')} cannot exceed its source board dimensions.")
+
+    width, height = delivered_dims
+    long_edge, short_edge = max(width, height), min(width, height)
+    if asset.get("type") == "character_identity_inspector":
+        minimum_board = policy.get("minimum_identity_board_px", [1536, 1024])
+        if width < minimum_board[0] or height < minimum_board[1]:
+            report.error("RESOLUTION_GATE", f"Identity board {asset.get('id')} is below the native board floor.")
+        layout = asset.get("identity_inspector_layout") if isinstance(asset.get("identity_inspector_layout"), dict) else {}
+        spec = identity_layout_spec(layout.get("profile"))
+        columns = spec.get("grid", [0, 0])[0] if isinstance(spec, dict) else 0
+        if not is_integer(columns) or columns <= 0 or width // columns < policy.get("minimum_identity_cell_width_px", 512):
+            report.error("RESOLUTION_GATE", f"Identity board {asset.get('id')} has too few native pixels per column.")
+        if coverage.get("full_body_subject_height_px", 0) < policy.get("minimum_full_body_subject_height_px", 560):
+            report.error("RESOLUTION_GATE", f"Identity board {asset.get('id')} full-body figures are too small for geometry inspection.")
+        if coverage.get("portrait_face_height_px", 0) < policy.get("minimum_portrait_face_height_px", 300):
+            report.error("RESOLUTION_GATE", f"Identity board {asset.get('id')} portrait faces are too small for surface inspection.")
+    elif asset.get("mode") == "crop" and asset.get("type") in {"character_face_anchor", "character_body_anchor", "character_identity_view"}:
+        if width < policy.get("minimum_identity_cell_width_px", 512):
+            report.error("RESOLUTION_GATE", f"Identity crop {asset.get('id')} is too narrow for high-detail inspection.")
+        role = str(asset.get("identity_view_role") or "")
+        if role.startswith("full_") and coverage.get("full_body_subject_height_px", 0) < policy.get("minimum_full_body_subject_height_px", 560):
+            report.error("RESOLUTION_GATE", f"Identity crop {asset.get('id')} full body is too small for geometry inspection.")
+        if role.startswith("portrait_") and coverage.get("portrait_face_height_px", 0) < policy.get("minimum_portrait_face_height_px", 300):
+            report.error("RESOLUTION_GATE", f"Identity crop {asset.get('id')} face is too small for surface inspection.")
+    elif asset.get("type") in PROFILED_ASSET_TYPES | {"look_test", "live_action_probe", "key_art"}:
+        if long_edge < policy.get("minimum_narrative_long_edge_px", 1920) or short_edge < policy.get("minimum_narrative_short_edge_px", 1080):
+            report.error("RESOLUTION_GATE", f"Narrative asset {asset.get('id')} is below the strict native frame floor.")
+    elif long_edge < policy.get("minimum_authority_long_edge_px", 1536):
+        report.error("RESOLUTION_GATE", f"Authority asset {asset.get('id')} is below the strict native long-edge floor.")
+
+
 def validate_assets(
     project_dir: Path,
     data: dict[str, Any] | None,
     scene_ids: set[str],
     report: Report,
+    resolution_policy: Any = None,
 ) -> dict[str, dict[str, Any]]:
     rows = validate_manifest_header(data, "assets", "manifests/assets.json", report)
     assets: dict[str, dict[str, Any]] = {}
@@ -1485,7 +1694,7 @@ def validate_assets(
                 require_string(asset.get(field), f"{where}.{field}", report, allow_empty=status == "planned")
 
         identity_view_role = asset.get("identity_view_role")
-        if identity_view_role not in {"", *IDENTITY_VIEW_ROLES}:
+        if identity_view_role not in {"", *ALL_IDENTITY_VIEW_ROLES}:
             report.error("ENUM", f"{where}.identity_view_role is invalid: {identity_view_role}")
         if asset_type == "character_identity_inspector":
             if identity_view_role:
@@ -1493,18 +1702,20 @@ def validate_assets(
             if asset.get("identity_background_policy") != "pure_white":
                 report.error("IDENTITY_INSPECTOR", f"Unified inspector {asset_id} requires a pure-white background.")
             layout = asset.get("identity_inspector_layout")
-            expected_slots = [*IDENTITY_VIEW_ROLES, "blank"]
             if not isinstance(layout, dict):
                 report.error("IDENTITY_INSPECTOR", f"Unified inspector {asset_id} requires identity_inspector_layout metadata.")
             else:
-                if layout.get("profile") != "higgsfield-character-reference-sheet-two-row-single-solve-v1.6":
+                spec = identity_layout_spec(layout.get("profile"))
+                if spec is None:
                     report.error("IDENTITY_INSPECTOR", f"Unified inspector {asset_id} uses an unsupported layout profile.")
-                if layout.get("grid") != [4, 2] or layout.get("slot_roles") != expected_slots:
-                    report.error("IDENTITY_INSPECTOR", f"Unified inspector {asset_id} must use the official 4x2 seven-role order plus one blank cell.")
+                elif layout.get("grid") != spec.get("grid") or layout.get("slot_roles") != list(spec.get("slot_roles", [])):
+                    report.error("IDENTITY_INSPECTOR", f"Unified inspector {asset_id} grid and slot order do not match profile {layout.get('profile')}.")
+                if layout.get("profile") == IDENTITY_LAYOUT_PROFILE and layout.get("primary_profile_side") not in {"left", "right"}:
+                    report.error("IDENTITY_INSPECTOR", f"Unified inspector {asset_id} requires primary_profile_side=left or right for its full-body profile.")
                 if layout.get("single_identity_solve") is not True or layout.get("authoritative") is not True:
                     report.error("IDENTITY_INSPECTOR", f"Unified inspector {asset_id} must be authoritative and share one identity solve.")
         elif asset_type in {"character_face_anchor", "character_body_anchor", "character_identity_view"}:
-            if identity_view_role not in IDENTITY_VIEW_ROLES:
+            if identity_view_role not in ALL_IDENTITY_VIEW_ROLES:
                 report.error("IDENTITY_VIEW", f"Identity crop {asset_id} requires one v1.6 identity_view_role.")
             if asset.get("identity_background_policy") != "pure_white":
                 report.error("IDENTITY_VIEW", f"Identity crop {asset_id} requires a pure-white background.")
@@ -1530,6 +1741,7 @@ def validate_assets(
         if asset_type == "live_action_probe":
             validate_locked_scene_qa(asset, where, report)
         validate_generation_provenance(project_dir, asset, where, report)
+        validate_resolution_qa(project_dir, asset, where, resolution_policy, report)
         validate_reference_coverage(asset, where, report)
 
         qa = asset.get("qa")
@@ -1639,6 +1851,13 @@ def validate_assets(
             if prompt_strategy not in IMAGE_PROMPT_STRATEGIES:
                 report.error("IMAGE_PROMPT_STRATEGY", f"Asset {asset_id} requires a recognized image2-live-action-evidence-v1.6 prompt_strategy_id.")
             expected_strategy = IMAGE_PROMPT_STRATEGY_BY_TYPE.get(str(asset_type))
+            if asset_type == "character_identity_inspector":
+                layout = asset.get("identity_inspector_layout") if isinstance(asset.get("identity_inspector_layout"), dict) else {}
+                expected_strategy = (
+                    "image2-live-action-identity-inspector-v1.6"
+                    if layout.get("profile") == LEGACY_IDENTITY_LAYOUT_PROFILE
+                    else "image2-live-action-identity-inspector-v1.6.6"
+                )
             if expected_strategy and prompt_strategy != expected_strategy:
                 report.error(
                     "IMAGE_PROMPT_STRATEGY",
@@ -3861,26 +4080,34 @@ def validate_identities(
             if inspector.get("status") == "model_blocked" and status != "model_blocked":
                 report.error("IDENTITY_GATE", f"A failed single-solve inspector must stop identity pack {pack_id} as model_blocked.")
 
+        inspector_layout = inspector.get("identity_inspector_layout") if isinstance(inspector.get("identity_inspector_layout"), dict) else {}
+        layout_profile = inspector_layout.get("profile")
+        layout_spec = identity_layout_spec(layout_profile)
+        pack_roles = identity_roles_for_layout(layout_profile)
+        if layout_spec is None or not pack_roles:
+            report.error("IDENTITY_INSPECTOR", f"Identity pack {pack_id} uses an unsupported Inspector layout.")
+            pack_roles = IDENTITY_VIEW_ROLES
+
         view_map = pack.get("identity_view_asset_ids")
         if not isinstance(view_map, dict):
-            report.error("IDENTITY_VIEW", f"{where}.identity_view_asset_ids must map the seven canonical roles to assets.")
+            report.error("IDENTITY_VIEW", f"{where}.identity_view_asset_ids must map every declared board role to one crop asset.")
             view_map = {}
-        missing_roles = [role for role in IDENTITY_VIEW_ROLES if role not in view_map]
-        extra_roles = sorted(set(view_map) - set(IDENTITY_VIEW_ROLES))
+        missing_roles = [role for role in pack_roles if role not in view_map]
+        extra_roles = sorted(set(view_map) - set(pack_roles))
         if missing_roles or extra_roles:
             report.error(
                 "IDENTITY_VIEW",
-                f"Identity pack {pack_id} requires exactly seven canonical roles; missing={missing_roles}, extra={extra_roles}.",
+                f"Identity pack {pack_id} roles must match {layout_profile}; missing={missing_roles}, extra={extra_roles}.",
             )
-        ordered_roots = [view_map.get(role) for role in IDENTITY_VIEW_ROLES]
+        ordered_roots = [view_map.get(role) for role in pack_roles]
         valid_root_ids = [asset_id for asset_id in ordered_roots if isinstance(asset_id, str) and asset_id]
-        if len(valid_root_ids) != 7 or len(set(valid_root_ids)) != 7:
-            report.error("IDENTITY_VIEW", f"Identity pack {pack_id} requires seven distinct deterministic crop asset ids.")
+        if len(valid_root_ids) != len(pack_roles) or len(set(valid_root_ids)) != len(pack_roles):
+            report.error("IDENTITY_VIEW", f"Identity pack {pack_id} requires one distinct deterministic crop id per board role.")
         if pack.get("face_anchor_asset_id") != view_map.get("portrait_front"):
             report.error("IDENTITY_AUTHORITY", f"Identity pack {pack_id} face anchor must alias portrait_front.")
         if pack.get("body_anchor_asset_id") != view_map.get("full_front"):
             report.error("IDENTITY_AUTHORITY", f"Identity pack {pack_id} body anchor must alias full_front.")
-        for role, asset_id in ((role, view_map.get(role)) for role in IDENTITY_VIEW_ROLES):
+        for role, asset_id in ((role, view_map.get(role)) for role in pack_roles):
             require_string(asset_id, f"{where}.identity_view_asset_ids.{role}", report)
             allowed_type = (
                 {"character_face_anchor"} if role == "portrait_front"
@@ -3927,7 +4154,7 @@ def validate_identities(
             projections = signature.get("projection_classes")
             if not isinstance(projections, dict) or any(
                 projections.get(role) not in {"measurement", "silhouette_confirmation"}
-                for role in IDENTITY_VIEW_ROLES
+                for role in pack_roles
             ):
                 report.error("PROPORTION_SIGNATURE", f"Identity pack {pack_id} requires a projection class for every view.")
             if is_number(signature.get("confidence")):
@@ -3988,7 +4215,7 @@ def validate_identities(
             if board.get("authoritative") not in {True, False}:
                 report.error("TYPE", f"{where}.reference_board.authoritative must be boolean.")
             if status in {"qualified", "approved"} and board.get("status") != "ready":
-                report.error("IDENTITY_GATE", f"Identity pack {pack_id} cannot proceed until the unified board is ready and its seven crops exist.")
+                report.error("IDENTITY_GATE", f"Identity pack {pack_id} cannot proceed until the unified board and every declared deterministic crop are ready.")
             if board.get("status") == "ready":
                 board_path = check_relative_file(
                     project_dir,
@@ -4006,17 +4233,17 @@ def validate_identities(
                 if board.get("relative_path") != inspector_output.get("relative_path") or digest != inspector_output.get("sha256"):
                     report.error("REFERENCE_BOARD", f"Identity pack {pack_id} board must be the exact unified inspector output, not a recomposed image.")
                 source_hashes = board.get("source_sha256s")
-                if not isinstance(source_hashes, dict) or set(source_hashes) != set(IDENTITY_VIEW_ROLES):
+                if not isinstance(source_hashes, dict) or set(source_hashes) != set(pack_roles):
                     report.error("REFERENCE_BOARD", f"Identity pack {pack_id} board must record one source hash for each canonical view.")
                 else:
-                    for role, asset_id in ((role, view_map.get(role)) for role in IDENTITY_VIEW_ROLES):
+                    for role, asset_id in ((role, view_map.get(role)) for role in pack_roles):
                         source_asset = assets.get(asset_id, {}) if isinstance(asset_id, str) else {}
                         output = source_asset.get("generation_provenance", {}).get("output", {})
                         expected_hash = output.get("sha256") if isinstance(output, dict) else None
                         if source_hashes.get(role) != expected_hash:
                             report.error("REFERENCE_BOARD", f"Identity pack {pack_id} board source hash for {role} does not match the authority asset.")
-                if board.get("layout_profile") != "higgsfield-character-reference-sheet-two-row-single-solve-v1.6":
-                    report.error("REFERENCE_BOARD", f"Identity pack {pack_id} board uses an unsupported layout profile.")
+                if board.get("layout_profile") != layout_profile:
+                    report.error("REFERENCE_BOARD", f"Identity pack {pack_id} board layout must match its unified Inspector.")
                 if board.get("authoritative") is not True:
                     report.error("REFERENCE_BOARD", f"Identity pack {pack_id} unified board must be authoritative.")
                 check_relative_file(
@@ -4027,9 +4254,10 @@ def validate_identities(
                     required=True,
                 )
         require_string_list(pack.get("character_state_ids"), f"{where}.character_state_ids", report)
+        deterministic_crop_check = "six_deterministic_crops" if len(pack_roles) == 6 else "seven_deterministic_crops"
         _validate_approval_qa(
             pack.get("qa"), f"{where}.qa", str(status),
-            ("face_identity", "single_solve_identity_board", "seven_deterministic_crops", "role_conditioned_physique", "proportion_signature", "joint_topology", "clean_texture", "live_action_surface"), report,
+            ("face_identity", "single_solve_identity_board", deterministic_crop_check, "role_conditioned_physique", "proportion_signature", "joint_topology", "clean_texture", "live_action_surface"), report,
         )
 
     for index, state in enumerate(state_rows):
@@ -6374,6 +6602,403 @@ def validate_takes(
     return takes
 
 
+def validate_commercial_manifest(
+    project: dict[str, Any] | None,
+    data: dict[str, Any] | None,
+    shots: dict[str, dict[str, Any]],
+    assets: dict[str, dict[str, Any]],
+    takes: dict[str, dict[str, Any]],
+    report: Report,
+) -> None:
+    """Validate an adaptive commercial/TVC brief, rhythm system and delivery matrix."""
+    project = project if isinstance(project, dict) else {}
+    production_kind = project.get("production_kind")
+    commercial_kind = production_kind in {"commercial_tvc", "music_video"}
+    if data is None:
+        if commercial_kind:
+            report.error("COMMERCIAL_MANIFEST", "Commercial/TVC and music-video projects require manifests/commercial.json.")
+        return
+    if data.get("schema_version") != SCHEMA_VERSION:
+        report.error("SCHEMA_VERSION", f"manifests/commercial.json.schema_version must be {SCHEMA_VERSION}.")
+    required = (
+        "mode", "status", "commercial_brief", "creative_routes", "selected_route_id",
+        "brand_assets", "wardrobe_looks", "rhythm_plan", "audio_plan", "deliverables", "qa",
+    )
+    if not require_keys(data, required, "manifests/commercial.json", report):
+        return
+    mode = data.get("mode")
+    if mode not in COMMERCIAL_MANIFEST_MODES:
+        report.error("ENUM", f"manifests/commercial.json.mode is invalid: {mode}")
+        return
+    expected_mode = "commercial_tvc" if production_kind == "commercial_tvc" else "commercial_mv_hybrid" if production_kind == "music_video" else "not_applicable"
+    if production_kind is not None and mode != expected_mode:
+        report.error("COMMERCIAL_MODE", f"Commercial manifest mode {mode} conflicts with production_kind={production_kind}.")
+    if mode == "not_applicable":
+        return
+    status = data.get("status")
+    if status not in COMMERCIAL_STATUSES:
+        report.error("ENUM", f"manifests/commercial.json.status is invalid: {status}")
+    complete = status in {"qualified", "approved"}
+
+    brief = data.get("commercial_brief")
+    brief_fields = (
+        "category", "objective", "audience", "placement", "runtime_s", "single_proposition",
+        "reasons_to_believe", "mandatory_elements", "brand_codes", "prohibited_generic_codes", "success_measure",
+    )
+    if require_keys(brief, brief_fields, "manifests/commercial.json.commercial_brief", report):
+        if brief.get("category") not in COMMERCIAL_CATEGORIES:
+            report.error("COMMERCIAL_BRIEF", f"Commercial category is invalid: {brief.get('category')}")
+        for field in ("objective", "audience", "placement", "single_proposition", "success_measure"):
+            require_string(brief.get(field), f"commercial_brief.{field}", report, allow_empty=not complete)
+        runtime_s = brief.get("runtime_s")
+        if not is_number(runtime_s) or (complete and float(runtime_s) <= 0):
+            report.error("COMMERCIAL_BRIEF", "commercial_brief.runtime_s must be positive once the plan is qualified.")
+        for field in ("reasons_to_believe", "mandatory_elements", "brand_codes", "prohibited_generic_codes"):
+            require_string_list(brief.get(field), f"commercial_brief.{field}", report)
+        if complete and (not brief.get("reasons_to_believe") or not brief.get("brand_codes")):
+            report.error("COMMERCIAL_BRIEF", "A qualified commercial requires reasons to believe and project-specific brand codes.")
+
+    routes = data.get("creative_routes")
+    if not isinstance(routes, list):
+        report.error("TYPE", "commercial creative_routes must be an array.")
+        routes = []
+    route_index: dict[str, dict[str, Any]] = {}
+    for index, route in enumerate(routes):
+        where = f"manifests/commercial.json.creative_routes[{index}]"
+        fields = (
+            "id", "status", "name", "concept", "brand_link", "visual_logic",
+            "product_or_wardrobe_proof", "audience_mechanism", "distinguishing_axes",
+            "competitor_swap_result", "script_or_board_summary",
+        )
+        if not require_keys(route, fields, where, report):
+            continue
+        route_id = route.get("id")
+        if not require_string(route_id, f"{where}.id", report):
+            continue
+        if route_id in route_index:
+            report.error("DUPLICATE_ID", f"Duplicate creative route id: {route_id}")
+        route_index[route_id] = route
+        if route.get("status") not in COMMERCIAL_ROUTE_STATUSES:
+            report.error("ENUM", f"{where}.status is invalid: {route.get('status')}")
+        for field in ("name", "concept", "brand_link", "visual_logic", "product_or_wardrobe_proof", "audience_mechanism", "competitor_swap_result", "script_or_board_summary"):
+            require_string(route.get(field), f"{where}.{field}", report, allow_empty=not complete)
+        require_string_list(route.get("distinguishing_axes"), f"{where}.distinguishing_axes", report)
+        if complete and len(route.get("distinguishing_axes", [])) < 2:
+            report.error("CREATIVE_ROUTE", f"Route {route_id} needs at least two material distinguishing axes, not a color-grade variation.")
+        if complete and str(route.get("competitor_swap_result", "")).strip().casefold() not in {"fail", "fails", "brand-specific", "not swappable"}:
+            report.error("GENERIC_CONCEPT", f"Route {route_id} does not prove that a competitor swap would fail.")
+    selected_route_id = data.get("selected_route_id")
+    require_string(selected_route_id, "manifests/commercial.json.selected_route_id", report, allow_empty=not complete)
+    if complete:
+        if len(routes) < 2:
+            report.error("CREATIVE_ROUTE", "A qualified commercial requires at least two materially distinct creative routes.")
+        selected = route_index.get(selected_route_id)
+        if selected is None or selected.get("status") not in {"selected", "approved"}:
+            report.error("CREATIVE_ROUTE", "selected_route_id must identify the selected or approved creative route.")
+        selected_rows = [route for route in routes if isinstance(route, dict) and route.get("status") in {"selected", "approved"}]
+        if len(selected_rows) != 1:
+            report.error("CREATIVE_ROUTE", "Exactly one creative route may be selected for production.")
+        route_signatures: set[tuple[str, str, tuple[str, ...]]] = set()
+        for route in routes:
+            if not isinstance(route, dict):
+                continue
+            signature = (
+                str(route.get("visual_logic", "")).strip().casefold(),
+                str(route.get("audience_mechanism", "")).strip().casefold(),
+                tuple(sorted(str(axis).strip().casefold() for axis in route.get("distinguishing_axes", []) if isinstance(axis, str))),
+            )
+            if signature in route_signatures:
+                report.error("CREATIVE_ROUTE", "Creative routes repeat the same visual logic, audience mechanism and distinguishing axes.")
+            route_signatures.add(signature)
+
+    for field in ("brand_assets", "wardrobe_looks"):
+        if not isinstance(data.get(field), list):
+            report.error("TYPE", f"manifests/commercial.json.{field} must be an array.")
+    for index, brand_asset in enumerate(data.get("brand_assets", []) if isinstance(data.get("brand_assets"), list) else []):
+        where = f"manifests/commercial.json.brand_assets[{index}]"
+        if not require_keys(brand_asset, ("id", "role", "asset_id", "mandatory_on_screen"), where, report):
+            continue
+        for field in ("id", "role"):
+            require_string(brand_asset.get(field), f"{where}.{field}", report)
+        require_string(brand_asset.get("asset_id"), f"{where}.asset_id", report, allow_empty=True)
+        if brand_asset.get("mandatory_on_screen") not in {True, False}:
+            report.error("TYPE", f"{where}.mandatory_on_screen must be boolean.")
+        asset_id = brand_asset.get("asset_id")
+        if asset_id and (asset_id not in assets or (complete and assets[asset_id].get("status") != "approved")):
+            report.error("BRAND_ASSET", f"Brand asset {asset_id} is missing or not approved.")
+
+    wardrobe_looks = data.get("wardrobe_looks") if isinstance(data.get("wardrobe_looks"), list) else []
+    for index, look in enumerate(wardrobe_looks):
+        where = f"manifests/commercial.json.wardrobe_looks[{index}]"
+        fields = (
+            "id", "character_state_id", "garment_reference_asset_ids", "silhouette", "fit",
+            "material_behavior", "reveal_shot_id", "detail_shot_ids", "transition_logic", "qa_status",
+        )
+        if not require_keys(look, fields, where, report):
+            continue
+        for field in ("id", "character_state_id", "silhouette", "fit", "material_behavior", "reveal_shot_id", "transition_logic"):
+            require_string(look.get(field), f"{where}.{field}", report, allow_empty=not complete)
+        for field in ("garment_reference_asset_ids", "detail_shot_ids"):
+            require_string_list(look.get(field), f"{where}.{field}", report)
+        if look.get("qa_status") not in {"planned", "pass", "fail"}:
+            report.error("ENUM", f"{where}.qa_status is invalid.")
+        if complete and (not look.get("garment_reference_asset_ids") or not look.get("detail_shot_ids") or look.get("qa_status") != "pass"):
+            report.error("WARDROBE_PROOF", f"Wardrobe look {look.get('id')} lacks approved reference, detail proof or QA.")
+    if complete and isinstance(brief, dict) and brief.get("category") == "fashion" and not wardrobe_looks:
+        report.error("WARDROBE_PROOF", "A qualified fashion TVC requires explicit wardrobe-look records.")
+
+    rhythm = data.get("rhythm_plan")
+    rhythm_fields = (
+        "music", "tempo_motion_relationship", "relationship_reason", "edit_strategy",
+        "speed_palette", "shot_rhythm",
+    )
+    music: dict[str, Any] = {}
+    speed_index: dict[str, dict[str, Any]] = {}
+    rhythm_rows: list[dict[str, Any]] = []
+    if require_keys(rhythm, rhythm_fields, "manifests/commercial.json.rhythm_plan", report):
+        relationship = rhythm.get("tempo_motion_relationship")
+        if relationship not in COMMERCIAL_RHYTHM_STRATEGIES:
+            report.error("RHYTHM_PLAN", f"tempo_motion_relationship is invalid: {relationship}")
+        require_string(rhythm.get("relationship_reason"), "rhythm_plan.relationship_reason", report, allow_empty=not complete)
+        require_string(rhythm.get("edit_strategy"), "rhythm_plan.edit_strategy", report, allow_empty=not complete)
+        music = rhythm.get("music") if isinstance(rhythm.get("music"), dict) else {}
+        if require_keys(music, ("usage", "bpm", "meter", "downbeat_s", "energy_curve"), "rhythm_plan.music", report):
+            if music.get("usage") not in COMMERCIAL_MUSIC_USAGE:
+                report.error("RHYTHM_PLAN", f"rhythm_plan.music.usage is invalid: {music.get('usage')}")
+            bpm = music.get("bpm")
+            if not is_number(bpm) or float(bpm) < 0 or (complete and music.get("usage") != "none" and float(bpm) <= 0):
+                report.error("RHYTHM_PLAN", "Music BPM must be positive when music is used.")
+            require_string(music.get("meter"), "rhythm_plan.music.meter", report, allow_empty=not complete or music.get("usage") == "none")
+            if not is_number(music.get("downbeat_s")) or float(music.get("downbeat_s", 0)) < 0:
+                report.error("RHYTHM_PLAN", "Music downbeat_s must be non-negative.")
+            curve = music.get("energy_curve")
+            if not isinstance(curve, list) or any(
+                not isinstance(point, dict) or not is_number(point.get("time_s")) or point.get("level") not in COMMERCIAL_ENERGY_LEVELS
+                for point in curve
+            ):
+                report.error("RHYTHM_PLAN", "Music energy_curve must contain time_s/level points.")
+        palette = rhythm.get("speed_palette")
+        if not isinstance(palette, list):
+            report.error("TYPE", "rhythm_plan.speed_palette must be an array.")
+            palette = []
+        for index, speed in enumerate(palette):
+            where = f"rhythm_plan.speed_palette[{index}]"
+            fields = (
+                "id", "regime", "capture_fps", "delivery_fps", "playback_rate", "shutter_angle",
+                "exposure_time_s", "intended_motion", "blur_logic",
+            )
+            if not require_keys(speed, fields, where, report):
+                continue
+            speed_id = speed.get("id")
+            if not require_string(speed_id, f"{where}.id", report):
+                continue
+            if speed_id in speed_index:
+                report.error("DUPLICATE_ID", f"Duplicate speed palette id: {speed_id}")
+            speed_index[speed_id] = speed
+            if speed.get("regime") not in COMMERCIAL_SPEED_REGIMES:
+                report.error("RHYTHM_PLAN", f"{where}.regime is invalid.")
+            for field in ("capture_fps", "delivery_fps", "playback_rate", "shutter_angle", "exposure_time_s"):
+                if not is_number(speed.get(field)) or float(speed.get(field)) <= 0:
+                    report.error("RHYTHM_PLAN", f"{where}.{field} must be positive.")
+            require_string(speed.get("intended_motion"), f"{where}.intended_motion", report, allow_empty=not complete)
+            require_string(speed.get("blur_logic"), f"{where}.blur_logic", report, allow_empty=not complete)
+            capture = speed.get("capture_fps")
+            delivery = speed.get("delivery_fps")
+            playback = speed.get("playback_rate")
+            shutter = speed.get("shutter_angle")
+            if all(is_number(value) and float(value) > 0 for value in (capture, delivery, playback, shutter)):
+                expected_playback = float(delivery) / float(capture)
+                expected_exposure = float(shutter) / (360 * float(capture))
+                if abs(float(playback) - expected_playback) > 1e-6:
+                    report.error("SPEED_SAMPLING", f"{where}.playback_rate must equal delivery_fps/capture_fps.")
+                if abs(float(speed.get("exposure_time_s", 0)) - expected_exposure) > 1e-6:
+                    report.error("SPEED_SAMPLING", f"{where}.exposure_time_s contradicts shutter angle and capture fps.")
+                regime = speed.get("regime")
+                if regime == "overcranked_slow" and not (float(capture) > float(delivery) and float(playback) < 1):
+                    report.error("SPEED_SAMPLING", f"{where} declares slow motion without overcranking.")
+                if regime == "undercranked_fast" and not (float(capture) < float(delivery) and float(playback) > 1):
+                    report.error("SPEED_SAMPLING", f"{where} declares fast motion without undercranking.")
+        rhythm_rows = rhythm.get("shot_rhythm") if isinstance(rhythm.get("shot_rhythm"), list) else []
+        if not isinstance(rhythm.get("shot_rhythm"), list):
+            report.error("TYPE", "rhythm_plan.shot_rhythm must be an array.")
+
+    production_shots = {shot_id: shot for shot_id, shot in shots.items() if shot.get("status") in PRODUCTION_SHOT_STATUSES}
+    if production_shots and status != "approved":
+        report.error("COMMERCIAL_GATE", "Commercial production shots cannot be ready/generated/selected until the adaptive commercial plan is approved.")
+    rhythm_index: dict[str, dict[str, Any]] = {}
+    for index, row in enumerate(rhythm_rows):
+        where = f"rhythm_plan.shot_rhythm[{index}]"
+        fields = (
+            "shot_id", "function", "duration_s", "duration_frames", "beat_start", "beat_end",
+            "action_peak_s", "cut_relation", "energy", "speed_palette_id",
+            "internal_rhythmic_events", "removal_test",
+        )
+        if not require_keys(row, fields, where, report):
+            continue
+        shot_id = row.get("shot_id")
+        if not require_string(shot_id, f"{where}.shot_id", report):
+            continue
+        if shot_id in rhythm_index:
+            report.error("DUPLICATE_ID", f"Commercial rhythm repeats shot {shot_id}.")
+        rhythm_index[shot_id] = row
+        if row.get("function") not in COMMERCIAL_SHOT_FUNCTIONS:
+            report.error("SHOT_FUNCTION", f"{where}.function is invalid.")
+        if row.get("energy") not in COMMERCIAL_ENERGY_LEVELS:
+            report.error("RHYTHM_PLAN", f"{where}.energy is invalid.")
+        for field in ("duration_s", "beat_start", "beat_end", "action_peak_s"):
+            if not is_number(row.get(field)) or float(row.get(field)) < 0:
+                report.error("RHYTHM_PLAN", f"{where}.{field} must be non-negative.")
+        if not is_integer(row.get("duration_frames")) or row.get("duration_frames") <= 0:
+            report.error("RHYTHM_PLAN", f"{where}.duration_frames must be a positive integer.")
+        for field in ("cut_relation", "removal_test"):
+            require_string(row.get(field), f"{where}.{field}", report, allow_empty=not complete)
+        require_string_list(row.get("internal_rhythmic_events"), f"{where}.internal_rhythmic_events", report)
+        speed = speed_index.get(row.get("speed_palette_id"))
+        if speed is None:
+            report.error("RHYTHM_PLAN", f"{where} references missing speed palette {row.get('speed_palette_id')}.")
+        shot = production_shots.get(shot_id)
+        if shot is None:
+            report.error("RHYTHM_PLAN", f"Commercial rhythm references non-production shot {shot_id}.")
+            continue
+        if is_number(row.get("duration_s")) and abs(float(row.get("duration_s")) - float(shot.get("duration_s", -1))) > 1e-6:
+            report.error("RHYTHM_PLAN", f"Commercial rhythm duration conflicts with shot {shot_id}.")
+        if (
+            is_number(music.get("bpm"))
+            and float(music.get("bpm")) > 0
+            and is_number(row.get("duration_s"))
+            and is_number(row.get("beat_start"))
+            and is_number(row.get("beat_end"))
+        ):
+            declared_beats = float(row.get("beat_end")) - float(row.get("beat_start"))
+            expected_beats = float(row.get("duration_s")) * float(music.get("bpm")) / 60
+            if declared_beats <= 0 or abs(declared_beats - expected_beats) > 0.05:
+                report.error(
+                    "RHYTHM_TIMING",
+                    f"Shot {shot_id} beat range must equal duration_s × BPM / 60 within 0.05 beat.",
+                )
+        temporal = shot.get("temporal_capture") if isinstance(shot.get("temporal_capture"), dict) else {}
+        delivery_fps = temporal.get("delivery_fps")
+        if is_number(delivery_fps) and is_number(row.get("duration_s")):
+            expected_frames = round(float(row.get("duration_s")) * float(delivery_fps))
+            if row.get("duration_frames") != expected_frames:
+                report.error("RHYTHM_PLAN", f"Shot {shot_id} frame duration must equal duration_s × delivery_fps.")
+        if speed is not None:
+            for field in ("capture_fps", "delivery_fps", "playback_rate", "shutter_angle", "exposure_time_s"):
+                if is_number(temporal.get(field)) and is_number(speed.get(field)) and abs(float(temporal[field]) - float(speed[field])) > 1e-6:
+                    report.error("SPEED_SAMPLING", f"Shot {shot_id} temporal_capture conflicts with speed palette field {field}.")
+        if is_number(row.get("action_peak_s")) and is_number(row.get("duration_s")) and float(row.get("action_peak_s")) > float(row.get("duration_s")):
+            report.error("RHYTHM_PLAN", f"Shot {shot_id} action peak falls outside the shot.")
+    if complete and set(rhythm_index) != set(production_shots):
+        report.error("RHYTHM_PLAN", "Every production shot must have exactly one commercial rhythm/function record.")
+    if complete and isinstance(brief, dict) and is_number(brief.get("runtime_s")) and rhythm_rows:
+        duration_sum = sum(
+            float(row.get("duration_s"))
+            for row in rhythm_rows
+            if isinstance(row, dict) and is_number(row.get("duration_s"))
+        )
+        if abs(duration_sum - float(brief.get("runtime_s"))) > 1e-6:
+            report.error(
+                "EDIT_RUNTIME",
+                "The sum of commercial shot durations must exactly equal the commissioned runtime before export.",
+            )
+
+    if complete and is_number(music.get("bpm")) and float(music.get("bpm")) >= 110 and rhythm_rows:
+        all_slow_low = all(
+            speed_index.get(row.get("speed_palette_id"), {}).get("regime") in {"overcranked_slow", "locked_stillness"}
+            and row.get("energy") in {"restrained", "low"}
+            for row in rhythm_rows if isinstance(row, dict)
+        )
+        justified = isinstance(rhythm, dict) and rhythm.get("tempo_motion_relationship") in {"half_time", "counterpoint"} and bool(str(rhythm.get("relationship_reason", "")).strip())
+        internal_events = any(row.get("internal_rhythmic_events") for row in rhythm_rows if isinstance(row, dict))
+        if all_slow_low and not (justified and internal_events):
+            report.error("RHYTHM_MISMATCH", "Fast music over uniformly slow/low-energy imagery requires deliberate half-time/counterpoint design and internal beat events; otherwise redesign music, motion or edit cadence.")
+
+    audio = data.get("audio_plan")
+    audio_fields = ("dialogue_vo", "music", "ambience", "foley", "transition_accents", "brand_mnemonic", "mix_hierarchy")
+    if require_keys(audio, audio_fields, "manifests/commercial.json.audio_plan", report):
+        for field in audio_fields:
+            require_string_list(audio.get(field), f"audio_plan.{field}", report)
+        if complete:
+            if music.get("usage") != "none" and not audio.get("music"):
+                report.error("AUDIO_PLAN", "The commercial uses music but has no music edit/mix plan.")
+            for field in ("ambience", "foley", "mix_hierarchy"):
+                if not audio.get(field):
+                    report.error("AUDIO_PLAN", f"A qualified commercial requires a non-empty {field} plan.")
+
+    deliverables = data.get("deliverables")
+    if not isinstance(deliverables, list):
+        report.error("TYPE", "manifests/commercial.json.deliverables must be an array.")
+        deliverables = []
+    master_count = 0
+    for index, delivery in enumerate(deliverables):
+        where = f"manifests/commercial.json.deliverables[{index}]"
+        fields = (
+            "id", "kind", "destination", "width_px", "height_px", "aspect_ratio", "delivery_fps",
+            "duration_s", "frame_count", "audio_sample_rate_hz", "audio_channels", "codec",
+            "color_space", "safe_area", "exact_runtime", "spec_source", "spec_override_reason", "notes",
+        )
+        if not require_keys(delivery, fields, where, report):
+            continue
+        require_string(delivery.get("id"), f"{where}.id", report)
+        if delivery.get("kind") not in COMMERCIAL_DELIVERABLE_KINDS:
+            report.error("DELIVERY_MATRIX", f"{where}.kind is invalid.")
+        if delivery.get("kind") == "master":
+            master_count += 1
+        for field in ("destination", "aspect_ratio", "codec", "color_space", "safe_area", "spec_source", "spec_override_reason"):
+            require_string(delivery.get(field), f"{where}.{field}", report, allow_empty=field == "spec_override_reason")
+        require_string_list(delivery.get("notes"), f"{where}.notes", report)
+        for field in ("width_px", "height_px", "frame_count", "audio_sample_rate_hz", "audio_channels"):
+            if not is_integer(delivery.get(field)) or delivery.get(field) <= 0:
+                report.error("DELIVERY_MATRIX", f"{where}.{field} must be a positive integer.")
+        for field in ("delivery_fps", "duration_s"):
+            if not is_number(delivery.get(field)) or float(delivery.get(field)) <= 0:
+                report.error("DELIVERY_MATRIX", f"{where}.{field} must be positive.")
+        if delivery.get("exact_runtime") not in {True, False}:
+            report.error("DELIVERY_MATRIX", f"{where}.exact_runtime must be boolean.")
+        if is_number(delivery.get("duration_s")) and is_number(delivery.get("delivery_fps")):
+            expected_frames = round(float(delivery.get("duration_s")) * float(delivery.get("delivery_fps")))
+            if delivery.get("frame_count") != expected_frames:
+                report.error("DELIVERY_RUNTIME", f"{where}.frame_count must exactly match duration and delivery fps.")
+        if complete and delivery.get("exact_runtime") is not True:
+            report.error("DELIVERY_RUNTIME", f"Qualified deliverable {delivery.get('id')} must use exact_runtime=true.")
+        if complete and isinstance(brief, dict) and is_number(brief.get("runtime_s")) and delivery.get("kind") == "master":
+            if not is_number(delivery.get("duration_s")) or abs(float(delivery.get("duration_s")) - float(brief.get("runtime_s"))) > 1e-6:
+                report.error("DELIVERY_RUNTIME", f"Master {delivery.get('id')} does not match the commissioned runtime.")
+        if delivery.get("kind") == "master":
+            width = delivery.get("width_px")
+            height = delivery.get("height_px")
+            override = bool(str(delivery.get("spec_override_reason", "")).strip())
+            if is_integer(width) and is_integer(height) and (max(width, height) < 1920 or min(width, height) < 1080) and not override:
+                report.error("DELIVERY_MASTER", f"Master {delivery.get('id')} is below the conventional 1080-line floor without a destination override.")
+            if delivery.get("audio_sample_rate_hz") != 48000 and not override:
+                report.error("DELIVERY_MASTER", f"Master {delivery.get('id')} must use 48 kHz production audio unless its named destination specifies otherwise.")
+    if complete and master_count == 0:
+        report.error("DELIVERY_MASTER", "A qualified commercial requires at least one exact master deliverable; a 720p review proxy is not the master.")
+
+    _validate_approval_qa(
+        data.get("qa"), "manifests/commercial.json.qa", str(status), COMMERCIAL_QA_CHECKS, report
+    )
+    if status == "approved":
+        for take_id, take in takes.items():
+            if take.get("status") != "approved":
+                continue
+            qa = take.get("commercial_qa")
+            where = f"approved commercial take {take_id}.commercial_qa"
+            if not require_keys(qa, ("checks", "verdict", "hard_failures", "notes", "checked_at", "reviewer"), where, report):
+                continue
+            checks = qa.get("checks")
+            if require_keys(checks, TAKE_COMMERCIAL_QA_CHECKS, f"{where}.checks", report):
+                for name in TAKE_COMMERCIAL_QA_CHECKS:
+                    if checks.get(name) not in {"pass", "fail"}:
+                        report.error("COMMERCIAL_TAKE_QA", f"{where}.checks.{name} must be pass or fail.")
+            require_string_list(qa.get("hard_failures"), f"{where}.hard_failures", report)
+            require_string_list(qa.get("notes"), f"{where}.notes", report)
+            if qa.get("verdict") != "pass" or qa.get("hard_failures") or not isinstance(checks, dict) or any(checks.get(name) != "pass" for name in TAKE_COMMERCIAL_QA_CHECKS):
+                report.error("COMMERCIAL_TAKE_QA", f"Approved commercial take {take_id} does not pass creative, rhythm, wardrobe/product and sound QA.")
+            if qa.get("reviewer") != "codex-visual" or not valid_timestamp(qa.get("checked_at")):
+                report.error("COMMERCIAL_TAKE_QA", f"Approved commercial take {take_id} requires timestamped Codex visual review.")
+
+
 def validate_dynamic_range_plan(plan: Any, where: str, report: Report) -> bool:
     fields = (
         "policy",
@@ -7172,7 +7797,10 @@ def validate_project(project_dir: Path, as_json: bool) -> int:
     quality_data = load_json(project_dir / "manifests/quality.json", "quality manifest", report)
     candidates_data = load_json(project_dir / "manifests/candidates.json", "candidates manifest", report)
     reviews_data = load_json(project_dir / "manifests/reviews.json", "reviews manifest", report)
-    assets = validate_assets(project_dir, assets_data, set(scenes), report)
+    commercial_path = project_dir / "manifests/commercial.json"
+    commercial_data = load_json(commercial_path, "commercial manifest", report) if commercial_path.is_file() else None
+    resolution_policy = project.get("resolution_policy") if isinstance(project, dict) else None
+    assets = validate_assets(project_dir, assets_data, set(scenes), report, resolution_policy)
     quality_profiles = validate_quality_manifest(quality_data, assets, report)
     candidate_sets = validate_candidate_manifest(project_dir, candidates_data, assets, report)
     identity_packs, character_states = validate_identities(project_dir, identities_data, assets, report)
@@ -7249,7 +7877,8 @@ def validate_project(project_dir: Path, as_json: bool) -> int:
         quality_profiles,
         report,
     )
-    validate_takes(project_dir, takes_data, shots, report)
+    takes = validate_takes(project_dir, takes_data, shots, report)
+    validate_commercial_manifest(project, commercial_data, shots, assets, takes, report)
     validate_continuity(
         continuity_data, scenes, scene_orders, assets, profiles, effective_profiles, report
     )

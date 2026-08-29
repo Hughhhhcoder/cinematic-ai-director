@@ -25,9 +25,11 @@ Uniform facial oil, repeated white glints, wax/plastic skin, local skin-tone dis
 | Thumbnail | Does it immediately read as a real photograph rather than animation, game art, or promotion? |
 | Fit | Are the photographic event, task, light, space, posture, and story polish plausible? |
 | 100% | Do face, eyes, hair, hands, clothing edges, contacts, highlights, shadows, and materials survive? |
-| 200% | Is there patch smear, swirl/scale/cellular repetition, cross-material copying, sharpening halo, or pixel pollution? |
+| 200% | Is there patch smear, topographic/maze/fingerprint/swirl/scale/cellular repetition, cross-material copying, sharpening halo, or pixel pollution? |
 
 Positive evidence is stored for every QA check. A face or authority asset failing at any scale cannot proceed.
+
+New identity authority is one native high-resolution `3×2` shared-solve board containing three full-body and three large face angles. It must contain at least 1536×1024 source pixels, 512 pixels per column, a 560-pixel full-body subject, and a 300-pixel face. Header dimensions alone do not prove detail: upscaling, softness, compression, destroyed hair/fabric edges, or native-scale face patterns fail the board. No crop is created until the whole board passes.
 
 ## Ordinary-light person/world probe
 
@@ -43,6 +45,6 @@ When estimated scene contrast exceeds working latitude, the plan must sacrifice 
 
 ## Candidate isolation
 
-Critical assets receive three independent candidates; derivatives receive two. Candidates cannot edit or derive from one another. The integration probe is the sole controlled exception to generate-only candidates: each candidate may edit the same approved empty-location authority, never another candidate. If the entire first batch fails, one highest-priority prompt variable may change and two independent retries are allowed. A second complete failure becomes `model_blocked` and requests a lawful real reference.
+Critical assets receive three independent candidates; derivatives receive two. The identity Inspector is intentionally stricter: one shared-solve board is generated and either becomes the person's authority or stops that person, preventing panel-picking across separate identities. Candidates cannot edit or derive from one another. The integration probe is the sole controlled exception to generate-only candidates: each candidate may edit the same approved empty-location authority, never another candidate. If an eligible first batch entirely fails, one highest-priority prompt variable may change and two independent retries are allowed. A second complete failure becomes `model_blocked` and requests a lawful real reference.
 
 Failure is therefore expected and contained. Stability means a failed candidate never reaches users or production—not that stochastic generation becomes deterministic.

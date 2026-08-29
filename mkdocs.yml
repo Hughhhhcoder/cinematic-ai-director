@@ -45,6 +45,7 @@ nav:
       - Complete workflow: workflow.md
       - Live-action quality: quality-system.md
       - Identity and physique: identity-physique.md
+      - Commercial and TVC: commercial-tvc.md
       - Spatial continuity: spatial-continuity.md
       - Cinematography and motion: cinematography-motion.md
   - Delivery:
@@ -58,6 +59,7 @@ nav:
       - 完整流程: zh-CN/workflow.md
       - 实拍质量: zh-CN/quality-system.md
       - Higgsfield 导出: zh-CN/higgsfield-export.md
+      - 商业广告与 TVC: zh-CN/commercial-tvc.md
 
 markdown_extensions:
   - admonition

@@ -28,7 +28,7 @@ exports/higgsfield/
 └── verify_package.py
 ```
 
-`@handles` place the unified 4×2 identity Inspector first, then the current character state; seven exact crops are secondary only when the current UI needs separate views. Pose/contact evidence, location shot and three-quarter views, spatial anchor, root/current props, approved Look, start/end frames, and supplementary bridges keep distinct responsibilities.
+`@handles` place the unified high-resolution 3×2 identity Inspector first, then the current character state; six exact crops are secondary only when the current UI needs separate views. Existing v1.6 projects may retain the versioned 4×2 adapter. Pose/contact evidence, location shot and three-quarter views, spatial anchor, root/current props, approved Look, start/end frames, and supplementary bridges keep distinct responsibilities.
 
 ## Export gate
 

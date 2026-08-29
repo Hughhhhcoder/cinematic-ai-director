@@ -20,7 +20,7 @@
   </p>
 </div>
 
-![A deterministic montage of selected v1.6 live-action showcase frames](docs/assets/showcase/hero.webp)
+> **v1.6.6 visual-evidence status:** the newly generated release boards failed native-detail QA, so no hero image or downstream scene was published. See the transparent [quality-gate record](showcase/README.md).
 
 ## Why this exists
 
@@ -42,7 +42,8 @@ Many AI-film workflows optimize for an attractive first frame. Production needs 
 | Live-action quality | Positive photographic evidence, motivated skin highlights, independent material roughness, four-scale smear/CG/texture inspection |
 | Person–world proof | Mandatory ordinary-light locked-location insertion with one exposure, light field, focus system, finite dynamic range and verified set correspondence before any styled human frame |
 | Casting and physique | Role-conditioned body brief, measurable targets, wardrobe silhouette, rejection criteria, no generic short-legged or boxy fallback |
-| Identity geometry | One 4×2 white identity inspector per person, one shared identity solve, seven deterministic crops, person-specific proportions, skeleton lock, and multi-person projection QA |
+| Identity geometry | One high-resolution 3×2 white identity inspector per person, one shared identity solve, three full-body angles + three large face angles, six deterministic crops, person-specific proportions, skeleton lock, and multi-person projection QA |
+| Commercial / TVC direction | Adaptive objective/audience/proposition brief, competing creative routes, product/wardrobe proof, shot functions, music–motion–edit rhythm map, speed palette, complete sound plan and exact delivery matrix |
 | World continuity | Location worlds and states, production-design DNA, prop manufacturing/state locks, return-to-location reuse |
 | Spatial execution | Establishing plus side-three-quarter views, one fixed scene anchor, set coordinates, camera/subject marks, off-screen direction and distance |
 | Cinematography | Script-derived treatment, observer identity, format gate, motivated light, finite scene-referred dynamic range, exposure/focus behavior, polish ceiling |
@@ -56,7 +57,7 @@ Many AI-film workflows optimize for an attractive first frame. Production needs 
 ```mermaid
 flowchart LR
     A[Script reality analysis] --> B[Casting + role physique]
-    B --> C[One 4×2 identity inspector]
+    B --> C[One high-resolution 3×2 identity inspector]
     A --> D[World DNA + location roots]
     D --> E[Multi-view state + spatial anchor]
     C --> F[Character states]
@@ -97,12 +98,14 @@ Real capture latitude is finite. Every generated photograph and Ready shot there
 
 ## Identity and body design
 
-Each recurring person has exactly one first identity authority: a single pure-white `4×2` inspector generated in one ImageGen call so every angle shares the same identity solve. Its fixed cells are:
+Each recurring person has exactly one first identity authority: a single large pure-white `3×2` inspector generated in one ImageGen call so all six angles share the same identity and body solve. Its fixed cells are:
 
-`full_front · full_left_profile · full_right_profile · full_back`  
-`portrait_front · portrait_left_profile · portrait_right_profile · blank`
+`full_front · full_primary_profile · full_back`<br>
+`portrait_front · portrait_left_profile · portrait_right_profile`
 
-The whole inspector is validated before anything is cropped. Any identity, anatomy, proportion, skin, hair, garment, lighting, smear, CG, or repeated-texture failure blocks that person immediately; no failed cell may propagate downstream. Seven exact PNG views are then cropped without resampling or repainting for inspection and UI upload convenience. The cropper records an unambiguous central white gutter instead of assuming a mathematically equal row split, so a slightly taller full-body row cannot cut the shoes; a missing/ambiguous gutter or content crossing it fails loudly. Those crops never replace the inspector as ground truth. Front/back establish a person-specific normalized proportion signature; profiles verify body volume and facial topology. A separate role-physique brief explains why the body should read as ordinary, lean, athletic, muscular, fashion-model, dancer, strength/power, endurance-trained, story-specific deconditioned, or a controlled transition.
+The whole inspector is validated before anything is cropped. Any identity, anatomy, proportion, skin, hair, garment, lighting, smear, CG, repeated-texture, blur, or insufficient-detail failure blocks that person immediately; no failed cell may propagate downstream. Six exact PNG views are then cropped without resampling or repainting for inspection and UI upload convenience. The cropper records an unambiguous central white gutter instead of assuming a mathematically equal row split, so a slightly taller full-body row cannot cut the shoes; a missing/ambiguous gutter or content crossing it fails loudly. Those crops never replace the inspector as ground truth. Front/back establish a person-specific normalized proportion signature; the full profile verifies body volume, while the two face profiles verify facial topology. The older 4×2 seven-view form remains a versioned compatibility adapter for existing v1.6 projects.
+
+New identity boards must contain at least 1536×1024 native pixels, at least 512 pixels per column, a full-body subject at least 560 pixels tall, and portrait faces at least 300 pixels tall. The validator reads the actual raster header and rejects dimension-only upscales, soft focus, destroyed edge detail and excessive compression. Other authority images require at least a 1536-pixel native long edge; narrative frames require at least 1920×1080-equivalent native coverage.
 
 “Good proportions” are converted into measurable ranges and silhouette requirements. The system rejects lens-distorted long legs, collapsed pelvis/spine, lost shoulder-waist-hip relationships, melted garments, or wardrobe that changes an approved body into another physique.
 
@@ -135,6 +138,32 @@ Rain, snow, fog, smoke, dust, lightning, fire, projection, underwater light, and
 Motion blur is derived from capture fps, delivery fps, shutter angle, camera path, and subject speed. For example, `24 fps / 180°` records roughly `1/48 s` exposure per frame. The shot stores blur source, direction, amount, affected regions, stable reference areas, occlusion-edge behavior, and prohibited artifacts.
 
 Dynamic range is planned with the same physical discipline. The system does not ask ImageGen or Higgsfield for “maximum detail in highlights and shadows.” It chooses what the exposure protects—often skin, a practical source, or a story object—and records what may approach clipping or fall below the texture floor. These facts are stored in `dynamic-range.json` and compressed into the official `LIGHTING` section without inventing a non-official prompt heading.
+
+## Adaptive commercial and TVC direction
+
+Commercial work is not routed through a fixed “luxury cinematic” preset. Initialize it explicitly:
+
+```bash
+python3 scripts/film_project.py init \
+  --title "Campaign Title" \
+  --slug campaign-title \
+  --project-kind commercial-tvc
+```
+
+`manifests/commercial.json` then separates decisions that are often accidentally collapsed into one prompt:
+
+- objective, audience, placement, exact runtime, single proposition, reasons to believe, mandatories and brand codes;
+- at least two materially different creative routes, a competitor-swap test and one selected route;
+- product or fashion evidence, including garment authority, silhouette, fit, material behavior, reveal, detail coverage and transition logic;
+- one necessary function and removal test for every shot;
+- music BPM/meter/downbeat/energy, edit strategy, action peaks and internal rhythmic events;
+- a real-time/overcranked/undercranked/variable-speed palette with `playback_rate = delivery_fps / capture_fps`, shutter-derived exposure and causal blur;
+- dialogue/VO, edited music, ambience, Foley, transition accents, mnemonic and mix hierarchy;
+- destination-specific exact frame count, raster, aspect/crop, codec/color, safe area and audio delivery.
+
+A fast track over a uniformly slow, low-energy sequence now fails unless the plan explicitly designs a readable half-time or counterpoint relationship. A 720p/32 kHz review file can be declared as a proxy, but cannot silently pass as a conventional commercial master. The resulting picture-relevant rhythm and product/wardrobe facts are folded into Higgsfield's supported prompt headings; the complete business and QA facts stay in sidecar JSON instead of bloating the model prompt.
+
+For approved commercial edits, beat duration, frame duration, and commissioned runtime are mathematical contracts: `beat_end - beat_start = duration_s × BPM / 60` (within 0.05 beat), `duration_frames = duration_s × delivery_fps`, and the complete shot-duration sum must equal the commissioned runtime.
 
 ## Install
 
@@ -170,7 +199,8 @@ The runtime supports Python 3.10+ and has no third-party dependencies.
 python3 scripts/film_project.py init \
   --title "Night Shift" \
   --slug night-shift \
-  --root ./ai-film
+  --root ./ai-film \
+  --project-kind narrative-film
 
 python3 scripts/film_project.py validate ./ai-film/night-shift
 ```
@@ -182,7 +212,7 @@ Then use `$cinematic-ai-director` in Codex with the script or story. The Skill b
 ```text
 init                    Create schema v1.6 without overwriting
 validate                Audit files, states, dependencies, QA, prompts and continuity
-build-reference-board   Crop seven exact views from one approved 4×2 inspector without repainting
+build-reference-board   Crop six default (or seven legacy) exact views from one approved single-solve inspector
 compile-prompts         Compile versioned ImageGen and shot prompts from facts
 build-review-board      Build overview and face/hand/material/highlight/shadow diagnostics
 record-review           Atomically record a Foundation or sequence decision
@@ -199,15 +229,11 @@ Successful v1.6 export means strict structural conformance to the dated official
 
 It does **not** install a plugin, authenticate, upload references, call a generation endpoint, spend credits, or claim that a stochastic platform render will pass visual QA. The guarantee is the versioned package contract and blocker—not a dishonest guarantee about pixels controlled by a third-party model. See the [official Seedance guide](https://higgsfield.ai/blog/seedance-2-5-prompting-guide), [official short-film reference workflow](https://higgsfield.ai/blog/ai-short-film-youtube-guide), [official movement workflow](https://higgsfield.ai/blog/realistic-ai-human-movement), and [Cinema Studio 4](https://higgsfield.ai/blog/cinema-studio-4-0).
 
-## Showcase
+## Visual evidence status
 
-The compact public v1.6.5 gallery contains exactly one clean evidence chain generated with built-in ImageGen: one unified identity authority → one measurable empty world authority → one locked-location person insertion. The probe is deliberately free of dramatic weather, hero lighting, film emulation and stylized grading. The approved empty location is the first reference and immutable edit target; the Inspector is second and supplies identity only. Three candidates independently edited that same plate. A candidate can pass only when the person shares exposure, source light, focus, grounding and finite dynamic range without oily skin or synthetic texture—and the workbench, supports, windows, door, cabinet, red anchor, camera and crop remain corresponding outside the bounded person/contact regions.
+The v1.6.6 release audit generated three independent high-resolution `3×2` identity boards with built-in ImageGen. One lacked enough native full-body pixels; two showed repeated topographic/maze facial texture at 100% and 200%. All were rejected before cropping or downstream generation. The previous gallery is no longer presented as current evidence.
 
-| One shared-solve identity Inspector | One empty location | One person-in-location frame |
-|---|---|---|
-| ![One 4×2 white identity Inspector containing seven consistent views from a single shared solve for a fictional white coastal survey engineer](docs/assets/showcase/identity-white-coastal-survey-engineer-v001.webp) | ![A native 2.39:1 empty coastal survey room with one measurable fixed workbench under ordinary overcast afternoon light](docs/assets/showcase/scene-coastal-survey-room-overcast-v002.webp) | ![The approved fictional coastal survey engineer inserted into the locked coastal survey room while reading a clipboard](docs/assets/showcase/live-action-probe-coastal-survey-engineer-v002.webp) |
-
-This is intentionally a small release proof, not a fabricated statistical pass-rate claim. Exact retained prompts, source-generation IDs, original and derivative SHA-256 values, deterministic identity crops, edit-target-first reference order, three-candidate selection record, normalized set landmarks, outside-edit-region pixel statistics, four-scale QA, finite-dynamic-range review and person–world integration QA are in [`showcase/evidence.json`](showcase/evidence.json) and the [gallery documentation](https://hughhhhcoder.github.io/cinematic-ai-director/gallery/). Failed candidates are removed from the public tree.
+No failed image, prompt with private provenance, or cosmetic cleanup is published. The anonymized result is recorded in [`showcase/evidence.json`](showcase/evidence.json) and explained in the [gallery documentation](https://hughhhhcoder.github.io/cinematic-ai-director/gallery/). This is a stronger result than promoting an attractive thumbnail: the release demonstrates that the quality gate actually stops an unusable person.
 
 ## Repository layout
 
@@ -220,7 +246,7 @@ scripts/                  Compatibility CLI, installer and release builder
 tests/                    Behavioral, distribution and portability regression tests
 examples/night-shift/     Validated structural project and Higgsfield export
 docs/                     English-first Pages site plus Chinese core mirror
-showcase/                 Approved original evidence and machine-readable provenance
+showcase/                 Withheld visual-evidence audit; no failed pixels are published
 ```
 
 ## Reproducibility and limitations

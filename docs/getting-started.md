@@ -30,6 +30,7 @@ python3 scripts/film_project.py init \
   --title "Night Shift" \
   --slug night-shift \
   --root ./ai-film \
+  --project-kind narrative-film \
   --aspect 16:9 \
   --language en \
   --prompt-language en

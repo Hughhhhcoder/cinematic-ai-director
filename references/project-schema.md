@@ -211,8 +211,8 @@ Foundation 批准必须为每个比较组选一套 Profile；门内 `qualified` 
 
 每个 identity pack 必须保存：
 
-- 一个 `identity_inspector_asset_id`，指向一次 ImageGen 调用生成的完整 4×2 白底权威板。
-- 恰好七个 canonical `identity_view_asset_ids`，顺序为 `full_front / full_left_profile / full_right_profile / full_back / portrait_front / portrait_left_profile / portrait_right_profile`；全部必须是统一板的确定性裁图。face/body alias 分别等于 portrait/full-front 裁图。
+- 一个 `identity_inspector_asset_id`，指向一次 ImageGen 调用生成的完整高分辨率 3×2 白底权威板。
+- 新项目恰好六个 canonical `identity_view_asset_ids`，顺序为 `full_front / full_primary_profile / full_back / portrait_front / portrait_left_profile / portrait_right_profile`；全部必须是统一板的确定性裁图。face/body alias 分别等于 portrait/full-front 裁图。旧 4×2 七视图通过单独 Profile 兼容。
 - `role_physique_brief`：分类、来源、叙事理由、年龄呈现、身高/骨架、肩腰胯、肌肉/脂肪、姿态/步态、服装轮廓、must-have、淘汰条件、量化目标和 `visual_body_balance`。
 - `visual_body_balance` 记录 `observed_specific / balanced_four_six / elongated_three_seven / story_exception`、上下身视觉份额、测量基准和固定 `natural_perspective_only`；无理由五五分、低机位或广角假拉腿不能通过。
 - `physique_fit_qa` 七项检查、verdict、硬失败、reviewer/time；Inspector 任一格失败即整个人物 `model_blocked`。
@@ -220,7 +220,9 @@ Foundation 批准必须为每个比较组选一套 Profile；门内 `qualified` 
 
 `aspirational_lean / aspirational_athletic / aspirational_muscular / fashion_model / dancer_performer / strength_power / endurance_trained` 至少两个量化目标与两个淘汰条件；实际比例必须落在目标范围。Character state 必须 `preserve_role_physique:true`，只把统一 Inspector 作为身份根，并保存 state delta 与 soft-tissue delta。
 
-`build-reference-board` 验证统一 Inspector，保持固定四列/两排职责顺序，检测中心附近唯一明确的白色横向 gutter，并按记录的实际 `row_split_px` 确定性裁出七张 PNG；不调用 ImageGen、不重绘、不重采样、不覆盖。crop map 记录 gutter 检测证据、裁框和 SHA-256；分隔缺失/歧义或内容跨界会阻断。Inspector `authoritative:true`，裁图为次要检查/上传文件。
+`build-reference-board` 验证统一 Inspector，按声明的 3×2（或旧 4×2）职责顺序检测中心附近唯一明确的白色横向 gutter，并按记录的实际 `row_split_px` 确定性裁出六张（旧板七张）PNG；不调用 ImageGen、不重绘、不重采样、不覆盖。crop map 记录 gutter 检测证据、裁框和 SHA-256；分隔缺失/歧义、内容跨界或原生细节不足会阻断。Inspector `authoritative:true`，裁图为次要检查/上传文件。
+
+新项目 `project.json.resolution_policy` 固定原生清晰度门：Inspector 至少 1536×1024、每列至少 512 px、全身主体至少 560 px、脸部至少 300 px；普通权威图长边至少 1536 px，叙事帧至少 1920×1080 等效覆盖。每个真实图像资产保存 `resolution_qa` 的源/交付尺寸、主体像素占比、焦点/边缘、压缩、放大历史和文件头核验。`dimension_only_upscale:true` 永远阻断。
 
 ## `world-state.json` 与 `spatial.json`
 
@@ -269,6 +271,19 @@ Ready 镜头必须包含：
 ## `sequences.json`
 
 Sequence 保存 state signature、联合视觉锚点、quality Profile、审批门、首尾帧、bridge、目标 adapter、`target_model`、官方 Profile、确切 `reference_order` 与 `reference_stack_sha256`。引用职责顺序固定：统一身份 Inspector → 当前人物状态 → pose anchors → 地点状态/plate/三分之四/空间锚点 → 道具根/状态 → approved Look → sequence anchor → bridge → keyframes → 其余干净根。桥接帧 supplementary only。严格导出固定 Cinema Studio 4 / Seedance 2.5、最多 50 refs、每次生成总时长不超过 30 秒、项目画幅在 9:16–21:9。
+
+## `commercial.json`
+
+新项目始终创建该可选清单；叙事片使用 `mode:not_applicable`，TVC 使用 `commercial_tvc`，商业/MV 使用 `commercial_mv_hybrid`。商业 production shot 出现前必须批准：
+
+- `commercial_brief`：类别、目标、受众、投放、精确时长、单一主张、可信理由、强制元素、品牌编码和成功指标。
+- `creative_routes`：至少两条具有两个以上实质差异轴的路线、竞品替换测试与唯一选中路线。
+- `wardrobe_looks`：时尚项目逐套锁定人物状态、服装参考、轮廓、版型、材质、亮相/细节镜头和换装逻辑。
+- `rhythm_plan`：音乐 BPM/拍号/强拍/能量、同步/半拍/对位等关系、速度 palette、逐镜职责、帧数、节拍范围、动作峰值、剪辑关系与内部节奏事件。
+- `audio_plan`：对白/VO、音乐、环境、Foley、转场重音、品牌声音与混音层级。
+- `deliverables`：目标平台、母版/代理职责、精确帧数、像素、画幅、fps、codec/color、安全区和音频规格。
+
+快音乐配全片同速升格慢动作、缺少服装/产品证明、没有逐镜职责、把 720p/32 kHz 代理当母版、或成片时长不能精确换算为帧数都会阻断。
 
 ## `takes.json`
 
