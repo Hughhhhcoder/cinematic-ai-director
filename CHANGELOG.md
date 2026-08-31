@@ -10,7 +10,7 @@ All notable public changes are documented here. The project follows [Semantic Ve
 - Added `manifests/higgsfield-methods.json` for intent-first image/video/audio/product routing, deterministic reference responsibilities, model-prompt budgets, Soul source readiness, product authorities, and Product Photoshoot intent briefs.
 - Added hard validation for the 5–20-photo Soul readiness range, lawful provided-photo sources, likeness consent, angle/light/expression/distance coverage, product geometry/label/logo/color/material/scale truth, ten official Product Photoshoot modes, prompt ownership, and audio-reference conflicts.
 - Added offline export sidecars `method-routing.json`, `product-photoshoot-prep.json`, and `audio-work-orders.json`; expanded `soul-id-prep.json` so a generated Inspector can never masquerade as the varied real-photo set required for Soul training.
-- Added English and Chinese method-fusion documentation and eight focused regression tests, bringing the complete suite to 154 tests.
+- Added English and Chinese method-fusion documentation, nine focused method tests, and a version-agnostic release-CI regression test, bringing the complete suite to 156 tests.
 
 ### Changed
 
