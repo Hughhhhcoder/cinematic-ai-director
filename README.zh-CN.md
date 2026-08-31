@@ -25,7 +25,7 @@
 
 > 本项目是独立开源项目，与 Higgsfield、OpenAI 不存在隶属或官方背书关系。
 
-## v1.6 核心能力
+## v1.7 核心能力（项目 Schema 仍为 v1.6）
 
 | 系统 | 生产标准 |
 |---|---|
@@ -33,6 +33,7 @@
 | 选角与身材 | 按角色推导体态、可测目标、服装轮廓与淘汰条件，不回退模型默认差比例 |
 | 身份几何 | 每人一张高分辨率 3×2 白底统一身份检查板、一次共享身份解算、全身三角度＋脸部三角度、六张确定性裁图、人物专属比例/骨架锁和多人投影 QA |
 | 商业 / TVC 导演系统 | 自适应目标与受众、双创意路线、产品/服装证明、逐镜职责、音乐—动作—剪辑节奏图、速度策略、声音设计和精确交付矩阵 |
+| 官方三项 Skill 方法 | 离线吸收 `higgsfield-generate`、`higgsfield-soul-id`、`higgsfield-product-photoshoot` 的意图路由、参考职责、合法真人素材就绪度、商品事实/模式、精简提示和音频工作单，但不操作平台 |
 | 世界连续性 | 地点世界/状态、制作设计 DNA、道具制造结构与状态、返回旧地点复用 |
 | 人物入景证明 | 在任何风格化人物叙事帧之前，必须以批准空场景为不可变底片，证明人物共享曝光、光场、焦点、有限动态范围且场景结构不漂移 |
 | 空间执行 | 建立图、侧面四分之三图、唯一主锚点、固定坐标、机位/人物标记与画外距离 |
@@ -146,6 +147,8 @@ python3 scripts/film_project.py validate ./ai-film/night-shift
 ## Higgsfield 边界
 
 导出包包含上传顺序、参考职责、`@handle`、状态锁、空间图、质量 Profile、画幅、摄影路径、环境、时间锁、逐镜设置、提示、运行说明、校验和和离线验证器。v1.6 成功导出即表示严格符合带日期的官方 Profile `cinema-studio-4-seedance-2.5-official-2026-08-27`：Cinema Studio 4 + Seedance 2.5、官方提示顺序 `GLOBAL STYLE → SCENE → CHARACTERS → LOCATION → FIRST FRAME AND BLOCKING → Shot n → OPTICS → CAMERA → PHYSICS → LIGHTING → AUDIO`、明确参考职责、编号 Shot 与 `Hard cut`、最长 30 秒、最高原生 1080p、最多 50 个参考、9:16–21:9 和原生音频。当前界面若与快照不一致，必须先更新适配器和测试，禁止静默降级。
+
+v1.7 额外加入官方三项 Skill 0.12.0 的“只学方法”证据层，输出 `method-routing.json`、`soul-id-prep.json`、`product-photoshoot-prep.json` 和 `audio-work-orders.json`。生成的统一身份板只能作为电影连续性权威，不能冒充 Soul 需要的 5–20 张合法真人照片；商品几何、标签、Logo、颜色、材质和比例未通过前不能做衍生；制作包只写简短商品摄影意图，绝不伪造后端增强提示。详见[三项 Skill 方法融合](https://hughhhhcoder.github.io/cinematic-ai-director/zh-CN/higgsfield-methods/)。
 
 它不会安装插件、登录、上传、调用生成接口或消费积分，也不会虚构第三方随机模型的像素必然成功。能够百分百保证的是带版本的材料包结构、提示顺序、引用职责和阻断合同。官方依据：[Seedance 2.5 提示指南](https://higgsfield.ai/blog/seedance-2-5-prompting-guide)、[短片参考流程](https://higgsfield.ai/blog/ai-short-film-youtube-guide)、[真实动作流程](https://higgsfield.ai/blog/realistic-ai-human-movement)、[Cinema Studio 4](https://higgsfield.ai/blog/cinema-studio-4-0)。
 

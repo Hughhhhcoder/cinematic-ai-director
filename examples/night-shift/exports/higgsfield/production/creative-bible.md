@@ -29,8 +29,10 @@ Status: draft
 
 ## Identity geometry and state contract
 
-- Identity-pack authority: one complete white-background 4×2 identity inspector generated in one ImageGen call and validated as a whole before any downstream work
-- Inspection/upload views: seven deterministic, non-resampled crops from that authority board; record the one unambiguous central white row gutter and its actual split instead of blindly assuming equal row heights; crops never become separate identity solves
+- Identity-pack authority: one high-resolution white-background 3×2 identity inspector generated in one ImageGen call and validated as a whole before any downstream work
+- Board roles: top row full-body front / one story-relevant full-body profile / full-body back; bottom row face close-up front / face close-up left profile / face close-up right profile
+- Inspection/upload views: six deterministic, non-resampled crops from that authority board; record the one unambiguous central white row gutter and its actual split instead of blindly assuming equal row heights; crops never become separate identity solves
+- Native-detail floor: board at least 1536×1024, each column at least 512 px, full-body figures and portrait faces large enough for geometry and surface inspection; resizing dimensions never counts as recovered detail
 - Proportion signature: identity-specific head/body, shoulder/hip, torso/limb, arm-span, hand/foot and intentional-asymmetry ratios
 - Immutable identity fields: skeletal proportions, feature spacing, skin range, hairline, fixed marks, handedness and expected digit topology
 - Persistent state fields: wardrobe, hair state, age stage, injury, wetness, dirt, makeup, story props
@@ -100,6 +102,17 @@ Status: draft
 - Dialogue: 未设定
 - Ambience and foley: 未设定
 - Music and silence: 未设定
+
+## Commercial / TVC creative system (when applicable)
+
+- Business objective, audience, placement and single proposition: 未设定
+- Product/wardrobe reasons to believe and non-negotiable brand codes: 未设定
+- At least two materially distinct creative routes and competitor-swap test: 未设定
+- Shot-function and removal test: 未设定
+- Music BPM/meter/downbeat, motion-energy relationship and edit grammar: 未设定
+- Capture-speed palette, playback rate, action peaks and motion-blur logic: 未设定
+- Dialogue/VO, music, ambience, Foley, transition accents and mnemonic hierarchy: 未设定
+- Exact duration/frame count, master/proxy distinction, aspect/crop and audio delivery matrix: 未设定
 
 ## Motifs, payoffs, and hard locks
 

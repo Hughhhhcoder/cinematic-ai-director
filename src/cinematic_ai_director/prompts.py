@@ -88,7 +88,9 @@ def _compile_image_prompt(
     character_state_types = {"character_variant", "character_state"}
     human_reference_types = identity_neutral_types | character_state_types
     location_reference_types = {"location_master", "location_variant"}
-    object_reference_types = {"prop", "prop_state", "vehicle", "animal"}
+    object_reference_types = {
+        "prop", "prop_state", "product_master", "product_view", "product_state", "vehicle", "animal"
+    }
     strategy = str(asset.get("prompt_strategy_id") or IMAGE_PROMPT_STRATEGY_BY_TYPE.get(str(asset.get("type")), ""))
     if strategy not in IMAGE_PROMPT_STRATEGIES:
         raise ValueError(f"asset {asset.get('id')} has no supported v1.6 image prompt strategy")
@@ -151,7 +153,7 @@ def _compile_image_prompt(
     else:
         authority_scope = "No person is present; do not invent one. Preserve approved world/object/state."
         hard_surface_contract = str(material_contract.get("hard_surfaces") or "construction-specific material response")
-        if asset_type in {"prop", "prop_state", "vehicle"}:
+        if asset_type in {"prop", "prop_state", "product_master", "product_view", "product_state", "vehicle"}:
             surface_response = (
                 f"{hard_surface_contract}. Every declared manufactured material keeps its own edge, reflection, wear-free baseline "
                 "and roughness response; do not turn the object into a CG product render."

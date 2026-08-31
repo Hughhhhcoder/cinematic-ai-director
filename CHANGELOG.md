@@ -2,6 +2,24 @@
 
 All notable public changes are documented here. The project follows [Semantic Versioning](https://semver.org/).
 
+## [1.7.0] — 2026-08-31
+
+### Added
+
+- Added a methods-only integration of the official `higgsfield-generate`, `higgsfield-soul-id`, and `higgsfield-product-photoshoot` skills at snapshot version 0.12.0, with primary-source provenance and an explicit adopted/translated/provider-only evidence matrix.
+- Added `manifests/higgsfield-methods.json` for intent-first image/video/audio/product routing, deterministic reference responsibilities, model-prompt budgets, Soul source readiness, product authorities, and Product Photoshoot intent briefs.
+- Added hard validation for the 5–20-photo Soul readiness range, lawful provided-photo sources, likeness consent, angle/light/expression/distance coverage, product geometry/label/logo/color/material/scale truth, ten official Product Photoshoot modes, prompt ownership, and audio-reference conflicts.
+- Added offline export sidecars `method-routing.json`, `product-photoshoot-prep.json`, and `audio-work-orders.json`; expanded `soul-id-prep.json` so a generated Inspector can never masquerade as the varied real-photo set required for Soul training.
+- Added English and Chinese method-fusion documentation and eight focused regression tests, bringing the complete suite to 154 tests.
+
+### Changed
+
+- Preserved the existing project schema `1.6`, public CLI, Foundation/sequence approval model, local static-asset workflow, and portable Higgsfield package instead of adding any platform-execution command.
+- Locked every Higgsfield operation flag to false. The Skill never installs a CLI, authenticates, uploads, trains, submits generation, polls jobs, or consumes credits.
+- Kept model names as dated advisory routing evidence rather than treating a larger version number as a universal upgrade; a later human operator must verify the live model schema.
+- Separated local ImageGen production prompts from provider-owned Product Photoshoot prompt enhancement. The package exports product truth and a short intent only, never a fabricated enhanced prompt.
+- Retained the v1.6.6 visual-evidence hold: no failed or unverified image was promoted merely to decorate this release.
+
 ## [1.6.6] — 2026-08-29
 
 ### Added

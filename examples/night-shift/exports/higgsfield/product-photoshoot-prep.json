@@ -1,0 +1,22 @@
+{
+  "automatic_upload": false,
+  "generation_performed": false,
+  "intent_briefs": [],
+  "method_source": "higgsfield-product-photoshoot 0.12.0",
+  "package_schema": "higgsfield-product-photoshoot-prep-1.6",
+  "product_authorities": [],
+  "prompt_ownership_rule": "The package exports product truth plus a short intent brief. It never fabricates or exposes the provider backend's enhanced GPT Image 2 prompt.",
+  "quality_rule": "Geometry, label/copy, logo placement, color, material response, scale, contact, and source traceability must pass before any lifestyle or campaign derivative.",
+  "supported_intent_modes_at_snapshot": [
+    "ad_creative_pack",
+    "closeup_product_with_person",
+    "conceptual_product",
+    "hero_banner",
+    "lifestyle_scene",
+    "moodboard_pin",
+    "product_shot",
+    "restyle",
+    "social_carousel",
+    "virtual_model_tryout"
+  ]
+}

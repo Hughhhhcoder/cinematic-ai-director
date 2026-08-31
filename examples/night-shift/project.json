@@ -7,6 +7,7 @@
   "interaction_language": "en",
   "prompt_language": "en",
   "production_mode": "live-action",
+  "production_kind": "narrative_film",
   "capture_policy": "adaptive-live-action-v1.6",
   "dynamic_range_policy": {
     "mode": "finite_scene_referred",
@@ -31,7 +32,20 @@
       "https://higgsfield.ai/blog/ai-short-film-youtube-guide",
       "https://higgsfield.ai/blog/realistic-ai-human-movement",
       "https://higgsfield.ai/blog/cinema-studio-4-0"
-    ]
+    ],
+    "method_profile_id": "higgsfield-official-skills-0.12.0-offline-methods-2026-08-31",
+    "official_skills_version": "0.12.0",
+    "integration_mode": "methods-only-offline",
+    "execution_boundary": {
+      "mode": "methods-only-offline",
+      "install_cli": false,
+      "authenticate": false,
+      "upload": false,
+      "train_soul_id": false,
+      "submit_generation": false,
+      "poll_jobs": false,
+      "consume_credits": false
+    }
   },
   "candidate_policy": {
     "identity_inspector_initial_count": 1,
@@ -42,6 +56,36 @@
     "max_batches": 2,
     "reviewer": "codex-visual",
     "expose_failed_candidates": false
+  },
+  "identity_layout_policy": {
+    "default_profile": "high-resolution-six-view-single-solve-3x2-v1.6.6",
+    "legacy_profiles_readable": [
+      "higgsfield-character-reference-sheet-two-row-single-solve-v1.6"
+    ],
+    "single_identity_solve": true,
+    "deterministic_crops_only": true
+  },
+  "resolution_policy": {
+    "mode": "strict_native_detail_v1.6.6",
+    "effective_at": "2026-08-31T07:30:15Z",
+    "minimum_identity_board_px": [
+      1536,
+      1024
+    ],
+    "minimum_identity_cell_width_px": 512,
+    "minimum_full_body_subject_height_px": 560,
+    "minimum_portrait_face_height_px": 300,
+    "minimum_authority_long_edge_px": 1536,
+    "minimum_narrative_long_edge_px": 1920,
+    "minimum_narrative_short_edge_px": 1080,
+    "no_dimension_only_upscale": true,
+    "native_generation_or_source_required": true,
+    "inspection_scales": [
+      "thumbnail",
+      "fit",
+      "100_percent",
+      "200_percent"
+    ]
   },
   "motion_baseline": {
     "capture_fps": 24,

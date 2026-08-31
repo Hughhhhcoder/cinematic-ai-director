@@ -1,0 +1,127 @@
+{
+  "adoption_matrix": {
+    "adopted": [
+      "Intent-first routing before prompt writing",
+      "Explicit reference responsibilities and deterministic reference order",
+      "Identity source quality, diversity, consent, and rights checks",
+      "Product truth locking before lifestyle, campaign, or video derivatives",
+      "Short model-facing instructions with production QA retained in manifests"
+    ],
+    "provider_only_not_emulated": [
+      "Soul model training and reusable reference-id creation",
+      "Product Photoshoot backend prompt enhancement",
+      "Model execution, uploads, job polling, account access, and credit consumption"
+    ],
+    "translated": [
+      "Live model-schema discovery becomes an operator preflight in the offline package",
+      "Soul training-photo guidance becomes a local readiness record without training",
+      "Product Photoshoot modes become local intent briefs without backend prompt emulation",
+      "Image, video, and audio generation defaults become advisory capability routes only"
+    ]
+  },
+  "execution_boundary": {
+    "authenticate": false,
+    "consume_credits": false,
+    "install_cli": false,
+    "mode": "methods-only-offline",
+    "poll_jobs": false,
+    "submit_generation": false,
+    "train_soul_id": false,
+    "upload": false
+  },
+  "generation_routes": [
+    {
+      "capability_family": "location_image",
+      "id": "route-location-authority",
+      "intent": "Prepare an empty, topology-readable workshop location authority.",
+      "model_advisory": "soul_location",
+      "model_schema_verification_required": true,
+      "output_contract": "One empty location image preserving topology, fixed facilities, and the spatial anchor.",
+      "platform_operation": "not_performed",
+      "prompt_contract": {
+        "mode": "visible-model-facts-only",
+        "overage_reason": "",
+        "preferred_max_tokens": 180
+      },
+      "reference_asset_ids": [],
+      "reference_roles": [],
+      "scope_ids": [
+        "loc-workshop--v001"
+      ],
+      "status": "approved",
+      "task_kind": "image"
+    },
+    {
+      "capability_family": "serious_video",
+      "id": "route-sequence-video",
+      "intent": "Animate one serious live-action sequence from approved start and end keyframes.",
+      "model_advisory": "seedance_2_0",
+      "model_schema_verification_required": true,
+      "output_contract": "One shot matching approved identity, location, path, action, timing, blur, and sound responsibilities.",
+      "platform_operation": "not_performed",
+      "prompt_contract": {
+        "mode": "visible-model-facts-only",
+        "overage_reason": "The structured shot must preserve spatial, camera, temporal, finite-exposure, and audio facts.",
+        "preferred_max_tokens": 240
+      },
+      "reference_asset_ids": [
+        "kf-sh-010-010-start--v001",
+        "kf-sh-010-010-end--v001"
+      ],
+      "reference_roles": [
+        "start_image",
+        "end_image"
+      ],
+      "scope_ids": [
+        "sh-010-010"
+      ],
+      "status": "approved",
+      "task_kind": "video"
+    },
+    {
+      "capability_family": "audio_generation",
+      "id": "route-sequence-audio",
+      "intent": "Prepare picture-linked workshop ambience and contact Foley as separate mix responsibilities.",
+      "model_advisory": "seed_audio",
+      "model_schema_verification_required": true,
+      "output_contract": "Separate ambience and Foley work orders aligned to the approved shot duration.",
+      "platform_operation": "not_performed",
+      "prompt_contract": {
+        "mode": "visible-model-facts-only",
+        "overage_reason": "",
+        "preferred_max_tokens": 160
+      },
+      "reference_asset_ids": [],
+      "reference_roles": [],
+      "scope_ids": [
+        "sh-010-010"
+      ],
+      "status": "approved",
+      "task_kind": "audio"
+    }
+  ],
+  "method_profile": {
+    "evidence_policy": "translate-observable-methods-never-emulate-provider-backends",
+    "id": "higgsfield-official-skills-0.12.0-offline-methods-2026-08-31",
+    "knowledge_snapshot": "2026-08-31",
+    "skills": [
+      "higgsfield-generate",
+      "higgsfield-soul-id",
+      "higgsfield-product-photoshoot"
+    ],
+    "skills_version": "0.12.0",
+    "source_urls": [
+      "https://github.com/higgsfield-ai/skills/blob/main/higgsfield-generate/SKILL.md",
+      "https://github.com/higgsfield-ai/skills/blob/main/higgsfield-soul-id/SKILL.md",
+      "https://github.com/higgsfield-ai/skills/blob/main/higgsfield-product-photoshoot/SKILL.md",
+      "https://github.com/higgsfield-ai/cli",
+      "https://higgsfield.ai/creator-hub/help-center/integrations/how-do-i-access-higgsfield-via-cli"
+    ]
+  },
+  "policy": "official-skills-methods-only-v1.7",
+  "product_authorities": [],
+  "product_photoshoot_briefs": [],
+  "schema_version": "1.6",
+  "soul_readiness_records": [],
+  "status": "approved"
+}

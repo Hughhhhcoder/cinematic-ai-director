@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from .provider_methods import validate_higgsfield_methods
 from .schema import *
 
 
@@ -263,6 +264,15 @@ def validate_project_metadata(
             report.error("HIGGSFIELD_VERSION_POLICY", "Higgsfield exports must block on an unverified platform snapshot.")
         if higgsfield_conformance.get("source_urls") != list(HIGGSFIELD_OFFICIAL_SOURCE_URLS):
             report.error("HIGGSFIELD_OFFICIAL_SOURCES", "Project official Higgsfield source set is incomplete or out of order.")
+        if "method_profile_id" in higgsfield_conformance:
+            if higgsfield_conformance.get("method_profile_id") != HIGGSFIELD_METHOD_PROFILE_ID:
+                report.error("HIGGSFIELD_METHOD_PROFILE", "Project Higgsfield method profile does not match this Skill release.")
+            if higgsfield_conformance.get("official_skills_version") != HIGGSFIELD_SKILLS_SNAPSHOT_VERSION:
+                report.error("HIGGSFIELD_METHOD_PROFILE", "Project official skills snapshot does not match this Skill release.")
+            if higgsfield_conformance.get("integration_mode") != "methods-only-offline":
+                report.error("HIGGSFIELD_EXECUTION_BOUNDARY", "Higgsfield integration_mode must remain methods-only-offline.")
+            if higgsfield_conformance.get("execution_boundary") != HIGGSFIELD_METHOD_EXECUTION_BOUNDARY:
+                report.error("HIGGSFIELD_EXECUTION_BOUNDARY", "Project metadata may not authorize a Higgsfield platform operation.")
     candidate_policy = project.get("candidate_policy")
     if require_keys(
         candidate_policy,
@@ -6176,6 +6186,13 @@ def validate_sequences(
             report.error("PROVIDER_ADAPTER", "Higgsfield strict default must be Cinema Studio 4 with Seedance 2.5.")
         if adapter.get("prompt_sections") != list(VIDEO_PROMPT_HEADERS):
             report.error("PROVIDER_ADAPTER", "Higgsfield prompt sections must match the official Seedance 2.5 contract.")
+        if "method_profile_id" in adapter:
+            if adapter.get("method_profile_id") != HIGGSFIELD_METHOD_PROFILE_ID:
+                report.error("HIGGSFIELD_METHOD_PROFILE", "Sequence adapter method profile does not match this Skill release.")
+            if adapter.get("official_skills_version") != HIGGSFIELD_SKILLS_SNAPSHOT_VERSION:
+                report.error("HIGGSFIELD_METHOD_PROFILE", "Sequence adapter official skills version is stale.")
+            if adapter.get("integration_mode") != "methods-only-offline":
+                report.error("HIGGSFIELD_EXECUTION_BOUNDARY", "Sequence adapter must remain methods-only-offline.")
     rows = data.get("sequence_clusters")
     if not isinstance(rows, list):
         report.error("TYPE", "manifests/sequences.json.sequence_clusters must be an array.")
@@ -7799,11 +7816,14 @@ def validate_project(project_dir: Path, as_json: bool) -> int:
     reviews_data = load_json(project_dir / "manifests/reviews.json", "reviews manifest", report)
     commercial_path = project_dir / "manifests/commercial.json"
     commercial_data = load_json(commercial_path, "commercial manifest", report) if commercial_path.is_file() else None
+    methods_path = project_dir / "manifests/higgsfield-methods.json"
+    methods_data = load_json(methods_path, "Higgsfield methods manifest", report) if methods_path.is_file() else None
     resolution_policy = project.get("resolution_policy") if isinstance(project, dict) else None
     assets = validate_assets(project_dir, assets_data, set(scenes), report, resolution_policy)
     quality_profiles = validate_quality_manifest(quality_data, assets, report)
     candidate_sets = validate_candidate_manifest(project_dir, candidates_data, assets, report)
     identity_packs, character_states = validate_identities(project_dir, identities_data, assets, report)
+    validate_higgsfield_methods(methods_data, assets, identity_packs, commercial_data, report)
     (
         location_worlds,
         location_states,

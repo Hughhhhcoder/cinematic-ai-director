@@ -1,5 +1,24 @@
 {
   "knowledge_snapshot": "2026-08-27",
+  "official_skill_methods": {
+    "adoption": "methods-only-offline",
+    "knowledge_snapshot": "2026-08-31",
+    "profile_id": "higgsfield-official-skills-0.12.0-offline-methods-2026-08-31",
+    "provider_backends_emulated": false,
+    "skills": [
+      "higgsfield-generate",
+      "higgsfield-soul-id",
+      "higgsfield-product-photoshoot"
+    ],
+    "skills_version": "0.12.0",
+    "source_urls": [
+      "https://github.com/higgsfield-ai/skills/blob/main/higgsfield-generate/SKILL.md",
+      "https://github.com/higgsfield-ai/skills/blob/main/higgsfield-soul-id/SKILL.md",
+      "https://github.com/higgsfield-ai/skills/blob/main/higgsfield-product-photoshoot/SKILL.md",
+      "https://github.com/higgsfield-ai/cli",
+      "https://higgsfield.ai/creator-hub/help-center/integrations/how-do-i-access-higgsfield-via-cli"
+    ]
+  },
   "official_source_urls": [
     "https://higgsfield.ai/blog/seedance-2-5-prompting-guide",
     "https://higgsfield.ai/blog/ai-short-film-youtube-guide",

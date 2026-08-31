@@ -2,6 +2,10 @@
 
 `export-higgsfield` 将批准后的制作事实转换为人工可执行的逐序列包。它不会登录 Higgsfield、上传文件、调用网络生成接口或消耗积分。
 
+v1.7 在原有离线包中增加 `method-routing.json`、`soul-id-prep.json`、`product-photoshoot-prep.json` 和 `audio-work-orders.json`。它们只承载官方 `higgsfield-generate`、`higgsfield-soul-id`、`higgsfield-product-photoshoot` 三项 Skill 的方法：意图路由、参考职责、真人照片就绪度、商品事实与模式、提示精简和音频工作单。所有安装、登录、上传、训练、生成、轮询和积分字段都固定为 `false`。
+
+统一身份板仍是电影身份权威，但不冒充 Soul 所需的 5–20 张真人照片。商品文件只包含批准事实和简短意图，绝不伪造平台后端增强提示。模型名只作带日期建议，未来由人类使用制作包时仍须核对当前 Schema。
+
 ## 序列包内容
 
 ```text

@@ -2,13 +2,13 @@
   "files": [
     {
       "path": "SKILL.md",
-      "sha256": "901042c74351ca3e9a7ffd55181767786fda51d7a316b584fa74c47df1429861",
-      "size": 22481
+      "sha256": "37d658053028d5c876f19ce6d81613d852fce9ff73a355e79d920f4d8a8d2164",
+      "size": 25059
     },
     {
       "path": "agents/openai.yaml",
-      "sha256": "d37d711c16775d60ea4e66fcf634bb77661b67ce8090aee37a42a2777e0c30a4",
-      "size": 723
+      "sha256": "5db6ab75b29ed0405b1ab318023dcbaa92923b45e52ad005b07ede3f6f8c935a",
+      "size": 822
     },
     {
       "path": "assets/icon.svg",
@@ -61,6 +61,11 @@
       "size": 8135
     },
     {
+      "path": "references/higgsfield-method-fusion.md",
+      "sha256": "3e7f2f39cd50321672dff4d3001fa78031a884b5f72c3f7a6fc17df2be23dfa2",
+      "size": 14688
+    },
+    {
       "path": "references/higgsfield-public-index.md",
       "sha256": "6fe227bfb3b028a1f1605ce6ae6fb19e5dc83f127e9ef6cc1fb0103e195a8127",
       "size": 81935
@@ -97,13 +102,13 @@
     },
     {
       "path": "references/pipeline.md",
-      "sha256": "d0bf9c1e8217f63bb10b7902297042707b6569235c7266aa68dd459ab7ab455b",
-      "size": 9549
+      "sha256": "cd2273064d9d6a0ce2a93199f956d92702dd8acfd04ba5e5a52d6818b2f3794d",
+      "size": 10331
     },
     {
       "path": "references/project-schema.md",
-      "sha256": "09f7e551362322893f958b041e4ab0ee57686381935c11747bd0be6d4bf248c4",
-      "size": 19054
+      "sha256": "31e18654c910150e6237336b074e22b6e1e0f6ad5992a6b07c5592e39ffad119",
+      "size": 19643
     },
     {
       "path": "references/quality-evidence.md",
@@ -147,7 +152,7 @@
     },
     {
       "path": "src/cinematic_ai_director/__init__.py",
-      "sha256": "cdc6a88c61caf5d8d01f03513a9da03f0bd3f86675df1e418bb925a799e7c2f2",
+      "sha256": "299a407b0597606f4958e3f923522b69d5d1da538c4320bc3cc122187c6023db",
       "size": 141
     },
     {
@@ -177,18 +182,23 @@
     },
     {
       "path": "src/cinematic_ai_director/higgsfield.py",
-      "sha256": "3d90cd256c6eda7a16efce2ee73504fb3e4ed4ad7d72d4db2ce8b781e917b415",
-      "size": 78680
+      "sha256": "083a810ca5f29f04f3ba2e8e8d91e0c964f935e9a93820bae895660d349363ec",
+      "size": 88456
     },
     {
       "path": "src/cinematic_ai_director/initialization.py",
-      "sha256": "7ce85ab3a1f260fa8747c0a894c21a28978345b9a274e33cfe4f41be7068f1aa",
-      "size": 16194
+      "sha256": "02e2696f68025f791b4d8190e1b7b6615be4db9427cdb26ab2536b4d4a73932e",
+      "size": 19983
     },
     {
       "path": "src/cinematic_ai_director/prompts.py",
-      "sha256": "29e982bbda762347f9107c77ffd78adcb0554764bb820b8d562b6364408cb655",
-      "size": 43701
+      "sha256": "0f37a89ff0702ffa4376b9ac76f16b113a8b7f67fa058928737012c3a29a179f",
+      "size": 43817
+    },
+    {
+      "path": "src/cinematic_ai_director/provider_methods.py",
+      "sha256": "24103037bd23853f57e81c5e659097ac1707ee201a0e36170435d486afaf0578",
+      "size": 24903
     },
     {
       "path": "src/cinematic_ai_director/reviews.py",
@@ -197,16 +207,16 @@
     },
     {
       "path": "src/cinematic_ai_director/schema.py",
-      "sha256": "56da764764268172f31c98c85a135e26011f8fa728f79aee838d8e5c49a3061d",
-      "size": 41968
+      "sha256": "fef44b45b37710f6a6713fda65d174f5866cc54fd6a0e318cdd25a55e5d6966e",
+      "size": 46190
     },
     {
       "path": "src/cinematic_ai_director/validation.py",
-      "sha256": "6c5da66a39df9bf89d82273ccbe9cc8b5ba18c2a86bd72af53b58deec7c51fb2",
-      "size": 474802
+      "sha256": "2e07f0a4ea5022d0bd44cb408d81af4c549368fc4cd9ee35209a2b52631d8dcd",
+      "size": 476764
     }
   ],
   "schema_version": "1.6",
   "skill": "cinematic-ai-director",
-  "version": "1.6.6"
+  "version": "1.7.0"
 }

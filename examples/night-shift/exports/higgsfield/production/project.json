@@ -20,8 +20,21 @@
     "rule": "Every photographed frame declares what exposure protects and what highlight or shadow information may be lost."
   },
   "higgsfield_conformance": {
+    "execution_boundary": {
+      "authenticate": false,
+      "consume_credits": false,
+      "install_cli": false,
+      "mode": "methods-only-offline",
+      "poll_jobs": false,
+      "submit_generation": false,
+      "train_soul_id": false,
+      "upload": false
+    },
+    "integration_mode": "methods-only-offline",
     "knowledge_snapshot": "2026-08-27",
+    "method_profile_id": "higgsfield-official-skills-0.12.0-offline-methods-2026-08-31",
     "official_profile_id": "cinema-studio-4-seedance-2.5-official-2026-08-27",
+    "official_skills_version": "0.12.0",
     "source_urls": [
       "https://higgsfield.ai/blog/seedance-2-5-prompting-guide",
       "https://higgsfield.ai/blog/ai-short-film-youtube-guide",
@@ -34,6 +47,14 @@
     "version_policy": "snapshot-must-match-or-block"
   },
   "id": "validator-feature-test",
+  "identity_layout_policy": {
+    "default_profile": "high-resolution-six-view-single-solve-3x2-v1.6.6",
+    "deterministic_crops_only": true,
+    "legacy_profiles_readable": [
+      "higgsfield-character-reference-sheet-two-row-single-solve-v1.6"
+    ],
+    "single_identity_solve": true
+  },
   "image_prompt_strategy": "image2-live-action-evidence-v1.6",
   "interaction_language": "en",
   "language": "en",
@@ -44,12 +65,35 @@
     "exposure_time_s": 0.020833333333333332,
     "shutter_angle": 180
   },
+  "production_kind": "narrative_film",
   "production_mode": "live-action",
   "prompt_language": "en",
   "reproducibility": {
     "backend": "builtin-imagegen",
     "pixel_reproducible": false,
     "reproducibility_class": "workflow_only"
+  },
+  "resolution_policy": {
+    "effective_at": "2026-08-31T07:30:15Z",
+    "inspection_scales": [
+      "thumbnail",
+      "fit",
+      "100_percent",
+      "200_percent"
+    ],
+    "minimum_authority_long_edge_px": 1536,
+    "minimum_full_body_subject_height_px": 560,
+    "minimum_identity_board_px": [
+      1536,
+      1024
+    ],
+    "minimum_identity_cell_width_px": 512,
+    "minimum_narrative_long_edge_px": 1920,
+    "minimum_narrative_short_edge_px": 1080,
+    "minimum_portrait_face_height_px": 300,
+    "mode": "strict_native_detail_v1.6.6",
+    "native_generation_or_source_required": true,
+    "no_dimension_only_upscale": true
   },
   "scenes": [
     {

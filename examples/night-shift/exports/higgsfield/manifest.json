@@ -526,11 +526,40 @@
   "base_cinematic_treatment_id": "treat-base-a",
   "base_format_plan_id": "format-plan-main-16x9",
   "generation_boundary": {
+    "account_authenticated": false,
+    "cli_installed": false,
     "credits_consumed": false,
+    "files_uploaded": false,
+    "generation_jobs_submitted": false,
     "network_used": false,
-    "platform_called": false
+    "platform_called": false,
+    "soul_training_started": false
   },
   "knowledge_snapshot": "2026-08-27",
+  "method_fusion": {
+    "audio_work_orders_file": "audio-work-orders.json",
+    "execution_boundary": {
+      "authenticate": false,
+      "consume_credits": false,
+      "install_cli": false,
+      "mode": "methods-only-offline",
+      "poll_jobs": false,
+      "submit_generation": false,
+      "train_soul_id": false,
+      "upload": false
+    },
+    "knowledge_snapshot": "2026-08-31",
+    "official_skills_version": "0.12.0",
+    "product_photoshoot_file": "product-photoshoot-prep.json",
+    "profile_id": "higgsfield-official-skills-0.12.0-offline-methods-2026-08-31",
+    "routing_file": "method-routing.json",
+    "skills": [
+      "higgsfield-generate",
+      "higgsfield-soul-id",
+      "higgsfield-product-photoshoot"
+    ],
+    "soul_readiness_file": "soul-id-prep.json"
+  },
   "motion_baseline": {
     "capture_fps": 24,
     "delivery_fps": 24,
@@ -577,6 +606,7 @@
   "shots": [
     {
       "camera_path_file": "shots/sc-010/sh-010-010/camera-path.json",
+      "commercial_direction_file": "",
       "duration_s": 4.0,
       "dynamic_range_file": "shots/sc-010/sh-010-010/dynamic-range.json",
       "environment_state_file": "shots/sc-010/sh-010-010/environment-state.json",
@@ -600,7 +630,7 @@
   "source_project_updated_at": "2026-08-25T12:00:00Z",
   "source_schema_version": "1.6",
   "target": {
-    "execution": "manual-upload-and-generate",
+    "execution": "offline-work-order-only; no platform operation by this Skill",
     "model": "Seedance 2.5",
     "provider": "Higgsfield",
     "surface": "Cinema Studio 4",

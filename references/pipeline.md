@@ -26,6 +26,8 @@
 | 11 镜头与序列 | shots + sequence clusters + review boards | 路径、时间、模糊、物理、音频完整；逐序列批准 |
 | 12 导出/回片 | Higgsfield 包 + 可选 takes | validate 零错误、适配器支持、离线验证通过 |
 
+v1.7 在剧本拆解后、提示编译前加入一层 `higgsfield-methods.json`：先判断任务属于普通/参考/电影静帧/地点图片、严肃/参考/电影级/商业视频、音频、视频分析或商品摄影，再声明每个参考的唯一职责。真人身份另做 5–20 张合法照片的 Soul 就绪度记录，商品另做几何/标签/Logo/颜色/材质/比例事实锁和十类 Product Photoshoot 意图。该层只影响本地规划和导出侧车文件，不执行平台操作。详见 [higgsfield-method-fusion.md](higgsfield-method-fusion.md)。
+
 ## 1. 剧本拆解
 
 逐场记录：地点世界/状态、时间、天气/空气介质、特殊光事件、人物进入状态、服装/伤势/软组织变化、物件状态/位置、动作起终点、接触、对白/声音、叙事任务和持续到何时。任何持续事实的变化都是 sequence 边界候选。
@@ -96,5 +98,7 @@ python3 <project>/exports/higgsfield/verify_package.py
 导出不访问平台。目标适配器不支持参考量、画幅或运镜段数时阻断。用户交回视频后在 start/25%/50%/75%/end 和事件帧人工审计，再决定 take 是否 selected。
 
 ## 交付
+
+原有交付物不变。离线 Higgsfield 包额外携带 `method-routing.json`、`soul-id-prep.json`、`product-photoshoot-prep.json` 与 `audio-work-orders.json`；所有平台执行字段均为 `false`。
 
 列出项目/导出绝对路径、Foundation/Sequence 决定、候选通过率、批准/阻断资产、身份包/角色身材/状态、地点世界/状态、环境、格式、序列/镜头数、所有 QA 与校验结果、`pixel_reproducible:false`，以及明确未执行的登录、上传和平台生成。

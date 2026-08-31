@@ -1,0 +1,64 @@
+{
+  "audio_plan": {
+    "ambience": [],
+    "brand_mnemonic": [],
+    "dialogue_vo": [],
+    "foley": [],
+    "mix_hierarchy": [],
+    "music": [],
+    "transition_accents": []
+  },
+  "brand_assets": [],
+  "commercial_brief": {
+    "audience": "",
+    "brand_codes": [],
+    "category": "other",
+    "mandatory_elements": [],
+    "objective": "",
+    "placement": "",
+    "prohibited_generic_codes": [],
+    "reasons_to_believe": [],
+    "runtime_s": 0,
+    "single_proposition": "",
+    "success_measure": ""
+  },
+  "creative_routes": [],
+  "deliverables": [],
+  "mode": "not_applicable",
+  "qa": {
+    "checked_at": "",
+    "checks": {
+      "brand_specific_concept": false,
+      "brief_specificity": false,
+      "delivery_matrix_conformance": false,
+      "endboard_copy_and_cta": false,
+      "music_action_edit_coherence": false,
+      "performance_energy_and_variety": false,
+      "product_or_wardrobe_proof": false,
+      "shot_function_and_removal_test": false,
+      "sound_design_and_mix_hierarchy": false,
+      "speed_sampling_and_motion_blur": false
+    },
+    "hard_failures": [],
+    "notes": [],
+    "reviewer": "codex-structural"
+  },
+  "rhythm_plan": {
+    "edit_strategy": "",
+    "music": {
+      "bpm": 0,
+      "downbeat_s": 0,
+      "energy_curve": [],
+      "meter": "",
+      "usage": "score"
+    },
+    "relationship_reason": "",
+    "shot_rhythm": [],
+    "speed_palette": [],
+    "tempo_motion_relationship": "free"
+  },
+  "schema_version": "1.6",
+  "selected_route_id": "",
+  "status": "planned",
+  "wardrobe_looks": []
+}

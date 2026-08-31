@@ -31,6 +31,7 @@
     "silence": []
   },
   "camera_path_file": "shots/sc-010/sh-010-010/camera-path.json",
+  "commercial_direction_file": "",
   "dynamic_range_file": "shots/sc-010/sh-010-010/dynamic-range.json",
   "end_frame_file": "references/frames/kf-sh-010-010-end--v001.png",
   "environment_state_file": "shots/sc-010/sh-010-010/environment-state.json",

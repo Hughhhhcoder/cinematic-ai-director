@@ -2,6 +2,8 @@
 
 `scripts/film_project.py` 是权威实现：Python 3.10+、仅标准库、无网络。JSON 使用 UTF-8，文本使用 LF；项目和导出清单只允许相对路径。
 
+应用版本 v1.7.0 继续使用项目 Schema `1.6`，并为新项目增加可选但完整校验的 `manifests/higgsfield-methods.json`。旧 v1.6 项目仍可读取，不会被自动改写。该清单固定包含三项官方 Skill 的日期化证据、全 false 平台执行边界、生成意图路由、Soul 真人照片就绪度、商品权威事实和 Product Photoshoot 简短意图；它不能保存登录、上传、训练、生成、轮询或积分状态，也不能保存伪造的后端增强提示。完整规则见 [higgsfield-method-fusion.md](higgsfield-method-fusion.md)。
+
 ## 命令与兼容性
 
 ```bash

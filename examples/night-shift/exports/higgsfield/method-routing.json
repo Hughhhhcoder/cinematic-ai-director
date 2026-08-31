@@ -1,0 +1,95 @@
+{
+  "execution_boundary": {
+    "authenticate": false,
+    "consume_credits": false,
+    "install_cli": false,
+    "mode": "methods-only-offline",
+    "poll_jobs": false,
+    "submit_generation": false,
+    "train_soul_id": false,
+    "upload": false
+  },
+  "knowledge_snapshot": "2026-08-31",
+  "official_skills_version": "0.12.0",
+  "package_schema": "higgsfield-method-routing-1.6",
+  "policy": "official-skills-methods-only-v1.7",
+  "profile_id": "higgsfield-official-skills-0.12.0-offline-methods-2026-08-31",
+  "routes": [
+    {
+      "capability_family": "location_image",
+      "id": "route-location-authority",
+      "intent": "Prepare an empty, topology-readable workshop location authority.",
+      "model_advisory": "soul_location",
+      "model_schema_verification_required": true,
+      "output_contract": "One empty location image preserving topology, fixed facilities, and the spatial anchor.",
+      "platform_operation": "not_performed",
+      "prompt_contract": {
+        "mode": "visible-model-facts-only",
+        "overage_reason": "",
+        "preferred_max_tokens": 180
+      },
+      "reference_asset_ids": [],
+      "reference_roles": [],
+      "scope_ids": [
+        "loc-workshop--v001"
+      ],
+      "status": "approved",
+      "task_kind": "image"
+    },
+    {
+      "capability_family": "serious_video",
+      "id": "route-sequence-video",
+      "intent": "Animate one serious live-action sequence from approved start and end keyframes.",
+      "model_advisory": "seedance_2_0",
+      "model_schema_verification_required": true,
+      "output_contract": "One shot matching approved identity, location, path, action, timing, blur, and sound responsibilities.",
+      "platform_operation": "not_performed",
+      "prompt_contract": {
+        "mode": "visible-model-facts-only",
+        "overage_reason": "The structured shot must preserve spatial, camera, temporal, finite-exposure, and audio facts.",
+        "preferred_max_tokens": 240
+      },
+      "reference_asset_ids": [
+        "kf-sh-010-010-start--v001",
+        "kf-sh-010-010-end--v001"
+      ],
+      "reference_roles": [
+        "start_image",
+        "end_image"
+      ],
+      "scope_ids": [
+        "sh-010-010"
+      ],
+      "status": "approved",
+      "task_kind": "video"
+    },
+    {
+      "capability_family": "audio_generation",
+      "id": "route-sequence-audio",
+      "intent": "Prepare picture-linked workshop ambience and contact Foley as separate mix responsibilities.",
+      "model_advisory": "seed_audio",
+      "model_schema_verification_required": true,
+      "output_contract": "Separate ambience and Foley work orders aligned to the approved shot duration.",
+      "platform_operation": "not_performed",
+      "prompt_contract": {
+        "mode": "visible-model-facts-only",
+        "overage_reason": "",
+        "preferred_max_tokens": 160
+      },
+      "reference_asset_ids": [],
+      "reference_roles": [],
+      "scope_ids": [
+        "sh-010-010"
+      ],
+      "status": "approved",
+      "task_kind": "audio"
+    }
+  ],
+  "routing_rules": [
+    "Classify the task before choosing a capability family; product photography is not generic image generation.",
+    "Treat model names as dated advisories and require a human to inspect the current model schema before manual use.",
+    "Bind every reference to one declared role; never fill a reference budget without a production reason.",
+    "Keep model-facing prompts short and visible-fact-only; retain QA, rights, continuity, and reconstruction facts in JSON.",
+    "For image-to-video, the frame carries appearance while the prompt concentrates on motion, performance, camera, light, physics, and sound."
+  ]
+}

@@ -18,7 +18,7 @@ CLI = ROOT / "scripts" / "film_project.py"
 FIXED_TIMESTAMP = "2026-08-25T12:00:00Z"
 EXAMPLE_README = """# Night Shift — validated structural example
 
-This sanitized fixture demonstrates one complete Schema 1.6 sequence: approved identity and role-physique facts, a location state with a side-three-quarter view and fixed spatial anchor, an approved ordinary-light person/world integration probe, quality/cinematography/format records, candidate isolation, Foundation and sequence gates, compiled image/video prompts, and a deterministic Higgsfield export. The probe remains an internal QA artifact and is deliberately excluded from the Higgsfield upload references.
+This sanitized fixture demonstrates one complete Schema 1.6 sequence: approved identity and role-physique facts, a location state with a side-three-quarter view and fixed spatial anchor, an approved ordinary-light person/world integration probe, quality/cinematography/format records, candidate isolation, Foundation and sequence gates, compiled image/video prompts, official three-skill method routing with every platform operation disabled, and a deterministic Higgsfield export. The probe remains an internal QA artifact and is deliberately excluded from the Higgsfield upload references.
 
 The tiny neutral PNG files are deliberately non-promotional structural fixtures used to exercise paths, hashes, boards, and portability. They are **not** visual quality claims and contain no real identity, user reference, rejected quality candidate, or paid-platform data. See the public evidence gallery for visual results.
 
@@ -113,6 +113,73 @@ def main(argv: list[str] | None = None) -> int:
                     candidate["diagnostic_regions"] = json.loads(json.dumps(passing_regions))
     candidates_path.write_text(
         json.dumps(candidates, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+    methods_path = output / "manifests" / "higgsfield-methods.json"
+    methods = json.loads(methods_path.read_text(encoding="utf-8"))
+    methods["status"] = "approved"
+    methods["generation_routes"] = [
+        {
+            "id": "route-location-authority",
+            "status": "approved",
+            "task_kind": "image",
+            "intent": "Prepare an empty, topology-readable workshop location authority.",
+            "capability_family": "location_image",
+            "scope_ids": ["loc-workshop--v001"],
+            "reference_asset_ids": [],
+            "reference_roles": [],
+            "model_advisory": "soul_location",
+            "model_schema_verification_required": True,
+            "prompt_contract": {
+                "mode": "visible-model-facts-only",
+                "preferred_max_tokens": 180,
+                "overage_reason": "",
+            },
+            "output_contract": "One empty location image preserving topology, fixed facilities, and the spatial anchor.",
+            "platform_operation": "not_performed",
+        },
+        {
+            "id": "route-sequence-video",
+            "status": "approved",
+            "task_kind": "video",
+            "intent": "Animate one serious live-action sequence from approved start and end keyframes.",
+            "capability_family": "serious_video",
+            "scope_ids": ["sh-010-010"],
+            "reference_asset_ids": ["kf-sh-010-010-start--v001", "kf-sh-010-010-end--v001"],
+            "reference_roles": ["start_image", "end_image"],
+            "model_advisory": "seedance_2_0",
+            "model_schema_verification_required": True,
+            "prompt_contract": {
+                "mode": "visible-model-facts-only",
+                "preferred_max_tokens": 240,
+                "overage_reason": "The structured shot must preserve spatial, camera, temporal, finite-exposure, and audio facts.",
+            },
+            "output_contract": "One shot matching approved identity, location, path, action, timing, blur, and sound responsibilities.",
+            "platform_operation": "not_performed",
+        },
+        {
+            "id": "route-sequence-audio",
+            "status": "approved",
+            "task_kind": "audio",
+            "intent": "Prepare picture-linked workshop ambience and contact Foley as separate mix responsibilities.",
+            "capability_family": "audio_generation",
+            "scope_ids": ["sh-010-010"],
+            "reference_asset_ids": [],
+            "reference_roles": [],
+            "model_advisory": "seed_audio",
+            "model_schema_verification_required": True,
+            "prompt_contract": {
+                "mode": "visible-model-facts-only",
+                "preferred_max_tokens": 160,
+                "overage_reason": "",
+            },
+            "output_contract": "Separate ambience and Foley work orders aligned to the approved shot duration.",
+            "platform_operation": "not_performed",
+        },
+    ]
+    methods_path.write_text(
+        json.dumps(methods, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
         newline="\n",
     )

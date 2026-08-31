@@ -1,0 +1,53 @@
+{
+  "commercial_audio_plan": {
+    "ambience": [],
+    "brand_mnemonic": [],
+    "dialogue_vo": [],
+    "foley": [],
+    "mix_hierarchy": [],
+    "music": [],
+    "transition_accents": []
+  },
+  "current_schema_check_required": true,
+  "generation_performed": false,
+  "method_source": "higgsfield-generate 0.12.0",
+  "model_advisory": "seed_audio",
+  "model_advisory_is_authority": false,
+  "package_schema": "higgsfield-audio-work-orders-1.6",
+  "rhythm_plan": {
+    "edit_strategy": "",
+    "music": {
+      "bpm": 0,
+      "downbeat_s": 0,
+      "energy_curve": [],
+      "meter": "",
+      "usage": "score"
+    },
+    "relationship_reason": "",
+    "shot_rhythm": [],
+    "speed_palette": [],
+    "tempo_motion_relationship": "free"
+  },
+  "rules": [
+    "Music tempo, edit cadence, capture speed, and playback speed must be designed together rather than inferred independently.",
+    "Ambience, Foley, impacts, dialogue, and music remain separate responsibilities before the mix hierarchy is approved.",
+    "An audio reference is an input role; it is not the same as asking a video model to invent audio."
+  ],
+  "shot_audio": [
+    {
+      "audio": {
+        "ambience": [
+          "quiet workshop room tone"
+        ],
+        "dialogue": [],
+        "foley": [
+          "shoe stops on concrete"
+        ],
+        "music": [],
+        "silence": []
+      },
+      "duration_s": 4.0,
+      "shot_id": "sh-010-010"
+    }
+  ]
+}

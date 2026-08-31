@@ -201,8 +201,8 @@
   ],
   "automatic_upload": false,
   "operator_checklist": [
-    "Create the reusable identity from the one approved two-row single-solve inspector board.",
-    "Use its seven deterministic crops only for inspection or a UI that requests separate views; the unified board remains ground truth.",
+    "If a human later configures a fictional-character reference, start from the one approved single-solve Inspector board.",
+    "Use its deterministic crops only for inspection or a UI that requests separate views; the unified board remains ground truth.",
     "Bind the exact persistent character-state reference separately for each sequence.",
     "Keep emotion, gaze, and action in the shot prompt instead of creating a new identity."
   ],

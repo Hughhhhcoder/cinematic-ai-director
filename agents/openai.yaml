@@ -1,9 +1,9 @@
 interface:
   display_name: "Cinematic AI Director"
-  short_description: "Adaptive live-action, TVC direction, and strict Higgsfield packages"
+  short_description: "Adaptive live-action, TVC direction, and offline Higgsfield-ready packages"
   icon_small: "./assets/icon.svg"
   icon_large: "./assets/logo.svg"
   brand_color: "#101828"
-  default_prompt: "Use $cinematic-ai-director to turn my live-action film, commercial, or MV brief into an adaptive v1.6 project with one high-resolution 3x2 shared-solve identity Inspector per person, strict native-detail and person/world realism gates, finite scene-referred exposure, authored creative routes, frame-accurate music/action/edit rhythm, sequence-level reviews, and a versioned Cinema Studio 4 + Seedance 2.5 production package."
+  default_prompt: "Use $cinematic-ai-director to turn my live-action film, commercial, or MV brief into an adaptive v1.7 workflow on project schema v1.6, with one high-resolution 3x2 shared-solve identity Inspector per person, strict native-detail and person/world realism gates, finite scene-referred exposure, authored creative routes, frame-accurate music/action/edit rhythm, official Higgsfield generate/Soul/product-photo methods applied offline, sequence-level reviews, and a portable production package. Never operate Higgsfield."
 policy:
   allow_implicit_invocation: true

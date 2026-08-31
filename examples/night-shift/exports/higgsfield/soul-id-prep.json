@@ -1,11 +1,40 @@
 {
   "applicable_identity_packs": [],
+  "authority_separation": {
+    "project_identity_authority": "one approved single-solve identity Inspector board plus deterministic crops",
+    "rule": "The generated Inspector board is continuity authority but is not a substitute for the official varied real-photo training set.",
+    "training_readiness_source": "5-20 unique, lawful, consented real photographs"
+  },
   "automatic_upload": false,
+  "method_source": "higgsfield-soul-id 0.12.0",
+  "official_readiness_contract": {
+    "coverage_checks": [
+      "single_person_each",
+      "eyes_visible_each",
+      "no_heavy_filters",
+      "no_sunglasses",
+      "angle_variety",
+      "lighting_variety",
+      "expression_variety",
+      "distance_variety",
+      "sharp_focus",
+      "minimum_1024_square_ideal"
+    ],
+    "ideal_resolution": "at least 1024x1024 per source photograph",
+    "photo_count_ideal": [
+      8,
+      12
+    ],
+    "photo_count_max": 20,
+    "photo_count_min": 5
+  },
   "operator_checklist": [
-    "Confirm likeness consent and reference usage rights before upload.",
-    "Use the one approved two-row white identity inspector as the first and primary identity input.",
-    "The seven deterministic crops are inspection/upload conveniences and may never replace or outrank the unified board.",
-    "Do not use a bridge frame or character state image as the sole Soul ID source."
+    "Confirm likeness consent and every source photograph's usage rights.",
+    "Use only single-person, sharp photographs with visible eyes and no heavy filters or sunglasses.",
+    "Cover multiple angles, lighting conditions, expressions, and distances; avoid repeated near-duplicates.",
+    "Keep the unified Inspector board as the film project's identity authority; never let a bridge frame or state image outrank it."
   ],
-  "package_schema": "higgsfield-soul-id-prep-1.6"
+  "package_schema": "higgsfield-soul-id-prep-1.6",
+  "readiness_records": [],
+  "training_performed": false
 }

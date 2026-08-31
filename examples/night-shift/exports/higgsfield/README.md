@@ -19,7 +19,10 @@
 - `shot-list.csv`：逐镜入口、提示词、参数与参考清单位置。
 - `shots/`：每镜头的提示、设置、空间、格式、相机路径、环境、时间采样、有限动态范围、参考表和执行说明。
 - `sequences/`：每个跨镜一致性组的参考、状态、空间、格式、路径、环境、时间锁、动态范围取舍、提示与独立验证器。
-- `soul-id-prep.json`、`elements-soul-cast-prep.json`：真人和虚构人物的平台准备清单，不执行上传。
+- `method-routing.json`：由官方三项 Skill 提炼的任务意图、参考职责、提示预算和能力建议；模型名只作日期化建议。
+- `soul-id-prep.json`、`elements-soul-cast-prep.json`：真人素材就绪度和虚构人物参考清单；不训练、不上传，并明确统一身份板不能冒充 5–20 张真人训练照片。
+- `product-photoshoot-prep.json`：商品权威事实与十类摄影意图；只输出短意图，不伪造官方后端增强提示。
+- `audio-work-orders.json`：逐镜声音、商业节奏和混音职责；不生成音频。
 - `production/`：创意圣经、剪辑计划、项目/资产/身份/世界状态/序列/摄影/空间/镜头/连续性清单与全部 QA 审计快照。
 - `checksums.sha256`、`verify_package.py`：跨电脑传输后的完整性验证。
 
@@ -29,4 +32,4 @@
 
 ## 便携性
 
-所有清单都使用 UTF-8、LF 和相对 POSIX 路径，不包含本机用户名或绝对目录。在 macOS、Windows 或 Linux 上解压后，可运行 `python verify_package.py`（Python 3.10+）验证文件；实际上传只需要浏览器和 Higgsfield 账户。
+所有清单都使用 UTF-8、LF 和相对 POSIX 路径，不包含本机用户名或绝对目录。在 macOS、Windows 或 Linux 上解压后，可运行 `python verify_package.py`（Python 3.10+）验证文件。Skill 始终停在本地制作包；是否由人类在平台使用它不属于 Skill 的执行范围。

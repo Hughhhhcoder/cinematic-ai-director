@@ -109,6 +109,9 @@ ASSET_TYPES = {
     "look_test",
     "prop",
     "prop_state",
+    "product_master",
+    "product_view",
+    "product_state",
     "vehicle",
     "animal",
     "pose_contact_anchor",
@@ -199,6 +202,9 @@ IMAGE_PROMPT_STRATEGY_BY_TYPE = {
     "location_plate": "image2-live-action-narrative-v1.6",
     "prop": "image2-live-action-object-v1.6",
     "prop_state": "image2-live-action-object-v1.6",
+    "product_master": "image2-live-action-object-v1.6",
+    "product_view": "image2-live-action-object-v1.6",
+    "product_state": "image2-live-action-object-v1.6",
     "vehicle": "image2-live-action-object-v1.6",
     "animal": "image2-live-action-object-v1.6",
     "pose_contact_anchor": "image2-live-action-pose-contact-v1.6",
@@ -713,6 +719,131 @@ HIGGSFIELD_OFFICIAL_SOURCE_URLS = (
     "https://higgsfield.ai/blog/realistic-ai-human-movement",
     "https://higgsfield.ai/blog/cinema-studio-4-0",
 )
+
+# The official skills repository is a separate evidence stream from the
+# Cinema Studio/Seedance UI adapter above.  It is used only to translate
+# task-routing, reference-preparation and product-brief practices into local
+# work orders.  Nothing in this profile authorizes installation, login,
+# upload, Soul training, generation, polling or credit consumption.
+HIGGSFIELD_METHODS_POLICY = "official-skills-methods-only-v1.7"
+HIGGSFIELD_SKILLS_SNAPSHOT_VERSION = "0.12.0"
+HIGGSFIELD_SKILLS_KNOWLEDGE_SNAPSHOT = "2026-08-31"
+HIGGSFIELD_METHOD_PROFILE_ID = "higgsfield-official-skills-0.12.0-offline-methods-2026-08-31"
+HIGGSFIELD_METHOD_SKILLS = (
+    "higgsfield-generate",
+    "higgsfield-soul-id",
+    "higgsfield-product-photoshoot",
+)
+HIGGSFIELD_METHOD_SOURCE_URLS = (
+    "https://github.com/higgsfield-ai/skills/blob/main/higgsfield-generate/SKILL.md",
+    "https://github.com/higgsfield-ai/skills/blob/main/higgsfield-soul-id/SKILL.md",
+    "https://github.com/higgsfield-ai/skills/blob/main/higgsfield-product-photoshoot/SKILL.md",
+    "https://github.com/higgsfield-ai/cli",
+    "https://higgsfield.ai/creator-hub/help-center/integrations/how-do-i-access-higgsfield-via-cli",
+)
+HIGGSFIELD_METHOD_EXECUTION_BOUNDARY = {
+    "mode": "methods-only-offline",
+    "install_cli": False,
+    "authenticate": False,
+    "upload": False,
+    "train_soul_id": False,
+    "submit_generation": False,
+    "poll_jobs": False,
+    "consume_credits": False,
+}
+HIGGSFIELD_ROUTE_STATUSES = {"planned", "qualified", "approved", "superseded", "blocked"}
+HIGGSFIELD_METHOD_MANIFEST_STATUSES = {"planning", "active", "approved"}
+HIGGSFIELD_ROUTE_TASK_KINDS = {
+    "image",
+    "video",
+    "audio",
+    "video_analysis",
+    "product_still",
+    "commercial_video",
+}
+HIGGSFIELD_ROUTE_CAPABILITY_FAMILIES = {
+    "general_image",
+    "reference_image",
+    "cinematic_still",
+    "location_image",
+    "serious_video",
+    "reference_video",
+    "cinema_grade_video",
+    "marketing_video",
+    "audio_generation",
+    "attention_analysis",
+    "product_photoshoot",
+}
+HIGGSFIELD_REFERENCE_ROLES = {
+    "image",
+    "start_image",
+    "end_image",
+    "video",
+    "audio",
+    "image_references",
+    "video_references",
+    "audio_references",
+    "soul_identity",
+    "product",
+    "avatar",
+    "location",
+    "spatial_anchor",
+    "sequence_anchor",
+}
+SOUL_READINESS_STATUSES = {"not_applicable", "planned", "qualified", "blocked"}
+SOUL_VARIANTS = {"soul_2", "soul_cinematic"}
+SOUL_TRAINING_PHOTO_MIN = 5
+SOUL_TRAINING_PHOTO_MAX = 20
+SOUL_TRAINING_PHOTO_IDEAL_MIN = 8
+SOUL_TRAINING_PHOTO_IDEAL_MAX = 12
+SOUL_COVERAGE_FIELDS = (
+    "single_person_each",
+    "eyes_visible_each",
+    "no_heavy_filters",
+    "no_sunglasses",
+    "angle_variety",
+    "lighting_variety",
+    "expression_variety",
+    "distance_variety",
+    "sharp_focus",
+    "minimum_1024_square_ideal",
+)
+PRODUCT_AUTHORITY_STATUSES = {"planned", "qualified", "approved", "blocked", "superseded"}
+PRODUCT_PHOTOSHOOT_STATUSES = {"planned", "qualified", "approved", "blocked", "superseded"}
+PRODUCT_PHOTOSHOOT_MODES = {
+    "product_shot",
+    "lifestyle_scene",
+    "closeup_product_with_person",
+    "moodboard_pin",
+    "hero_banner",
+    "social_carousel",
+    "ad_creative_pack",
+    "virtual_model_tryout",
+    "conceptual_product",
+    "restyle",
+}
+PRODUCT_PHOTOSHOOT_ASPECTS = {"", "1:1", "4:5", "5:4", "3:4", "4:3", "2:3", "3:2", "9:16", "16:9"}
+PRODUCT_TRUTH_FIELDS = (
+    "geometry",
+    "label_text",
+    "logo_placement",
+    "materials",
+    "colors",
+    "dimensions_and_scale",
+    "movable_parts",
+    "must_preserve",
+    "allowed_state_changes",
+)
+PRODUCT_FIDELITY_QA_CHECKS = (
+    "geometry",
+    "label_and_copy",
+    "logo_placement",
+    "color",
+    "material_response",
+    "scale",
+    "contact_and_support",
+    "reference_traceability",
+)
 HIGGSFIELD_PRODUCTION_STATUSES = {"ready", "generated", "selected"}
 HIGGSFIELD_REFERENCE_CATEGORIES = {
     "character_identity_inspector": "characters",
@@ -727,6 +858,9 @@ HIGGSFIELD_REFERENCE_CATEGORIES = {
     "location_plate": "locations",
     "prop": "props",
     "prop_state": "props",
+    "product_master": "products",
+    "product_view": "products",
+    "product_state": "products",
     "vehicle": "props",
     "animal": "props",
     "pose_contact_anchor": "frames",
@@ -753,6 +887,9 @@ NEUTRAL_REFERENCE_ASSET_TYPES = {
     "location_variant",
     "prop",
     "prop_state",
+    "product_master",
+    "product_view",
+    "product_state",
     "vehicle",
     "animal",
     "pose_contact_anchor",

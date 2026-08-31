@@ -35,7 +35,7 @@ Many AI-film workflows optimize for an attractive first frame. Production needs 
 
 > This is an independent open-source project. It is not affiliated with or endorsed by Higgsfield or OpenAI.
 
-## What v1.6 controls
+## What v1.7 controls (project schema v1.6)
 
 | System | Production behavior |
 |---|---|
@@ -44,6 +44,7 @@ Many AI-film workflows optimize for an attractive first frame. Production needs 
 | Casting and physique | Role-conditioned body brief, measurable targets, wardrobe silhouette, rejection criteria, no generic short-legged or boxy fallback |
 | Identity geometry | One high-resolution 3×2 white identity inspector per person, one shared identity solve, three full-body angles + three large face angles, six deterministic crops, person-specific proportions, skeleton lock, and multi-person projection QA |
 | Commercial / TVC direction | Adaptive objective/audience/proposition brief, competing creative routes, product/wardrobe proof, shot functions, music–motion–edit rhythm map, speed palette, complete sound plan and exact delivery matrix |
+| Official three-skill methods | Offline adoption of `higgsfield-generate`, `higgsfield-soul-id`, and `higgsfield-product-photoshoot`: intent routing, reference roles, lawful Soul readiness, product truth/modes, compact prompts, and audio work orders—without platform operation |
 | World continuity | Location worlds and states, production-design DNA, prop manufacturing/state locks, return-to-location reuse |
 | Spatial execution | Establishing plus side-three-quarter views, one fixed scene anchor, set coordinates, camera/subject marks, off-screen direction and distance |
 | Cinematography | Script-derived treatment, observer identity, format gate, motivated light, finite scene-referred dynamic range, exposure/focus behavior, polish ceiling |
@@ -224,6 +225,8 @@ See the [getting-started guide](https://hughhhhcoder.github.io/cinematic-ai-dire
 ## Higgsfield boundary
 
 The exporter creates upload order, reference roles, `@handles`, exact state locks, spatial maps, quality profile, format plan, camera path, environment state, temporal lock, shot settings, prompts, runbooks, checksums, and offline verification scripts.
+
+v1.7 adds a second, explicitly methods-only evidence layer from the three official Higgsfield skills at version 0.12.0. It writes `method-routing.json`, `soul-id-prep.json`, `product-photoshoot-prep.json`, and `audio-work-orders.json`. A generated identity Inspector remains film-continuity authority but cannot masquerade as Soul's required 5–20 lawful real photographs; a product derivative cannot proceed before geometry/label/logo/color/material/scale truth passes; and the package exports only a short Product Photoshoot intent, never a fabricated backend-enhanced prompt. [Read the method-fusion guide](https://hughhhhcoder.github.io/cinematic-ai-director/higgsfield-methods/).
 
 Successful v1.6 export means strict structural conformance to the dated official profile `cinema-studio-4-seedance-2.5-official-2026-08-27`: Cinema Studio 4 + Seedance 2.5, the official prompt sequence `GLOBAL STYLE → SCENE → CHARACTERS → LOCATION → FIRST FRAME AND BLOCKING → Shot n → OPTICS → CAMERA → PHYSICS → LIGHTING → AUDIO`, deliberate reference roles, numbered shots and `Hard cut` boundaries, up to 30 seconds, native output up to 1080p, up to 50 references, 9:16–21:9, and native audio. If the current interface differs from that snapshot, export is blocked until the adapter and tests are updated.
 

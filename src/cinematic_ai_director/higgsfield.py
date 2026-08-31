@@ -402,7 +402,10 @@ def _package_readme(project: dict[str, Any], shot_count: int, asset_count: int) 
 - `shot-list.csv`：逐镜入口、提示词、参数与参考清单位置。
 - `shots/`：每镜头的提示、设置、空间、格式、相机路径、环境、时间采样、有限动态范围、参考表和执行说明。
 - `sequences/`：每个跨镜一致性组的参考、状态、空间、格式、路径、环境、时间锁、动态范围取舍、提示与独立验证器。
-- `soul-id-prep.json`、`elements-soul-cast-prep.json`：真人和虚构人物的平台准备清单，不执行上传。
+- `method-routing.json`：由官方三项 Skill 提炼的任务意图、参考职责、提示预算和能力建议；模型名只作日期化建议。
+- `soul-id-prep.json`、`elements-soul-cast-prep.json`：真人素材就绪度和虚构人物参考清单；不训练、不上传，并明确统一身份板不能冒充 5–20 张真人训练照片。
+- `product-photoshoot-prep.json`：商品权威事实与十类摄影意图；只输出短意图，不伪造官方后端增强提示。
+- `audio-work-orders.json`：逐镜声音、商业节奏和混音职责；不生成音频。
 - `production/`：创意圣经、剪辑计划、项目/资产/身份/世界状态/序列/摄影/空间/镜头/连续性清单与全部 QA 审计快照。
 - `checksums.sha256`、`verify_package.py`：跨电脑传输后的完整性验证。
 
@@ -412,7 +415,7 @@ def _package_readme(project: dict[str, Any], shot_count: int, asset_count: int) 
 
 ## 便携性
 
-所有清单都使用 UTF-8、LF 和相对 POSIX 路径，不包含本机用户名或绝对目录。在 macOS、Windows 或 Linux 上解压后，可运行 `python verify_package.py`（Python 3.10+）验证文件；实际上传只需要浏览器和 Higgsfield 账户。
+所有清单都使用 UTF-8、LF 和相对 POSIX 路径，不包含本机用户名或绝对目录。在 macOS、Windows 或 Linux 上解压后，可运行 `python verify_package.py`（Python 3.10+）验证文件。Skill 始终停在本地制作包；是否由人类在平台使用它不属于 Skill 的执行范围。
 """
 
 
@@ -617,6 +620,8 @@ def export_higgsfield(args: argparse.Namespace) -> int:
     quality_manifest = json.loads((project_dir / "manifests/quality.json").read_text(encoding="utf-8"))
     commercial_source_path = project_dir / "manifests/commercial.json"
     commercial_manifest = json.loads(commercial_source_path.read_text(encoding="utf-8")) if commercial_source_path.is_file() else None
+    methods_source_path = project_dir / "manifests/higgsfield-methods.json"
+    methods_manifest = json.loads(methods_source_path.read_text(encoding="utf-8")) if methods_source_path.is_file() else None
     assets = {
         asset["id"]: asset
         for asset in asset_manifest.get("assets", [])
@@ -807,8 +812,12 @@ def export_higgsfield(args: argparse.Namespace) -> int:
         optional_production_files = []
         if commercial_source_path.is_file():
             optional_production_files.append("manifests/commercial.json")
+        if methods_source_path.is_file():
+            optional_production_files.append("manifests/higgsfield-methods.json")
         if (project_dir / "qa/commercial-review.md").is_file():
             optional_production_files.append("qa/commercial-review.md")
+        if (project_dir / "qa/higgsfield-methods-review.md").is_file():
+            optional_production_files.append("qa/higgsfield-methods-review.md")
         for source_relative in (*production_files, *optional_production_files):
             source = project_dir / source_relative
             destination = temp_path / "production" / source_relative
@@ -1266,7 +1275,16 @@ def export_higgsfield(args: argparse.Namespace) -> int:
             )
 
         upload_rows: list[dict[str, Any]] = []
-        category_order = {"characters": 10, "locations": 20, "props": 30, "looks": 40, "frames": 50, "key-art": 60, "other": 70}
+        category_order = {
+            "characters": 10,
+            "locations": 20,
+            "products": 25,
+            "props": 30,
+            "looks": 40,
+            "frames": 50,
+            "key-art": 60,
+            "other": 70,
+        }
         character_type_order = {
             "character_identity_inspector": 0,
             "character_state": 10,
@@ -1317,21 +1335,74 @@ def export_higgsfield(args: argparse.Namespace) -> int:
                 "assets": ordered_asset_rows,
             },
         )
+        method_routes = methods_manifest.get("generation_routes", []) if isinstance(methods_manifest, dict) else []
+        soul_records = methods_manifest.get("soul_readiness_records", []) if isinstance(methods_manifest, dict) else []
+        product_authorities = methods_manifest.get("product_authorities", []) if isinstance(methods_manifest, dict) else []
+        product_briefs = methods_manifest.get("product_photoshoot_briefs", []) if isinstance(methods_manifest, dict) else []
+
+        portable_write_json(
+            temp_path / "method-routing.json",
+            {
+                "package_schema": f"higgsfield-method-routing-{HIGGSFIELD_PACKAGE_VERSION}",
+                "policy": HIGGSFIELD_METHODS_POLICY,
+                "profile_id": HIGGSFIELD_METHOD_PROFILE_ID,
+                "official_skills_version": HIGGSFIELD_SKILLS_SNAPSHOT_VERSION,
+                "knowledge_snapshot": HIGGSFIELD_SKILLS_KNOWLEDGE_SNAPSHOT,
+                "routes": method_routes,
+                "routing_rules": [
+                    "Classify the task before choosing a capability family; product photography is not generic image generation.",
+                    "Treat model names as dated advisories and require a human to inspect the current model schema before manual use.",
+                    "Bind every reference to one declared role; never fill a reference budget without a production reason.",
+                    "Keep model-facing prompts short and visible-fact-only; retain QA, rights, continuity, and reconstruction facts in JSON.",
+                    "For image-to-video, the frame carries appearance while the prompt concentrates on motion, performance, camera, light, physics, and sound.",
+                ],
+                "execution_boundary": dict(HIGGSFIELD_METHOD_EXECUTION_BOUNDARY),
+            },
+        )
+
+        soul_export_records: list[dict[str, Any]] = []
+        for record in soul_records if isinstance(soul_records, list) else []:
+            if not isinstance(record, dict):
+                continue
+            pack_id = str(record.get("identity_pack_id") or "")
+            photo_ids = [item for item in record.get("photo_asset_ids", []) if isinstance(item, str)]
+            soul_export_records.append(
+                {
+                    **record,
+                    "portable_identity_board_file": identity_board_files.get(pack_id, ""),
+                    "portable_photo_files": [portable_paths[item] for item in photo_ids if item in portable_paths],
+                }
+            )
         portable_write_json(
             temp_path / "soul-id-prep.json",
             {
                 "package_schema": f"higgsfield-soul-id-prep-{HIGGSFIELD_PACKAGE_VERSION}",
+                "method_source": "higgsfield-soul-id 0.12.0",
+                "readiness_records": soul_export_records,
                 "applicable_identity_packs": [
                     {**pack, "portable_reference_board_file": identity_board_files.get(str(pack.get("id")), "")}
                     for pack in identity_packs.values() if pack.get("identity_kind") == "real_person"
                 ],
+                "official_readiness_contract": {
+                    "photo_count_min": SOUL_TRAINING_PHOTO_MIN,
+                    "photo_count_max": SOUL_TRAINING_PHOTO_MAX,
+                    "photo_count_ideal": [SOUL_TRAINING_PHOTO_IDEAL_MIN, SOUL_TRAINING_PHOTO_IDEAL_MAX],
+                    "coverage_checks": list(SOUL_COVERAGE_FIELDS),
+                    "ideal_resolution": "at least 1024x1024 per source photograph",
+                },
+                "authority_separation": {
+                    "project_identity_authority": "one approved single-solve identity Inspector board plus deterministic crops",
+                    "training_readiness_source": "5-20 unique, lawful, consented real photographs",
+                    "rule": "The generated Inspector board is continuity authority but is not a substitute for the official varied real-photo training set.",
+                },
                 "operator_checklist": [
-                    "Confirm likeness consent and reference usage rights before upload.",
-                    "Use the one approved two-row white identity inspector as the first and primary identity input.",
-                    "The declared deterministic crops are inspection/upload conveniences and may never replace or outrank the unified board.",
-                    "Do not use a bridge frame or character state image as the sole Soul ID source.",
+                    "Confirm likeness consent and every source photograph's usage rights.",
+                    "Use only single-person, sharp photographs with visible eyes and no heavy filters or sunglasses.",
+                    "Cover multiple angles, lighting conditions, expressions, and distances; avoid repeated near-duplicates.",
+                    "Keep the unified Inspector board as the film project's identity authority; never let a bridge frame or state image outrank it.",
                 ],
                 "automatic_upload": False,
+                "training_performed": False,
             },
         )
         portable_write_json(
@@ -1343,12 +1414,68 @@ def export_higgsfield(args: argparse.Namespace) -> int:
                     for pack in identity_packs.values() if pack.get("identity_kind") == "fictional"
                 ],
                 "operator_checklist": [
-                    "Create the reusable identity from the one approved two-row single-solve inspector board.",
+                    "If a human later configures a fictional-character reference, start from the one approved single-solve Inspector board.",
                     "Use its deterministic crops only for inspection or a UI that requests separate views; the unified board remains ground truth.",
                     "Bind the exact persistent character-state reference separately for each sequence.",
                     "Keep emotion, gaze, and action in the shot prompt instead of creating a new identity.",
                 ],
                 "automatic_upload": False,
+            },
+        )
+        product_export_authorities: list[dict[str, Any]] = []
+        for product in product_authorities if isinstance(product_authorities, list) else []:
+            if not isinstance(product, dict):
+                continue
+            reference_ids = [item for item in product.get("reference_asset_ids", []) if isinstance(item, str)]
+            product_export_authorities.append(
+                {**product, "portable_reference_files": [portable_paths[item] for item in reference_ids if item in portable_paths]}
+            )
+        product_export_briefs: list[dict[str, Any]] = []
+        for brief in product_briefs if isinstance(product_briefs, list) else []:
+            if not isinstance(brief, dict):
+                continue
+            reference_ids = [item for item in brief.get("reference_asset_ids", []) if isinstance(item, str)]
+            product_export_briefs.append(
+                {**brief, "portable_reference_files": [portable_paths[item] for item in reference_ids if item in portable_paths]}
+            )
+        portable_write_json(
+            temp_path / "product-photoshoot-prep.json",
+            {
+                "package_schema": f"higgsfield-product-photoshoot-prep-{HIGGSFIELD_PACKAGE_VERSION}",
+                "method_source": "higgsfield-product-photoshoot 0.12.0",
+                "product_authorities": product_export_authorities,
+                "intent_briefs": product_export_briefs,
+                "supported_intent_modes_at_snapshot": sorted(PRODUCT_PHOTOSHOOT_MODES),
+                "prompt_ownership_rule": (
+                    "The package exports product truth plus a short intent brief. It never fabricates or exposes the provider backend's enhanced GPT Image 2 prompt."
+                ),
+                "quality_rule": (
+                    "Geometry, label/copy, logo placement, color, material response, scale, contact, and source traceability must pass before any lifestyle or campaign derivative."
+                ),
+                "automatic_upload": False,
+                "generation_performed": False,
+            },
+        )
+        portable_write_json(
+            temp_path / "audio-work-orders.json",
+            {
+                "package_schema": f"higgsfield-audio-work-orders-{HIGGSFIELD_PACKAGE_VERSION}",
+                "method_source": "higgsfield-generate 0.12.0",
+                "model_advisory": "seed_audio",
+                "model_advisory_is_authority": False,
+                "current_schema_check_required": True,
+                "shot_audio": [
+                    {"shot_id": shot.get("id"), "duration_s": shot.get("duration_s"), "audio": shot.get("audio", {})}
+                    for shot in shots
+                ],
+                "commercial_audio_plan": commercial_manifest.get("audio_plan", {}) if isinstance(commercial_manifest, dict) else {},
+                "rhythm_plan": commercial_manifest.get("rhythm_plan", {}) if isinstance(commercial_manifest, dict) else {},
+                "rules": [
+                    "Music tempo, edit cadence, capture speed, and playback speed must be designed together rather than inferred independently.",
+                    "Ambience, Foley, impacts, dialogue, and music remain separate responsibilities before the mix hierarchy is approved.",
+                    "An audio reference is an input role; it is not the same as asking a video model to invent audio.",
+                ],
+                "generation_performed": False,
             },
         )
         portable_write_json(
@@ -1362,6 +1489,17 @@ def export_higgsfield(args: argparse.Namespace) -> int:
                     "source_urls": list(HIGGSFIELD_OFFICIAL_SOURCE_URLS),
                     "prompt_sections": list(VIDEO_PROMPT_HEADERS),
                     "mismatch_policy": "block-no-silent-downgrade",
+                },
+                "method_fusion": {
+                    "profile_id": HIGGSFIELD_METHOD_PROFILE_ID,
+                    "official_skills_version": HIGGSFIELD_SKILLS_SNAPSHOT_VERSION,
+                    "knowledge_snapshot": HIGGSFIELD_SKILLS_KNOWLEDGE_SNAPSHOT,
+                    "skills": list(HIGGSFIELD_METHOD_SKILLS),
+                    "routing_file": "method-routing.json",
+                    "soul_readiness_file": "soul-id-prep.json",
+                    "product_photoshoot_file": "product-photoshoot-prep.json",
+                    "audio_work_orders_file": "audio-work-orders.json",
+                    "execution_boundary": dict(HIGGSFIELD_METHOD_EXECUTION_BOUNDARY),
                 },
                 "source_schema_version": project.get("schema_version"),
                 "source_project_id": project.get("id"),
@@ -1377,7 +1515,7 @@ def export_higgsfield(args: argparse.Namespace) -> int:
                     "surface": "Cinema Studio 4",
                     "model": "Seedance 2.5",
                     "version_policy": "snapshot-must-match-or-block",
-                    "execution": "manual-upload-and-generate",
+                    "execution": "offline-work-order-only; no platform operation by this Skill",
                 },
                 "assets": ordered_asset_rows,
                 "shots": shot_index,
@@ -1386,6 +1524,11 @@ def export_higgsfield(args: argparse.Namespace) -> int:
                     "platform_called": False,
                     "credits_consumed": False,
                     "network_used": False,
+                    "cli_installed": False,
+                    "account_authenticated": False,
+                    "files_uploaded": False,
+                    "soul_training_started": False,
+                    "generation_jobs_submitted": False,
                 },
             },
         )
@@ -1399,6 +1542,15 @@ def export_higgsfield(args: argparse.Namespace) -> int:
                 "version_policy": "snapshot-must-match-or-block",
                 "target": {"workflow": "cinema-studio-4", "model": "seedance-2.5"},
                 "official_source_urls": list(HIGGSFIELD_OFFICIAL_SOURCE_URLS),
+                "official_skill_methods": {
+                    "profile_id": HIGGSFIELD_METHOD_PROFILE_ID,
+                    "skills_version": HIGGSFIELD_SKILLS_SNAPSHOT_VERSION,
+                    "knowledge_snapshot": HIGGSFIELD_SKILLS_KNOWLEDGE_SNAPSHOT,
+                    "skills": list(HIGGSFIELD_METHOD_SKILLS),
+                    "source_urls": list(HIGGSFIELD_METHOD_SOURCE_URLS),
+                    "adoption": "methods-only-offline",
+                    "provider_backends_emulated": False,
+                },
                 "verified_contract": {
                     "prompt_order": list(VIDEO_PROMPT_HEADERS),
                     "sequence_beats": "numbered Shot blocks with explicit action, camera behavior, ending and Hard cut boundaries",

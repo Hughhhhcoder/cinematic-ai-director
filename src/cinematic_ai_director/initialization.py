@@ -33,6 +33,8 @@ def init_project(args: argparse.Namespace) -> int:
     try:
         for relative in REQUIRED_DIRS:
             (temp_path / relative).mkdir(parents=True, exist_ok=True)
+        for relative in ("assets/products", "prompts/images/products"):
+            (temp_path / relative).mkdir(parents=True, exist_ok=True)
 
         project = {
             "schema_version": SCHEMA_VERSION,
@@ -64,6 +66,10 @@ def init_project(args: argparse.Namespace) -> int:
                 "strict": True,
                 "version_policy": "snapshot-must-match-or-block",
                 "source_urls": list(HIGGSFIELD_OFFICIAL_SOURCE_URLS),
+                "method_profile_id": HIGGSFIELD_METHOD_PROFILE_ID,
+                "official_skills_version": HIGGSFIELD_SKILLS_SNAPSHOT_VERSION,
+                "integration_mode": "methods-only-offline",
+                "execution_boundary": dict(HIGGSFIELD_METHOD_EXECUTION_BOUNDARY),
             },
             "candidate_policy": {
                 "identity_inspector_initial_count": 1,
@@ -173,6 +179,9 @@ def init_project(args: argparse.Namespace) -> int:
                         "prompt_sections": list(VIDEO_PROMPT_HEADERS),
                         "reference_limits": HIGGSFIELD_ADAPTER_LIMITS,
                         "camera_move_segment_limits": HIGGSFIELD_CAMERA_MOVE_LIMITS,
+                        "method_profile_id": HIGGSFIELD_METHOD_PROFILE_ID,
+                        "official_skills_version": HIGGSFIELD_SKILLS_SNAPSHOT_VERSION,
+                        "integration_mode": "methods-only-offline",
                     }
                 },
                 "sequence_clusters": [],
@@ -227,6 +236,47 @@ def init_project(args: argparse.Namespace) -> int:
         write_json(
             temp_path / "manifests/reviews.json",
             {"schema_version": SCHEMA_VERSION, "review_gates": []},
+        )
+        write_json(
+            temp_path / "manifests/higgsfield-methods.json",
+            {
+                "schema_version": SCHEMA_VERSION,
+                "policy": HIGGSFIELD_METHODS_POLICY,
+                "status": "planning",
+                "method_profile": {
+                    "id": HIGGSFIELD_METHOD_PROFILE_ID,
+                    "skills_version": HIGGSFIELD_SKILLS_SNAPSHOT_VERSION,
+                    "knowledge_snapshot": HIGGSFIELD_SKILLS_KNOWLEDGE_SNAPSHOT,
+                    "skills": list(HIGGSFIELD_METHOD_SKILLS),
+                    "source_urls": list(HIGGSFIELD_METHOD_SOURCE_URLS),
+                    "evidence_policy": "translate-observable-methods-never-emulate-provider-backends",
+                },
+                "execution_boundary": dict(HIGGSFIELD_METHOD_EXECUTION_BOUNDARY),
+                "adoption_matrix": {
+                    "adopted": [
+                        "Intent-first routing before prompt writing",
+                        "Explicit reference responsibilities and deterministic reference order",
+                        "Identity source quality, diversity, consent, and rights checks",
+                        "Product truth locking before lifestyle, campaign, or video derivatives",
+                        "Short model-facing instructions with production QA retained in manifests",
+                    ],
+                    "translated": [
+                        "Live model-schema discovery becomes an operator preflight in the offline package",
+                        "Soul training-photo guidance becomes a local readiness record without training",
+                        "Product Photoshoot modes become local intent briefs without backend prompt emulation",
+                        "Image, video, and audio generation defaults become advisory capability routes only",
+                    ],
+                    "provider_only_not_emulated": [
+                        "Soul model training and reusable reference-id creation",
+                        "Product Photoshoot backend prompt enhancement",
+                        "Model execution, uploads, job polling, account access, and credit consumption",
+                    ],
+                },
+                "generation_routes": [],
+                "soul_readiness_records": [],
+                "product_authorities": [],
+                "product_photoshoot_briefs": [],
+            },
         )
         commercial_mode = (
             "commercial_tvc" if production_kind == "commercial_tvc"
@@ -328,6 +378,15 @@ def init_project(args: argparse.Namespace) -> int:
             "Use only when manifests/commercial.json mode is commercial_tvc or commercial_mv_hybrid. "
             "Review business specificity, creative alternatives, product/wardrobe proof, beat-to-action timing, "
             "capture-speed logic, complete sound design, exact runtime and destination-specific delivery.\n",
+            encoding="utf-8",
+        )
+        (temp_path / "qa/higgsfield-methods-review.md").write_text(
+            f"# {args.title.strip()} — Higgsfield Methods Review\n\n"
+            "This review adopts planning and quality practices from the official higgsfield-generate, "
+            "higgsfield-soul-id, and higgsfield-product-photoshoot skills. It must never record a CLI install, "
+            "login, upload, Soul training job, generation job, polling action, or credit spend. Verify task intent, "
+            "reference responsibilities, real-person consent, product truth, prompt ownership, and the current "
+            "platform schema before a human later uses the offline package.\n",
             encoding="utf-8",
         )
         temp_path.replace(target)

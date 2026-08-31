@@ -46,6 +46,7 @@ nav:
       - Live-action quality: quality-system.md
       - Identity and physique: identity-physique.md
       - Commercial and TVC: commercial-tvc.md
+      - Official Higgsfield skill methods: higgsfield-methods.md
       - Spatial continuity: spatial-continuity.md
       - Cinematography and motion: cinematography-motion.md
   - Delivery:
@@ -60,6 +61,7 @@ nav:
       - 实拍质量: zh-CN/quality-system.md
       - Higgsfield 导出: zh-CN/higgsfield-export.md
       - 商业广告与 TVC: zh-CN/commercial-tvc.md
+      - 官方三项 Skill 方法融合: zh-CN/higgsfield-methods.md
 
 markdown_extensions:
   - admonition

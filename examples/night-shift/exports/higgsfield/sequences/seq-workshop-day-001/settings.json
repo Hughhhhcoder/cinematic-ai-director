@@ -1,6 +1,7 @@
 {
   "bridge_frame_asset_id": "",
   "camera_path_file": "camera-path.json",
+  "commercial_direction_file": "",
   "dynamic_range_file": "dynamic-range.json",
   "end_keyframe_id": "kf-sh-010-010-end--v001",
   "environment_state_file": "environment-state.json",
