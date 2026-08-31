@@ -102,6 +102,11 @@ class DistributionTests(unittest.TestCase):
                 outputs.append(output / "cinematic-ai-director-v1.7.0.zip")
             self.assertEqual(digest(outputs[0]), digest(outputs[1]))
 
+    def test_ci_release_check_is_version_agnostic(self) -> None:
+        workflow = (ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8")
+        self.assertNotRegex(workflow, r"cinematic-ai-director(?:-[a-z-]+)?-v\d+\.\d+\.\d+\.zip")
+        self.assertIn('diff -rq "$RUNNER_TEMP/dist-a" "$RUNNER_TEMP/dist-b"', workflow)
+
     def test_runtime_source_contains_no_private_machine_paths_or_caches(self) -> None:
         forbidden = ("/Users/Hughhhh", "Documents/ChatGPT", "generated_images", "missing-forty-seven-seconds")
         roots = [ROOT / "SKILL.md", ROOT / "agents", ROOT / "assets", ROOT / "references", ROOT / "scripts" / "film_project.py", ROOT / "src"]

@@ -66,9 +66,10 @@ jobs:
         run: |
           python scripts/build_release.py --output "$RUNNER_TEMP/dist-a" --manifest-output "$RUNNER_TEMP/manifest-a.json"
           python scripts/build_release.py --output "$RUNNER_TEMP/dist-b" --manifest-output "$RUNNER_TEMP/manifest-b.json"
-          cmp "$RUNNER_TEMP/dist-a/cinematic-ai-director-v1.6.6.zip" "$RUNNER_TEMP/dist-b/cinematic-ai-director-v1.6.6.zip"
-          test -f "$RUNNER_TEMP/dist-a/cinematic-ai-director-higgsfield-example-v1.6.6.zip"
-          test -f "$RUNNER_TEMP/dist-a/cinematic-ai-director-showcase-originals-v1.6.6.zip"
+          diff -rq "$RUNNER_TEMP/dist-a" "$RUNNER_TEMP/dist-b"
+          test "$(find "$RUNNER_TEMP/dist-a" -maxdepth 1 -name 'cinematic-ai-director-v*.zip' | wc -l)" -eq 1
+          test "$(find "$RUNNER_TEMP/dist-a" -maxdepth 1 -name 'cinematic-ai-director-higgsfield-example-v*.zip' | wc -l)" -eq 1
+          test "$(find "$RUNNER_TEMP/dist-a" -maxdepth 1 -name 'cinematic-ai-director-showcase-originals-v*.zip' | wc -l)" -eq 1
 
   ci:
     name: CI required
